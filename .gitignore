@@ -1,0 +1,7 @@
+/.metadata/
+\.settings
+Servers/
+.classpath
+.project
+MANIFEST.MF
+.gitignore
