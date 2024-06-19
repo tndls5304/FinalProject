@@ -10,7 +10,6 @@ public class BoardController {
     public String boardmain(){
 
         return "board/main";
-
     }
 
 }
