@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-   <link rel="stylesheet" href="/resources/css/layout/admin/same.css">
+   <link rel="stylesheet" href="/css/layout/admin/same.css">
 
-// jqGrid
+
     <link rel="stylesheet" type="text/css" href="${ctx }/resource/js/jqgrid/css/ui.jqgrid.css"/>
     <script type="text/javascript" src="<c:url value='/resource/js/jqgrid/js/jquery.jqGrid.min.js'/>"></script>
 

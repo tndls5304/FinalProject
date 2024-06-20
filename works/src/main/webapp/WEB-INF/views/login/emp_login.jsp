@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +12,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
-   <link rel="stylesheet" href="/emp_login.css">
-   <script src="/emp_login.js"></script>
+
+   <link rel="stylesheet" href="/css/login/emp_login.css">
+
 </head>
 
 <body>
 
     <main>
 
-        <div class="mainjoin"><h1>🪪직원 로그인 </h1></div>
+        <div class="mainjoin"><h1>직원 로그인 </h1></div>
 
         <form id="signupForm" action="/app/?/?" method="post" enctype="multipart/form-data">
             <div class="form-group">

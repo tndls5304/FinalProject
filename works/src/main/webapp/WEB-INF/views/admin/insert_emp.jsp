@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
-     <link rel="stylesheet" href="/resources/css/admin/insert_emp.css">
-     <link rel="stylesheet" href="/resources/css/layout/admin/same.css">
+     <link rel="stylesheet" href="/css/admin/insert_emp.css">
+     <link rel="stylesheet" href="/css/layout/admin/same.css">
 
 </head>
 
