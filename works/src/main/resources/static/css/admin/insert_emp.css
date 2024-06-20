@@ -1,0 +1,51 @@
+
+/* -----------수인---------------------------- */
+.form-group {
+  margin-bottom: 15px;
+  text-align: center; /* 가운데 정렬 */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.mainjoin{
+font-size: 23px;
+margin-bottom: 30px;
+}
+
+.form-group input {
+  width: 600px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px; /* 인풋 텍스트 크기 조절 */
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.btncenter {
+  display: flex;
+  justify-content: center;
+
+}
+
+.btncenter button {
+
+
+  padding: 10px 20px;
+  background-color: #000000;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+.position_select,.dept_select{
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  margin-top: 10px;
+}
