@@ -1,3 +1,9 @@
+
+<!--  수인 --------계정등록페이지)   새직원이 이메일에  이 가입페이지를 받을 예정임             -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,14 +16,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
 
-        <link rel="stylesheet" href="/resources/css/join/emp_join.css">
-        <script src="/resources/js/join/emp_join.js"></script>
+        <link rel="stylesheet" href="/css/join/emp_join.css">
+        <script src="/js/join/emp_join.js"></script>
 </head>
 <body>
 
     <main>
 
-        <div class="mainjoin"><h1>🪪신규  직원  등록 </h1></div>
+        <div class="mainjoin"><h1>신규 직원 등록</h1></div>
 
         <form id="signupForm" action="/app/?/?" method="post" enctype="multipart/form-data">
             <div class="form-group">
