@@ -1,15 +1,34 @@
 package com.kh.works.board.controller;
 
+import com.kh.works.board.service.BoardService;
+import com.kh.works.board.vo.BoardVo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
+@RequestMapping("board")
 public class BoardController {
 
-    @GetMapping("board/main")
-    public String boardmain(){
+    private final BoardService service;
 
-        return "board/main";
+    @GetMapping("wirte")
+    public String wirte(){
+        return "board/write";
     }
+
+    @PostMapping("write")
+    public String write(BoardVo vo){
+        int result = service.write(vo);
+
+        if (result != 1){
+            return "common/error";
+        }
+        return "redirect:board/list";
+    }
+
 
 }
