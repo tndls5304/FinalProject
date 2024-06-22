@@ -15,6 +15,10 @@
 
      <link rel="stylesheet" href="/css/admin/insert_emp.css">
      <link rel="stylesheet" href="/css/layout/admin/same.css">
+       <!-- 제이쿼리-->
+     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+       <!-- 부서, 직위 조회해오는 제이쿼리-->
+     <script defer src="/js/admin/insert_emp.js"></script>
 
 </head>
 
@@ -38,7 +42,7 @@
           </div>
           <div class="form-group">
               <label for="dept"> <h3>부서</h3> </label>
-                    <select name="dept" class="dept_select"> <option value="부서번호">부서이름</option></select>
+                    <select name="dept" class="dept_select" id="deptSelect"></select>
           </div>
 
 
