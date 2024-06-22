@@ -1,6 +1,6 @@
-package com.kh.works.email.service;
+package com.kh.works.admin.email.service;
 
-import com.kh.works.email.entity.EmailMessage;
+import com.kh.works.admin.email.entity.EmailMessage;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 //---------------수인------------------------------------
-import java.util.Random;
+
 
 @Slf4j
 @Service

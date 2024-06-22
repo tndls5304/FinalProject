@@ -1,4 +1,4 @@
-package com.kh.works.email.entity;
+package com.kh.works.admin.email.entity;
 
 import lombok.Builder;
 import lombok.Data;
