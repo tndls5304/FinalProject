@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class AdminLoginController {
+public class AdminAccountController {
 
 //로그인페이지보여주기
     @GetMapping("admin/login")

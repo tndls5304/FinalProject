@@ -1,5 +1,6 @@
 package com.kh.works.admin.mapper;
 
+import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.admin.vo.DeptVo;
 import com.kh.works.admin.vo.EmployeeVo;
 import org.apache.ibatis.annotations.Insert;
@@ -18,6 +19,10 @@ public interface AdminMapper {
 
     @Insert("INSERT~~")
     void insertEmp(EmployeeVo employeeVo);
+
+    @Select("SELECT ID,PWD,ADMIN_AUTHORITY_NO FROM ADMIN WHERE ID=#{id}")
+    AdminVo adminLoginIdMatching(String id);
+
 
 
 //테스트
