@@ -23,14 +23,11 @@
 
         <div class="mainjoin"><h1>직원 로그인 </h1></div>
 
-        <form id="signupForm" action="/userAuth" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                 <label for="employee_no" class=""><h3> 사원번호 :</h3></label>
-                 <input type="text" id="employeeNumber" name="employee_no" placeholder="사원번호 입력">
-            </div>
+        <form id="signupForm" action="/emp/login_proc" method="post">
+
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
-                <input type="text" id="id"  name="id" class="id-input" placeholder="아이디 입력">
+                <input type="text" id="id"  name="username" class="id-input" placeholder="아이디 입력">
 
             </div>
             <div class="form-group">
@@ -40,8 +37,7 @@
             </div>
 
             <div class="btncenter">
-            <input type="submit" value="로긍">
-                <button type="button" onclick="validateForm()">로그인하기</button>
+                <button type="submit" >로그인하기</button>
             </div>
         </form>
     </main>
