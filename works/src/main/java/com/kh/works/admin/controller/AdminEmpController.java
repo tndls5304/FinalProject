@@ -38,7 +38,6 @@ private final AdminEmpService adminEmpService;
     @GetMapping("admin/select_dept")
     @ResponseBody
     public List<DeptVo> selectDeptList(){
-
         List<DeptVo>voList =adminEmpService.selectDeptList();
         System.out.println("컨트롤러야 부서리스트가져옴?"+voList);
         return  voList;

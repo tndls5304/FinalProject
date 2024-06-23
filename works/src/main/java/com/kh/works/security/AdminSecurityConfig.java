@@ -8,11 +8,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-@Configuration
-@Order(2)
+//@Configuration
+//@Order(2)
 public class AdminSecurityConfig {
 
-    @Bean
+//    @Bean
     public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http) throws Exception {
 
         http.securityMatcher("/admin/**")
@@ -23,7 +23,7 @@ public class AdminSecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/admin/login")
                         .permitAll()
-                        .loginProcessingUrl("/userAuth")
+                        .loginProcessingUrl("/admin/login_proc")
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());

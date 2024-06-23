@@ -24,7 +24,7 @@
 
         <div class="mainlogin"><h1>관리자 로그인 </h1></div>
 
-        <form id action="/app/?/?" method="POST">
+        <form id action="/admin/login_proc" method="POST">
 
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
