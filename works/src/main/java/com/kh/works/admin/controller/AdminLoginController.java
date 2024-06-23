@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class AdminLoginController {
 
+//로그인페이지보여주기
     @GetMapping("admin/login")
     public String login() {
-        System.out.println("############## call1");
         return "login/admin_login";
     }
-
-
 }

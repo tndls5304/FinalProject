@@ -23,7 +23,7 @@
 
         <div class="mainjoin"><h1>직원 로그인 </h1></div>
 
-        <form id="signupForm" action="/app/?/?" method="post" enctype="multipart/form-data">
+        <form id="signupForm" action="/userAuth" method="post" enctype="multipart/form-data">
             <div class="form-group">
                  <label for="employee_no" class=""><h3> 사원번호 :</h3></label>
                  <input type="text" id="employeeNumber" name="employee_no" placeholder="사원번호 입력">
@@ -40,6 +40,7 @@
             </div>
 
             <div class="btncenter">
+            <input type="submit" value="로긍">
                 <button type="button" onclick="validateForm()">로그인하기</button>
             </div>
         </form>

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EmployeeController {
@@ -25,6 +26,11 @@ public class EmployeeController {
        HttpSession session = req.getSession();
         session.invalidate();
         return "/emp/login";
+    }
+
+    @PostMapping("userAuth")
+    public void loginProc() {
+        System.out.println("call??");
     }
 
 
