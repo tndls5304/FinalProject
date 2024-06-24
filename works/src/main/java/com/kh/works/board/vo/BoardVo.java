@@ -19,6 +19,5 @@ public class BoardVo {
     private String delYn;
     private List<MultipartFile> fileName;
     private List<MultipartFile> img;
-    private String boardCategory;
 
 }
