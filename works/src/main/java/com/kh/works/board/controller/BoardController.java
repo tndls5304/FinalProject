@@ -28,23 +28,21 @@ public class BoardController {
     public String write(BoardVo vo,HttpSession session){
 
         EmployeeVo empVo = (EmployeeVo) session.getAttribute("empVo");
-
-        if (empVo == null) { // 세션에서 EmployeeVo를 가져오지 못한 경우 예외 처리
-            throw new IllegalStateException("로그인 세션이 만료되었습니다."); // 예외를 던져 처리
-        }
-
         String empNo = empVo.getNo();
-        vo.setEmpNo(empNo); // 변수 empNo 앞의 따옴표 제거하여 변수 값으로 설정
+        vo.setEmpNo(empNo);
 
         int result = service.write(vo);
-
-
 
         if (result != 1){
             return "common/error";
         }
         return "redirect:board/list";
      }
+
+//     @GetMapping
+//    public String getBoardList(){
+//
+//     }
 
 
 }
