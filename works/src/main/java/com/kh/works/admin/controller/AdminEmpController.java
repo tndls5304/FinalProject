@@ -6,7 +6,7 @@ import com.kh.works.admin.servcie.AdminEmpService;
 import com.kh.works.admin.email.entity.EmailMessage;
 import com.kh.works.admin.email.service.EmailService;
 import com.kh.works.admin.vo.DeptVo;
-import com.kh.works.admin.vo.EmployeeVo;
+import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

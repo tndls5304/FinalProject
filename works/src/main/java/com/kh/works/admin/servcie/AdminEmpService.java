@@ -2,7 +2,7 @@ package com.kh.works.admin.servcie;
 
 import com.kh.works.admin.dao.AdminDao;
 import com.kh.works.admin.vo.DeptVo;
-import com.kh.works.admin.vo.EmployeeVo;
+import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

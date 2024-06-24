@@ -2,7 +2,7 @@ package com.kh.works.admin.mapper;
 
 import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.admin.vo.DeptVo;
-import com.kh.works.admin.vo.EmployeeVo;
+import com.kh.works.employee.vo.EmployeeVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
