@@ -52,7 +52,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     // 추가적인 메서드 구현 (필요한 경우)
