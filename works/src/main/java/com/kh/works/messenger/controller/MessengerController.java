@@ -29,7 +29,7 @@ public class MessengerController {
     @PostMapping("write")
     public String write(MessengerVo vo) {
         int result = service.write(vo);
-        if (result > 0) {
+        if (result == 1) {
             return "redirect:/messenger/all";
         } else {
             return "redirect:/messenger/write";

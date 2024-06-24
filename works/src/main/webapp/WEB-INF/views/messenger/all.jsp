@@ -43,7 +43,7 @@
          </div>
          <hr>
          <div id="all-messenger">
-           <p>전체쪽지</p>
+           <a href="http://localhost:8080/messenger/all"><p>전체쪽지</p></a>
          </div>
          <div id="receive-messenger">
            <p>받은쪽지</p>
