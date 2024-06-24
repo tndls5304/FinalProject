@@ -20,15 +20,15 @@ public class BoardController {
         return "board/write";
     }
 
-    @PostMapping("write")
-    public String write(BoardVo vo){
-        int result = service.write(vo);
-
-        if (result != 1){
-            return "common/error";
-        }
-        return "redirect:board/list";
-    }
+//    @PostMapping("write")
+//    public String write(BoardVo vo){
+//        int result = service.write(vo);
+//
+//        if (result != 1){
+//            return "common/error";
+//        }
+//        return "redirect:board/list";
+//    }
 
 
 }
