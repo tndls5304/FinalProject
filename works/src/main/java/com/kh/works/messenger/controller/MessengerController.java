@@ -3,6 +3,8 @@ package com.kh.works.messenger.controller;
 import com.kh.works.messenger.service.MessengerService;
 import com.kh.works.messenger.vo.MessengerVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,7 @@ public class MessengerController {
     //쪽지 작성
     @PostMapping("write")
     public String write(MessengerVo vo) {
+
         int result = service.write(vo);
         if (result == 1) {
             return "redirect:/messenger/all";
