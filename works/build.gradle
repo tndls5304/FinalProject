@@ -24,16 +24,31 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	implementation 'javax.servlet:jstl:1.2'
+	// Tomcat JSP support
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.25'
+
+	// JSTL support
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:2.0.0'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+
+	// Spring Boot Web Starter
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// MyBatis Spring Boot Starter
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+
+	// Lombok for code generation
+	compileOnly 'org.projectlombok:lombok:1.18.32'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Oracle JDBC driver
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc11:23.4.0.24.05'
+
+	// Spring Boot Test Starter
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 	//콘솔에 쿼리문보여주는 라이브러리 추가했어요 (수인)
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16'
 
@@ -42,7 +57,6 @@ dependencies {
 
 	// 메일 설정  추가 했어요 (수인)
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-
 }
 
 tasks.named('test') {
