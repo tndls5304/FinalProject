@@ -20,5 +20,21 @@ public class MessengerDao {
     public List<MessengerVo> getMessengerList() {
         return mapper.getMessengerList();
     }
+
+    public List<MessengerVo> getReceivedList() {
+        return mapper.getReceivedList();
+    }
+
+    public List<MessengerVo> getSentList() {
+        return mapper.getSentList();
+    }
+
+    public List<MessengerVo> getUnreadList() {
+        return mapper.getUnreadList();
+    }
+
+    public int markAsRead(int messenNo) {
+        return mapper.markAsRead(messenNo);
+    }
 }
 
