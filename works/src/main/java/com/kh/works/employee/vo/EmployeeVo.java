@@ -26,5 +26,4 @@ public class EmployeeVo {
    private String lockYn;
    private String deptNo;
    private String positionNo;
-
 }
