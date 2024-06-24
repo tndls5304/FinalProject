@@ -11,9 +11,9 @@ public class BoardDao {
 
     private final BoardMapper mapper;
 
-    public int write(BoardVo vo) {
+//    public int write(BoardVo vo) {
 
-        int result = mapper.write(vo);
-        return result;
-    }
+//        int result = mapper.write(vo);
+//        return result;
+//    }
 }
