@@ -1,7 +1,7 @@
 package com.kh.works.employee.dao;
 
 import com.kh.works.employee.mapper.EmpAccountMapper;
-import com.kh.works.employee.vo.EmployeeVo;
+import com.kh.works.employee.vo.EmpSessionVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 public class EmpAccountDao {
     private final EmpAccountMapper mapper;
 
-    public EmployeeVo empLoginIdMatching(String id) {
+    public EmpSessionVo empLoginIdMatching(String id) {
        return mapper.empLoginIdMatching(id);
     }
+
 }

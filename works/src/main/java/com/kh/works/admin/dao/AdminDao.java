@@ -2,9 +2,8 @@ package com.kh.works.admin.dao;
 
 import com.kh.works.admin.mapper.AdminMapper;
 import com.kh.works.admin.vo.DeptVo;
-import com.kh.works.admin.vo.EmployeeVo;
+import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

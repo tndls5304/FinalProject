@@ -20,6 +20,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,7 +34,7 @@ public class SecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http, @Qualifier("adminUserDetailsService") AdminUserDetailsService service) throws Exception {
+    public SecurityFilterChain adminSecurityFilterChain(HttpSecurity http, AdminUserDetailsService service) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authenticationProvider(adminAuthenticationProvider(service))
@@ -56,21 +58,21 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain empSecurityFilterChain(HttpSecurity http, @Qualifier("empUserDetailsService") EmpUserDetailsService service) throws Exception {
+    public SecurityFilterChain empSecurityFilterChain(HttpSecurity http, EmpUserDetailsService service) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authenticationProvider(empAuthenticationProvider(service))
                 .securityMatcher("/**")
                 .authorizeHttpRequests((requests) -> requests
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/").permitAll()
                                 .anyRequest().authenticated()
 
                 )
                 .formLogin(form -> form
                                 .loginPage("/emp/login").permitAll()
                                 .loginProcessingUrl("/emp/login_proc")
-                                .defaultSuccessUrl("/todo/home").permitAll()
+                                .defaultSuccessUrl("/home").permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
 

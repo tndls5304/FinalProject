@@ -1,15 +1,10 @@
 package com.kh.works.security;
 
 import com.kh.works.employee.dao.EmpAccountDao;
-import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 //로그인 버튼을 누르면 스프링시큐리티가 loadUserByUsername메소드를 실행시킴
@@ -20,27 +15,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmpUserDetailsService implements UserDetailsService {
 
-private final EmpAccountDao dao;
+    private final EmpAccountDao dao;
 
 
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-
-        
         // db 호출
-       EmployeeVo employeeVo =dao.empLoginIdMatching(id);
-
-
-//UserDetails: 아이디비밀번호 비교를 위한 객체
-//User.builder()를 하면 UserBuilder()가 생기고 . 앞에는 이 객체가 생략되어 있는거
-       UserDetails userDetails =  User.builder()
-                .username(employeeVo.getId())
-                .password(employeeVo.getPwd())
-                .authorities("ROLE_USER")
-                .build();
-
-        return userDetails;
+        return dao.empLoginIdMatching(id);
     }
 
 
