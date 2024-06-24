@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .securityMatcher("/**")
                 .authorizeHttpRequests((requests) -> requests
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
 
                 )
