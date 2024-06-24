@@ -1,5 +1,6 @@
 package com.kh.works.board.dao;
 
+import com.kh.works.admin.vo.EmployeeVo;
 import com.kh.works.board.mapper.BoardMapper;
 import com.kh.works.board.vo.BoardVo;
 import lombok.RequiredArgsConstructor;

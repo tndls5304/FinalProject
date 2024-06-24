@@ -13,6 +13,13 @@
 
     <main>
         <%@ include file="/WEB-INF/views/layout/board/aside.jsp" %>
+        <div>작성하기</div>
+        <form action="" method="post">
+            <input type="text" name="title" id="">
+            <input type="text" name="content">
+            <input type="submit" value="작성하기">
+        </form>
+
     </main>
 
     </body>

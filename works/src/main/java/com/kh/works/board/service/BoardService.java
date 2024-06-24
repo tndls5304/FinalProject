@@ -14,6 +14,8 @@ public class BoardService {
     //작성 화면 보여주기
     public int write(BoardVo vo) {
 
+
+
         int result = dao.write(vo);
         return result;
 
