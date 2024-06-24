@@ -46,10 +46,10 @@
            <a href="http://localhost:8080/messenger/all"><p>전체쪽지</p></a>
          </div>
          <div id="receive-messenger">
-           <p>받은쪽지</p>
+           <a href="http://localhost:8080/messenger/received"><p>받은쪽지</p></a>
          </div>
          <div id="send-messenger">
-           <p>보낸쪽지</p>
+           <a href="http://localhost:8080/messenger/sent"><p>보낸쪽지</p></a>
          </div>
          <div id="save-messenger">
              <p>임시저장</p>

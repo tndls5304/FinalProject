@@ -185,10 +185,10 @@ main {
   flex-direction: column;
   margin-top: 15%;
   margin-left: 5%;
-  width: 90%;
+  width: 300%;
 }
 #messenger-content:hover {
-  background-color: aliceblue;
+
 }
 
 .messenger-item {
@@ -216,20 +216,25 @@ main {
 }
 
 #list-person {
-  flex: 1 1 20%;
+   flex: 1 1 20%;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 #list-title {
-   flex: 1 1 10%;
+   flex: 1 1 50%;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
 
 #list-date {
-  margin-left: auto;
+  flex: 1 1 30%;
   text-align: right;
   white-space: nowrap;
-  overflow: visible;
-  display: flex;
-  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 쪽지 쓰는 페이지 (받는사람, 제목, 파일첨부)*/

@@ -59,7 +59,7 @@
 
 
        <div id="messenger-main">
-        <form action="/messenger/received" method="get" enctype="multipart/form-data">
+        <form action="/messenger/unread" method="get" enctype="multipart/form-data">
          <div id="messenger-search">
            <div><input type="text" placeholder="검색어를 입력해주세요."></div>
            <div><input type="button" value="검색"></div>
@@ -70,13 +70,13 @@
          </div>
          <div id="messenger-content">
            <c:forEach var="message" items="${voList}">
-            <div class="messenger-item">
+             <div class="messenger-item">
                <div><input id="checkbox-delete" type="checkbox"></div>
                <div><input id="checkbox-important" type="checkbox"></div>
                <div id="list-person">${message.name}</div>
-               <div id="list-title">${message.title}</div>
+               <div id="list-title"><a href="/messenger/markAsRead?messenNo=${message.no}">${message.title}</a></div>
                <div id="list-date">${message.sendDate}</div>
-            </div>
+             </div>
            </c:forEach>
          </div>
         </form>
