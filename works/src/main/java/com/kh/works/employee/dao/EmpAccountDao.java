@@ -1,7 +1,7 @@
 package com.kh.works.employee.dao;
 
 import com.kh.works.employee.mapper.EmpAccountMapper;
-import com.kh.works.employee.vo.EmpSessionVo;
+import com.kh.works.security.EmpSessionVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

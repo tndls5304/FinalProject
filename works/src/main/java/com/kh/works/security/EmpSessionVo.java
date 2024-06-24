@@ -1,4 +1,4 @@
-package com.kh.works.employee.vo;
+package com.kh.works.security;
 // ---------------------------------------세션에 들어갈 정보
 import lombok.Data;
 import lombok.ToString;

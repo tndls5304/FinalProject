@@ -5,10 +5,12 @@ $.ajax({
      success:function(employeeVo){
       const empInfoDiv =document.querySelector("#empInfo")
       let str="";
-      str+="<h1> 이름:"+employeeVo.name+"</h1>"
-       str+="<h1>아이디:"+employeeVo.id+"</h1>"
+      str+="<h3> 이름:"+employeeVo.name+"</h3>"
+      str+="<h3>아이디:"+employeeVo.id+"</h3>"
+      str+="<h3>이메일:"+employeeVo.email+"</h3>"
 
-      empInfoDiv.innerHtml=str;
+
+      empInfoDiv.innerHTML=str;
 
 
      }
