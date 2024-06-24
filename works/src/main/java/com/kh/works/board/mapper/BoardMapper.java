@@ -5,6 +5,6 @@ import org.apache.ibatis.annotations.Insert;
 
 public interface BoardMapper {
 
-//    @Insert()
-//    int write(BoardVo vo);
+
+    int write(BoardVo vo);
 }
