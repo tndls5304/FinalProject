@@ -35,8 +35,8 @@ public class MessengerService {
         return dao.getUnreadList();
     }
 
-    public int markAsRead(int messenNo) {
-        return dao.markAsRead(messenNo);
+    public int read(int messenNo) {
+        return dao.read(messenNo);
     }
 }
 

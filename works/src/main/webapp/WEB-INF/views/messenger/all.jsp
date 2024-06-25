@@ -74,7 +74,9 @@
                <div><input id="checkbox-delete" type="checkbox"></div>
                <div><input id="checkbox-important" type="checkbox"></div>
                <div id="list-person">${message.name}</div>
-               <div id="list-title">${message.title}</div>
+               <!--이 부분 추가--!>
+
+               <div id="list-title" class="click-title" data-id="${message.messenNo}">${message.title}</div>
                <div id="list-date">${message.sendDate}</div>
             </div>
            </c:forEach>
@@ -87,3 +89,32 @@
    </body>
 
    </html>
+
+
+   <!-- jquery 넣기 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <script>
+     document.querySelectorAll('.click-title').forEach(item => {
+         item.addEventListener('click', handleClick);
+     });
+
+     function handleClick(event) {
+         const messenNo = event.target.getAttribute('data-id');
+         console.log("messenNo:", messenNo);
+
+         $.ajax({
+             url: "/messenger/read",
+             type: "POST",
+             data: { messenNo: messenNo },
+             success: function(response) {
+                 console.log('성공');
+                 window.location.href = "/messenger/all";
+             },
+             error: function(xhr, status, error) {
+                 console.error('실패', status, error);
+             }
+         });
+     }
+    </script>
+   

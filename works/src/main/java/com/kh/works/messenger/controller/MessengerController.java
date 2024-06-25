@@ -6,6 +6,7 @@ import com.kh.works.messenger.service.MessengerService;
 import com.kh.works.messenger.vo.MessengerVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -78,12 +79,12 @@ public class MessengerController {
         return "messenger/unread";
     }
     // 쪽지를 읽음으로 표시
-    @PostMapping("markAsRead")
-    public String markAsRead(@RequestParam("messenNo") int messenNo) {
-        service.markAsRead(messenNo);
+    @PostMapping("read")
+    public String read(@RequestParam(name = "messenNo") int messenNo) {
+        System.out.println("Received messenNo: " + messenNo);
+        service.read(messenNo);
         return "redirect:/messenger/unread";
     }
-
 
 
 

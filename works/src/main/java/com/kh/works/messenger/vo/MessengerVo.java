@@ -5,7 +5,8 @@ import lombok.Data;
 @Data
 public class MessengerVo {
 
-    private String no;
+    //이거 수정함 주의!!!!
+    private String messenNo;
     private String senderEmpNo;
     private String receiverEmpNo;
     private String messenboxTypeNo;

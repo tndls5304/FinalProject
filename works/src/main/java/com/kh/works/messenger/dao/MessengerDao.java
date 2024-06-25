@@ -33,8 +33,8 @@ public class MessengerDao {
         return mapper.getUnreadList();
     }
 
-    public int markAsRead(int messenNo) {
-        return mapper.markAsRead(messenNo);
+    public int read(int messenNo) {
+        return mapper.read(messenNo);
     }
 }
 
