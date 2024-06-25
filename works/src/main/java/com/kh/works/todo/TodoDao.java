@@ -10,12 +10,17 @@ import java.util.List;
 public class TodoDao {
     private final TodoMapper mapper;
 
-    public int write(TodoVo vo) {
-        return mapper.write(vo);
+    public int write(TodoVo vo, TodoManagerVo mvo) {
+        int result1= mapper.write(vo);
+        int result2= mapper.todoManager(mvo);
+        
+
+        return;
     }
 
+
     public int todoManager(TodoManagerVo mvo) {
-        return mapper.todoManager(mvo);
+        return
     }
 
 
