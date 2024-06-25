@@ -70,7 +70,7 @@ public class MessengerController {
         return "messenger/sent";
     }
 
-    //안 읽음 쪽지 화면 (내가 받은 쪽지함 중)
+    //안 읽음 쪽지 화면
     @GetMapping("unread")
     public String getUnreadList(Model model){
         List<MessengerVo> voList = service.getUnreadList();
