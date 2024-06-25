@@ -1,6 +1,7 @@
 package com.kh.works.messenger.controller;
 
-import com.kh.works.employee.vo.EmpSessionVo;
+//import에 EmpSessionVo 꼭 추가하기
+import com.kh.works.security.EmpSessionVo;
 import com.kh.works.messenger.service.MessengerService;
 import com.kh.works.messenger.vo.MessengerVo;
 import lombok.RequiredArgsConstructor;
