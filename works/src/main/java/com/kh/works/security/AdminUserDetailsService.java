@@ -30,17 +30,13 @@ private final AdminAccountDao dao;
 
         
         // db 호출
-        AdminVo adminVo =dao.adminLoginIdMatching(id);
+        AdminSessionVo adminVo =dao.adminLoginIdMatching(id);
 
-//UserDetails: 아이디비밀번호 비교를 위한 객체
-//User.builder()를 하면 UserBuilder()가 생기고 . 앞에는 이 객체가 생략되어 있는거
-       UserDetails userDetails =  User.builder()
-                .username(adminVo.getId())
-                .password(adminVo.getPwd())
-                .authorities(adminVo.getAdminAuthorityNo())
-                .build();
+        //UserDetails: 아이디비밀번호 비교를 위한 객체
+        //User.builder()를 하면 UserBuilder()가 생기고 . 앞에는 이 객체가 생략되어 있는거
 
-        return userDetails;
+
+        return adminVo;
     }
 
     public static void main(String[] args) {
