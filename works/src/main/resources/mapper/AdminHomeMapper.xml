@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.works.mapper.test">
+
+
+
+
+<!--    <select id="showAdminPageMenu"  resultMap="adminPageMenuResultMap">-->
+<!--        SELECT P.NO,P.NAME,p.URL-->
+<!--        FROM ADMIN_AUTHORITY A-->
+<!--        JOIN ADMIN_PAGE_MENU_AUTHORITY M ON A.NO=M.ADMIN_AUTHORITY_NO-->
+<!--        JOIN ADMIN_PAGE_MENU P ON  M.ADMIN_PAGE_MENU_NO=P.NO-->
+<!--        WHERE A.NO=#{adminAuthNo} AND M.SELECT_YN='Y'-->
+<!--    </select>-->
+
+</mapper>
+
+        <!--        List<AdminPageMenuVo>-->

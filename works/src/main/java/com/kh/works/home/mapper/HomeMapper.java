@@ -13,6 +13,28 @@ public interface HomeMapper {
             "JOIN POSITION P ON E.POSITION_NO= P.NO WHERE E.NO=#{no}")
     EmployeeVo selectEmpInfo(String no);
 
-    @Insert("INSERT INTO BOARD ( BOARD_CATG_NO,BOARD_NO,TITLE, CONTENT,CRTN_DATE,EMP_NO)VALUES ('1',SEQ_BOARD.NEXTVAL,#{title},#{content},TO_DATE('2024-06-26', 'YYYY-MM-DD'),#{empNo})")
-    int writing(BoardVo boardVo);
+    @Insert("INSERT INTO BOARD\n" +
+            "(\n" +
+            "    BOARD_NO\n" +
+            "    ,EMP_NO\n" +
+            "    ,TITLE\n" +
+            "    ,CONTENT\n" +
+            "    ,VIEW_COUNT\n" +
+            "    ,CRTN_DATE\n" +
+            "    ,MDFD_DATE\n" +
+            "    ,FILE_NAME\n" +
+            "    ,IMG\n" +
+            ")VALUES\n" +
+            "(\n" +
+            "    SEQ_BOARD.NEXTVAL\n" +
+            "    ,#{empNo}\n" +
+            "    ,'${title}'\n" +
+            "    ,'${content}'\n" +
+            "    ,NULL\n" +
+            "    ,SYSTIMESTAMP\n" +
+            "    ,NULL\n" +
+            "    ,NULL\n" +
+            "    ,NULL\n" +
+            "    )")
+    int writing(BoardVo vo);
 }

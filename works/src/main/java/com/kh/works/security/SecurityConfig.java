@@ -49,7 +49,7 @@ public class SecurityConfig {
 //                        .passwordParameter("")
                         .loginProcessingUrl("/admin/login_proc").permitAll()
                         //로그인 성공하면 이쪽으로 간다.
-                        .defaultSuccessUrl("/admin/insert_emp").permitAll()
+                        .defaultSuccessUrl("/admin/home").permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
 
@@ -72,7 +72,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                                 .loginPage("/emp/login").permitAll()
                                 .loginProcessingUrl("/emp/login_proc")
-                                .defaultSuccessUrl("/home").permitAll()
+                               .defaultSuccessUrl("/home").permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
 

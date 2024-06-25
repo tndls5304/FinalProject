@@ -5,11 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@RequiredArgsConstructor
-public class AdminAuthController {
 
-    @GetMapping("admin/auth_manage")
-    public String showAuthPage(){
-        return "admin/auth_manage";
+public class AdminHomeController {
+
+
+
+    //단순히 어드민 화면 보여주기
+
+    @GetMapping("admin/home")
+    public String showHomePage(){
+        return "admin/admin_home";
     }
+
+
+
+
+
+
 }
