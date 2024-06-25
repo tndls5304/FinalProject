@@ -74,7 +74,7 @@
                <div><input id="checkbox-delete" type="checkbox"></div>
                <div><input id="checkbox-important" type="checkbox"></div>
                <div id="list-person">${message.name}</div>
-               <div id="list-title"><a href="/messenger/markAsRead?messenNo=${message.no}">${message.title}</a></div>
+               <div id="list-title">${message.title}</a></div>
                <div id="list-date">${message.sendDate}</div>
              </div>
            </c:forEach>

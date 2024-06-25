@@ -27,5 +27,5 @@ public interface MessengerMapper {
     List<MessengerVo> getUnreadList();
 
     @Update("UPDATE MESSENGER SET READ_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
-    int markAsRead(int messenNo);
+    int read(int messenNo);
 }
