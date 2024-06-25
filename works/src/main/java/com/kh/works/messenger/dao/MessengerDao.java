@@ -17,6 +17,10 @@ public class MessengerDao {
         return mapper.write(vo);
     }
 
+    public List<MessengerVo> getEmployeeList() {
+        return mapper.getEmployeeList();
+    }
+
     public List<MessengerVo> getMessengerList() {
         return mapper.getMessengerList();
     }
@@ -36,5 +40,7 @@ public class MessengerDao {
     public int read(int messenNo) {
         return mapper.read(messenNo);
     }
+
+
 }
 

@@ -23,10 +23,10 @@ public class MessengerController {
     private final MessengerService service;
 
     //쪽지 화면
-    @GetMapping("write")
-    public String write(){
-        return "messenger/write";
-    }
+//    @GetMapping("write")
+//    public String write(){
+//        return "messenger/write";
+//    }
 
     //쪽지 작성
     @PostMapping("write")
@@ -46,6 +46,16 @@ public class MessengerController {
             return "redirect:/messenger/write";
         }
     }
+
+    //쪽지 작성 - 사원목록 처리하기 위한 메서드
+    @GetMapping("write")
+    public String showEmployee(Model model){
+        List<MessengerVo> employeeList = service.getEmployeeList();
+        System.out.println("employeeList = " + employeeList);
+        model.addAttribute("employeeList", employeeList);
+        return "messenger/write";
+    }
+
 
     //전체 쪽지 화면
     @GetMapping("all")
@@ -78,7 +88,7 @@ public class MessengerController {
         model.addAttribute("voList", voList);
         return "messenger/unread";
     }
-    // 쪽지를 읽음으로 표시
+    // 쪽지를 읽음으로 표시 - all.jsp에서 ajax 사용
     @PostMapping("read")
     public String read(@RequestParam(name = "messenNo") int messenNo) {
         System.out.println("Received messenNo: " + messenNo);
@@ -88,7 +98,7 @@ public class MessengerController {
 
 
 
-    //임시저장 쪽지 화면
+    //임시저장 쪽지 화면 - update문 사용했기 때문에 쪽지에 굳이 넣지 않는 것도....
     @GetMapping("saved")
     public String saved(){
         return "messenger/saved";

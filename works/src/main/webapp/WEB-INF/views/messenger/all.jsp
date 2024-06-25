@@ -37,7 +37,7 @@
        <div id="sidebar">
          <div id="messenger-write"><button>쪽지쓰기</button></div>
          <div id="messenger-status">
-           <div><button>안읽음</button></div>
+           <div><a href="http://localhost:8080/messenger/unread"><button>안읽음</button></a></div>
            <div><button>중요</button></div>
            <div><button>휴지통</button></div>
          </div>
@@ -74,10 +74,9 @@
                <div><input id="checkbox-delete" type="checkbox"></div>
                <div><input id="checkbox-important" type="checkbox"></div>
                <div id="list-person">${message.name}</div>
-               <!--이 부분 추가--!>
-
-               <div id="list-title" class="click-title" data-id="${message.messenNo}">${message.title}</div>
+               <div id="list-title" class="click-title">${message.title}</div>
                <div id="list-date">${message.sendDate}</div>
+               <div style="display:none;" class="messenNo">${message.messenNo}</div>
             </div>
            </c:forEach>
          </div>
@@ -95,26 +94,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
     <script>
-     document.querySelectorAll('.click-title').forEach(item => {
-         item.addEventListener('click', handleClick);
-     });
+        document.querySelectorAll('.click-title').forEach(item => {
+          item.addEventListener('click', getMessenNo);
+        });
 
-     function handleClick(event) {
-         const messenNo = event.target.getAttribute('data-id');
-         console.log("messenNo:", messenNo);
+        function getMessenNo(evt){
+          console.log("함수 실행됨 ~~~");
+          console.log("클릭된 요소:", evt.target);
 
-         $.ajax({
-             url: "/messenger/read",
-             type: "POST",
-             data: { messenNo: messenNo },
-             success: function(response) {
-                 console.log('성공');
-                 window.location.href = "/messenger/all";
-             },
-             error: function(xhr, status, error) {
-                 console.error('실패', status, error);
-             }
-         });
-     }
-    </script>
+          <!-- 나는 바보였다.... messenNo를 가지고 오고 싶은데 계속 비어있다고 오류가 떴다. 전체목록조회에서 messenNo를 select하지 않고 있었다...-->
+          const messenNo = evt.target.parentNode.querySelector('.messenNo').innerText;
+          console.log("messenNo:", messenNo);
+
+          $.ajax({
+            url: "http://127.0.0.1:8080/messenger/read",
+            method: "post",
+            data: {
+              messenNo: messenNo,
+            },
+            success: (data) => {
+              console.log("쪽지 통신성공!");
+              console.log(data);
+            },
+
+            error: (xhr, status, error) => {
+              console.log("쪽지 통신실패...");
+            },
+          });
+        }
+      </script>
    

@@ -19,6 +19,10 @@ public class MessengerService {
         return dao.write(vo);
     }
 
+    public List<MessengerVo> getEmployeeList() {
+        return dao.getEmployeeList();
+    }
+
     public List<MessengerVo> getMessengerList() {
         return dao.getMessengerList();
     }
@@ -38,5 +42,6 @@ public class MessengerService {
     public int read(int messenNo) {
         return dao.read(messenNo);
     }
+
 }
 
