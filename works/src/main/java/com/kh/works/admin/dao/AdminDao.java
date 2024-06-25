@@ -20,12 +20,14 @@ public class AdminDao {
     }
 
     public void insertEmp(EmployeeVo employeeVo) {
+
         mapper.insertEmp(employeeVo);
     }
 
 
     //테스ㅌ,
     public String getTest(){
+
         return  mapper.selectTest();
     }
 
