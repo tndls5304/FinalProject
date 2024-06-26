@@ -5,6 +5,7 @@ import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.security.EmpSessionVo;
 import com.kh.works.messenger.service.MessengerService;
 import com.kh.works.messenger.vo.MessengerVo;
+import com.oracle.wls.shaded.org.apache.xpath.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.http.ResponseEntity;
@@ -60,32 +61,45 @@ public class MessengerController {
 
     //전체 쪽지 화면
     @GetMapping("all")
-    public String getMessengerList(Model model) {
-        List<MessengerVo> voList = service.getMessengerList();
+    public String getMessengerList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model) {
+        // 로그인한 사원의 사원번호를 가져온다.
+        String senderEmpNo = loginEmployeeVo.getNo();
+        String receiverEmpNo = loginEmployeeVo.getNo();
+
+        List<MessengerVo> voList = service.getMessengerList(senderEmpNo, receiverEmpNo);
         model.addAttribute("voList", voList);
         return "messenger/all";  // all.jsp로 포워딩
     }
 
     //받은 쪽지 화면
-    @GetMapping("received")
-    public String getReceivedList(Model model){
-        List<MessengerVo> voList = service.getReceivedList();
+    @GetMapping("/received")
+    public String getReceivedList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model) {
+        // 로그인한 사원의 사원번호를 가져온다.
+        String receiverEmpNo = loginEmployeeVo.getNo();
+
+        List<MessengerVo> voList = service.getReceivedList(receiverEmpNo);
         model.addAttribute("voList", voList);
         return "messenger/received";
     }
 
     //보낸 쪽지 화면
     @GetMapping("sent")
-    public String getSentList(Model model){
-        List<MessengerVo> voList = service.getSentList();
+    public String getSentList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
+        // 로그인한 사원의 사원번호를 가져온다.
+        String senderEmpNo = loginEmployeeVo.getNo();
+
+        List<MessengerVo> voList = service.getSentList(senderEmpNo);
         model.addAttribute("voList", voList);
         return "messenger/sent";
     }
 
     //안 읽음 쪽지 화면
     @GetMapping("unread")
-    public String getUnreadList(Model model){
-        List<MessengerVo> voList = service.getUnreadList();
+    public String getUnreadList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
+        // 로그인한 사원의 사원번호를 가져온다.
+        String receiverEmpNo = loginEmployeeVo.getNo();
+
+        List<MessengerVo> voList = service.getUnreadList(receiverEmpNo);
         model.addAttribute("voList", voList);
         return "messenger/unread";
     }
@@ -97,12 +111,22 @@ public class MessengerController {
         return "redirect:/messenger/unread";
     }
 
+    //중요 쪽지 화면
+    @GetMapping("important")
+    public String getImportantList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
+        // 로그인한 사원의 사원번호를 가져온다.
+        String senderEmpNo = loginEmployeeVo.getNo();
+        String receiverEmpNo = loginEmployeeVo.getNo();
 
-
-    //임시저장 쪽지 화면 - update문 사용했기 때문에 쪽지에 굳이 넣지 않는 것도....
-    @GetMapping("saved")
-    public String saved(){
-        return "messenger/saved";
+        List<MessengerVo> voList = service.getImportantList(senderEmpNo, receiverEmpNo);
+        model.addAttribute("voList", voList);
+        return "messenger/important";
+    }
+    //쪽지를 중요로 표시
+    @PostMapping("importantStatus")
+    public String importantStatus(@RequestParam(name = "messenNo") int messenNo){
+        service.importantStatus(messenNo);
+        return "redirect:/messenger/importantStatus";
     }
 
 
