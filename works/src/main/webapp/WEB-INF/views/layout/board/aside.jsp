@@ -14,7 +14,6 @@
         <ul>
             <li>베이비개발자웍스</li>
         </ul>
-            <div>li</div>
     </div>
 
 </aside>
