@@ -12,6 +12,4 @@ public interface TodoMapper {
 //    @Select()
 //    EmployeeVo loginEmp(String no);
 
-//    @Insert("INSERT INTO TODO ( TODO_NO, TODO_EMP_NO, TITLE, CONTENT, CREATE_DATE, START_DATE, END_DATE ) VALUES ( SEQ_TODO.NEXTVAL, 1, '할일1', '할일 내용 1', SYSDATE, SYSDATE, SYSDATE + 7)");
-    public int write();
 }
