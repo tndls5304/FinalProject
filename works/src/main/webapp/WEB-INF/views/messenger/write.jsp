@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
    <!DOCTYPE html>
    <html lang="en">
@@ -88,7 +89,15 @@
          <div id="messenger-write-infor">
            <div id="messenger-infor-receiver">
              <div id="receiver-name">받는사람</div>
-             <input id="receiver-text" type="text" name="receiverEmpNo">
+             <select id="receiver-select">
+                <option value="">사원 선택</option>
+                <c:forEach var="employee" items="${employeeList}">
+                    <option value="${employee.receiverEmpNo}">${employee.name}</option>
+                    <!-- <option>${employee.positionName}</option> --!>
+                    <!-- <option>${employee.deptName}</option> --!>
+                </c:forEach>
+             </select>
+             <input id="receiver-text" type="text" name="receiverEmpNo" readonly>
            </div>
 
            <div id="messenger-infor-title">
