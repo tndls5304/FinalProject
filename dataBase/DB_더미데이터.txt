@@ -1,13 +1,13 @@
 
 ---------------------------------------------------------------------------------------------------------------------★★★관리자 테이블(수인)
 
+
 -----------------------------------------------------------------------관리자 페이지 메뉴 테이블
-INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (1, '권한 관리', '/admin/');
-INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (2, '신규 사원 등록', '/admin/insert_emp');
+INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (1, '권한 관리', '/admin/auth_manage');
+INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (2, '신규 사원 등록','/admin/insert_emp');
 INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (3, '사원 관리', '/admin/list_emp');
-INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (4, '게시판 카테고리 관리', '/admin/');
-INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (5, '게시판 글 관리', '/admin/');
-INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (6, '공지사항 관리', '/admin/');
+INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (4, '게시판 글 관리', '/admin/manage_board');
+INSERT INTO ADMIN_PAGE_MENU (NO, NAME, URL) VALUES (5, '공지사항 관리', '/admin/manage_notice');
 
 
 -----------------------------------------------------------------------관리자 권한 테이블
@@ -25,11 +25,7 @@ INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO) V
 INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO,SELECT_YN,INSERT_YN , MODIFY_YN , REMOVE_YN) VALUES (4, 1,'Y','Y','Y','Y');
 INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO) VALUES (4, 2);
 INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO,SELECT_YN,INSERT_YN , MODIFY_YN , REMOVE_YN) VALUES (5, 1,'Y','Y','Y','Y');
-INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO) VALUES (5, 2);
-INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO,SELECT_YN,INSERT_YN , MODIFY_YN , REMOVE_YN) VALUES (6, 1,'Y','Y','Y','Y');
-INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO,SELECT_YN,INSERT_YN , MODIFY_YN , REMOVE_YN) VALUES (6, 2,'Y','Y','Y','N');
-
-
+INSERT INTO ADMIN_PAGE_MENU_AUTHORITY (ADMIN_PAGE_MENU_NO, ADMIN_AUTHORITY_NO,SELECT_YN,INSERT_YN , MODIFY_YN , REMOVE_YN) VALUES (5, 2,'Y','Y','Y','Y');
 
 -----------------------------------------------------------------------관리자 계정 테이블(비밀번호는 '12345')
 INSERT INTO ADMIN (NO, ID, PWD, ADMIN_AUTHORITY_NO) VALUES (SEQ_ADMIN.NEXTVAL, 'superAdmin', '$2a$10$OAPVtkEugfw2Xwc2QR59s.loFms9sR71rGMP8SfLKkXuhVHPFi5py', 1);

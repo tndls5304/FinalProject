@@ -16,7 +16,7 @@ public class AdminSessionVo implements UserDetails {
     private  String no;
     private  String id;
     private  String pwd;
-    private  String admin_authority_no;
+    private  String adminAuthorityNo;
 
 
     @Override

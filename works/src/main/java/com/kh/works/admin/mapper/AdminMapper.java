@@ -3,6 +3,7 @@ package com.kh.works.admin.mapper;
 import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.admin.vo.DeptVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import com.kh.works.security.AdminSessionVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -21,7 +22,7 @@ public interface AdminMapper {
     void insertEmp(EmployeeVo employeeVo);
 
     @Select("SELECT ID,PWD,ADMIN_AUTHORITY_NO FROM ADMIN WHERE ID=#{id}")
-    AdminVo adminLoginIdMatching(String id);
+    AdminSessionVo adminLoginIdMatching(String id);
 
 
 
