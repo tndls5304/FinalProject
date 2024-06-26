@@ -10,7 +10,6 @@ public class BoardVo {
 
     private String boardNo;
     private String empNo;
-    private String boardCatgNo;
     private String title;
     private String content;
     private String viewCount;
@@ -19,5 +18,6 @@ public class BoardVo {
     private String delYn;
     private List<MultipartFile> fileName;
     private List<MultipartFile> img;
+    private String name;
 
 }
