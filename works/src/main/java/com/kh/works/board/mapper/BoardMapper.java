@@ -57,5 +57,5 @@ public interface BoardMapper {
     List<BoardVo> myBoardList(String empNo);
 
     @Select("SELECT * FROM BOARD WHERE BOARD_NO = #{boardNo}")
-    int detailBoard(BoardVo boardNo);
+    BoardVo getdetailBoard(String boardNo);
 }
