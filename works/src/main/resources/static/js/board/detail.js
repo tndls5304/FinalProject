@@ -1,9 +1,12 @@
-var boardNo = "";
+const urlParams = new URLSearchParams(window.location.search);
+const boardNo = urlParams.get('boardNo');
+console.log(boardNo);
 
 $.ajax({
-    url: "/board/detail",
+    url: "/board/api/detail",
     method: "get",
     data:{boardNo:boardNo},
+    dataType: 'json',
     success: (data) => {
         console.log("통신성공~");
         console.log(data);
@@ -19,7 +22,7 @@ $.ajax({
 
         x.innerHTML = str;
     },
-    error: () => {
-        console.log("통신실패 ㅠㅠ");
+    error: (error) => {
+       console.log("error :" , error);
     }
 });

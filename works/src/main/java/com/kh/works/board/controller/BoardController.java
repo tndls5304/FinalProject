@@ -66,12 +66,18 @@ public class BoardController {
 //    게시물 상세조회 화면
     @GetMapping("/detail")
     public String getdetailBoard(@RequestParam("boardNo")String boardNo ,Model model) {
+
+        return "board/detail";
+    }
+
+    @GetMapping("api/detail")
+    @ResponseBody
+    public BoardVo apiDetailBoard(@RequestParam("boardNo")String boardNo ,Model model){
         BoardVo vo = service.getBoardDetail(boardNo);
         System.out.println("Controller VO" + vo);
         model.addAttribute("boardNo" , boardNo);
         model.addAttribute("board" , vo);
-        return "board/detail";
+        return vo;
     }
-
 
 }
