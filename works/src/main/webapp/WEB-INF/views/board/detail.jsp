@@ -23,7 +23,7 @@
                 <div>조회수</div>
             </div>
             <div id="content">
-                
+                    
             </div>
         </div>
 
