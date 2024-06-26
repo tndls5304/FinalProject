@@ -51,9 +51,6 @@
          <div id="send-messenger">
            <p>보낸쪽지</p>
          </div>
-         <div id="save-messenger">
-            <p>임시저장</p>
-        </div>
        </div>
 
 
@@ -82,7 +79,6 @@
         <form action="/messenger/write" method="post" enctype="multipart/form-data">
          <div id="messenger-write-btn">
            <input id="messenger-send-btn" type="submit" value="보내기">
-           <input id="messenger-save-btn" type="submit" formaction="/messenger/saved" value="임시저장">
            <hr>
          </div>
 
@@ -92,9 +88,8 @@
              <select id="receiver-select">
                 <option value="">사원 선택</option>
                 <c:forEach var="employee" items="${employeeList}">
-                    <option value="${employee.receiverEmpNo}">${employee.name}</option>
-                    <!-- <option>${employee.positionName}</option> --!>
-                    <!-- <option>${employee.deptName}</option> --!>
+                    <!-- &nbsp; 이건 공백을 넣을 때 사용한다. -->
+                    <option value="${employee.no}" class="click-option">${employee.name}&nbsp;&nbsp;&nbsp;${employee.positionNo}&nbsp;&nbsp;&nbsp;${employee.deptNo}</option>
                 </c:forEach>
              </select>
              <input id="receiver-text" type="text" name="receiverEmpNo" readonly>
@@ -122,3 +117,19 @@
    </body>
 
    </html>
+
+
+   <!-- jquery 넣기 -->
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+       <script>
+               document.querySelectorAll('#receiver-select').forEach(item => {
+                   item.addEventListener('change', function(evt) {
+                       var selectedEmpNo = document.getElementById('receiver-text').value;
+                       var selectedEmpName = evt.target.options[evt.target.selectedIndex].text;
+
+                       console.log("선택된 사원 번호:", selectedEmpNo);
+                       console.log("선택된 사원 이름:", selectedEmpName);
+                   });
+               });
+       </script>

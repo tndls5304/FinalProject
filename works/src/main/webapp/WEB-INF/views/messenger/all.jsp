@@ -51,9 +51,6 @@
          <div id="send-messenger">
            <a href="http://localhost:8080/messenger/sent"><p>보낸쪽지</p></a>
          </div>
-         <div id="save-messenger">
-             <p>임시저장</p>
-         </div>
        </div>
 
 

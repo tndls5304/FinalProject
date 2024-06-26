@@ -1,6 +1,7 @@
 package com.kh.works.messenger.controller;
 
 //import에 EmpSessionVo 꼭 추가하기
+import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.security.EmpSessionVo;
 import com.kh.works.messenger.service.MessengerService;
 import com.kh.works.messenger.vo.MessengerVo;
@@ -50,7 +51,7 @@ public class MessengerController {
     //쪽지 작성 - 사원목록 처리하기 위한 메서드
     @GetMapping("write")
     public String showEmployee(Model model){
-        List<MessengerVo> employeeList = service.getEmployeeList();
+        List<EmployeeVo> employeeList = service.getEmployeeList();
         System.out.println("employeeList = " + employeeList);
         model.addAttribute("employeeList", employeeList);
         return "messenger/write";

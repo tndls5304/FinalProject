@@ -20,6 +20,5 @@ public class MessengerVo {
 
     //EMPLOYEE 테이블에서 name을 가지고 오기 위해 생성
     private String name;
-    private String positionName;
-    private String deptName;
+
 }
