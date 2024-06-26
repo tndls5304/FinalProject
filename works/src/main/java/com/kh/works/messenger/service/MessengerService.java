@@ -1,5 +1,6 @@
 package com.kh.works.messenger.service;
 
+import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.messenger.dao.MessengerDao;
 import com.kh.works.messenger.vo.MessengerVo;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class MessengerService {
         return dao.write(vo);
     }
 
-    public List<MessengerVo> getEmployeeList() {
+    public List<EmployeeVo> getEmployeeList() {
         return dao.getEmployeeList();
     }
 

@@ -51,9 +51,6 @@
          <div id="send-messenger">
            <p>보낸쪽지</p>
          </div>
-         <div id="save-messenger">
-             <p>임시저장</p>
-         </div>
        </div>
 
 

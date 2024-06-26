@@ -1,5 +1,6 @@
 package com.kh.works.messenger.dao;
 
+import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.messenger.mapper.MessengerMapper;
 import com.kh.works.messenger.vo.MessengerVo;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class MessengerDao {
         return mapper.write(vo);
     }
 
-    public List<MessengerVo> getEmployeeList() {
+    public List<EmployeeVo> getEmployeeList() {
         return mapper.getEmployeeList();
     }
 
