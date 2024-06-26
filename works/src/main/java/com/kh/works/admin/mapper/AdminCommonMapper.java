@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface AdminCommonMapper {
 
- @Select(" SELECT P.NO,P.NAME,p.URL\n" +
+ @Select(" SELECT P.NO,P.NAME,p.URL,A.NAME AS adminType\n" +
          "   FROM ADMIN_AUTHORITY A\n" +
          "   JOIN ADMIN_PAGE_MENU_AUTHORITY M ON A.NO=M.ADMIN_AUTHORITY_NO\n" +
          "   JOIN ADMIN_PAGE_MENU P ON  M.ADMIN_PAGE_MENU_NO=P.NO\n" +

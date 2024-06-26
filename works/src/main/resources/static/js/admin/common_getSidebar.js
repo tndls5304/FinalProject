@@ -2,22 +2,22 @@
 $.ajax({
   url:"/admin/common/sidebar",
      method:"GET",
-     success:function(AdminPageMenuVoList){
-     console.log("안ㄴ영ㅇ!!")
-//      const sidebarMenu=document.querySelector("#sidebarMenu")
-//      let str='<li><a href="'+;
-//      str+=""
-//      str+=""
-//      str+=""
-//
-//
-//      sidebarMenu.innerHTML=str;
+     success:function(voList){
 
 
+     let str="";
+
+    str+= "<li><h1>"+ voList[0].adminType +"</h1></li>"
+        for(let i=0;i<voList.length;i++){
+        str+= '<li><a href="'+voList[i].url+'">'+voList[i].name+'</a></li>';
+        }
+
+         const sidebarMenu=document.querySelector("#sidebarMenu")
+
+          sidebarMenu.innerHTML=str;
      }
      ,
-     fail:()=>{
-     console.log("통신실패")
-
+     error: () => {
+        console.log("통신실패")
      }
  });

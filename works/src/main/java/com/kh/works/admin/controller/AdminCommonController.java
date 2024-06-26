@@ -22,8 +22,10 @@ public class AdminCommonController {
     @GetMapping("admin/common/sidebar")
     @ResponseBody
     public List<AdminPageMenuVo> selectSidePageComponent(@AuthenticationPrincipal AdminSessionVo loginAdminVo){
-        String adminAuthNo=loginAdminVo.getNo();
+        String adminAuthNo=loginAdminVo.getAdminAuthorityNo();
 
-        return service.selectSidePageComponent(adminAuthNo);
+        List<AdminPageMenuVo> voList=service.selectSidePageComponent(adminAuthNo);
+        System.out.println("AdminCommonController > selectSidePageComponent > voList : " + voList);
+        return  voList;
     }
 }
