@@ -25,7 +25,7 @@ $.ajax( {
        }
 
        function detail(event) {
-           const boardNo = event.currentTarget.getAttribute('data-boardNo');
+           const boardNo = event.target.getAttribute('data-boardNo');
            console.log("메롱메롱", boardNo);
            window.location.href = "/board/detail?boardNo=" + boardNo;
        }

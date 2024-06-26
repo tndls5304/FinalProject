@@ -28,7 +28,9 @@ public class BoardDao {
         return voList;
     }
 
-    public int detailBoard(BoardVo boardNo) {
-        return mapper.detailBoard(boardNo);
+
+    public BoardVo getBoardDetail(String boardNo) {
+        System.out.println("daoNum =" + boardNo);
+        return mapper.getdetailBoard(boardNo);
     }
 }

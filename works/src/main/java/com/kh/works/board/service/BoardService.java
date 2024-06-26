@@ -31,10 +31,8 @@ public class BoardService {
         return voList;
 
     }
-
-
-    public int detailBoard(BoardVo boardNo) {
-        System.out.println("boardNo" + boardNo);
-        return dao.detailBoard(boardNo);
+    public BoardVo getBoardDetail(String boardNo) {
+        System.out.println("service No" + boardNo);
+        return dao.getBoardDetail(boardNo);
     }
 }

@@ -63,24 +63,15 @@ public class BoardController {
         return service.myBoardList(empNo);
     }
 
-    //게시물 상세조회
-//    @GetMapping("/detail")
-//    public String detailBoard(int boardNo, Model model) {
-//        System.out.println("BoardController.detailBoard");
-//        System.out.println("boardNo = " + boardNo);
-//
-////        BoardVo board = service.getBoardDetail(boardNo);
-//
-////        if (board == null) {
-////            // 게시물이 없을 경우 처리
-////            return "errorPage"; // 적절한 에러 페이지로 이동
-////        }
-//
-//        // 모델에 데이터를 담아서 뷰로 전달
-////        model.addAttribute("board", board);
-//
-//        return "board/detail"; // 게시물 상세 페이지 뷰로 이동
-//    }
+//    게시물 상세조회 화면
+    @GetMapping("/detail")
+    public String getdetailBoard(@RequestParam("boardNo")String boardNo ,Model model) {
+        BoardVo vo = service.getBoardDetail(boardNo);
+        System.out.println("Controller VO" + vo);
+        model.addAttribute("boardNo" , boardNo);
+        model.addAttribute("board" , vo);
+        return "board/detail";
+    }
 
 
 }
