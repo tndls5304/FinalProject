@@ -4,6 +4,7 @@ import com.kh.works.board.service.BoardService;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.security.EmpSessionVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,19 +66,43 @@ public class BoardController {
 
 //    게시물 상세조회 화면
     @GetMapping("/detail")
-    public String getdetailBoard(@RequestParam("boardNo")String boardNo ,Model model) {
-
+    public String getdetailBoard(@RequestParam("boardNo")String boardNo ,Model model , @AuthenticationPrincipal EmpSessionVo loginEmployeeVo) {
+        String loginNo = loginEmployeeVo.getNo();
+        System.out.println("현재 로그인한 사람의 넘버: " + loginNo);
+        model.addAttribute("empNo", loginNo);
         return "board/detail";
     }
 
     @GetMapping("api/detail")
     @ResponseBody
-    public BoardVo apiDetailBoard(@RequestParam("boardNo")String boardNo ,Model model){
+    public BoardVo apiDetailBoard(@RequestParam("boardNo")String boardNo ,Model model , @AuthenticationPrincipal EmpSessionVo loginEmployeeVo){
+//        String loginNo = loginEmployeeVo.getNo();
+//        System.out.println("현재 로그인한 사람의 넘버: " + loginNo);
         BoardVo vo = service.getBoardDetail(boardNo);
-        System.out.println("Controller VO" + vo);
+        System.out.println("Controller Vo" + vo);
         model.addAttribute("boardNo" , boardNo);
         model.addAttribute("board" , vo);
+//        model.addAttribute("empNo", loginNo);
         return vo;
+    }
+
+    //수정하기 화면 보여주기
+    @GetMapping("edit")
+    public String editView(){
+        return "board/edit";
+    }
+
+
+    @PostMapping("edit")
+    public String editBoard(BoardVo vo, @RequestParam("boardNo")String boardNo){
+
+        System.out.println(vo + boardNo);
+        int result = service.editBoard(vo , boardNo);
+
+        if(result != 1){
+            return "common/error";
+        }
+        return "redirect:/board/list";
     }
 
 }

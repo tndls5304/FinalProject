@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/board/detail.css">
+<link rel="stylesheet" href="/css/board/edit.css">
 </head>
 <body>
 
@@ -21,18 +21,17 @@
                 <div>제목</div>
                 <div>작성일</div>
                 <div>조회수</div>
-                <div hidden id="empNo">${empNo}</div>
             </div>
+            <form action="/board/edit" method="post">
                 <div id="content">
-                    
-
+                        
                     
                 </div>
-                <button id="btn">수정하기</button>
-            </div>
+            </form>
+            
+        </div>
 
         
-
     </main>
 
     </body>
@@ -46,4 +45,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
-<script src="/js/board/detail.js"></script>
+<script src="/js/board/edit.js"></script>

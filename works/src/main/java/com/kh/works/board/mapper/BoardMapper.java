@@ -2,7 +2,9 @@ package com.kh.works.board.mapper;
 
 import com.kh.works.board.vo.BoardVo;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -58,4 +60,19 @@ public interface BoardMapper {
 
     @Select("SELECT * FROM BOARD WHERE BOARD_NO = #{boardNo}")
     BoardVo getdetailBoard(String boardNo);
+
+    @Update("<script>" +
+            "UPDATE BOARD\n" +
+            "<set>\n" +
+            "   <if test=\"vo.title != null\">\n" +
+            "       TITLE = #{vo.title},\n" +
+            "   </if>\n" +
+            "    <if test=\"vo.content != null\">\n" +
+            "       CONTENT = #{vo.content},\n" +
+            "    </if>\n" +
+            "   MDFD_DATE = SYSTIMESTAMP\n" +
+            "</set>\n" +
+            "WHERE BOARD_NO = #{boardNo}\n" +
+            "</script>")
+    int editBoard(@Param("vo") BoardVo vo, @Param("boardNo") String boardNo);
 }

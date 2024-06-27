@@ -33,4 +33,9 @@ public class BoardDao {
         System.out.println("daoNum =" + boardNo);
         return mapper.getdetailBoard(boardNo);
     }
+
+    public int editBoard(BoardVo vo, String boardNo) {
+        System.out.println(vo + boardNo);
+        return mapper.editBoard(vo , boardNo);
+    }
 }
