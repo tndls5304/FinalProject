@@ -32,11 +32,18 @@ public interface MessengerMapper {
     })
     List<MessengerVo> getMessengerList(@Param("senderEmpNo") String senderEmpNo, @Param("receiverEmpNo") String receiverEmpNo);
 
-    @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.RECEIVER_EMP_NO = #{receiverEmpNo} ORDER BY M.SEND_DATE DESC")
+    @Select("SELECT M.MESSEN_NO, E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.RECEIVER_EMP_NO = #{receiverEmpNo} ORDER BY M.SEND_DATE DESC")
     List<MessengerVo> getReceivedList(@Param("receiverEmpNo") String receiverEmpNo);
 
     @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.SENDER_EMP_NO = #{senderEmpNo} ORDER BY M.SEND_DATE DESC")
     List<MessengerVo> getSentList(@Param("senderEmpNo") String senderEmpNo);
+
+    @Select("SELECT M.MESSEN_NO, M.TITLE , E1.NAME AS senderName , E2. NAME As receiverName , M.SEND_DATE , M.CONTENT FROM MESSENGER M JOIN EMPLOYEE E1 ON M.SENDER_EMP_NO = E1.NO JOIN EMPLOYEE E2 ON M.RECEIVER_EMP_NO = E2.NO WHERE M.MESSEN_NO = #{messenNo}")
+    @Results({
+            @Result(property = "senderName", column = "senderName"),
+            @Result(property = "receiverName", column = "receiverName"),
+    })
+    List<MessengerVo> getDetailPage(@Param("messenNo") String messenNo);
 
     @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.READ_YN = 'N' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} ORDER BY M.SEND_DATE DESC")
     List<MessengerVo> getUnreadList(@Param("receiverEmpNo") String receiverEmpNo);
@@ -44,9 +51,12 @@ public interface MessengerMapper {
     @Update("UPDATE MESSENGER SET READ_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
     int read(@Param("messenNo") int messenNo);
 
-    @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.SENDER_EMP_NO = #{senderEmpNo} UNION ALL SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} ORDER BY SEND_DATE DESC")
-    List<MessengerVo> getImportantList(@Param("senderEmpNo") String senderEmpNo, @Param("receiverEmpNo") String receiverEmpNo);
+    @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} ORDER BY SEND_DATE DESC")
+    List<MessengerVo> getImportantList(@Param("receiverEmpNo") String receiverEmpNo);
 
     @Update("UPDATE MESSENGER SET IMPORTANT_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
     int importantStatus(@Param("messenNo") int messenNo);
+
+
+    List<MessengerVo> searchByKeyWord(String keyWord);
 }

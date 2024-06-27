@@ -93,6 +93,14 @@ public class MessengerController {
         return "messenger/sent";
     }
 
+    //상세 쪽지 화면
+    @GetMapping("detail")
+    public String getDetailPage(@RequestParam("messenNo") String messenNo, Model model){
+        List<MessengerVo> voList = service.getDetailPage(messenNo);
+        model.addAttribute("voList", voList);
+        return "messenger/detail";
+    }
+
     //안 읽음 쪽지 화면
     @GetMapping("unread")
     public String getUnreadList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
@@ -115,10 +123,9 @@ public class MessengerController {
     @GetMapping("important")
     public String getImportantList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
         // 로그인한 사원의 사원번호를 가져온다.
-        String senderEmpNo = loginEmployeeVo.getNo();
         String receiverEmpNo = loginEmployeeVo.getNo();
 
-        List<MessengerVo> voList = service.getImportantList(senderEmpNo, receiverEmpNo);
+        List<MessengerVo> voList = service.getImportantList(receiverEmpNo);
         model.addAttribute("voList", voList);
         return "messenger/important";
     }
@@ -128,6 +135,15 @@ public class MessengerController {
         service.importantStatus(messenNo);
         return "redirect:/messenger/importantStatus";
     }
+
+    //검색 기능 - 이름으로 검색
+    @GetMapping("search")
+    public String searchByKeyword(@RequestParam("keyWord") String keyWord, Model model){
+        List<MessengerVo> voList = service.searchByKeyword(keyWord);
+        model.addAttribute("voList", voList);
+        return "messenger/search";
+    }
+
 
 
 }

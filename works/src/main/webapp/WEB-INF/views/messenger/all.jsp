@@ -91,6 +91,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     
     <script>
+
+        //쪽지 읽음 처리 Ajax
         document.querySelectorAll('.click-title').forEach(item => {
           item.addEventListener('click', getMessenNo);
         });
@@ -120,8 +122,40 @@
         }
 
 
+        //전체 쪽지 목록에서 쪽지 상세페이지로 처리 Ajax
+        document.querySelectorAll('.click-title').forEach(item => {
+          item.addEventListener('click', moveToDetail);
+        });
+
+        function moveToDetail(evt){
+          console.log("함수 실행됨 ~~~");
+          console.log("클릭된 요소:", evt.target);
+
+          const messenNo = evt.target.parentNode.querySelector('.messenNo').innerText.trim();
+          console.log("messenNo:", messenNo);
+
+          $.ajax({
+            url: "/messenger/detail",
+            method: "get",
+            data: {
+              messenNo: messenNo,
+            },
+            success: (data) => {
+              console.log("쪽지번호 통신성공!");
+              console.log(data);
+
+              //(제목)클릭시, detail 페이지로 바로 이동할 수 있도록 설정해줘야 한다.
+              location.href = "/messenger/detail?messenNo=" + messenNo;
+            },
+
+            error: (xhr, status, error) => {
+              console.log("쪽지번호 통신실패...");
+            },
+          });
+        }
 
 
+        //쪽지 중요 처리 Ajax
         document.querySelectorAll('#checkbox-important').forEach(item => {
             item.addEventListener('click', sendImportant);
           });

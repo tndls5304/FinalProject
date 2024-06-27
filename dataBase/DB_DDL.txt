@@ -426,6 +426,7 @@ CREATE TABLE MESSENGER (
     ,READ_YN                CHAR(1)         DEFAULT 'N' CHECK(READ_YN IN ('Y', 'N')) 
     ,IS_SAVE                CHAR(1)         DEFAULT 'N' CHECK(IS_SAVE IN ('Y', 'N'))  
     ,UPDATE_DATE            TIMESTAMP       NULL 
+    ,IMPORTANT_YN       CHAR(1)         DEFAULT 'N' CHECK(IMPORTANT_YN IN ('Y', 'N'))
     ,DEL_YN                 CHAR(1)         DEFAULT 'N' CHECK(DEL_YN IN ('Y', 'N'))
 );
 

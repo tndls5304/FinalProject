@@ -36,6 +36,10 @@ public class MessengerService {
         return dao.getSentList(senderEmpNo);
     }
 
+    public List<MessengerVo> getDetailPage(String messenNO) {
+        return dao.getDetailPage(messenNO);
+    }
+
     public List<MessengerVo> getUnreadList(String receiverEmpNo) {
         return dao.getUnreadList(receiverEmpNo);
     }
@@ -44,12 +48,16 @@ public class MessengerService {
         return dao.read(messenNo);
     }
 
-    public List<MessengerVo> getImportantList(String senderEmpNo, String receiverEmpNo) {
-        return dao.getImportantList(senderEmpNo, receiverEmpNo);
+    public List<MessengerVo> getImportantList(String receiverEmpNo) {
+        return dao.getImportantList(receiverEmpNo);
     }
 
     public int importantStatus(int messenNo) {
         return dao.importantStatus(messenNo);
+    }
+
+    public List<MessengerVo> searchByKeyword(String keyWord) {
+        return dao.searchByKeyWord(keyWord);
     }
 }
 
