@@ -34,6 +34,10 @@ public class MessengerDao {
         return mapper.getSentList(senderEmpNo);
     }
 
+    public List<MessengerVo> getDetailPage(String messenNo) {
+        return mapper.getDetailPage(messenNo);
+    }
+
     public List<MessengerVo> getUnreadList(String receiverEmpNo) {
         return mapper.getUnreadList(receiverEmpNo);
     }
@@ -43,12 +47,16 @@ public class MessengerDao {
     }
 
 
-    public List<MessengerVo> getImportantList(String senderEmpNo, String receiverEmpNo) {
-        return mapper.getImportantList(senderEmpNo, receiverEmpNo);
+    public List<MessengerVo> getImportantList(String receiverEmpNo) {
+        return mapper.getImportantList(receiverEmpNo);
     }
 
     public int importantStatus(int messenNo) {
         return mapper.importantStatus(messenNo);
+    }
+
+    public List<MessengerVo> searchByKeyWord(String keyWord) {
+        return mapper.searchByKeyWord(keyWord);
     }
 }
 

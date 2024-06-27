@@ -21,4 +21,11 @@ public class MessengerVo {
     //EMPLOYEE 테이블에서 name을 가지고 오기 위해 생성
     private String name;
 
+    //쪽지 상세페이지에서 수신자, 발신자 이름을 가지고 오기 위해 생성
+    private String senderName;
+    private String receiverName;
+
+    //검색 기능을 추가하기 위해 생성
+    private String keyWord;
+
 }
