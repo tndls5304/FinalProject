@@ -5,6 +5,7 @@ import com.kh.works.admin.vo.SubAdminMenuVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -25,6 +26,15 @@ public class AdminAuthController {
     @GetMapping("admin/get_sub_admin_menu")
     @ResponseBody
     public List<SubAdminMenuVo> getMenuVoList(){
+
         return service.getMenuVoList();
+    }
+
+    //서브관리자 권한 update
+    @PostMapping("admin/update_auth")
+    @ResponseBody
+    public int updateAuth(SubAdminMenuVo vo){
+        System.out.println("SubAdminMenuVo vo 잘받았다 "+vo);
+        return 1;
     }
 }

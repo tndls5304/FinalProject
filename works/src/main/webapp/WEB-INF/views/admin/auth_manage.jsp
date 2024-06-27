@@ -14,7 +14,7 @@
    <link rel="stylesheet" href="/css/layout/admin/same.css">
 
      <!-- 본문에 서브관리자가 가진 메뉴 권한 보여주기ajax 쓴 js -->
-    <script src="/js/admin/get_sub_admin_menu.js"></script>
+    <script  src="/js/admin/get_sub_admin_menu.js"></script>
 
 
     <!-- 글씨체 -->
@@ -46,6 +46,7 @@
                                       </thead>
 
                             </table>
+                                <button id="modifyBtn">수정하기</button>
 
 
     </main>
