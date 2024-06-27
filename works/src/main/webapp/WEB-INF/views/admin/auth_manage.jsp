@@ -10,7 +10,7 @@
 
   <!-- 제이쿼리-->
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+  <!--공통 css-->
    <link rel="stylesheet" href="/css/layout/admin/same.css">
 
      <!-- 본문에 서브관리자가 가진 메뉴 권한 보여주기ajax 쓴 js -->
@@ -32,7 +32,7 @@
     <main>
                <div class="header">
                    <h2>관리자의 권한관리입니다</h2>
-
+                </div>
                          <table border="1px" id="menuList">
                                       <thead>
                                           <tr>
@@ -44,19 +44,10 @@
                                               <th>삭제권한</th>
                                           </tr>
                                       </thead>
-                                      <tbody>
-                                          <tr>
-                                              <td>1</td>
-                                              <td>메뉴이름1</td>
-                                              <td>조회y</td>
-                                              <td>N</td>
-                                              <td>N</td>
-                                              <td>Y</td>
-                                          </tr>
-                                      </tbody>
+
                             </table>
 
-               </div>
+
     </main>
 
 
