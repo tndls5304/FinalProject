@@ -35,4 +35,11 @@ public class BoardService {
         System.out.println("service No" + boardNo);
         return dao.getBoardDetail(boardNo);
     }
+
+    public int editBoard(BoardVo vo, String boardNo) {
+
+        System.out.println(vo + boardNo);
+        int result = dao.editBoard(vo,boardNo);
+        return result;
+    }
 }
