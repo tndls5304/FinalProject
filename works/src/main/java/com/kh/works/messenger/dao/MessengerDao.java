@@ -22,20 +22,20 @@ public class MessengerDao {
         return mapper.getEmployeeList();
     }
 
-    public List<MessengerVo> getMessengerList() {
-        return mapper.getMessengerList();
+    public List<MessengerVo> getMessengerList(String senderEmpNo, String receiverEmpNo) {
+        return mapper.getMessengerList(senderEmpNo, receiverEmpNo);
     }
 
-    public List<MessengerVo> getReceivedList() {
-        return mapper.getReceivedList();
+    public List<MessengerVo> getReceivedList(String receiverEmpNo) {
+        return mapper.getReceivedList(receiverEmpNo);
     }
 
-    public List<MessengerVo> getSentList() {
-        return mapper.getSentList();
+    public List<MessengerVo> getSentList(String senderEmpNo) {
+        return mapper.getSentList(senderEmpNo);
     }
 
-    public List<MessengerVo> getUnreadList() {
-        return mapper.getUnreadList();
+    public List<MessengerVo> getUnreadList(String receiverEmpNo) {
+        return mapper.getUnreadList(receiverEmpNo);
     }
 
     public int read(int messenNo) {
@@ -43,5 +43,12 @@ public class MessengerDao {
     }
 
 
+    public List<MessengerVo> getImportantList(String senderEmpNo, String receiverEmpNo) {
+        return mapper.getImportantList(senderEmpNo, receiverEmpNo);
+    }
+
+    public int importantStatus(int messenNo) {
+        return mapper.importantStatus(messenNo);
+    }
 }
 

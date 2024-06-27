@@ -24,25 +24,32 @@ public class MessengerService {
         return dao.getEmployeeList();
     }
 
-    public List<MessengerVo> getMessengerList() {
-        return dao.getMessengerList();
+    public List<MessengerVo> getMessengerList(String senderEmpNo, String receiverEmpNo) {
+        return dao.getMessengerList(senderEmpNo, receiverEmpNo);
     }
 
-    public List<MessengerVo> getReceivedList() {
-        return dao.getReceivedList();
+    public List<MessengerVo> getReceivedList(String receiverEmpNo) {
+        return dao.getReceivedList(receiverEmpNo);
     }
 
-    public List<MessengerVo> getSentList() {
-        return dao.getSentList();
+    public List<MessengerVo> getSentList(String senderEmpNo) {
+        return dao.getSentList(senderEmpNo);
     }
 
-    public List<MessengerVo> getUnreadList() {
-        return dao.getUnreadList();
+    public List<MessengerVo> getUnreadList(String receiverEmpNo) {
+        return dao.getUnreadList(receiverEmpNo);
     }
 
     public int read(int messenNo) {
         return dao.read(messenNo);
     }
 
+    public List<MessengerVo> getImportantList(String senderEmpNo, String receiverEmpNo) {
+        return dao.getImportantList(senderEmpNo, receiverEmpNo);
+    }
+
+    public int importantStatus(int messenNo) {
+        return dao.importantStatus(messenNo);
+    }
 }
 

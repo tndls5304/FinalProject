@@ -76,7 +76,7 @@
 
 
        <div id="messenger-write-page">
-        <form action="/messenger/write" method="post" enctype="multipart/form-data">
+        <form id="messenger-write-form" action="/messenger/write" method="post" enctype="multipart/form-data">
          <div id="messenger-write-btn">
            <input id="messenger-send-btn" type="submit" value="보내기">
            <hr>
@@ -89,10 +89,10 @@
                 <option value="">사원 선택</option>
                 <c:forEach var="employee" items="${employeeList}">
                     <!-- &nbsp; 이건 공백을 넣을 때 사용한다. -->
-                    <option value="${employee.no}" class="click-option">${employee.name}&nbsp;&nbsp;&nbsp;${employee.positionNo}&nbsp;&nbsp;&nbsp;${employee.deptNo}</option>
+                    <option value="${employee.no}" name="receiverEmpNo" class="click-option">${employee.name}&nbsp;&nbsp;&nbsp;${employee.positionNo}&nbsp;&nbsp;&nbsp;${employee.deptNo}</option>
                 </c:forEach>
              </select>
-             <input id="receiver-text" type="text" name="receiverEmpNo" readonly>
+             <input type="hidden" id="receiverEmpNo" name="receiverEmpNo">
            </div>
 
            <div id="messenger-infor-title">
@@ -120,16 +120,46 @@
 
 
    <!-- jquery 넣기 -->
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-       <script>
-               document.querySelectorAll('#receiver-select').forEach(item => {
-                   item.addEventListener('change', function(evt) {
-                       var selectedEmpNo = document.getElementById('receiver-text').value;
-                       var selectedEmpName = evt.target.options[evt.target.selectedIndex].text;
+   <script>
+   $(document).ready(function(){
+       $('#receiver-select').on('change', function() {
+           const employeeNo = $(this).val();
+           $('#receiverEmpNo').val(employeeNo);
+       });
 
-                       console.log("선택된 사원 번호:", selectedEmpNo);
-                       console.log("선택된 사원 이름:", selectedEmpName);
-                   });
-               });
-       </script>
+       // 폼 제출 시 Ajax로 데이터를 전송한다.
+       $('#messenger-write-form').on('submit', function(event) {
+           // 폼의 기본 제출을 막는다. 왜 막냐? 폼 제출과 Ajax가 중복으로 이루어지다보니, 값이 두 번 전달된다.
+           // 값이 두 번 전달된다 == oracle 데이터베이스에 값이 두 번 입력된다는 뜻.
+           event.preventDefault();
+
+           // 아래 변수에 담아주는 건 뭐냐?
+           // 사용자가 form에 입력한 데이터를 수집하여 이를 Ajax 요청으로 서버에 전송하기 위해 작성되었다.
+           const employeeNo = $('#receiverEmpNo').val();
+           const title = $('#title-text').val();
+           const content = $('#content-text').val();
+
+           $.ajax({
+                // 위에 form에서 이미 post로 /messenger/write에 보내주고 있다.
+                // 그렇기에, form의 action 속성 값을 사용한다.
+               url: $(this).attr('action'),
+               method: "post",
+               data: {
+                   // 변수에 담아준 걸 data로 보내준다.
+                   receiverEmpNo: employeeNo,
+                   title: title,
+                   content: content
+               },
+               success: (data) => {
+                   console.log("쪽지 보내기 성공!");
+                   console.log(data);
+               },
+               error: (xhr, status, error) => {
+                   console.log("쪽지 보내기 실패...");
+               }
+           });
+       });
+   });
+   </script>
