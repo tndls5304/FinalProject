@@ -3,7 +3,7 @@ package com.kh.works.todo.vo;
 import lombok.Data;
 
 @Data
-public class Todovo {
+public class TodoVo {
     private String todoNo;
     private String todoEmpNo;
     private String title;
@@ -13,6 +13,6 @@ public class Todovo {
     private String createDate;
     private String startDate;
     private String endDate;
-    private String name;
+
 
 }
