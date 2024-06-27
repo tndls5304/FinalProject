@@ -12,12 +12,5 @@ public class TodoService {
 
     private final TodoDao dao;
 
-    //할일 작성
-    public int write() {
-        return dao.write();
-    }
-//
-//    public EmployeeVo loginEmp(String no) {
-//        return dao.loginEmp(no);
-//    }
+
 }

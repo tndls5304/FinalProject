@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("todo")
 public class TodoController {
@@ -24,19 +25,10 @@ public class TodoController {
 //        return service.loginEmp(no);
 //    }
 
-
-    //작성 화면 보여주기
+    //할일 작성
     @GetMapping("write")
     public String todoWrite(){
-
-        return "todo/todoWrite";
+        return "zzz";
     }
-
-    //할일 작성
-    @PostMapping("write")
-    public void Write(){
-        int result = service.write();
-    }
-
 
 }

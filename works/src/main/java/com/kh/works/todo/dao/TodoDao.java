@@ -16,8 +16,4 @@ public class TodoDao {
 //     return mapper.loginEmp(no);
 //    }
 
-    //할일 작성
-    public int write() {
-        return mapper.write();
-    }
 }
