@@ -369,8 +369,8 @@ CREATE TABLE TODO (
 
 CREATE TABLE TODO_MANAGER (
     TODO_MANAGER_NO         NUMBER            
-    ,TODO_NO                NUMBER          
-    ,PRIMARY KEY(TODO_MANAGER_NO, TODO_NO)
+    ,TODO_NO_MAN            NUMBER          
+    ,PRIMARY KEY(TODO_MANAGER_NO, TODO_NO_MAN)
 );
 
 ---설문 테이블 생성
@@ -426,7 +426,6 @@ CREATE TABLE MESSENGER (
     ,READ_YN                CHAR(1)         DEFAULT 'N' CHECK(READ_YN IN ('Y', 'N')) 
     ,IS_SAVE                CHAR(1)         DEFAULT 'N' CHECK(IS_SAVE IN ('Y', 'N'))  
     ,UPDATE_DATE            TIMESTAMP       NULL 
-    ,IMPORTANT_YN       CHAR(1)         DEFAULT 'N' CHECK(IMPORTANT_YN IN ('Y', 'N'))
     ,DEL_YN                 CHAR(1)         DEFAULT 'N' CHECK(DEL_YN IN ('Y', 'N'))
 );
 
@@ -587,9 +586,9 @@ FOREIGN KEY (TODO_MANAGER_NO)
 REFERENCES EMPLOYEE(NO); 
 
 --투두 참여자테이블에 투두번호
-ALTER TABLE TODO
+ALTER TABLE TODO_MANAGER
 ADD CONSTRAINT FK_TODO_NO
-FOREIGN KEY (TODO_NO)
+FOREIGN KEY (TODO_NO_MAN)
 REFERENCES TODO(TODO_NO);
 
 --투두테이블에 생성사원번호
