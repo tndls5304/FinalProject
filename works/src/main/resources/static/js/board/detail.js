@@ -1,9 +1,9 @@
 const urlParams = new URLSearchParams(window.location.search);
 const boardNo = urlParams.get('boardNo');
-console.log(boardNo);
 const btn = document.querySelector("#btn");
+const btn2 = document.querySelector("#delete");
 const login = document.getElementById("empNo").textContent;
-const loginNo = login
+const loginNo = login;
 
 
 
@@ -34,12 +34,21 @@ $.ajax({
         const authorNo =loginNo; 
         console.log(userNo);
         console.log(authorNo);
+
         if (userNo == authorNo) {
             btn.style.display = 'block'; 
+            btn2.style.display = 'block'; 
         } else {
             btn.style.display = 'none'; 
+            btn2.style.display = 'none'; 
         }
+
+        btn.addEventListener("click" , editPage);
+        btn2.addEventListener("click" , deletePage);
+
+
     },
+
     error: (error) => {
         console.log("error :" , error);
     }
@@ -49,4 +58,10 @@ function editPage(evt) {
     const edit = '/board/edit?boardNo=' + boardNo;
     window.location.href= edit;
 }
-    btn.addEventListener("click" , editPage);
+
+function deletePage(evt) {
+    const det = '/board/delete?boardNo=' + boardNo;
+    window.location.href= det;
+}
+
+

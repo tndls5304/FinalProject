@@ -43,7 +43,8 @@ public interface BoardMapper {
             "    ,B.VIEW_COUNT\n" +
             "FROM BOARD B\n" +
             "JOIN EMPLOYEE E\n" +
-            "ON B.EMP_NO = E.NO\n")
+            "ON B.EMP_NO = E.NO\n" +
+            "WHERE B.DEL_YN = 'N'")
     List<BoardVo> getBoardList();
 
     @Select("SELECT \n" +
@@ -75,4 +76,7 @@ public interface BoardMapper {
             "WHERE BOARD_NO = #{boardNo}\n" +
             "</script>")
     int editBoard(@Param("vo") BoardVo vo, @Param("boardNo") String boardNo);
+
+    @Update("UPDATE BOARD SET DEL_YN = 'Y' WHERE BOARD_NO = #{boardNo}")
+    int deleteBoard(@Param("boardNo") String boardNo);
 }

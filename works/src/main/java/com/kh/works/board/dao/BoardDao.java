@@ -38,4 +38,8 @@ public class BoardDao {
         System.out.println(vo + boardNo);
         return mapper.editBoard(vo , boardNo);
     }
+
+    public int deleteBoard(String boardNo) {
+        return mapper.deleteBoard(boardNo);
+    }
 }
