@@ -23,12 +23,12 @@ public class EmpAccountController {
         return "login/emp_login";
     }
 
-    @GetMapping("emp/logout")
-    public String emplogout(HttpServletRequest req){
-       HttpSession session = req.getSession();
-        session.invalidate();
-        return "/emp/login";
-    }
+//    @GetMapping("emp/logout")
+//    public String emplogout(HttpServletRequest req){
+//       HttpSession session = req.getSession();
+//        session.invalidate();
+//        return "/emp/login";
+//    }
 
 
 }

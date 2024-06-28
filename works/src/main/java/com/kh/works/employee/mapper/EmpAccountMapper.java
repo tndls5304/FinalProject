@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface EmpAccountMapper {
 
-    @Select("SELECT ID,PWD,NO FROM EMPLOYEE WHERE ID=#{id}")
+    @Select("SELECT ID,PWD,NO,NAME FROM EMPLOYEE WHERE ID=#{id}")
     EmpSessionVo empLoginIdMatching(String id);
 
 
