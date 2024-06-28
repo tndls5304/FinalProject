@@ -15,10 +15,5 @@ public class TodoDao {
         return mapper.todoWrite(todoVo);
     }
 
-    //로그인 한 회원
-
-//    public EmployeeVo loginEmp(String no) {
-//     return mapper.loginEmp(no);
-//    }
 
 }

@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TodoManagerMapper {
 
-    @Insert("INSERT INTO TODO_MANAGER (TODO_MANAGER_NO, TODO_NO_MAN)VALUES (8, SEQ_TODO.CURRVAL)")
+    @Insert("INSERT INTO TODO_MANAGER (TODO_MANAGER_NO, TODO_NO_MAN)VALUES (#{todoManagerNo}, #{todoNoMan})")
     int todoWrite(TodoManangerVo manVo);
 }

@@ -23,18 +23,21 @@ public class TodoService {
     public int todoWrite(TodoAllVo allVo) {
 
         TodoVo todoVo = new TodoVo();
-        todoVo.setTodoNo(todoVo.getTodoNo());
-        todoVo.setTodoEmpNo(todoVo.getTodoEmpNo());
-        todoVo.setTitle(todoVo.getTitle());
-        todoVo.setContent(todoVo.getContent());
+        todoVo.setTodoEmpNo(allVo.getTodoEmpNo());
+        todoVo.setTitle(allVo.getTitle());
+        todoVo.setContent(allVo.getContent());
+        todoVo.setEndDate(allVo.getEndDate());
 
         TodoManangerVo manVo = new TodoManangerVo();
-        manVo.setTodoNoMan(manVo.getTodoManagerNo());
-        manVo.setTodoNoMan(manVo.getTodoNoMan());
+        manVo.setTodoManagerNo(allVo.getTodoManagerNo());
 
-
+        //todo작성
         int result1 = todoDao.todowrite(todoVo);
-        int result2 = manDao.todoWritr(manVo);
+
+        //작성 후 할일 담당 테이블에 넣을 todo번호 가져옴
+        manVo.setTodoNoMan(allVo.getTodoNo());
+
+        int result2 = manDao.todoWrite(manVo);
 
         return result1 * result2;
 
