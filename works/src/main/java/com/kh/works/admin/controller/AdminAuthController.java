@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -33,8 +34,8 @@ public class AdminAuthController {
     //서브관리자 권한 update
     @PostMapping("admin/update_auth")
     @ResponseBody
-    public int updateAuth(SubAdminMenuVo vo){
-        System.out.println("SubAdminMenuVo vo 잘받았다 "+vo);
+    public int updateAuth(@RequestBody List<SubAdminMenuVo> list){
+        System.out.println("SubAdminMenuVo vo 잘받았다 "+list);
         return 1;
     }
 }

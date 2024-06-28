@@ -18,11 +18,6 @@ $.ajax({
             const menuNoTextNode= document.createTextNode(vo.menuNo);
             tdTag01.appendChild(menuNoTextNode);
             trTag.appendChild(tdTag01);
-            const inputTagMenuNo=document.createElement("input");
-            inputTagMenuNo.setAttribute("type","hidden");
-            inputTagMenuNo.setAttribute("name",'menuNo')
-            inputTagMenuNo.setAttribute("value",vo.menuNo)
-            tdTag01.appendChild(inputTagMenuNo);
 
 
             const tdTag02=document.createElement("td");
@@ -35,8 +30,10 @@ $.ajax({
             const inputTag01=document.createElement("input");
             tdTag03.appendChild(inputTag01);
                 inputTag01.setAttribute("type","checkbox");
-                inputTag01.setAttribute("name","authSelectYn")
-                 inputTag01.setAttribute("value",vo.authSelectYn)
+
+                inputTag01.setAttribute("name",vo.menuNo)
+                inputTag01.setAttribute("data-type","authSelectYn")
+                 inputTag01.setAttribute("data",vo.authSelectYn)
 
                 if(vo.authSelectYn ==='Y'){
                   inputTag01.setAttribute("checked", true);
@@ -49,8 +46,9 @@ $.ajax({
 
             tdTag04.appendChild(inputTag02);
                 inputTag02.setAttribute("type","checkbox");
-                inputTag02.setAttribute("name","authInsertYn")
-                inputTag02.setAttribute("value",vo.authInsertYn)
+                inputTag02.setAttribute("name",vo.menuNo);
+                inputTag02.setAttribute("data-type","authInsertYn")
+                inputTag02.setAttribute("data",vo.authInsertYn)
                 if(vo.authInsertYn ==='Y'){
                 inputTag02.setAttribute("checked", true);
                  }
@@ -61,8 +59,9 @@ $.ajax({
             const inputTag03=document.createElement("input");
             tdTag05.appendChild(inputTag03);
                 inputTag03.setAttribute("type","checkbox");
-                inputTag03.setAttribute("name","authModifyYn")
-                 inputTag03.setAttribute("value",vo.authModifyYn)
+                inputTag03.setAttribute("name", vo.menuNo);
+                inputTag03.setAttribute("data-type","authModifyYn")
+                 inputTag03.setAttribute("data",vo.authModifyYn)
                 if(vo.authModifyYn ==='Y'){
                   inputTag03.setAttribute("checked", true);
                 }
@@ -72,8 +71,9 @@ $.ajax({
             const inputTag04=document.createElement("input");
             tdTag06.appendChild(inputTag04);
                 inputTag04.setAttribute("type","checkbox");
-                inputTag04.setAttribute("name","authRemoveYn")
-                inputTag04.setAttribute("value",vo.authRemoveYn)
+                inputTag04.setAttribute("name", vo.menuNo);
+                inputTag04.setAttribute("data-type","authRemoveYn")
+                inputTag04.setAttribute("data",vo.authRemoveYn)
                 if(vo.authRemoveYn ==='Y'){
                   inputTag04.setAttribute("checked", true);
                 }
@@ -103,29 +103,31 @@ console.log("수정하기 버튼 활성화되었슴다")
       var checkboxVoArr=[];
         //체크박스의 요소를 반복해서 꺼낸뒤에 하나의 객체를 만들고
 
-        var trList = $('tr')
-        var resultList = [];
-        for (let idx = 1; idx < trList.length; idx++) {
-         let inputList = $(trList[idx]).find('input');
-            let obj = {};
-            for (let sIdx = 0; sIdx < inputList.length; sIdx++){
-                let inputTag = inputList[sIdx];
-                obj[inputTag.name]= inputTag.value;
-            }
-            resultList.push(obj);
-        }
- console.log("객체는 ??",resultList)
+        $('input[type="checkbox"]').each(function(){
+        var menuNo=$(this).attr('name');      //1
+        var authType=$(this).attr('data-type')    //authSelectYn
+        var authValue=$(this).attr('data') //Y
 
-console.log("객체를 json으로바꿈",JSON.stringify(resultList))
+        var checkboxVo={
+          menuNo:menuNo,
+          authType:authType,
+          authValue:authValue
+
+        }
+         //배열에 차곡차곡 쌓아서
+          checkboxVoArr.push(checkboxVo);
+          })
+console.log("checkboxVoArr 보내는 배열에는 뭐가 담겼을까?",checkboxVoArr)
+
         $.ajax({
           url:'/admin/update_auth',
           type:'post',
-          contentType : "application/json; charset=utf-8",
-          data:JSON.stringify(resultList),
+          data:JSON.stringify(checkboxVoArr),
           success:function(){
             console.log("통신성공");
           },error:function () {
             console.log("통신실패");
           }
+
         });
 }
