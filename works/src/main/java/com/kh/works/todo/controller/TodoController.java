@@ -3,6 +3,8 @@ package com.kh.works.todo.controller;
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.security.EmpSessionVo;
 import com.kh.works.todo.service.TodoService;
+import com.kh.works.todo.vo.TodoAllVo;
+import com.kh.works.todo.vo.TodoVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,9 @@ public class TodoController {
 
     //할일 작성
     @GetMapping("write")
-    public String todoWrite(){
+    public String todoWrite(TodoAllVo allVo){
+        System.out.println("allVo = " + allVo);
+        int result = service.todoWrite(allVo);
         return "zzz";
     }
 

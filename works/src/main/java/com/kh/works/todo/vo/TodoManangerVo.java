@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class TodoManangerVo {
-    private String todoNo;
+    private String todoNoMan;
     private String todoManagerNo;
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class TodoAllVo {
-    private String todoNo1;
+    private String todoNo;
     private String todoEmpNo;
     private String title;
     private String content;
@@ -16,7 +16,7 @@ public class TodoAllVo {
     private String endDate;
 
 
-    private String todoNo2;
+    private String todoNoMan;
     private String todoManagerNo;
 
 
