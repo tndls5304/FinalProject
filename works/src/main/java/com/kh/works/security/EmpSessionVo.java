@@ -15,6 +15,7 @@ public class EmpSessionVo implements UserDetails {
    private String no;
    private String id;
    private String pwd;
+   private String name;
    private String entYn;
    private String loginFailNum;
    private String lockYn;
@@ -33,6 +34,7 @@ public class EmpSessionVo implements UserDetails {
    public String getUsername() {
       return id;
    }
+
 
    @Override
    public boolean isAccountNonExpired() {

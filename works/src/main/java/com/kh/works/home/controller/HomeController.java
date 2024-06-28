@@ -35,7 +35,9 @@ public class HomeController {
 
     public EmployeeVo selectEmpInfo( @AuthenticationPrincipal EmpSessionVo loginEmployeeVo){
 
-        String no=loginEmployeeVo.getNo();       // loginEmployeeVo.getNo()를 호출하여 직원 번호(no)를 가져옴
+        String no=loginEmployeeVo.getNo(); // loginEmployeeVo.getNo()를 호출하여 직원 번호(no)를 가져옴
+        String name=loginEmployeeVo.getName();
+        System.out.println("name?은?"+name);
         return  service.selectEmpInfo(no);      //직원번호에 해당하는 이름,아이디를 가져옴
     }
 
