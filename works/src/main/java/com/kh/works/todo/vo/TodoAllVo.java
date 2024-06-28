@@ -14,6 +14,8 @@ public class TodoAllVo {
     private String createDate;
     private String startDate;
     private String endDate;
+    private String todoEmpName;
+
 
 
     private String todoNoMan;

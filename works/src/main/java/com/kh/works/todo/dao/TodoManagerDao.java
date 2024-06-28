@@ -13,7 +13,7 @@ public class TodoManagerDao {
     private final TodoManagerMapper mapper;
 
 
-    public int todoWritr(TodoManangerVo manVo) {
+    public int todoWrite(TodoManangerVo manVo) {
         return mapper.todoWrite(manVo);
     }
 }

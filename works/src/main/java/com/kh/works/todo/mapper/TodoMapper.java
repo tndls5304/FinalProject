@@ -11,11 +11,8 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface TodoMapper {
 
-    @Insert("INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT) VALUES (SEQ_TODO.NEXTVAL, 7, #{title}, #{content})")
+    @Insert("INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT, END_DATE) VALUES (SEQ_TODO.NEXTVAL, #{todoEmpNo}, #{title}, #{content}, #{endDate})")
     int todoWrite(TodoVo todoVo);
 
-    //로그인 한 직원 가져오기
-//    @Select()
-//    EmployeeVo loginEmp(String no);
 
 }
