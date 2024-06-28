@@ -76,13 +76,10 @@ public class BoardController {
     @GetMapping("api/detail")
     @ResponseBody
     public BoardVo apiDetailBoard(@RequestParam("boardNo")String boardNo ,Model model , @AuthenticationPrincipal EmpSessionVo loginEmployeeVo){
-//        String loginNo = loginEmployeeVo.getNo();
-//        System.out.println("현재 로그인한 사람의 넘버: " + loginNo);
         BoardVo vo = service.getBoardDetail(boardNo);
         System.out.println("Controller Vo" + vo);
         model.addAttribute("boardNo" , boardNo);
         model.addAttribute("board" , vo);
-//        model.addAttribute("empNo", loginNo);
         return vo;
     }
 
@@ -100,6 +97,18 @@ public class BoardController {
         int result = service.editBoard(vo , boardNo);
 
         if(result != 1){
+            return "common/error";
+        }
+        return "redirect:/board/list";
+    }
+
+    //삭제하기
+    @GetMapping("delete")
+    public String deleteBoard(@RequestParam("boardNo") String boardNo){
+
+        int result = service.deleteBoard(boardNo);
+
+        if (result != 1){
             return "common/error";
         }
         return "redirect:/board/list";

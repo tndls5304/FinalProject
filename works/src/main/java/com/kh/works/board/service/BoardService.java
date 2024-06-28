@@ -42,4 +42,8 @@ public class BoardService {
         int result = dao.editBoard(vo,boardNo);
         return result;
     }
+
+    public int deleteBoard(String boardNo) {
+        return dao.deleteBoard(boardNo);
+    }
 }

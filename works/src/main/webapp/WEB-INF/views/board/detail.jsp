@@ -9,7 +9,7 @@
 </head>
 <body>
 
-        <%@ include file="/WEB-INF/views/layout/board/nav.jsp" %>
+    <%@ include file="/WEB-INF/views/layout/board/nav.jsp" %>
 
     <main>
         <%@ include file="/WEB-INF/views/layout/board/aside.jsp" %>
@@ -21,29 +21,15 @@
                 <div>제목</div>
                 <div>작성일</div>
                 <div>조회수</div>
-                <div hidden id="empNo">${empNo}</div>
+                <div style="display:none;" id="empNo">${empNo}</div>
             </div>
-                <div id="content">
-                    
-
-                    
-                </div>
-                <button id="btn">수정하기</button>
-            </div>
-
-        
-
+            <div id="content"></div>
+            <button id="btn" style="display:none;">수정하기</button>
+            <button id="delete">삭제하기</button>
+        </div>
     </main>
 
-    </body>
-    </html>
-
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/board/detail.js"></script>
 </body>
 </html>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-
-<script src="/js/board/detail.js"></script>
