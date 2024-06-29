@@ -36,21 +36,21 @@
      <main>
        <div id="sidebar">
          <div id="messenger-write"><button>쪽지쓰기</button></div>
-         <div id="messenger-status">
-           <div><button>안읽음</button></div>
-           <div><button>중요</button></div>
-           <div><button>휴지통</button></div>
-         </div>
-         <hr>
-         <div id="all-messenger">
-           <a href="http://localhost:8080/messenger/all"><p>전체쪽지</p></a>
-         </div>
-         <div id="receive-messenger">
-           <p>받은쪽지</p>
-         </div>
-         <div id="send-messenger">
-           <p>보낸쪽지</p>
-         </div>
+            <div id="messenger-status">
+               <a href="http://localhost:8080/messenger/unread"><div><button>안읽음</button></div></a>
+               <a href="http://localhost:8080/messenger/important"><div><button>중요</button></div></a>
+               <a href="http://localhost:8080/messenger/delete"><div><button>휴지통</button></div></a>
+            </div>
+            <hr>
+            <div id="all-messenger">
+               <a href="http://localhost:8080/messenger/all"><p>전체쪽지</p></a>
+            </div>
+            <div id="receive-messenger">
+               <a href="http://localhost:8080/messenger/received"><p>받은쪽지</p></a>
+            </div>
+            <div id="send-messenger">
+               <a href="http://localhost:8080/messenger/sent"><p>보낸쪽지</p></a>
+            </div>
        </div>
 
 
