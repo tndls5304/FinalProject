@@ -15,4 +15,8 @@ public class AdminAuthDao {
     public List<SubAdminMenuVo> getMenuVoList() {
         return mapper.getMenuVoList();
     }
+
+    public int updateAuth(SubAdminMenuVo vo) {
+        return mapper.updateAuth(vo);
+    }
 }

@@ -31,11 +31,21 @@ public class AdminAuthController {
         return service.getMenuVoList();
     }
 
-    //서브관리자 권한 update
+    //ajax로 보낸 데이터를 서브관리자 권한 update처리하기
     @PostMapping("admin/update_auth")
     @ResponseBody
-    public int updateAuth(@RequestBody List<SubAdminMenuVo> list){
+    public String updateAuth(@RequestBody List<SubAdminMenuVo> list){
         System.out.println("SubAdminMenuVo vo 잘받았다 "+list);
-        return 1;
+
+        int  result= service.updateAuth(list);
+
+
+        String str;
+        if(result==1){
+            str="권한 수정 성공⭐";
+        }else{
+            str="권한 수정 실패";
+        }
+        return str;
     }
 }

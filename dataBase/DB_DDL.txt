@@ -265,7 +265,7 @@ CREATE TABLE EMPLOYEE (
     ,PWD                    VARCHAR2(100)
     ,PROFILE                VARCHAR2(3000)
     ,PHONE                  CHAR(11)
-    ,HIRE_DATE              DATE
+    ,HIRE_DATE              DATE            DEFAULT SYSDATE
     ,ENT_YN                 CHAR(1)         DEFAULT 'N' CHECK(ENT_YN IN ('Y', 'N'))
     ,ENT_DATE               DATE
     ,LOGIN_FAIL_NUM         NUMBER
