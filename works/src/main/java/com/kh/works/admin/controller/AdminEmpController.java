@@ -8,6 +8,7 @@ import com.kh.works.admin.email.service.EmailService;
 import com.kh.works.admin.vo.DeptVo;
 import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import jakarta.mail.Transport;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,14 +58,43 @@ private final AdminEmpService adminEmpService;
     public void insertEmp(EmployeeVo employeeVo){
         adminEmpService.insertEmp(employeeVo);
 
-        //이메일보내기
-//        EmailMessage emailMessage=new EmailMessage();
-//        emailMessage.setTo("myth5803@naver.com");
-//        emailMessage.setSubject("다시한번보내용?");
-//        emailMessage.setMessage("하세요");
-//        emailService.sendMail(emailMessage);
-        return ;
+      //  이메일보내기:  @Options로 담아준 객체의 no를 가져와서 파라미터로
+        EmailMessage emailMessage=new EmailMessage();
+
+        emailMessage.setTo(employeeVo.getEmail());
+        emailMessage.setSubject(employeeVo.getName()+"님 ! baby works 회원가입 양식입니다");
+
+        String mailContent= """
+           <!DOCTYPE html>
+                <html lang="en">
+                    <head>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <title>Document</title>
+                    </head>
+                    <body>
+                      안녕하세요!
+                      [baby works] 의 가족이 되신 것을 진심으로 환영합니다!
+                      신규 입사를 축하드리며, 원활한 업무 진행을 위해 다음과 같은 사항을 안내드리고자 합니다.
+                      발급받으신 [사원 번호]를 이용하여, 아래 링크에서 개인 정보를 등록해 주시기 바랍니다.
+                      <a href="http://localhost:8080/join?memberNo=empNo"> [가입 등록 링크] </a>
+                      개인 정보 등록은 신속하게 처리해 주시면 감사하겠습니다. 이는 급여, 복지, 사내 시스템 접근 등 여러 중요한 절차와 관련이 있습니다.
+                      등록 과정에서 궁금한 사항이 있거나 문제가 발생할 경우, 언제든지 인사팀으로 연락 주시기 바랍니다.
+                      다시 한번, [baby works]의 일원이 되신 것을 환영하며, 앞으로의 활약을 기대하겠습니다.
+                      감사합니다.
+                      관리팀 드림
+                      [02-237-7772]
+                    </body>
+               </html>
+                """;
+        String empNo=employeeVo.getNo();
+        mailContent = mailContent.replace("empNo",empNo);
+
+        emailMessage.setMessage(mailContent);
+
+        emailService.sendMail(emailMessage);
     }
+
 
 
 
