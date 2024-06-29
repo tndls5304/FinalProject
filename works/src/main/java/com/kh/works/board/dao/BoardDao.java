@@ -30,7 +30,6 @@ public class BoardDao {
 
 
     public BoardVo getBoardDetail(String boardNo) {
-        System.out.println("daoNum =" + boardNo);
         return mapper.getdetailBoard(boardNo);
     }
 
