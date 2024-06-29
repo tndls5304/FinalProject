@@ -3,7 +3,6 @@ package com.kh.works.admin.controller;
 import com.kh.works.admin.servcie.AdminCommonService;
 import com.kh.works.admin.vo.AdminPageMenuVo;
 import com.kh.works.security.AdminSessionVo;
-import com.kh.works.security.EmpSessionVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

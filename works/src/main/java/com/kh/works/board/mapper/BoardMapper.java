@@ -56,7 +56,8 @@ public interface BoardMapper {
             "FROM BOARD B\n" +
             "JOIN EMPLOYEE E\n" +
             "ON B.EMP_NO = E.NO\n" +
-            "WHERE b.emp_no = #{empNo}")
+            "WHERE b.emp_no = #{empNo}" +
+            "AND B.DEL_YN = 'N'")
     List<BoardVo> myBoardList(String empNo);
 
     @Select("SELECT * FROM BOARD WHERE BOARD_NO = #{boardNo}")
