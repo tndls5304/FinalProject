@@ -35,11 +35,13 @@
 
      <main>
        <div id="sidebar">
-         <div id="messenger-write"><button>쪽지쓰기</button></div>
+         <div id="messenger-write">
+            <button onclick="moveToWrite()">쪽지쓰기</button>
+         </div>
          <div id="messenger-status">
-           <div><a href="http://localhost:8080/messenger/unread"><button>안읽음</button></a></div>
-           <div><button>중요</button></div>
-           <div><button>휴지통</button></div>
+           <a href="http://localhost:8080/messenger/unread"><div><button>안읽음</button></div></a>
+           <a href="http://localhost:8080/messenger/important"><div><button>중요</button></div></a>
+           <a href="http://localhost:8080/messenger/delete"><div><button>휴지통</button></div></a>
          </div>
          <hr>
          <div id="all-messenger">
@@ -80,7 +82,6 @@
         </form>
        </div>
      </main>
-
 
    </body>
 
@@ -181,6 +182,13 @@
                 console.log("중요 쪽지 통신실패...");
               },
             });
-          }
+        }
+
+
+
+        // /messenger/all에서 쪽지쓰기 눌렀을 때, 쪽지쓰기 페이지(/messenger/write)로 이동
+        function moveToWrite(){
+            window.location.href = "http://localhost:8080/messenger/write";
+        }
       </script>
    
