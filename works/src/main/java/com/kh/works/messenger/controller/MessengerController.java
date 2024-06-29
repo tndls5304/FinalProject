@@ -124,8 +124,9 @@ public class MessengerController {
     public String getImportantList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
         // 로그인한 사원의 사원번호를 가져온다.
         String receiverEmpNo = loginEmployeeVo.getNo();
+        String senderEmpNo = loginEmployeeVo.getNo();
 
-        List<MessengerVo> voList = service.getImportantList(receiverEmpNo);
+        List<MessengerVo> voList = service.getImportantList(receiverEmpNo, senderEmpNo);
         model.addAttribute("voList", voList);
         return "messenger/important";
     }
