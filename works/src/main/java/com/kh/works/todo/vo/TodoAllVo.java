@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class TodoAllVo {
-    private String todoNo;
+    private int todoNo;
     private String todoEmpNo;
     private String title;
     private String content;
