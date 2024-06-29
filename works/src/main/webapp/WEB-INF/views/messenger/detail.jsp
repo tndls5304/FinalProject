@@ -9,7 +9,7 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Messenger</title>
-     <link rel="stylesheet" href="/css/messenger/write.css">
+     <link rel="stylesheet" href="/css/messenger/detail.css">
    </head>
 
    <body>
@@ -61,11 +61,11 @@
            <c:forEach var="message" items="${voList}">
             <div class="">
                 <div style="display:none;" class="messenNo">${message.messenNo}</div>
-                <div id="">${message.title}</div>
-                <div id="">보낸사람&nbsp;&nbsp;${message.senderName}</div>
-                <div id="">받는사람&nbsp;&nbsp;${message.receiverName}</div>
-                <div id="">${message.sendDate}</div>
-                <div id="">${message.content}</div>
+                <div id="messenger-title">${message.title}</div>
+                <div id="messenger-sender">보낸사람&nbsp;&nbsp;${message.senderName}</div>
+                <div id="messenger-receiver">받는사람&nbsp;&nbsp;${message.receiverName}</div>
+                <div id="messenger-date">${message.sendDate}</div>
+                <div id="messenger-content-write">${message.content}</div>
             </div>
            </c:forEach>
          </div>

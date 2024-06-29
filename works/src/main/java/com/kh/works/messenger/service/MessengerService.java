@@ -48,8 +48,8 @@ public class MessengerService {
         return dao.read(messenNo);
     }
 
-    public List<MessengerVo> getImportantList(String receiverEmpNo) {
-        return dao.getImportantList(receiverEmpNo);
+    public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
+        return dao.getImportantList(receiverEmpNo, senderEmpNo);
     }
 
     public int importantStatus(int messenNo) {

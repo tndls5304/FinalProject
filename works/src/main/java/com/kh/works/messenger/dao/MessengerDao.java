@@ -47,8 +47,8 @@ public class MessengerDao {
     }
 
 
-    public List<MessengerVo> getImportantList(String receiverEmpNo) {
-        return mapper.getImportantList(receiverEmpNo);
+    public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
+        return mapper.getImportantList(receiverEmpNo, senderEmpNo);
     }
 
     public int importantStatus(int messenNo) {

@@ -51,8 +51,8 @@ public interface MessengerMapper {
     @Update("UPDATE MESSENGER SET READ_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
     int read(@Param("messenNo") int messenNo);
 
-    @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} ORDER BY SEND_DATE DESC")
-    List<MessengerVo> getImportantList(@Param("receiverEmpNo") String receiverEmpNo);
+    @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} UNION ALL SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.SENDER_EMP_NO = #{senderEmpNo} ORDER BY SEND_DATE DESC")
+    List<MessengerVo> getImportantList(@Param("receiverEmpNo") String receiverEmpNo, @Param("senderEmpNo") String senderEmpNo);
 
     @Update("UPDATE MESSENGER SET IMPORTANT_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
     int importantStatus(@Param("messenNo") int messenNo);
