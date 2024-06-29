@@ -7,12 +7,10 @@ import com.kh.works.todo.vo.TodoAllVo;
 import com.kh.works.todo.vo.TodoVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,23 +23,30 @@ public class TodoController {
 
     //할일 작성
     @PostMapping("write")
+    @ResponseBody
+//    반환 타입이 int일때는 JSON으로 직접 변환할 수 없기 때문에,
+//    @ResponseBody 애너테이션을 사용하거나 ResponseEntity<Integer>와 같은 객체를 사용하여
+//    클라이언트에게 JSON 형식으로 데이터를 반환할 수 있다.
     public int todoWrite(TodoAllVo allVo ){
 
-//        //내가 가지고 올 칼럼명, 사원명하고 이름 가져옴
-//        String todoEmpNo = loginEmployeeVo.getNo();
-//        String todoEmpName = loginEmployeeVo.getUsername();
-//        System.out.println("todoEmpNo = " + todoEmpNo);
-//        System.out.println("todoEmpName = " + todoEmpName);
-//        //할일 등록할때 사원번호와 이름이 필요하니까 세션에서 가져오기
-//        allVo.setTodoEmpNo(todoEmpNo);
-//        allVo.setTodoEmpName(todoEmpName);
-
-
-        System.out.println("allVo = " + allVo);
+        
         int result = service.todoWrite(allVo);
         System.out.println("result = " + result);
                 
         return result;
     }
 
+
+    //할일 상세 조회
+    @GetMapping("detail")
+    @ResponseBody
+    public ResponseEntity getTodoByNo(String no) {
+        System.out.println("@@@@@@@@@@@@@@@@@@@no = " + no);
+        TodoVo vo = service.getTodoByNo(no);
+
+        if (vo == null) {
+            throw new RuntimeException();
+        }
+        return ResponseEntity.ok("detail");
+    }
 }

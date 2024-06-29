@@ -16,4 +16,8 @@ public class TodoDao {
     }
 
 
+    //상세조회
+    public TodoVo getTodoByNo(String no) {
+        return mapper.getTodoByNo(no);
+    }
 }

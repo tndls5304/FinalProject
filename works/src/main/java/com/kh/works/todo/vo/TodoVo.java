@@ -1,10 +1,11 @@
 package com.kh.works.todo.vo;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
 public class TodoVo {
-    private String todoNo;
+    private int todoNo;
     private String todoEmpNo;
     private String title;
     private String content;
@@ -13,5 +14,8 @@ public class TodoVo {
     private String createDate;
     private String startDate;
     private String endDate;
+
+    //한 투두에 담당자가 여러명이라 조회해온걸 List에 담아준다
+    private List<TodoManangerVo > managers;
 
 }
