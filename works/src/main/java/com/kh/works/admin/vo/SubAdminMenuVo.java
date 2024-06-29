@@ -10,7 +10,4 @@ public class SubAdminMenuVo {
     private String  authInsertYn;
     private String  authModifyYn;
     private String  authRemoveYn;
-    private String  authType;
-    private String  authValue;
-
 }

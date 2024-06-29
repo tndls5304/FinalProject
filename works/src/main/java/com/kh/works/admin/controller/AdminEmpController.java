@@ -6,6 +6,7 @@ import com.kh.works.admin.servcie.AdminEmpService;
 import com.kh.works.admin.email.entity.EmailMessage;
 import com.kh.works.admin.email.service.EmailService;
 import com.kh.works.admin.vo.DeptVo;
+import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -39,8 +40,15 @@ private final AdminEmpService adminEmpService;
     @ResponseBody
     public List<DeptVo> selectDeptList(){
         List<DeptVo>voList =adminEmpService.selectDeptList();
-        System.out.println("컨트롤러야 부서리스트가져옴?"+voList);
         return  voList;
+    }
+
+    //신규사원 등록하는페이지: 직위명 조회해오기
+    @GetMapping("admin/select_position")
+    @ResponseBody
+    public List<PositionVo> selectPosition(){
+        List<PositionVo> voList=adminEmpService.selectPosition();
+        return voList;
     }
 
 
@@ -50,13 +58,11 @@ private final AdminEmpService adminEmpService;
         adminEmpService.insertEmp(employeeVo);
 
         //이메일보내기
-        EmailMessage emailMessage=new EmailMessage();
-        emailMessage.setTo("myth5803@naver.com");
-        emailMessage.setSubject("다시한번보내용?");
-        emailMessage.setMessage("하세요");
-
-
-        emailService.sendMail(emailMessage);
+//        EmailMessage emailMessage=new EmailMessage();
+//        emailMessage.setTo("myth5803@naver.com");
+//        emailMessage.setSubject("다시한번보내용?");
+//        emailMessage.setMessage("하세요");
+//        emailService.sendMail(emailMessage);
         return ;
     }
 

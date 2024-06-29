@@ -17,18 +17,15 @@ public class EmpAccountController {
         return "join/emp_join";
     }
 
-    //로그인페이지
+    
+   // 로그인페이지--------------지워야할거
     @GetMapping("emp/login")
     public String emplogin(){
         return "login/emp_login";
     }
 
-//    @GetMapping("emp/logout")
-//    public String emplogout(HttpServletRequest req){
-//       HttpSession session = req.getSession();
-//        session.invalidate();
-//        return "/emp/login";
-//    }
+
+
 
 
 }

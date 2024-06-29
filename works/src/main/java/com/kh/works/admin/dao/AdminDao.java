@@ -2,6 +2,7 @@ package com.kh.works.admin.dao;
 
 import com.kh.works.admin.mapper.AdminMapper;
 import com.kh.works.admin.vo.DeptVo;
+import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,4 +32,7 @@ public class AdminDao {
         return  mapper.selectTest();
     }
 
+    public List<PositionVo> selectPosition() {
+        return  mapper.selectPosition();
+    }
 }

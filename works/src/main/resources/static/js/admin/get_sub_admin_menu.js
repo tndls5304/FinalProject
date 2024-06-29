@@ -39,7 +39,7 @@ $.ajax({
                  inputTag01.setAttribute("value",vo.authSelectYn)
 
                 if(vo.authSelectYn ==='Y'){
-                  inputTag01.setAttribute("checked", true);
+                 inputTag01.setAttribute("checked", true);
                 }
              trTag.appendChild(tdTag03);
 
@@ -83,11 +83,31 @@ $.ajax({
     const menuListTable=document.querySelector("#menuList");
     menuListTable.appendChild(tbodyTag);
 
+//체크박스의 상태가 바뀌면 함수호출하는 이벤트리스너 등록하기
+ const checkboxTagList = document.querySelectorAll("input[type=checkbox]");
+     for(let i=0; i<checkboxTagList.length ;i++){
+        const checkboxTag= checkboxTagList[i];
+        checkboxTag.addEventListener('change',function(){
+        checkBoxStatusAccept(checkboxTag)
+        });
+     }
   },
   error:function(){
   console.log("통신실패")}
-
 })
+
+
+//체크박스의 상태 바뀌면 호출되는 함수
+function checkBoxStatusAccept(checkboxTag){
+    if(checkboxTag.checked){
+            checkboxTag.value='Y';
+      }
+    else{
+            checkboxTag.value='N';
+      }
+}
+
+
 
 
 
@@ -105,8 +125,11 @@ console.log("수정하기 버튼 활성화되었슴다")
 
         var trList = $('tr')
         var resultList = [];
-        for (let idx = 1; idx < trList.length; idx++) {
-         let inputList = $(trList[idx]).find('input');
+        for (let idx = 1; idx <trList.length; idx++) {
+        var tr = trList[idx];
+             //find: 자식요소중에 input태그 골라서 찾는거
+         let inputList = $(tr).find('input');
+
             let obj = {};
             for (let sIdx = 0; sIdx < inputList.length; sIdx++){
                 let inputTag = inputList[sIdx];
@@ -114,16 +137,16 @@ console.log("수정하기 버튼 활성화되었슴다")
             }
             resultList.push(obj);
         }
- console.log("객체는 ??",resultList)
+ console.log("서버로 보낼 리스트는 ??",resultList)
+console.log("서버에 보낼 객체를 json으로바꿈",JSON.stringify(resultList))
 
-console.log("객체를 json으로바꿈",JSON.stringify(resultList))
         $.ajax({
           url:'/admin/update_auth',
           type:'post',
           contentType : "application/json; charset=utf-8",
           data:JSON.stringify(resultList),
-          success:function(){
-            console.log("통신성공");
+          success:function(data){
+            alert(data);
           },error:function () {
             console.log("통신실패");
           }

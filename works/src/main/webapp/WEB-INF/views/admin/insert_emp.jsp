@@ -30,29 +30,28 @@
         <div class="header">
             <h2>신규 직원 계정등록</h2>
         </div>
-        <form id="signupForm" action="/app/?/?" method="post" enctype="multipart/form-data">
+        <form id="signupForm" action="/admin/insert_emp" method="post" >
           <div class="form-group">
-               <label for="employee_name" class=""><h3> 사원 이름 :</h3></label>
-               <input type="text"  name="employee_name" placeholder="사원 이름 입력">
+               <label for="name"><h3> 사원 이름 :</h3></label>
+               <input type="text"  name="name" placeholder="사원 이름 입력">
           </div>
           <div class="form-group">
-              <label for="id"><h3>이메일</h3> </label>
-              <input type="text"  name="email"  placeholder="이메일 입력">
+              <label for="email"><h3>이메일</h3> </label>
+              <input type="text"  name="email"  placeholder="이메일 입력" value="@gmail.com">
 
           </div>
           <div class="form-group">
-              <label for="dept"> <h3>부서</h3> </label>
-                    <select name="dept" class="dept_select" id="deptSelect"></select>
+              <label for="deptNo"> <h3>부서</h3> </label>
+                    <select name="deptNo" class="dept_select" id="deptSelect"></select>
           </div>
 
-
           <div class="form-group">
-            <label for="dept"> <h3>직위</h3> </label>
-                  <select name="dept" class="position_select"> <option value="부서번호">직위명</option></select>
+            <label for="positionNo"> <h3>직위</h3> </label>
+                  <select name="positionNo" class="position_select" id="positionSelect"></select>
         </div>
 
           <div class="btncenter">
-              <button type="button" >신규 직원 등록 </button>
+              <button type="submit" >신규 직원 등록 </button>
           </div>
       </form>
 
