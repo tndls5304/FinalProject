@@ -128,10 +128,23 @@ public class MessengerController {
         return "messenger/unread";
     }
     // 쪽지를 읽음으로 표시 - all.jsp에서 ajax 사용
+    // 수신자가 쪽지를 읽었을 경우에만, 읽음(Y)으로 바뀌어야 된다. 그러기 위해, 아래와 같은 로직 사용.
     @PostMapping("read")
-    public String read(@RequestParam(name = "messenNo") int messenNo) {
+    public String read(@RequestParam(name = "messenNo") int messenNo, HttpSession session) {
         System.out.println("Received messenNo: " + messenNo);
-        service.read(messenNo);
+
+        //로그인한 사원 정보를 가져온다.
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String receiverEmpNo = loginEmpVo.getNo();
+
+        //쪽지 정보를 가져온다.
+        MessengerVo messengerVo = service.getMessengerById(messenNo);
+
+        //쪽지의 수신자가 현재 로그인한 사원인지 확인하는 로직
+        if(messengerVo != null && receiverEmpNo.equals(messengerVo.getReceiverEmpNo())){
+            service.read(messenNo);
+        }
+
         return "redirect:/messenger/unread";
     }
 
@@ -150,6 +163,7 @@ public class MessengerController {
         return "messenger/important";
     }
     //쪽지를 중요로 표시
+    //*******본인이 중요하다고 표시한 쪽지는 본인 중요함에만 표시한다. - 이걸 아직 해결 안함. 해결하자!!!!!!!
     @PostMapping("importantStatus")
     public String importantStatus(@RequestParam(name = "messenNo") int messenNo){
         service.importantStatus(messenNo);

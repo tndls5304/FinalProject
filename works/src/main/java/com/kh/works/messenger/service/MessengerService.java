@@ -48,6 +48,10 @@ public class MessengerService {
         return dao.read(messenNo);
     }
 
+    public MessengerVo getMessengerById(int messenNo) {
+        return dao.getMessengerById(messenNo);
+    }
+
     public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
         return dao.getImportantList(receiverEmpNo, senderEmpNo);
     }
@@ -59,5 +63,7 @@ public class MessengerService {
     public List<MessengerVo> searchByKeyword(String keyWord) {
         return dao.searchByKeyWord(keyWord);
     }
+
+
 }
 

@@ -1,77 +1,224 @@
-aside{
-    width: 15%;
-    height: 95%;
-    background-color: rgba(229, 229, 229, 0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
+
 nav {
     width: 100%;
-    height: 7%;
-    border-top: 1px solid  rgb(194, 194, 194);
+    height: 5%;
+    border-top: 1px solid rgb(194, 194, 194);
     border-bottom: 1px solid rgb(194, 194, 194);
     display: flex;
     justify-content: space-between;
 }
 
-#right-sidebar{
+#right-sidebar {
     display: flex;
     align-items: center;
 }
 
-#right-sidebar div img{
-    width: 100px;
-    height: 70px;
+#right-sidebar div img {
+    width: 50px;
+    height: 45px;
 }
 
-
-#right-sidebar div:nth-child(1){
-    margin-left: 10px;
+#right-sidebar div button {
+    background-color: transparent;
+    border: none;
 }
 
-#right-sidebar div:nth-child(2){
-    font-size: 30px;
+#right-sidebar div button img {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+}
+
+#right-sidebar div:nth-child(2) {
+    margin-left: 10px;  
+}
+
+#right-sidebar div:nth-child(3) {
+    font-size: 23px;
     margin-left: 10px;
     font-weight: 500;
     color: rgb(70, 70, 70);
 }
 
-
-#left-sidebar{
+#left-sidebar {
     display: flex;
     align-items: center;
 }
 
-.v-line{
-    height:100%;
-    left: 50%;
-}
-
-#left-sidebar div a img{
-    width: 40px;
-    height: 40px;
-}
-
-#left-sidebar div button{
-    background-color:transparent;
-    border: none;
-}
-
-#left-sidebar div button img{
+#left-sidebar div a img {
     width: 30px;
     height: 30px;
 }
 
-#left-sidebar div:nth-child(1)
-,#left-sidebar div:nth-child(2)
-,#left-sidebar div:nth-child(3)
-,#left-sidebar div:nth-child(4)
-,#left-sidebar div:nth-child(5)
-,#left-sidebar div:nth-child(6)
-,#left-sidebar div:nth-child(7)
-,#left-sidebar div:nth-child(8)
-,#left-sidebar div:nth-child(9)
-{
+#left-sidebar div button {
+    background-color: transparent;
+    border: none;
+}
+
+#left-sidebar div button img {
+    width: 30px;
+    height: 30px;
+}
+
+#left-sidebar div:nth-child(1),
+#left-sidebar div:nth-child(2),
+#left-sidebar div:nth-child(3),
+#left-sidebar div:nth-child(4),
+#left-sidebar div:nth-child(5),
+#left-sidebar div:nth-child(6),
+#left-sidebar div:nth-child(7),
+#left-sidebar div:nth-child(8) {
     margin-right: 10px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar {
+    width: 15%;
+    height: 95%;
+    background-color: rgba(229, 229, 229, 0.5);
+}
+
+#content {
+    width: 85%;
+    height: auto;
+}
+
+/* -------------------------------------------------- */
+/* 전체 */
+#container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 20px;
+    width: 100%;
+    /* background-color: #fff; */
+    padding: 20px;
+    /* 프로필쪽 div 높이설정!!! 필요에 따라 바꾸기. */
+    height: 85vh; 
+}
+
+/* ----------------- */
+/* 프로필 부분 */
+#profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#profile-picture {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+#profile-info {
+    margin-top: 10px;
+}
+
+#clock {
+    font-size: 50px;
+    margin: 10px 0;
+}
+
+#work-status{
+    margin-top: 20%;
+}
+
+.work-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #fff;
+}
+
+#button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20%;
+}
+
+#start-button{
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    font-size: large;
+}
+#end-button{
+    padding: 5px 10px;
+    background-color: #f15a6e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    font-size: large;
+}
+
+#start-button:hover{
+    background-color: #218838;
+}
+#end-button:hover{
+    background-color: #ca4d4d;
+}
+
+/* ----------------- */
+/* 알림부분 */
+#main-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr; 
+    gap: 20px;
+    width: 100%;
+}
+
+#left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#board, #documents, #notify {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* 높이를 부모 높이에 맞출 때 사용한다. */
+    flex: 1;
 }

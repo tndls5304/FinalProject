@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="/css/layout/board/nav.css">
+<!-- <link rel="stylesheet" href="/css/layout/board/nav.css"> -->
+<link rel="stylesheet" href="/css/home/home.css">
+
+<!-- nav - css 링크 바꾼 거 말고 그대로 뒀습니다. 이전 css 링크도 주석처리 확인해 주세요. -->
 
 <nav>
     <div id="right-sidebar">

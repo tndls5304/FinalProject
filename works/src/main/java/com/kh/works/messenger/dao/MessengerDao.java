@@ -46,6 +46,9 @@ public class MessengerDao {
         return mapper.read(messenNo);
     }
 
+    public MessengerVo getMessengerById(int messenNo) {
+        return mapper.getMessengerById(messenNo);
+    }
 
     public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
         return mapper.getImportantList(receiverEmpNo, senderEmpNo);
@@ -58,5 +61,7 @@ public class MessengerDao {
     public List<MessengerVo> searchByKeyWord(String keyWord) {
         return mapper.searchByKeyWord(keyWord);
     }
+
+
 }
 
