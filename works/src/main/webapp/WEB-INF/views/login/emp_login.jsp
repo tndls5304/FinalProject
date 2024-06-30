@@ -23,16 +23,16 @@
 
         <div class="mainjoin"><h1>직원 로그인 </h1></div>
 
-        <form id="signupForm" action="/emp/login_proc" method="post">
+        <form id="signupForm" action="/emp/login" method="post">
 
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
-                <input type="text" id="id"  name="username" class="id-input" placeholder="아이디 입력">
+                <input type="text" id="id"  name="id" class="id-input" placeholder="아이디 입력">
 
             </div>
             <div class="form-group">
                 <label for="password"><h3>비밀번호</h3> </label>
-                <input type="password" id="password" name="password" placeholder="비밀번호 입력">
+                <input type="password" id="password" name="pwd" placeholder="비밀번호 입력">
 
             </div>
 

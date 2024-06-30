@@ -1,16 +1,38 @@
 package com.kh.works.admin.controller;
 
+import com.kh.works.admin.servcie.AdminAccountService;
+import com.kh.works.admin.vo.AdminVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
 public class AdminAccountController {
 
+    private final AdminAccountService service;
+
 //로그인페이지보여주기
     @GetMapping("admin/login")
     public String login() {
         return "login/admin_login";
+    }
+
+
+    //관리자로그인하기
+    @PostMapping("admin/login")
+    public String adminLoginMatching(AdminVo vo, HttpSession session, Model model){
+        AdminVo loginAdminVo =service.adminLoginMatching(vo);
+
+        if(loginAdminVo==null){
+            model.addAttribute("errorMsg","아이디 비밀번호 확인후 다시 로그인 해주세요!");
+            return "login/admin_login";
+        }else{
+            session.setAttribute("loginAdminVo",loginAdminVo);
+            return "redirect:admin/admin_home";
+        }
     }
 }
