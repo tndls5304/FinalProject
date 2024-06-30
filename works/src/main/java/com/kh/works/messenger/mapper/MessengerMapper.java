@@ -51,6 +51,9 @@ public interface MessengerMapper {
     @Update("UPDATE MESSENGER SET READ_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
     int read(@Param("messenNo") int messenNo);
 
+    @Select("SELECT MESSEN_NO , SENDER_EMP_NO , RECEIVER_EMP_NO , TITLE , CONTENT , SEND_DATE FROM MESSENGER WHERE MESSEN_NO = #{messenNo}")
+    MessengerVo getMessengerById(int messenNo);
+
     @Select("SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} UNION ALL SELECT E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.SENDER_EMP_NO = #{senderEmpNo} ORDER BY SEND_DATE DESC")
     List<MessengerVo> getImportantList(@Param("receiverEmpNo") String receiverEmpNo, @Param("senderEmpNo") String senderEmpNo);
 
@@ -59,4 +62,6 @@ public interface MessengerMapper {
 
 
     List<MessengerVo> searchByKeyWord(String keyWord);
+
+
 }
