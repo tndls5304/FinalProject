@@ -1,8 +1,8 @@
 package com.kh.works.todo.dao;
 
-import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.mapper.TodoMapper;
 import com.kh.works.todo.vo.TodoVo;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +20,20 @@ public class TodoDao {
     public TodoVo getTodoByNo(String no) {
         return mapper.getTodoByNo(no);
     }
+
+
+    //모든 할일 조회
+    public List<TodoVo> getTodoListAll(String empNo) {
+        return mapper.getTodoListAll(empNo);
+    }
+
+    //참여자인 할일 조회
+    public List<TodoVo> getTodoListPar(String empNo) {
+        return mapper.getTodoListPar(empNo);
+    }
+
+    //할일 수정
+//    public int todoEdit(TodoVo vo, String todoNo) {
+//        return mapper.todoEdit(vo, todoNo);
+//    }
 }

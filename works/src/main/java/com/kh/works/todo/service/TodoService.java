@@ -1,12 +1,12 @@
 package com.kh.works.todo.service;
 
 
-import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.dao.TodoDao;
 import com.kh.works.todo.dao.TodoManagerDao;
 import com.kh.works.todo.vo.TodoAllVo;
 import com.kh.works.todo.vo.TodoManangerVo;
 import com.kh.works.todo.vo.TodoVo;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,4 +50,20 @@ public class TodoService {
     public TodoVo getTodoByNo(String no) {
         return todoDao.getTodoByNo(no);
     }
+
+
+    //모든 할일 조회
+    public List<TodoVo> getTodoListAll(String empNo) {
+        return todoDao.getTodoListAll(empNo);
+    }
+
+    //참여자인 할일 조회
+    public List<TodoVo> getTodoListPar(String empNo) {
+        return todoDao.getTodoListPar(empNo);
+    }
+
+    //할일 수정
+//    public int todoEdit(TodoVo vo, String todoNo) {
+//        return todoDao.todoEdit(vo, todoNo);
+//    }
 }
