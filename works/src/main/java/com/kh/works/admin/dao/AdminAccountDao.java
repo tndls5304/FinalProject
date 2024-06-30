@@ -1,6 +1,7 @@
 package com.kh.works.admin.dao;
 
-import com.kh.works.admin.mapper.AdminMapper;
+import com.kh.works.admin.mapper.AdminAccountMapper;
+import com.kh.works.admin.mapper.AdminEmpMapper;
 import com.kh.works.admin.vo.AdminVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -9,8 +10,7 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class AdminAccountDao {
 
-    private final AdminMapper mapper;
-
+    private final AdminAccountMapper mapper;
 
 
     public AdminVo adminLoginMatching(AdminVo vo) {
