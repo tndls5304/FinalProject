@@ -29,13 +29,6 @@ public class AdminEmpService {
     }
 
 
-    //테스트
-    public String getTest() {
-
-        return dao.getTest();
-    }
-
-
     public List<PositionVo> selectPosition() {
         return dao.selectPosition();
     }

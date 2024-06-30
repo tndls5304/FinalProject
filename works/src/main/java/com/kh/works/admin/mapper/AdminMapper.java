@@ -6,6 +6,7 @@ import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -19,10 +20,15 @@ public interface AdminMapper {
     List<DeptVo> selectDeptList();
 
     @Insert("INSERT INTO EMPLOYEE (NO, EMAIL, NAME, DEPT_NO, POSITION_NO)VALUES(SEQ_EMPLOYEE.NEXTVAL, #{email},#{name}, #{deptNo}, #{positionNo})")
+    @Options(useGeneratedKeys = true, keyProperty = "no", keyColumn = "NO")
     void insertEmp(EmployeeVo employeeVo);
 
 
 
     @Select("SELECT ID,PWD,ADMIN_AUTHORITY_NO FROM ADMIN WHERE ID=#{id} AND PWD=#{pwd}")
     AdminVo adminLoginMatching(AdminVo vo);
+
+    @Select("SELECT NO,NAME\n" +
+            "FROM POSITION")
+    List<PositionVo> selectPosition();
 }

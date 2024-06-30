@@ -41,7 +41,7 @@ public class EmpAccountController {
            return "login/emp_login";
         }else{
             session.setAttribute("loginEmpVo",loginEmpVo);
-            return "redirect:home/home";
+            return "redirect:/home";
         }
     }
 
