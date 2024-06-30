@@ -32,7 +32,7 @@ public class AdminAccountController {
             return "login/admin_login";
         }else{
             session.setAttribute("loginAdminVo",loginAdminVo);
-            return "redirect:admin/admin_home";
+            return "redirect:/admin/home";
         }
     }
 }

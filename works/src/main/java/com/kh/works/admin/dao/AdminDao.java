@@ -25,13 +25,6 @@ public class AdminDao {
         mapper.insertEmp(employeeVo);
     }
 
-
-    //테스ㅌ,
-    public String getTest(){
-
-        return  mapper.selectTest();
-    }
-
     public List<PositionVo> selectPosition() {
         return  mapper.selectPosition();
     }
