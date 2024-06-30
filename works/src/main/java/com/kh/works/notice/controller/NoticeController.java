@@ -1,5 +1,6 @@
 package com.kh.works.notice.controller;
 
+import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.notice.service.NoticeService;
 import com.kh.works.notice.vo.NoticeVo;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +27,10 @@ public class NoticeController {
     @PostMapping("write")
     public String write(NoticeVo vo ,HttpSession session){
 
+        AdminVo loginAdminVo = (AdminVo) session.getAttribute("lgoinAdminVo");
+
+        String no = loginAdminVo.getNo();
+
         int result = service.write(vo);
         if(result != 1){
             return "common/error";
@@ -45,6 +50,7 @@ public class NoticeController {
     public List<NoticeVo> list(){
         return service.list();
     }
+
     //관리자 번호 받아와서 관리자만 수정삭제하기 버튼 만들기
     //게시물 상세조회
     @GetMapping("detail")
@@ -55,7 +61,12 @@ public class NoticeController {
 
     //게시물 상세조회 글씨 내보내기
     @GetMapping("api/detail")
-    public NoticeVo detail(@RequestParam("noticeNo") String noticeNo){
+    public NoticeVo detail(@RequestParam("noticeNo") String noticeNo , HttpSession session){
+
+        AdminVo loginAdminNo = (AdminVo)session.getAttribute("loginAdminVo");
+
+        String no = loginAdminNo.getNo();
+        session.setAttribute("no" , no);
         NoticeVo vo = service.detail(noticeNo);
         return vo;
     }
