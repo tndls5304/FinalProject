@@ -1,11 +1,13 @@
 package com.kh.works.board.controller;
 
+//import com.kh.works.security.EmpSessionVo;
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.kh.works.board.service.BoardService;
 import com.kh.works.board.vo.BoardVo;
-import com.kh.works.security.EmpSessionVo;
+import com.kh.works.employee.vo.EmployeeVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +29,14 @@ public class BoardController {
 
     //게시물 작성하기 백엔드
     @PostMapping("write")
-    public String write(BoardVo vo, @AuthenticationPrincipal EmpSessionVo loginEmployeeVo){
-        String empNo = loginEmployeeVo.getNo();
+    public String write(BoardVo vo, HttpSession session){
+
+        //추가했어요 !!!!
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
+        //추가했어요!!!!
+        String empNo = loginEmpVo.getNo();
+        //String empNo = loginEmployeeVo.getNo();
         vo.setEmpNo(empNo);
         int result = service.write(vo);
         if (result != 1){
@@ -59,15 +67,23 @@ public class BoardController {
     //내 게시물 데이터
     @GetMapping("api/mylist")
     @ResponseBody
-    public List<BoardVo> myBoardList( @AuthenticationPrincipal EmpSessionVo loginEmployeeVo){
-        String empNo = loginEmployeeVo.getNo();
+    public List<BoardVo> myBoardList(HttpSession session){
+
+        //추가했어요 !!!!
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
+        String empNo = loginEmpVo.getNo();
         return service.myBoardList(empNo);
     }
 
 //    게시물 상세조회 화면
     @GetMapping("/detail")
-    public String getdetailBoard(@RequestParam("boardNo")String boardNo ,Model model , @AuthenticationPrincipal EmpSessionVo loginEmployeeVo) {
-        String loginNo = loginEmployeeVo.getNo();
+    public String getdetailBoard(@RequestParam("boardNo")String boardNo ,Model model , HttpSession session) {
+
+        //추가했어요 !!!!
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
+        String loginNo = loginEmpVo.getNo();
         System.out.println("현재 로그인한 사람의 넘버: " + loginNo);
         model.addAttribute("empNo", loginNo);
         return "board/detail";
@@ -75,7 +91,7 @@ public class BoardController {
 
     @GetMapping("api/detail")
     @ResponseBody
-    public BoardVo apiDetailBoard(@RequestParam("boardNo")String boardNo ,Model model , @AuthenticationPrincipal EmpSessionVo loginEmployeeVo){
+    public BoardVo apiDetailBoard(@RequestParam("boardNo")String boardNo ,Model model , HttpSession session){
         BoardVo vo = service.getBoardDetail(boardNo);
         System.out.println("Controller Vo" + vo);
         model.addAttribute("boardNo" , boardNo);

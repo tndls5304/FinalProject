@@ -2,15 +2,16 @@ package com.kh.works.messenger.controller;
 
 //import에 EmpSessionVo 꼭 추가하기
 import com.kh.works.employee.vo.EmployeeVo;
-import com.kh.works.security.EmpSessionVo;
+//import com.kh.works.security.EmpSessionVo;
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
+//import org.springframework.security.core.userdetails.UserDetails;
 import com.kh.works.messenger.service.MessengerService;
 import com.kh.works.messenger.vo.MessengerVo;
 import com.oracle.wls.shaded.org.apache.xpath.operations.Mod;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,11 +33,14 @@ public class MessengerController {
 
     //쪽지 작성
     @PostMapping("write")
-    //로그인 한 사원번호로 받기 위해 @AuthenticationPrincipal~ 사용
-    public String write(MessengerVo vo, @AuthenticationPrincipal EmpSessionVo loginEmployeeVo) {
+    //로그인 한 사원번호로 받기 위해 @AuthenticationPrincipal~ 사용 - 이거 삭제함
+    //로그인 한 사원 - HttpSession session 사용해서 꺼내옴
+    public String write(MessengerVo vo, HttpSession session) {
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
 
         //내가 가지고 올 칼럼명, 즉 나는 사원번호이니까 empNo로 변수명 지어줌
-        String empNo = loginEmployeeVo.getNo();
+        String empNo = loginEmpVo.getNo();
         System.out.println("empNo = " + empNo);
         //현재 MessengerVo에 senderEmpNo가 필요하니까 setSenderEmpNo(내가 지어준 변수명)
         vo.setSenderEmpNo(empNo);
@@ -61,10 +65,13 @@ public class MessengerController {
 
     //전체 쪽지 화면
     @GetMapping("all")
-    public String getMessengerList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model) {
+    public String getMessengerList(HttpSession session, Model model) {
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
         // 로그인한 사원의 사원번호를 가져온다.
-        String senderEmpNo = loginEmployeeVo.getNo();
-        String receiverEmpNo = loginEmployeeVo.getNo();
+        String senderEmpNo = loginEmpVo.getNo();
+        String receiverEmpNo = loginEmpVo.getNo();
 
         List<MessengerVo> voList = service.getMessengerList(senderEmpNo, receiverEmpNo);
         model.addAttribute("voList", voList);
@@ -73,9 +80,12 @@ public class MessengerController {
 
     //받은 쪽지 화면
     @GetMapping("/received")
-    public String getReceivedList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model) {
+    public String getReceivedList(HttpSession session, Model model) {
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
         // 로그인한 사원의 사원번호를 가져온다.
-        String receiverEmpNo = loginEmployeeVo.getNo();
+        String receiverEmpNo = loginEmpVo.getNo();
 
         List<MessengerVo> voList = service.getReceivedList(receiverEmpNo);
         model.addAttribute("voList", voList);
@@ -84,9 +94,12 @@ public class MessengerController {
 
     //보낸 쪽지 화면
     @GetMapping("sent")
-    public String getSentList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
+    public String getSentList(HttpSession session, Model model){
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
         // 로그인한 사원의 사원번호를 가져온다.
-        String senderEmpNo = loginEmployeeVo.getNo();
+        String senderEmpNo = loginEmpVo.getNo();
 
         List<MessengerVo> voList = service.getSentList(senderEmpNo);
         model.addAttribute("voList", voList);
@@ -103,9 +116,12 @@ public class MessengerController {
 
     //안 읽음 쪽지 화면
     @GetMapping("unread")
-    public String getUnreadList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
+    public String getUnreadList(HttpSession session, Model model){
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
         // 로그인한 사원의 사원번호를 가져온다.
-        String receiverEmpNo = loginEmployeeVo.getNo();
+        String receiverEmpNo = loginEmpVo.getNo();
 
         List<MessengerVo> voList = service.getUnreadList(receiverEmpNo);
         model.addAttribute("voList", voList);
@@ -121,10 +137,13 @@ public class MessengerController {
 
     //중요 쪽지 화면
     @GetMapping("important")
-    public String getImportantList(@AuthenticationPrincipal EmpSessionVo loginEmployeeVo, Model model){
+    public String getImportantList(HttpSession session, Model model){
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+
         // 로그인한 사원의 사원번호를 가져온다.
-        String receiverEmpNo = loginEmployeeVo.getNo();
-        String senderEmpNo = loginEmployeeVo.getNo();
+        String receiverEmpNo = loginEmpVo.getNo();
+        String senderEmpNo = loginEmpVo.getNo();
 
         List<MessengerVo> voList = service.getImportantList(receiverEmpNo, senderEmpNo);
         model.addAttribute("voList", voList);
