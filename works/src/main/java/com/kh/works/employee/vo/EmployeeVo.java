@@ -1,6 +1,7 @@
 package com.kh.works.employee.vo;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class EmployeeVo {
@@ -10,7 +11,9 @@ public class EmployeeVo {
     private String name;
     private String  id;
     private String pwd;
-    private String profile;
+    private String pwdCheck;
+    private MultipartFile profile;
+    private String changeProfileName;
     private String phone;
     private String  hireDate;
     private String entYn;

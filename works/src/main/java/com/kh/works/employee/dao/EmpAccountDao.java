@@ -11,8 +11,16 @@ public class EmpAccountDao {
     private final EmpAccountMapper mapper;
 
 
-
     public EmployeeVo empLoginMatching(EmployeeVo vo) {
+
         return mapper.empLoginMatching(vo);
+    }
+
+    public int empJoinDuplicateTest(String id) {
+        return mapper.empJoinDuplicateTest(id);
+    }
+
+    public int join(EmployeeVo vo) {
+       return mapper.join(vo);
     }
 }
