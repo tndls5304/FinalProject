@@ -29,9 +29,9 @@ public class HomeController {
     @ResponseBody
 
     public EmployeeVo selectEmpInfo(HttpSession session) {
-
+        //세션에서 로그인한 사원객체꺼내기
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
-
+        //세션에서 원하는 정보꺼내기
         String no = loginEmpVo.getNo();
         String name = loginEmpVo.getName();
 
