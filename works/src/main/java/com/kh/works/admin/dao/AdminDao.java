@@ -1,6 +1,6 @@
 package com.kh.works.admin.dao;
 
-import com.kh.works.admin.mapper.AdminMapper;
+import com.kh.works.admin.mapper.AdminEmpMapper;
 import com.kh.works.admin.vo.DeptVo;
 import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminDao {
 
-    private final AdminMapper mapper;
+    private final AdminEmpMapper mapper;
 
     //신규사원 등록하는 페이지: 옵션에 고를 수 있게 부서 조회해오기
     public List<DeptVo> selectDeptList(){
