@@ -76,7 +76,7 @@ private final AdminEmpService adminEmpService;
                       [baby works] 의 가족이 되신 것을 진심으로 환영합니다!
                       신규 입사를 축하드리며, 원활한 업무 진행을 위해 다음과 같은 사항을 안내드리고자 합니다.
                       발급받으신 [사원 번호]를 이용하여, 아래 링크에서 개인 정보를 등록해 주시기 바랍니다.
-                      <a href="http://localhost:8080/join?memberNo=empNo"> [가입 등록 링크] </a>
+                      <a href="http://localhost:8080/emp/join?memberNo=empNo"> [가입 등록 링크] </a>
                       개인 정보 등록은 신속하게 처리해 주시면 감사하겠습니다. 이는 급여, 복지, 사내 시스템 접근 등 여러 중요한 절차와 관련이 있습니다.
                       등록 과정에서 궁금한 사항이 있거나 문제가 발생할 경우, 언제든지 인사팀으로 연락 주시기 바랍니다.
                       다시 한번, [baby works]의 일원이 되신 것을 환영하며, 앞으로의 활약을 기대하겠습니다.

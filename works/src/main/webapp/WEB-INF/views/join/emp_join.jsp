@@ -10,42 +10,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>직원 새계정등록 </title>
-    <!-- 글씨체 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
-
+    <!-- 연결된 정적파일-->
         <link rel="stylesheet" href="/css/join/emp_join.css">
-        <script src="/js/join/emp_join.js"></script>
+        <script defer src="/js/join/emp_join.js"></script>
+    <!-- jstl라이브러리쓰기-->
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <!-- 제이쿼리-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- 글씨체 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+     <!-- 간단한 에러메세지-->
+       <script>
+            <c:if test="${not empty errorMsg}">
+                     alert('${errorMsg}');
+            </c:if>
+       </script>
 </head>
 <body>
 
     <main>
 
-        <div class="mainjoin"><h1>신규 직원 등록</h1></div>
+        <div class="mainjoin"><h1>baby works 신규 직원 등록</h1></div>
 
-        <form id="signupForm" action="/app/?/?" method="post" enctype="multipart/form-data">
+        <form id="signupForm" action="/emp/join" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                 <label for="employee_no" class=""><h3>발급된 사원번호 :</h3></label>
-                 <input type="text" id="employeeNumber" name="employee_no" readonly>
+                 <label for="no"><h3>발급된 사원번호 :</h3></label>
+                 <input type="text" value= ${memberNo} id="no" name="no" <%--readonly--%>
+                 >
             </div>
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
                 <input type="text" id="id"  name="id" class="id-input" placeholder="아이디 입력">
-                <button class="id-button">중복검사</button>
+                <button type="button" id="idDupTestBtn" class="id-button">id중복검사</button>
                 <div class="error-message" id="id-error"></div>
             </div>
             <div class="form-group">
-                <label for="password"><h3>비밀번호</h3> </label>
-                <input type="password" id="password" name="password" placeholder="비밀번호 입력">
-                <div class="error-message" id="password-error"></div>
+                <label for="pwd"><h3>비밀번호</h3> </label>
+                <input type="password" id="pwd" name="pwd" placeholder="비밀번호 입력">
+                <div class="error-message" id="pwd-error"></div>
             </div>
             <div class="form-group">
-                <label for="passwordCheck"><h3>비밀번호 확인</h3> </label>
-                <input type="password" id="password-check" name="password-check" placeholder="비밀번호 확인">
-                <div class="error-message" id="passwordCheck-error"></div>
-                <div class="error-message" id="password-mismatch-error"></div>
+                <label for="pwdCheck"><h3>비밀번호 확인</h3> </label>
+                <input type="password" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인">
+                <div class="error-message" id="pwdCheck-error"></div>
+                <div class="error-message" id="pwd-mismatch-error"></div>
             </div>
             <div class="form-group">
                 <label for="name"><h3>이름</h3></label>
@@ -58,8 +69,14 @@
                 <div class="error-message" id="phone-error"></div>
             </div>
 
+          <div class="form-group">
+                 <label for="profile"><h3>프로필사진</h3></label>
+                 <input type="file" id="profile" name="profile">
+                 <div class="error-message" id="profile-error"></div>
+            </div>
 
-            <div id="reviewPreviewImage" class="form-group"></div>
+
+
             <div class="btncenter">
                 <button type="button" onclick="validateForm()">계정등록하기</button>
             </div>

@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface AdminCommonMapper {
 
+ //관리자 번호에 따라 사이드바 메뉴 url 골라서  주기
  @Select(" SELECT P.NO,P.NAME,p.URL,A.NAME AS adminType\n" +
          "   FROM ADMIN_AUTHORITY A\n" +
          "   JOIN ADMIN_PAGE_MENU_AUTHORITY M ON A.NO=M.ADMIN_AUTHORITY_NO\n" +
