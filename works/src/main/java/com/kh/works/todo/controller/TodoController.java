@@ -1,14 +1,15 @@
 package com.kh.works.todo.controller;
 
+//주석처리 했어용
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
+//import com.kh.works.security.EmpSessionVo;
 import com.kh.works.employee.vo.EmployeeVo;
-import com.kh.works.security.EmpSessionVo;
 import com.kh.works.todo.service.TodoService;
 import com.kh.works.todo.vo.TodoAllVo;
 import com.kh.works.todo.vo.TodoVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
