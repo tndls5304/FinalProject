@@ -105,7 +105,7 @@ private final AdminEmpService adminEmpService;
 
 
     //사원관리 페이지: 전체 사원 목록조회
-   @GetMapping
+   @GetMapping("admin/list_all_emp")
    @ResponseBody
     public List<EmployeeVo> getAllEmpList(){
         return adminEmpService.getAllEmpList();

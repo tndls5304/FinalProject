@@ -13,11 +13,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
    <link rel="stylesheet" href="/css/login/admin.login.css">
-
+    <!-- jstl라이브러리쓰기-->
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <!-- 간단한 알람창 -->
+    <script>
+        <c:if test="${not empty errorMsg}">
+                     alert('${errorMsg}');
+        </c:if>
+     </script>
 </head>
-<style>
-
-</style>
 <body>
 
     <main>
