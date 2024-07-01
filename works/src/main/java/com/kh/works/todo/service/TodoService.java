@@ -28,6 +28,7 @@ public class TodoService {
         todoVo.setTitle(allVo.getTitle());
         todoVo.setContent(allVo.getContent());
         todoVo.setEndDate(allVo.getEndDate());
+        todoVo.setTodoEmpNo(allVo.getTodoEmpNo());
 
         //todo작성 실행
         int result1 = todoDao.todowrite(todoVo);

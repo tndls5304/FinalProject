@@ -25,7 +25,7 @@ public class TodoController {
 
 
     //할일 작성 화면
-    @PostMapping("write")
+    @GetMapping("write")
     public String write(){
         return "todo/write";
     }
