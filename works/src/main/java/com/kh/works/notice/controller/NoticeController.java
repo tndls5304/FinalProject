@@ -6,6 +6,7 @@ import com.kh.works.notice.vo.NoticeVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,13 +64,15 @@ public class NoticeController {
 
     //게시물 상세조회 글씨 내보내기
     @GetMapping("api/detail")
-    public NoticeVo detail(@RequestParam("noticeNo") String noticeNo , HttpSession session){
+    @ResponseBody
+    public NoticeVo detail(@RequestParam("noticeNo") String noticeNo , Model model, HttpSession session){
 
+        NoticeVo vo = service.detail(noticeNo);
+        model.addAttribute("noticeNo" , noticeNo);
         AdminVo loginAdminNo = (AdminVo)session.getAttribute("loginAdminVo");
-
         String no = loginAdminNo.getNo();
         session.setAttribute("no" , no);
-        NoticeVo vo = service.detail(noticeNo);
+
         return vo;
     }
 

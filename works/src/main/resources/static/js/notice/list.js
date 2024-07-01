@@ -23,8 +23,8 @@ $.ajax({
         }
 
         function detail(event) {
-            const noticeNo =  event.target.getAttribute(' data-noticeNo');
-            window.location.href="/notice/detail?noticeNo=" + noticeNo;
+            const noticeNo = event.currentTarget.getAttribute('data-noticeNo')
+            window.location.href="/notice/detail?noticeNo="+ noticeNo;
         }
 
 
