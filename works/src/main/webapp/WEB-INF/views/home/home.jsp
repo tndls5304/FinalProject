@@ -22,25 +22,27 @@
       <main>
         <div id="container">
                     <div id="profile-section">
-                        <img src="https://sports.chosun.com/news/html/2021/02/19/2021022001001441300094961.jpg" alt="Profile Picture" id="profile-picture">
-                        <div id="profile-info">
-                            <h2>신세경 부장</h2>
-                            <p>인사총무팀</p>
-                            <div id="clock">00:00:00</div>
-                            <div id="work-status">
-                                <div class="work-item">
-                                    <p>출근시간 </p>
-                                </div>
-                                <div class="work-item">
-                                    <p>퇴근시간 </p>
-                                </div>
-                                <div id="button-group">
-                                    <button id="start-button">출근하기</button>
-                                    <button id="end-button">퇴근하기</button>
-                                    <div style="display:none;" class="empNo">${loginEmpVo.no}</div>
+                        <c:forEach var="employee" items="${employeeList}">
+                            <img src="https://sports.chosun.com/news/html/2021/02/19/2021022001001441300094961.jpg" alt="Profile Picture" id="profile-picture">
+                            <div id="profile-info">
+                                <h2>${employee.name} ${employee.positionNo}</h2>
+                                <p>${employee.deptNo}</p>
+                                <div id="clock">00:00:00</div>
+                                <div id="work-status">
+                                    <div class="work-item">
+                                        <p>출근시간 </p>
+                                    </div>
+                                    <div class="work-item">
+                                        <p>퇴근시간 </p>
+                                    </div>
+                                    <div id="button-group">
+                                        <button id="start-button">출근하기</button>
+                                        <button id="end-button">퇴근하기</button>
+                                        <div style="display:none;" class="empNo">${loginEmpVo.no}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:forEach>
                     </div>
 
             <div id="main-section">

@@ -7,6 +7,8 @@ import com.kh.works.home.mapper.HomeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class HomeDao {
@@ -15,6 +17,10 @@ public class HomeDao {
 
     public int start(AttendVo vo) {
         return mapper.start(vo);
+    }
+
+    public List<EmployeeVo> getEmployeeInfor() {
+        return mapper.getEmployeeInfor();
     }
 
 
