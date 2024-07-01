@@ -23,8 +23,8 @@ public class TodoDao {
 
 
     //모든 할일 조회
-    public List<TodoVo> getTodoListAll(String empNo) {
-        return mapper.getTodoListAll(empNo);
+    public List<TodoVo> getTodoListAll(TodoVo vo) {
+        return mapper.getTodoListAll(vo);
     }
 
     //참여자인 할일 조회

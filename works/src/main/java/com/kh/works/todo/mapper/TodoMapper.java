@@ -52,7 +52,7 @@ public interface TodoMapper {
             "WHERE (T.TODO_EMP_NO = #{empNo} OR M.TODO_MANAGER_NO = #{empNo})\n" +
             "AND T.DEL_YN = 'N'\n" +
             "AND M.DEL_YN = 'N'")
-    List<TodoVo> getTodoListAll(String empNo);
+    List<TodoVo> getTodoListAll(TodoVo vo);
 
 
     //참여자인 할일 조회
