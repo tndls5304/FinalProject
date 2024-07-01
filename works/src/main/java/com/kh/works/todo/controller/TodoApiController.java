@@ -78,7 +78,7 @@ public class TodoApiController {
     }
 
 
-    //@@@@@@@@@@@검색이 안되고 모두 넘어옴...
+
     //할일 검색
     //@RequestParam을 이용해 요청을 매개변수로 받기 reqired = false =>해당 파라미터가 필수가 아니라는 뜻
     @GetMapping("search")
@@ -92,11 +92,11 @@ public class TodoApiController {
 
 
     //할일 삭제
-    //테이블이 나눠져 있기때문에 두개의 테이블을 업데이트 해야 한다.
+    //테이블이 나눠져 있기때문에 두개의 테이블을 업데이트 해야 한다.//sql에서 트리거 사용...!
     @ResponseBody
-    @DeleteMapping
-    public int todoDelete(String no){
-        int result = service.todoDelete(no);
+    @GetMapping("delete")
+    public int todoDelete(@RequestParam("todoNo") String todoNo){
+        int result = service.todoDelete(todoNo);
         return result;
     }
 }

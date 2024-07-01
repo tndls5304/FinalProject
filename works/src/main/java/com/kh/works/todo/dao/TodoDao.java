@@ -45,7 +45,7 @@ public class TodoDao {
     }
 
     //할일 삭제
-    public int todoDelete(String no) {
-        return mapper.todoDelete(no);
+    public int todoDelete(String todoNo) {
+        return mapper.todoDelete(todoNo);
     }
 }
