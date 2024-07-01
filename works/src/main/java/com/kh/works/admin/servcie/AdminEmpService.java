@@ -32,4 +32,8 @@ public class AdminEmpService {
     public List<PositionVo> selectPosition() {
         return dao.selectPosition();
     }
+
+    public List<EmployeeVo> getAllEmpList() {
+        return  dao.getAllEmpList();
+    }
 }

@@ -28,4 +28,8 @@ public class AdminDao {
     public List<PositionVo> selectPosition() {
         return  mapper.selectPosition();
     }
+
+    public List<EmployeeVo> getAllEmpList() {
+        return mapper.getAllEmpList();
+    }
 }

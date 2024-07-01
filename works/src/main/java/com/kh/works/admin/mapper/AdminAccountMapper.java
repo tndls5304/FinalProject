@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Select;
 public interface AdminAccountMapper {
 
 //어드민로그인
-    @Select("SELECT ID,PWD,ADMIN_AUTHORITY_NO FROM ADMIN WHERE ID=#{id} AND PWD=#{pwd}")
+    @Select("SELECT NO,ID,PWD,ADMIN_AUTHORITY_NO FROM ADMIN WHERE ID=#{id} AND PWD=#{pwd}")
     AdminVo adminLoginMatching(AdminVo vo);
 }
