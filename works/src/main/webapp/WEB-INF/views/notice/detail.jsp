@@ -11,11 +11,8 @@
 <body>
     <%@ include file="/WEB-INF/views/layout/admin/aside.jsp" %>
 
-    <h1>작성하기</h1>
-    <form action="/notice/write" method="post">
-        <input type="text" name="title" value="제목">
-        <textarea name="content"></textarea>
-        <input type="submit" value="작성하기">
-    </form>
+    <h1>상세조회</h1>
 </body>
 </html>
+
+<script src="/js/notice/detail.js"></script>

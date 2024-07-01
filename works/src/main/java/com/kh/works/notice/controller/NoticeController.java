@@ -26,11 +26,13 @@ public class NoticeController {
     //게시물 작성하기
     @PostMapping("write")
     public String write(NoticeVo vo ,HttpSession session){
-
-        AdminVo loginAdminVo = (AdminVo) session.getAttribute("lgoinAdminVo");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@vo +" + vo);
+        AdminVo loginAdminVo = (AdminVo)session.getAttribute("loginAdminVo");
 
         String no = loginAdminVo.getNo();
+        System.out.println("#########################no =" + no);
 
+        vo.setNo(no);
         int result = service.write(vo);
         if(result != 1){
             return "common/error";
@@ -56,7 +58,7 @@ public class NoticeController {
     @GetMapping("detail")
     public String detailView(){
         //관리자 번호 가져오기
-        return "notice/list";
+        return "notice/detail";
     }
 
     //게시물 상세조회 글씨 내보내기
