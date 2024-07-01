@@ -3,9 +3,9 @@ package com.kh.works.home.mapper;
 import com.kh.works.attend.vo.AttendVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.employee.vo.EmployeeVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface HomeMapper {
@@ -13,10 +13,13 @@ public interface HomeMapper {
     @Insert("INSERT INTO ATTEND ( ATTEND_NO , EMP_NO , START_TIME ) VALUES ( SEQ_ATTEND.NEXTVAL , #{empNo} , SYSDATE )")
     int start(AttendVo vo);
 
-
-
-
-
+    @Select("SELECT E.NAME ,E.PROFILE ,P.NAME AS positionNO, D.NAME AS deptNo ,SUBSTR(TO_CHAR(A.START_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS START_TIME ,SUBSTR(TO_CHAR(A.END_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS END_TIME FROM EMPLOYEE E JOIN DEPARTMENT D ON D.NO = E.DEPT_NO JOIN POSITION P ON P.NO = E.POSITION_NO JOIN ATTEND A ON A.EMP_NO = E.NO")
+    @Results({
+            @Result(property = "name", column = "name"),
+            @Result(property = "positionNo", column = "positionNo"),
+            @Result(property = "deptNo", column = "deptNo")
+    })
+    List<EmployeeVo> getEmployeeInfor();
 
 
     //*** 수인언니가 작성한 친절한 예시 참고 ***

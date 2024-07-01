@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -24,11 +26,13 @@ public class HomeController {
 
     //홈화면 보여주기
     @GetMapping("home")
-    public String getHomePage(HttpSession session, Model model) {
-        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
-        model.addAttribute("loginEmpVo", loginEmpVo);
+    public String getHomePage(Model model) {
+        List<EmployeeVo> employeeList = service.getEmployeeInfor();
+        System.out.println("employeeList = " + employeeList);
+        model.addAttribute("employeeList", employeeList);
         return "home/home";
     }
+    //출근 찍기
     @PostMapping("start")
     public String start(AttendVo vo, HttpSession session){
 
@@ -44,6 +48,13 @@ public class HomeController {
         }
         return "redirect:home/home";
     }
+    //퇴근 찍기
+//    @PostMapping("end")
+//    public String end(){}
+
+
+
+
 
 
 
