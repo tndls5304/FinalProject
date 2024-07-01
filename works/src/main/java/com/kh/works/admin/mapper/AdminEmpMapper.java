@@ -29,18 +29,19 @@ public interface AdminEmpMapper {
     @Options(useGeneratedKeys = true, keyProperty = "no", keyColumn = "NO")
     void insertEmp(EmployeeVo employeeVo);
 
+    //전체사원조회 :직위높은순으로 그리고 부서별로
     @Select("""
-            SELECT E.NO,E.NAME,E.EMAIL,E.ID, D.EMPLOYEE_COUNT,D.NAME,P.NAME
+            SELECT E.NO,E.NAME,E.ID,P.NAME AS POSITION_NAME,D.NAME AS DEPT_NAME,E.LOCK_YN
             FROM EMPLOYEE E
-            JOIN (
+            LEFT JOIN (
                 SELECT DEPT_NO, COUNT(*) AS EMPLOYEE_COUNT
                 FROM EMPLOYEE
                 GROUP BY DEPT_NO
             ) D ON E.DEPT_NO = D.DEPT_NO
-            JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
+            LEFT JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
             JOIN POSITION P ON E.POSITION_NO=P.NO
             WHERE E.ENT_YN='N'
-            ORDER BY E.DEPT_NO, E.POSITION_NO ASC
+            ORDER BY E.POSITION_NO ASC, E.DEPT_NO
             """
     )
     List<EmployeeVo> getAllEmpList();
