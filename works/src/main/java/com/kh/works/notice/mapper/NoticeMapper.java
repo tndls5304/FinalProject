@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -41,9 +42,9 @@ public interface NoticeMapper {
     List<NoticeVo> list();
 
 
-    @Select("SELECT * FROM NOTICE WHERE NOTICE_NO = #{noticeNo}")
+    @Select("SELECT * FROM NOTICE_BOARD WHERE NOTICE_NO = #{noticeNo}")
     NoticeVo detail(String noticeNo);
 
-    @Update("UPDATE SET DEL_YN = 'Y' WHERE NOTICE_NO =#{noticeNo}")
+    @Update("UPDATE NOTICE_BOARD SET DEL_YN = 'Y' WHERE NOTICE_NO =#{noticeNo}")
     int delete(String noticeNo);
 }
