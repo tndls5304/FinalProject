@@ -1,0 +1,48 @@
+/* 모달 스타일 */
+.modal {
+    display: none; /* 초기에는 숨김 상태 */
+    position: fixed;
+    top: 50%; /* 화면 세로 중앙에 위치 */
+    left: 50%; /* 화면 가로 중앙에 위치 */
+    transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    padding: 20px;
+    z-index: 1000; /* 다른 요소들보다 위에 나타나도록 */
+    width: 500px; /* 모달 너비 */
+    max-width: 90%; /* 최대 너비 */
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.modal-close:hover {
+    background-color: #ddd;
+}
+
+.modal-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.modal-content img {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.modal-content div {
+    flex: 1;
+}
+
+.modal-content div p {
+    margin: 8px 0;
+}

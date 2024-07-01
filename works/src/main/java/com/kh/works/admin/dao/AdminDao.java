@@ -32,4 +32,8 @@ public class AdminDao {
     public List<EmployeeVo> getAllEmpList() {
         return mapper.getAllEmpList();
     }
+
+    public EmployeeVo getEmpByNo(String no) {
+        return mapper.getEmpByNo(no);
+    }
 }

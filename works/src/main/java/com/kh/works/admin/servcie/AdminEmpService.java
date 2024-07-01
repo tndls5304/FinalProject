@@ -36,4 +36,8 @@ public class AdminEmpService {
     public List<EmployeeVo> getAllEmpList() {
         return  dao.getAllEmpList();
     }
+
+    public EmployeeVo getEmpByNo(String no) {
+        return  dao.getEmpByNo(no);
+    }
 }
