@@ -12,8 +12,8 @@ public class EmployeeVo {
     private String  id;
     private String pwd;
     private String pwdCheck;
-    private MultipartFile profile;
-    private String changeProfileName;
+    private String profile;
+    private MultipartFile profileInfo;
     private String phone;
     private String  hireDate;
     private String entYn;

@@ -46,19 +46,19 @@ public class EmpAccountController {
 
     //회원가입하기
     @PostMapping("emp/join")
-    public String join(EmployeeVo vo,@RequestPart(value = "files", required = false) MultipartFile[] files, Model model, RedirectAttributes redirectAttributes) {
+    public String join(EmployeeVo vo, Model model, RedirectAttributes redirectAttributes) {
         try {
-                MultipartFile profile =vo.getProfile();
+                MultipartFile profileInfo =vo.getProfileInfo();
 
-                if(!profile.isEmpty()){
-                    String originFileName=profile.getOriginalFilename();
+                if(!profileInfo.isEmpty()){
+                    String originFileName=profileInfo.getOriginalFilename();
 
                     String random= UUID.randomUUID().toString();
                     String ext=originFileName.substring(originFileName.lastIndexOf("."));
                     String changeName=System.currentTimeMillis()+"_"+random+ext;
                     String filePath = "src/main/resources/static/img/profile/";
 
-                    InputStream is =profile.getInputStream();
+                    InputStream is =profileInfo.getInputStream();
                     FileOutputStream fos=new FileOutputStream(filePath+changeName);
 
                     // 1024글자 담아줄 수있는 사이즈 버퍼바구니
@@ -72,7 +72,7 @@ public class EmpAccountController {
                     is.close();
                     fos.close();
 
-                    vo.setChangeProfileName(changeName);
+                    vo.setProfile(changeName);
                 }
             int result = service.join(vo);
             if (result == 1) {

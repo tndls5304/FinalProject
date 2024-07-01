@@ -3,7 +3,10 @@ package com.kh.works.employee.service;
 import com.kh.works.employee.dao.EmpAccountDao;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.util.StringUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +47,8 @@ public class EmpAccountService {
         if (vo.getPhone().length() != 11) {
             throw new Exception("휴대폰번호는 11글자로 적어주세요 ");
         }
-        if (vo.getProfile() == null) {
+        //문자열이 존재하지 않고 길이가 0일때
+        if (!StringUtils.hasLength(vo.getProfile())) {
             throw new Exception("프로필사진이 없습니다 등록해주세요");
         }
       return dao.join(vo);

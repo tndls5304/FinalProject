@@ -71,9 +71,9 @@
 
           <div class="form-group">
                  <label for="profile"><h3>프로필사진</h3></label>
-                 <input type="file" id="profile" name="profile">
+                 <input type="file" id="profile" name="profileInfo">
                  <div class="error-message" id="profile-error"></div>
-            </div>
+          </div>
 
 
 

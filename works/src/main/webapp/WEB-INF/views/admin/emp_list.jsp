@@ -13,7 +13,7 @@
    <link rel="stylesheet" href="/css/layout/admin/same.css">
    <!-- 개별 정적파일-->
    <link rel="stylesheet" href="/css/admin/emp_list.css">
-   <script src="/js/admin/emp_list.js"></script>
+   <script defer src="/js/admin/emp_list.js"></script>
 
     <!-- 글씨체 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

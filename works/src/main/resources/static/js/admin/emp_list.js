@@ -62,7 +62,7 @@ window.onload = function() {
         const originalColor = trNode.style.backgroundColor;
          //2. 배경색을 소라색으로 변경
         trNode.style.backgroundColor = "lightBlue";
-         //3. 0.5초 후에 원래 배경색으로 복원
+         //3. 초 후에 원래 배경색으로 복원
         setTimeout(function() {
         trNode.style.backgroundColor = originalColor;}, 0500);
 

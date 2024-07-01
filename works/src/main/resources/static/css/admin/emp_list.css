@@ -2,8 +2,8 @@
 .modal {
     display: none; /* 초기에는 숨김 상태 */
     position: fixed;
-    top: 50%; /* 화면 세로 중앙에 위치 */
-    left: 50%; /* 화면 가로 중앙에 위치 */
+    top: 50%; /* 화면위치 */
+    left: 65%; /* 화면위치 */
     transform: translate(-50%, -50%); /* 화면 가운데 정렬 */
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
@@ -18,15 +18,12 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
-    background-color: #f1f1f1;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
 }
 
-.modal-close:hover {
-    background-color: #ddd;
-}
+
 
 .modal-content {
     display: flex;
