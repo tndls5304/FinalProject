@@ -25,8 +25,8 @@
 
                     <img src="https://sports.chosun.com/news/html/2021/02/19/2021022001001441300094961.jpg" alt="Profile Picture" id="profile-picture">
                     <div id="profile-info">
-                        <h2>${loginEmpVo.name} ${loginEmpVo.positionNo}</h2>
-                        <p>${loginEmpVo.deptNo}</p>
+                        <h2>${loginEmpVo.name} ${loginEmpVo.positionName}</h2>
+                        <p>${loginEmpVo.deptName}</p>
                         <div id="clock">00:00:00</div>
                         <div id="work-status">
                             <div class="work-item">
@@ -122,7 +122,37 @@
           });
         }
 
-      </script>
+
+
+        //퇴근 처리 Ajax
+        document.querySelectorAll('#end-button').forEach(item => {
+          item.addEventListener('click', endAttend);
+        });
+
+        function endAttend(evt){
+          console.log("클릭된 요소:", evt.target);
+
+          const empNo = document.querySelector('.empNo').innerText.trim();
+          console.log("empNo:", empNo);
+
+          $.ajax({
+            url: "/end",
+            method: "post",
+            data: {
+              empNo: empNo,
+            },
+            success: (data) => {
+              console.log("퇴근등록 완료!");
+              console.log(data);
+            },
+
+            error: (xhr, status, error) => {
+              console.log("퇴근등록 실패...");
+            },
+          });
+        }
+
+    </script>
 
 
 

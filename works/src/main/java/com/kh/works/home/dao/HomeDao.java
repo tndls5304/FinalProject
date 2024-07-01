@@ -15,15 +15,21 @@ public class HomeDao {
 
     private final HomeMapper mapper;
 
-//    public List<EmployeeVo> getEmployeeInfor() {
-//        return mapper.getEmployeeInfor();
-//    }
-
     public int start(AttendVo vo) {
         return mapper.start(vo);
     }
 
+    public int end(AttendVo vo) {
+        return mapper.end(vo);
+    }
 
+    public List<AttendVo> getAttendInfo() {
+        return mapper.getAttendInfo();
+    }
+
+//    public AttendVo getAttendInfo(String empNo) {
+//        return mapper.getAttendInfo(empNo);
+//    }
 
 
     //*** 수인언니가 작성한 친절한 예시 참고 ***
