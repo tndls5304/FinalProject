@@ -58,10 +58,12 @@ public class TodoService {
         return todoDao.getTodoListAll(empNo);
     }
 
+
     //참여자인 할일 조회
     public List<TodoVo> getTodoListPar(String empNo) {
         return todoDao.getTodoListPar(empNo);
     }
+
 
     //할일 수정
     public int todoEdit(TodoVo vo) {
@@ -71,12 +73,13 @@ public class TodoService {
 
     //할일 검색
     public List<TodoVo> todoSearch(String title, String content) {
+
         return todoDao.todoSearch(title, content);
     }
 
     //할일 삭제
-    public int todoDelete(String no) {
-        return todoDao.todoDelete(no);
+    public int todoDelete(String todoNo) {
+        return todoDao.todoDelete(todoNo);
 
     }
 }

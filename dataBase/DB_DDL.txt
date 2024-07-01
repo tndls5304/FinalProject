@@ -270,7 +270,7 @@ CREATE TABLE EMPLOYEE (
     ,ENT_DATE               DATE
     ,LOGIN_FAIL_NUM         NUMBER
     ,LOCK_YN                CHAR(1)         DEFAULT 'N' CHECK(LOCK_YN IN ('Y', 'N'))
-    ,DEPT_NO                NUMBER          NOT NULL
+    ,DEPT_NO                NUMBER
     ,POSITION_NO            NUMBER          NOT NULL
 );
 

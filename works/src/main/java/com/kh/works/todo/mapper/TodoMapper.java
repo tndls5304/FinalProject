@@ -4,6 +4,7 @@ import com.kh.works.todo.vo.TodoManangerVo;
 import com.kh.works.todo.vo.TodoVo;
 import java.util.List;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 //할일 작성
@@ -70,11 +71,13 @@ public interface TodoMapper {
 
 
     //할일 검색
-    //  || 문자열 연결
-    @Select("SELECT TITLE FROM TODO WHERE (TITLE LIKE '%' || #{title} || '%' OR CONTENT LIKE '%' || #{content} || '%') AND DEL_YN = 'N'")
-    List<TodoVo> todoSearch(String title, String content);
+    // @Param 애너테이션을 이용해 바인딩
+    // 바인딩이란 말 그대로 Java 프로그램에서 SQL 쿼리를 실행하기 위해 사용하는 매개변수를 SQL 쿼리의 실제 컬럼명이나 필드명과 일치시키는 과정
+    //@Param 어노테이션은 메서드의 매개변수 이름을 SQL 쿼리에서 사용할 때 사용
+    @Select("SELECT TITLE FROM TODO WHERE (TITLE LIKE '%' || #{title} || '%' AND CONTENT LIKE '%' || #{content} || '%') AND DEL_YN = 'N'")
+    List<TodoVo> todoSearch(@Param("title") String title, @Param("content") String content);
 
     //할일 삭제
-    @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{no}")
-    int todoDelete(String no);
+    @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")
+    int todoDelete(@RequestParam("todoNo") String todoNO);
 }

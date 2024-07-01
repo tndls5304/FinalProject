@@ -104,12 +104,11 @@ public class TodoApiController {
 
 
     //할일 삭제
-    //테이블이 나눠져 있기때문에 두개의 테이블을 업데이트 해야 한다.
-    //sql에서 트리거 사용으로 두개의 테이블 업데이트 가능.
+
     @ResponseBody
-    @DeleteMapping
-    public int todoDelete(String no){
-        int result = service.todoDelete(no);
+    @GetMapping("delete")
+    public int todoDelete(@RequestParam("todoNo") String todoNo){
+        int result = service.todoDelete(todoNo);
         return result;
     }
 }
