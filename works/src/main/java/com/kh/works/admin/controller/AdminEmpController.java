@@ -97,11 +97,12 @@ private final AdminEmpService adminEmpService;
 
 
 
-    //회원조회 페이지
+    //회원조회 페이지 보여주기
     @GetMapping("admin/list_emp")
-    public String getEmpList(){
+    public String getEmpListPage(){
         return "admin/emp_list";
     }
+
 
 
 

@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
-<%@ include file="/WEB-INF/views/layout/util.jsp" %>
+
 
 
    <style>
@@ -28,12 +28,10 @@
         <%@ include file="/WEB-INF/views/layout/admin/aside.jsp" %>
 
     <main>
-        <div class="header">
-            <h2>직원리스트</h2>
-            <table id="table1"></table>
-        </div>
-
-
+            <div class="header">
+                    <h2>직원리스트</h2>
+                    <table id="table1"></table>
+            </div>
 
 
     </main>

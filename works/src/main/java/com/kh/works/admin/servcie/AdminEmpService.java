@@ -19,7 +19,7 @@ public class AdminEmpService {
 
 
     //신규사원 등록하는 페이지: 옵션에 고를 수 있게 부서 조회해오기
-    public List<DeptVo> selectDeptList(){
+    public List<DeptVo> selectDeptList() {
         return dao.selectDeptList();
     }
 

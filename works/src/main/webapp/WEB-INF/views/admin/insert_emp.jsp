@@ -22,7 +22,7 @@
 
 </head>
 
-<%@ include file="/WEB-INF/views/layout/util.jsp" %>
+
 <body>
     <%@ include file="/WEB-INF/views/layout/admin/aside.jsp" %>
 
