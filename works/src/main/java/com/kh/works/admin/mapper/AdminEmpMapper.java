@@ -29,8 +29,19 @@ public interface AdminEmpMapper {
     @Options(useGeneratedKeys = true, keyProperty = "no", keyColumn = "NO")
     void insertEmp(EmployeeVo employeeVo);
 
-
-
-
-
+    @Select("""
+            SELECT E.NO,E.NAME,E.EMAIL,E.ID, D.EMPLOYEE_COUNT,D.NAME,P.NAME
+            FROM EMPLOYEE E
+            JOIN (
+                SELECT DEPT_NO, COUNT(*) AS EMPLOYEE_COUNT
+                FROM EMPLOYEE
+                GROUP BY DEPT_NO
+            ) D ON E.DEPT_NO = D.DEPT_NO
+            JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
+            JOIN POSITION P ON E.POSITION_NO=P.NO
+            WHERE E.ENT_YN='N'
+            ORDER BY E.DEPT_NO, E.POSITION_NO ASC
+            """
+    )
+    List<EmployeeVo> getAllEmpList();
 }

@@ -97,14 +97,19 @@ private final AdminEmpService adminEmpService;
 
 
 
-    //회원조회 페이지 보여주기
+    //사원관리 페이지: 페이지 보여주기
     @GetMapping("admin/list_emp")
     public String getEmpListPage(){
         return "admin/emp_list";
     }
 
 
-
+    //사원관리 페이지: 전체 사원 목록조회
+   @GetMapping
+   @ResponseBody
+    public List<EmployeeVo> getAllEmpList(){
+        return adminEmpService.getAllEmpList();
+   }
 
 
 }
