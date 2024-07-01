@@ -1,9 +1,11 @@
 package com.kh.works.todo.controller;
 
 
+import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.service.TodoService;
 import com.kh.works.todo.vo.TodoAllVo;
 import com.kh.works.todo.vo.TodoVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,17 @@ public class TodoApiController {
 //    반환 타입이 int일때는 JSON으로 직접 변환할 수 없기 때문에,
 //    @ResponseBody 애너테이션을 사용하거나 ResponseEntity<Integer>와 같은 객체를 사용하여
 //    클라이언트에게 JSON 형식으로 데이터를 반환할 수 있다.
-    public ResponseEntity todoWrite(TodoAllVo allVo ){
+    public ResponseEntity todoWrite(TodoAllVo allVo , HttpSession session){
+
+        //getAttribute:세션(Session)에서 저장된 데이터를 가져오는 메서드
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@loginEmpVo = " + loginEmpVo);
+        //사원번호 , 사원이름 가져오기
+        String todoEmpNo = loginEmpVo.getNo();
+        String todoEmpName = loginEmpVo.getName();
+        allVo.setTodoEmpNo(todoEmpNo);
+        allVo.setTodoEmpName(todoEmpName);
 
 
         int result = service.todoWrite(allVo);
@@ -78,7 +90,7 @@ public class TodoApiController {
     }
 
 
-    //@@@@@@@@@@@검색이 안되고 모두 넘어옴...
+
     //할일 검색
     //@RequestParam을 이용해 요청을 매개변수로 받기 reqired = false =>해당 파라미터가 필수가 아니라는 뜻
     @GetMapping("search")
@@ -93,6 +105,7 @@ public class TodoApiController {
 
     //할일 삭제
     //테이블이 나눠져 있기때문에 두개의 테이블을 업데이트 해야 한다.
+    //sql에서 트리거 사용으로 두개의 테이블 업데이트 가능.
     @ResponseBody
     @DeleteMapping
     public int todoDelete(String no){
