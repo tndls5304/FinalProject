@@ -157,6 +157,10 @@ main {
     background-color: #fff;
 }
 
+.work-item p{
+    margin-left: 5%;
+}
+
 #button-group {
     display: flex;
     justify-content: center;
@@ -184,12 +188,26 @@ main {
     height: 50px;
     font-size: large;
 }
+#load-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
 
 #start-button:hover{
     background-color: #218838;
 }
 #end-button:hover{
     background-color: #ca4d4d;
+}
+#load-button:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
 }
 
 /* ----------------- */

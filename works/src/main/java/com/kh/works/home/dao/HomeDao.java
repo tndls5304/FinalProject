@@ -23,13 +23,9 @@ public class HomeDao {
         return mapper.end(vo);
     }
 
-    public List<AttendVo> getAttendInfo() {
-        return mapper.getAttendInfo();
+    public AttendVo getAttendInfo(String empNo) {
+        return mapper.getAttendInfo(empNo);
     }
-
-//    public AttendVo getAttendInfo(String empNo) {
-//        return mapper.getAttendInfo(empNo);
-//    }
 
 
     //*** 수인언니가 작성한 친절한 예시 참고 ***
