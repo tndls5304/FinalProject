@@ -24,7 +24,7 @@ public interface EmpAccountMapper {
 
     @Update("""
             UPDATE EMPLOYEE
-            SET ID=#{id},PWD=#{pwd},NAME=#{name},PHONE=#{phone},PROFILE=#{changeProfileName}
+            SET ID=#{id},PWD=#{pwd},NAME=#{name},PHONE=#{phone},PROFILE=#{profile}
             WHERE NO=#{no}
             """)
     int join(EmployeeVo vo);
