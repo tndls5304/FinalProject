@@ -65,8 +65,16 @@ public interface TodoMapper {
 
 
     //할일 수정
-//    @Update("UPDATE TODO\n" +
-//            "SET TITLE = #{title},CONTENT = #{content}\n" +
-//            "WHERE TODO_NO = #{todoNo}")
-//    int todoEdit(TodoVo vo, String todoNo);
+    @Update("UPDATE TODO SET TITLE = #{title},CONTENT = #{content} WHERE TODO_NO = #{todoNo}")
+    int todoEdit(TodoVo vo);
+
+
+    //할일 검색
+    //  || 문자열 연결
+    @Select("SELECT TITLE FROM TODO WHERE (TITLE LIKE '%' || #{title} || '%' OR CONTENT LIKE '%' || #{content} || '%') AND DEL_YN = 'N'")
+    List<TodoVo> todoSearch(String title, String content);
+
+    //할일 삭제
+    @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{no}")
+    int todoDelete(String no);
 }

@@ -32,8 +32,20 @@ public class TodoDao {
         return mapper.getTodoListPar(empNo);
     }
 
+
     //할일 수정
-//    public int todoEdit(TodoVo vo, String todoNo) {
-//        return mapper.todoEdit(vo, todoNo);
-//    }
+    public int todoEdit(TodoVo vo) {
+        return mapper.todoEdit(vo);
+    }
+
+
+    //할일 검색
+    public List<TodoVo> todoSearch(String title, String content) {
+        return mapper.todoSearch(title, content);
+    }
+
+    //할일 삭제
+    public int todoDelete(String no) {
+        return mapper.todoDelete(no);
+    }
 }

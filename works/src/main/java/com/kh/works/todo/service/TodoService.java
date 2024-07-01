@@ -63,7 +63,19 @@ public class TodoService {
     }
 
     //할일 수정
-//    public int todoEdit(TodoVo vo, String todoNo) {
-//        return todoDao.todoEdit(vo, todoNo);
-//    }
+    public int todoEdit(TodoVo vo) {
+        return todoDao.todoEdit(vo);
+    }
+
+
+    //할일 검색
+    public List<TodoVo> todoSearch(String title, String content) {
+        return todoDao.todoSearch(title, content);
+    }
+
+    //할일 삭제
+    public int todoDelete(String no) {
+        return todoDao.todoDelete(no);
+
+    }
 }
