@@ -23,19 +23,20 @@ public interface NoticeMapper {
             "    ,IMG\n" +
             ")VALUES\n" +
             "(\n" +
-            "    SEQ_NOTICE_NO.NEXTVAL\n" +
+            "    SEQ_NOTICE_BOARD.NEXTVAL\n" +
             "    ,#{no}\n" +
             "    ,#{title}\n" +
             "    ,#{content}\n" +
+            "    ,NULL\n" +
             "    ,SYSTIMESTAMP\n" +
             "    ,NULL\n" +
             "    ,NULL\n" +
-            ");")
+            ")")
     int write(NoticeVo vo);
 
 
     @Select("SELECT *\n" +
-            "FROM NOTICE \n" +
+            "FROM NOTICE_BOARD \n" +
             "WHERE DEL_YN = 'N'")
     List<NoticeVo> list();
 

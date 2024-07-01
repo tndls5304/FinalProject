@@ -1,8 +1,11 @@
 package com.kh.works.notice.vo;
 
+import lombok.Data;
+
+@Data
 public class NoticeVo {
 
-    private String notice_no ;
+    private String noticeNo ;
     private String no;
     private String title;
     private String content;
