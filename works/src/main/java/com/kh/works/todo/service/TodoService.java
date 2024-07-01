@@ -54,8 +54,8 @@ public class TodoService {
 
 
     //모든 할일 조회
-    public List<TodoVo> getTodoListAll(String empNo) {
-        return todoDao.getTodoListAll(empNo);
+    public List<TodoVo> getTodoListAll(TodoVo vo) {
+        return todoDao.getTodoListAll(vo);
     }
 
 
