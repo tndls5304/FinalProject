@@ -13,13 +13,16 @@ public interface HomeMapper {
     @Insert("INSERT INTO ATTEND ( ATTEND_NO , EMP_NO , START_TIME ) VALUES ( SEQ_ATTEND.NEXTVAL , #{empNo} , SYSDATE )")
     int start(AttendVo vo);
 
-//    @Select("SELECT E.NAME ,E.PROFILE ,P.NAME AS positionNO, D.NAME AS deptNo ,SUBSTR(TO_CHAR(A.START_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS START_TIME ,SUBSTR(TO_CHAR(A.END_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS END_TIME FROM EMPLOYEE E JOIN DEPARTMENT D ON D.NO = E.DEPT_NO JOIN POSITION P ON P.NO = E.POSITION_NO JOIN ATTEND A ON A.EMP_NO = E.NO")
-//    @Results({
-//            @Result(property = "name", column = "name"),
-//            @Result(property = "positionNo", column = "positionNo"),
-//            @Result(property = "deptNo", column = "deptNo")
-//    })
-//    List<EmployeeVo> getEmployeeInfor();
+    @Update("UPDATE ATTEND SET END_TIME = CURRENT_TIMESTAMP WHERE EMP_NO = #{empNo}")
+    int end(AttendVo vo);
+
+    @Select("SELECT ATTEND_NO ,EMP_NO ,SUBSTR(TO_CHAR(START_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS START_TIME ,SUBSTR(TO_CHAR(END_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS END_TIME FROM ATTEND")
+    List<AttendVo> getAttendInfo();
+
+//    @Select("SELECT ATTEND_NO ,EMP_NO ,SUBSTR(TO_CHAR(START_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS START_TIME ,SUBSTR(TO_CHAR(END_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS END_TIME FROM ATTEND")
+//    AttendVo getAttendInfo(String empNo);
+
+
 
 
 

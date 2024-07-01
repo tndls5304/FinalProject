@@ -24,15 +24,25 @@ public class HomeController {
 
     private final HomeService service;
 
-    //홈화면 보여주기
-//    @GetMapping("home")
-//    public String getEmployeeInfor(Model model) {
-//        List<EmployeeVo> employeeList = service.getEmployeeInfor();
-//        System.out.println("employeeList = " + employeeList);
-//        model.addAttribute("employeeList");
-//        return "home/home";
-//    }
-    //출근 찍기
+    //홈화면 보여주기 - session 불러와서 처리
+    @GetMapping("home")
+    public String home(HttpSession session, Model model) {
+
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+
+        String empNo = loginEmpVo.getNo();
+        System.out.println("empNo = " + empNo);
+
+        List<AttendVo> voList = service.getAttendInfo();
+
+//        AttendVo attendVo = service.getAttendInfo(empNo);
+//
+//        model.addAttribute("loginEmpVo", loginEmpVo);
+//        model.addAttribute("attendVo", attendVo);
+
+        return "home/home";
+    }
+    //출근 찍기 - insert 구문을 사용해야 한다.
     @PostMapping("start")
     public String start(AttendVo vo, HttpSession session){
 
@@ -48,9 +58,22 @@ public class HomeController {
         }
         return "redirect:home/home";
     }
-    //퇴근 찍기
-//    @PostMapping("end")
-//    public String end(){}
+    //퇴근 찍기 - update 구문을 사용해야 한다.
+    @PostMapping("end")
+    public String end(AttendVo vo, HttpSession session){
+
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+
+        String empNo = loginEmpVo.getNo();
+        System.out.println("empNo = " + empNo);
+        vo.setEmpNo(empNo);
+
+        int result = service.end(vo);
+        if(result != 1){
+            return "common/error";
+        }
+        return "redirect:home/home";
+    }
 
 
 
