@@ -25,13 +25,13 @@ public class HomeController {
     private final HomeService service;
 
     //홈화면 보여주기
-    @GetMapping("home")
-    public String getHomePage(Model model) {
-        List<EmployeeVo> employeeList = service.getEmployeeInfor();
-        System.out.println("employeeList = " + employeeList);
-        model.addAttribute("employeeList", employeeList);
-        return "home/home";
-    }
+//    @GetMapping("home")
+//    public String getEmployeeInfor(Model model) {
+//        List<EmployeeVo> employeeList = service.getEmployeeInfor();
+//        System.out.println("employeeList = " + employeeList);
+//        model.addAttribute("employeeList");
+//        return "home/home";
+//    }
     //출근 찍기
     @PostMapping("start")
     public String start(AttendVo vo, HttpSession session){
