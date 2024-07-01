@@ -110,6 +110,10 @@ private final AdminEmpService adminEmpService;
     public List<EmployeeVo> getAllEmpList(){
         return adminEmpService.getAllEmpList();
    }
-
+    @GetMapping("admin/emp_by_no")
+    @ResponseBody
+    public EmployeeVo getEmpByNo(String no){
+        return adminEmpService.getEmpByNo(no);
+    }
 
 }

@@ -45,4 +45,12 @@ public interface AdminEmpMapper {
             """
     )
     List<EmployeeVo> getAllEmpList();
+
+    //사원상세조회
+    @Select("""
+                SELECT NO,NAME,EMAIL,PWD,PROFILE,PHONE,HIRE_DATE,LOGIN_FAIL_NUM,LOCK_YN
+                FROM EMPLOYEE
+                WHERE NO=#{no} AND ENT_YN='N'
+            """)
+    EmployeeVo getEmpByNo(String no);
 }
