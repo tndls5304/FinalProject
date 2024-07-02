@@ -4,10 +4,7 @@ import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.admin.vo.DeptVo;
 import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -53,4 +50,12 @@ public interface AdminEmpMapper {
                 WHERE NO=#{no} AND ENT_YN='N'
             """)
     EmployeeVo getEmpByNo(String no);
+
+    //사원정보수정
+    @Update("""
+            UPDATE EMPLOYEE
+            SET NAME=#{name},PHONE=#{phone},PWD=#{pwd},LOGIN_FAIL_NUM=#{loginFailNum},LOCK_YN=#{lockYn},EMAIL=#{email}
+            WHERE NO=#{no}
+            """)
+    int editEmp(EmployeeVo vo);
 }

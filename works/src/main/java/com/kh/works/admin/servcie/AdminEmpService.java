@@ -40,4 +40,8 @@ public class AdminEmpService {
     public EmployeeVo getEmpByNo(String no) {
         return  dao.getEmpByNo(no);
     }
+
+    public int editEmp(EmployeeVo vo) {
+        return  dao.editEmp(vo);
+    }
 }

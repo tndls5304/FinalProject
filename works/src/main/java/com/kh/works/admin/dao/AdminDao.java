@@ -36,4 +36,8 @@ public class AdminDao {
     public EmployeeVo getEmpByNo(String no) {
         return mapper.getEmpByNo(no);
     }
+
+    public int editEmp(EmployeeVo vo) {
+        return mapper.editEmp(vo);
+    }
 }

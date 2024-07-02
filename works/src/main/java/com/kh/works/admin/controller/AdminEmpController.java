@@ -12,10 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ private final AdminEmpService adminEmpService;
         return "admin/insert_emp";
     }
 
-    //신규사원 등록하는 페이지: 부서 조회해오기
+    // 부서 조회해오기
     @GetMapping("admin/select_dept")
     @ResponseBody
     public List<DeptVo> selectDeptList(){
@@ -43,7 +42,7 @@ private final AdminEmpService adminEmpService;
         return  voList;
     }
 
-    //신규사원 등록하는페이지: 직위명 조회해오기
+    //직위명 조회해오기
     @GetMapping("admin/select_position")
     @ResponseBody
     public List<PositionVo> selectPosition(){
@@ -110,10 +109,26 @@ private final AdminEmpService adminEmpService;
     public List<EmployeeVo> getAllEmpList(){
         return adminEmpService.getAllEmpList();
    }
+
+   //사원 상세보기
     @GetMapping("admin/emp_by_no")
     @ResponseBody
-    public EmployeeVo getEmpByNo(String no){
+    public EmployeeVo getEmpByNo( String no){
         return adminEmpService.getEmpByNo(no);
     }
+
+    //사원정보 수정하기
+    @PostMapping("admin/edit_emp")
+    @ResponseBody
+    public ResponseEntity<String> editEmp(EmployeeVo vo){
+        int result=adminEmpService.editEmp(vo);
+        if(result==1){
+            return ResponseEntity.ok("회원정보 수정하기성공");
+        }else{
+            return  ResponseEntity.internalServerError().body("회원정보 수정실패");
+        }
+    }
+
+
 
 }
