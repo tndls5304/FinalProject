@@ -44,4 +44,8 @@ public class AdminEmpService {
     public int editEmp(EmployeeVo vo) {
         return  dao.editEmp(vo);
     }
+
+    public int resignEmp(String no) {
+        return dao.resignEmp(no);
+    }
 }

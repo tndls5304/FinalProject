@@ -113,14 +113,15 @@ private final AdminEmpService adminEmpService;
    //사원 상세보기
     @GetMapping("admin/emp_by_no")
     @ResponseBody
-    public EmployeeVo getEmpByNo( String no){
+    public EmployeeVo getEmpByNo(@RequestParam ("no") String no){
+
         return adminEmpService.getEmpByNo(no);
     }
 
     //사원정보 수정하기
     @PostMapping("admin/edit_emp")
     @ResponseBody
-    public ResponseEntity<String> editEmp(EmployeeVo vo){
+    public ResponseEntity<String> editEmp(@RequestBody EmployeeVo vo){
         int result=adminEmpService.editEmp(vo);
         if(result==1){
             return ResponseEntity.ok("회원정보 수정하기성공");
@@ -130,5 +131,15 @@ private final AdminEmpService adminEmpService;
     }
 
 
-
+    //사원퇴사 처리
+    @PostMapping("admin/resign_emp")
+    @ResponseBody
+    public ResponseEntity<String> resignEmp(@RequestParam("no")String no){
+        int result=adminEmpService.resignEmp(no);
+        if(result==1){
+            return ResponseEntity.ok("퇴사처리 완료!");
+        }else{
+            return  ResponseEntity.internalServerError().body("퇴사처리 실패");
+        }
+    }
 }

@@ -72,19 +72,20 @@ window.onload = function() {
              url:'/admin/emp_by_no',
              method:'GET',
              data:{no: empNo},
+
              success:function(empVo){
              console.log("empVo를 가져왔니?",empVo);
               console.log("empVo의 사진을보까?",empVo.profile);
 
-               modal.style.display = 'block';
+                modal.style.display = 'block';
+                document.querySelector("#empNo").textContent =empVo.no;
                 document.querySelector("#empImage").src ="/img/profile/"+empVo.profile;
-                document.getElementById("empNo").textContent = `사원번호: ${empVo.empNo}`;
                 document.querySelector("input[name=name]").value = empVo.name;
                 document.querySelector("input[name=phone]").value = empVo.phone;
                 document.querySelector("input[name=pwd]").value = empVo.pwd;
                 document.querySelector("input[name=email]").value =empVo.email;
                 document.querySelector("input[name=loginFailNum]").value = empVo.loginFailNum;
-                  document.getElementById('empNo').textContent = `사원번호: ${empVo.empNo}`;
+                document.querySelector("#empHireDate").textContent = "입사일:" +empVo.hireDate;
                 document.querySelector("input[name=lockYn]").value =  empVo.lockYn;
              },
              error:function(){}
@@ -117,7 +118,7 @@ const modal = document.getElementById('modal');
 //--------------------------------------------모달창에서 회원정보 수정
 
  function editEmp(){
-      const no=$('input[name=no]').val();
+      const no=$('#empNo').text();
       const name=$('input[name=name]').val();
       const phone=$('input[name=phone]').val();
       const pwd=$('input[name=pwd]').val();
@@ -137,11 +138,30 @@ const modal = document.getElementById('modal');
        url:'/admin/edit_emp',
        method:'POST',
        data: JSON.stringify(dataValue),
+       contentType : 'application/json',
        success:function(){
-        alert("수정 성공!!")
+        alert("수정 성공!!");
+        location.reload();
        },
        error:function(){
-        alert("수정실패")
+        alert("수정실패");
        }
       })
     }
+
+//-------------------------------------------------퇴사처리하기
+  function resignEmp(){
+    const no=$("#empNo").text();
+    $.ajax({
+      url:"/admin/resign_emp",
+      method:"POST",
+      data:{no:no},
+      success:function(){
+        alert("퇴사처리 완료!");
+        location.reload();
+      },
+      error:function(){
+        alert("퇴사처리 실패!")
+      }
+    })
+  }
