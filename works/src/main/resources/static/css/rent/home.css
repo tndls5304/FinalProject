@@ -1,0 +1,189 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+main{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
+
+.calendar_title { 
+    margin: 0 auto; 
+    width: 100%;
+    height: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.prev , .next{
+  width: 30px;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+  outline: none;
+  color: #7dc5ff;
+}
+
+.calendar_title .current-year-month {
+  font-size: 24px;
+  vertical-align: middle;
+  color: #7dc5ff;
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.content-right {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .content-right .day-of-week {
+    background: #7dc5ff;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-right .day-of-week .dayHeader-sun,
+  .content-right .day-of-week .dayHeader {
+    display: inline-block;
+    width: calc(100% / 7.2);
+    height: 100%;
+    text-align: center;
+    padding: 1%;
+    box-sizing: border-box;
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
+  }
+
+  .content-right .day-of-week .dayHeader.sun {color: #f02f2f;}
+  .content-right .day-of-week .dayHeader.sat {color: #2208e7;}
+  
+  /* calendar body  */
+  #weekly > div {
+    box-sizing: border-box;
+    text-align: center;
+    width: calc(100% / 7);
+    height: 130px;
+    display: inline-block;
+    border-bottom: 1px solid #e4e4e4;
+    vertical-align: top;
+    padding: 1%;
+    color: rgb(255, 0, 166);
+    overflow-y: auto;
+  }
+  #weekly > div.active {
+    background: #e4e4e4;
+  }
+  #weekly > div + div{
+    border-left: 1px solid #e4e4e4;
+  }
+  .calendar-body #weekly > div:first-child {border-left: 1px solid #e4e4e4;}
+  .calendar-body #weekly > div:last-child {border-right: 1px solid #e4e4e4;}
+  
+  /* todoList */
+  .todoList {
+    margin-top: 10%;
+    font-size: 20px;
+  }
+  .todoList > li {position: relative;}
+  .todoList > li > span{
+    white-space: nowrap;
+    width: 70%;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+  }
+  .todoList > li+li {
+    margin-top: 5%;
+  }
+  .todoList > li > .del-data{
+    position: absolute;
+    top: 0; right: 5%;
+    width: 20%;
+    height: 25px;
+    background: none;
+    border: none;
+    font-size: 0px;
+  }
+  .todoList > li > .del-data::after, .todoList > li > .del-data::before{
+    content: '';
+    position: absolute;
+    top:0; left: 50%;
+    display: block;
+    width: 4px;
+    height: 18px;
+    background: rgb(255, 82, 195);
+  }
+  .todoList > li > .del-data::after, .closed::after {transform: rotate(45deg);}
+  .todoList > li > .del-data::before, .closed::before{transform: rotate(-45deg);}
+  .showList {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(255, 38, 179);
+    width: 400px;
+    height: 300px;
+    z-index: 1;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .closed {
+    position: absolute;
+    top: 5%; right: 5%; 
+    width: 40px; 
+    height: 40px;
+    font-size: 0;
+    background: none;
+    border: none;
+  }
+  .closed::after, .closed::before {
+    content: '';
+    position: absolute;
+    top: 14%; right: 44%;
+    width: 3px;
+    height: 25px;
+    background: #fff;
+  }
+  .listText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    word-break:break-all;
+    width: 70%;
+    font-size: 20px;
+    color: #fff;
+  }
+  .createDate {
+    position: absolute;
+    bottom: 7%;
+    right: 7%;
+    font-size: 20px;
+    color: #e4e4e4;
+  }
+  .bgblack {
+    display: none;
+    background: #acacac;
+    opacity: 0.6;
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+  }
