@@ -26,18 +26,19 @@
                     <img src="https://sports.chosun.com/news/html/2021/02/19/2021022001001441300094961.jpg" alt="Profile Picture" id="profile-picture">
                     <div id="profile-info">
                         <h2>${loginEmpVo.name} ${loginEmpVo.positionName}</h2>
-                        <p>${loginEmpVo.deptName}</p>
+                        <h3>🖤 ${loginEmpVo.deptName} 🖤</h3>
                         <div id="clock">00:00:00</div>
                         <div id="work-status">
                             <div class="work-item">
-                                <p>출근시간 </p>
+                                <p><b>출근시간</b> ${attendVo.startTime}</p>
                             </div>
                             <div class="work-item">
-                                <p>퇴근시간 </p>
+                                <p><b>퇴근시간</b> ${attendVo.endTime}</p>
                             </div>
                             <div id="button-group">
                                 <button id="start-button">출근하기</button>
                                 <button id="end-button">퇴근하기</button>
+                                <button id="load-button" onclick="location.reload();">새로고침</button>
                                 <div style="display:none;" class="empNo">${loginEmpVo.no}</div>
                             </div>
                         </div>
