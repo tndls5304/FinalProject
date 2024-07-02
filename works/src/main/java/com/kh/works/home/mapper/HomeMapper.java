@@ -19,6 +19,13 @@ public interface HomeMapper {
     @Select("SELECT ATTEND_NO ,EMP_NO ,SUBSTR(TO_CHAR(START_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS START_TIME ,SUBSTR(TO_CHAR(END_TIME, 'RR/MM/DD HH24:MI:SS'), 1, 19) AS END_TIME FROM ATTEND WHERE EMP_NO = #{empNo}")
     AttendVo getAttendInfo(@Param("empNo") String empNo);
 
+    //출근버튼을 찍었는데 퇴근버튼을 찍지 않았으면 출근버튼 다시 찍지 못하도록 막는 메서드
+    @Select("SELECT COUNT(*) FROM ATTEND WHERE EMP_NO = #{empNo} AND START_TIME IS NOT NULL AND END_TIME IS NULL AND TO_CHAR(START_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')")
+    int alreadyStart(String empNo);
+
+    //출퇴근 기록이 있는가
+    @Select("SELECT COUNT(*) FROM ATTEND WHERE EMP_NO = #{empNo} AND TO_CHAR(START_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND END_TIME IS NOT NULL")
+    int alreadyAttend(String empNo);
 
 
 

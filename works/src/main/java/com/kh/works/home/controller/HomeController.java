@@ -12,12 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 
 @Controller
 @RequiredArgsConstructor
+//로그인하면 넘어가는 홈 페이지 경로 때문에 아래와 같이 작성하였습니다.
+@RequestMapping("/home")
 public class HomeController {
 
     //*****************HomeController에는 근태관리를 위한 출퇴근 메소드가 있습니다*****************
@@ -25,7 +28,7 @@ public class HomeController {
     private final HomeService service;
 
     //홈화면 보여주기 - session 불러와서 처리
-    @GetMapping("home")
+    @GetMapping
     public String home(HttpSession session, Model model) {
 
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
@@ -51,11 +54,17 @@ public class HomeController {
         System.out.println("empNo = " + empNo);
         vo.setEmpNo(empNo);
 
+        //alreadyStart() - 출근버튼을 찍었는데 퇴근버튼을 찍지 않았으면 출근버튼 다시 찍지 못하도록 막는 메서드
+        if(service.alreadyStart(vo.getEmpNo()) || service.alreadyAttend(vo.getEmpNo())){
+            return "redirect:/home";
+        }
+
         int result = service.start(vo);
         if(result != 1){
             return "common/error";
         }
-        return "redirect:home/home";
+        return "redirect:/home";
+
     }
     //퇴근 찍기 - update 구문을 사용해야 한다.
     @PostMapping("end")
@@ -71,7 +80,7 @@ public class HomeController {
         if(result != 1){
             return "common/error";
         }
-        return "redirect:home/home";
+        return "redirect:/home";
     }
 
 
