@@ -1,5 +1,6 @@
 package com.kh.works.todo.mapper;
 
+import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.vo.TodoManangerVo;
 import com.kh.works.todo.vo.TodoVo;
 import java.util.List;
@@ -7,10 +8,11 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-//할일 작성
+
 @Mapper
 public interface TodoMapper {
 
+    //할일작성
     @Insert("INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT, END_DATE) VALUES (SEQ_TODO.NEXTVAL, #{todoEmpNo}, #{title}, #{content}, #{endDate})")
     //insert가 실행되고 나서 자동으로 시퀀스 값을 가져와 todoNo필드에 할당하도록 도와주는 코드
     @SelectKey(statement = "SELECT SEQ_TODO.CURRVAL FROM DUAL", keyProperty = "todoNo", before = false, resultType = Integer.class)
@@ -80,4 +82,19 @@ public interface TodoMapper {
     //할일 삭제
     @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")
     int todoDelete(@RequestParam("todoNo") String todoNO);
+
+
+    //할일 완료
+    @Update("UPDATE TODO SET COMPLETED_YN = 'Y' WHERE TODO_NO = #{todoNo}")
+    int todoCompleted(TodoVo vo);
+
+
+    //참여자 목록 가져오기
+    @Select("SELECT E.NO , E.NAME , P.NAME AS positionNO , D.NAME AS deptNO FROM EMPLOYEE E JOIN POSITION P ON E.POSITION_NO = P.NO JOIN DEPARTMENT D ON E.DEPT_NO = D.NO")
+    @Results({
+            @Result(property = "name", column = "name"),
+            @Result(property = "positionNo", column = "positionNo"),
+            @Result(property = "deptNo", column = "deptNo")
+    })
+    List<EmployeeVo> getManagerList();
 }
