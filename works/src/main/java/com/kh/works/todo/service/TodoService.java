@@ -1,6 +1,7 @@
 package com.kh.works.todo.service;
 
 
+import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.dao.TodoDao;
 import com.kh.works.todo.dao.TodoManagerDao;
 import com.kh.works.todo.vo.TodoAllVo;
@@ -81,5 +82,13 @@ public class TodoService {
     public int todoDelete(String todoNo) {
         return todoDao.todoDelete(todoNo);
 
+    }
+
+    public int todoCompleted(TodoVo vo) {
+        return todoDao.todoCompleted(vo);
+    }
+
+    public List<EmployeeVo> getMangerList() {
+        return todoDao.getManagerList();
     }
 }

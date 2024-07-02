@@ -1,5 +1,6 @@
 package com.kh.works.todo.dao;
 
+import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.mapper.TodoMapper;
 import com.kh.works.todo.vo.TodoVo;
 import java.util.List;
@@ -47,5 +48,13 @@ public class TodoDao {
     //할일 삭제
     public int todoDelete(String todoNo) {
         return mapper.todoDelete(todoNo);
+    }
+
+    public int todoCompleted(TodoVo vo) {
+        return mapper.todoCompleted(vo);
+    }
+
+    public List<EmployeeVo> getManagerList() {
+        return mapper.getManagerList();
     }
 }

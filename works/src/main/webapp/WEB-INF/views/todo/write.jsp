@@ -9,52 +9,59 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Document</title>
       <link rel="stylesheet" href="/css/todo/todoWrite.css">
+      <script defer src="/js/todo/write.js"></script>
     </head>
 
     <body>
 
-      <%@ include file="/WEB-INF/views/layout/todo/nav.jsp" %>
+      <main>
 
+        <h3> 할일 작성</h3>
 
-        <main>
-          <%@ include file="/WEB-INF/views/layout/todo/aside.jsp" %>
+        <form action="/todo/write" method="post">
 
+          <label for="title">제목:</label>
+          <input type="text" id="title" name="title" required>
+          <br><br>
 
-            <h1> 할일 작성</h1>
-
-            <form action="/todo/write" method="post">
-
-              <label for="title">제목:</label>
-              <input type="text" id="title" name="title" required>
-              <br><br>
-
-              <label for="content">내용:</label>
-              <textarea id="content" name="content" required></textarea>
-              <br><br>
-
-              <label for="endDate">기한:</label>
-              <button type="button" onclick="setEndDate(0)">오늘</button>
-              <button type="button" onclick="setEndDate(1)">내일</button>
-              <button type="button" onclick="setEndDate(7)">다음주</button>
-              <br><br>
-
-              <label for="requesterName">요청자 이름:</label>
-              <input type="text" id="requesterName" name="requesterName" value="송예린" readonly>
-              <br><br>
-
-              <label for="manager">담당자:</label>
-              <input type="text" id="manager" name="manager" required>
-              <button type="button" onclick="openAddressBook()">주소록</button>
-              <br><br>
-
-              <input type="submit" value="작성">
-            </form>
+          <label for="content">내용:</label>
+          <textarea id="content" name="content" required></textarea>
+          <br><br>
 
 
 
+          <br><br>
+          <label for="requesterName" data-name="todoEmpNo">담당자:${loginEmpVo.name}</label>
+
+          <br><br>
 
 
-        </main>
+          <label for="receiver-select">참여자 선택:</label>
+          <select id="receiver-select" onchange="addReceiver()">
+            <option value="">사원 선택</option>
+            <c:forEach var="employee" items="${empList}">
+              <option value="${employee.no}" data-name="${employee.name}">${employee.name} ${employee.positionNo}
+                ${employee.deptNo}</option>
+            </c:forEach>
+          </select>
+          <input type="hidden" id="todoManagerNo" name="todoManagerNo">
+          <div id="selected-todoManager">
+            <!-- 선택된 참여자가 여기에 표시됩니다 -->
+          </div>
+          <br><br>
+
+          <!-- 위의 기한버튼을 누르면 날짜가 여기로 들어와서
+           폼으로 날짜 데이터를 제출! -->
+          <input type="hidden" id="endDate" name="endDate">
+
+          <input type="submit" value="작성">
+        </form>
+
+
+
+
+
+      </main>
 
     </body>
 

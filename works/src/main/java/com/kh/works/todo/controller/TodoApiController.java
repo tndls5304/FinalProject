@@ -22,32 +22,8 @@ public class TodoApiController {
     private final TodoService service;
 
 
-    //@@@@@@@@@@@@@@@@@@@@@@@@@세션안됨
-    //할일 작성
-    @PostMapping
-//    반환 타입이 int일때는 JSON으로 직접 변환할 수 없기 때문에,
-//    @ResponseBody 애너테이션을 사용하거나 ResponseEntity<Integer>와 같은 객체를 사용하여
-//    클라이언트에게 JSON 형식으로 데이터를 반환할 수 있다.
-    public ResponseEntity todoWrite(TodoAllVo allVo, HttpSession session){
-        //getAttribute :세션에 저장된 객체 가져오는 메소드
-        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
 
 
-
-        //로그인한 회원 번호를 세션에서 가져와 EmpNo에 담아준다
-        String empNo = loginEmpVo.getNo();
-        String empName = loginEmpVo.getName();
-        allVo.setTodoEmpNo(empNo);
-        allVo.setTodoEmpName(empName);
-
-
-
-
-        int result = service.todoWrite(allVo);
-        System.out.println("result = " + result);
-
-        return ResponseEntity.ok(allVo);
-    }
 
 
     //할일 상세 조회
@@ -61,7 +37,7 @@ public class TodoApiController {
         return ResponseEntity.ok(vo);
     }
 
-//@@@@@@@@@@@@@@@@@@@세션 안됨
+
     //모든 할일 목록조회(담당자 참여자 모두
     //리스트로 반환받기
     @GetMapping("listAll")
