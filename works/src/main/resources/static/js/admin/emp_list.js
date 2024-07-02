@@ -69,20 +69,23 @@ window.onload = function() {
 
         const empNo= trNode.children[0].innerText;
         $.ajax({
-             url:'',
+             url:'/admin/emp_by_no',
              method:'GET',
-             data:empNo,
+             data:{no: empNo},
              success:function(empVo){
+             console.log("empVo를 가져왔니?",empVo);
+              console.log("empVo의 사진을보까?",empVo.profile);
+
                modal.style.display = 'block';
-               document.getElementById('empImage').src = empVo.profileImage || 'default-profile.png';
-               document.getElementById('empNo').textContent = `사원번호: ${empVo.empNo}`;
-               document.getElementById('empName').textContent = `사원이름: ${empVo.name}`;
-               document.getElementById('empJoinDate').textContent = `입사일: ${empVo.joinDate}`;
-               document.getElementById('empContact').textContent = `연락처: ${empVo.contact}`;
-               document.getElementById('empPassword').textContent = `비밀번호: ${empVo.password}`;
-               document.getElementById('empLoginFailCount').textContent = `로그인실패횟수: ${empVo.loginFailCount}`;
-               document.getElementById('empLockStatus').textContent = `잠금여부: ${empVo.lockStatus}`;
-               document.getElementById('empEmail').textContent = `이메일: ${empVo.email}`;
+                document.querySelector("#empImage").src ="/img/profile/"+empVo.profile;
+                document.getElementById("empNo").textContent = `사원번호: ${empVo.empNo}`;
+                document.querySelector("input[name=name]").value = empVo.name;
+                document.querySelector("input[name=phone]").value = empVo.phone;
+                document.querySelector("input[name=pwd]").value = empVo.pwd;
+                document.querySelector("input[name=email]").value =empVo.email;
+                document.querySelector("input[name=loginFailNum]").value = empVo.loginFailNum;
+                  document.getElementById('empNo').textContent = `사원번호: ${empVo.empNo}`;
+                document.querySelector("input[name=lockYn]").value =  empVo.lockYn;
              },
              error:function(){}
             })
@@ -111,3 +114,34 @@ const modal = document.getElementById('modal');
             modal.style.display = 'none';
         }
     });
+//--------------------------------------------모달창에서 회원정보 수정
+
+ function editEmp(){
+      const no=$('input[name=no]').val();
+      const name=$('input[name=name]').val();
+      const phone=$('input[name=phone]').val();
+      const pwd=$('input[name=pwd]').val();
+      const loginFailNum=$('input[name=loginFailNum]').val();
+      const lockYn=$('input[name=lockYn]').val();
+      const email=$('input[name=email]').val();
+      const dataValue={
+                  no:no,
+                  name:name,
+                  phone:phone,
+                  pwd:pwd,
+                  loginFailNum:loginFailNum,
+                  lockYn:lockYn,
+                  email:email
+      }
+      $.ajax({
+       url:'/admin/edit_emp',
+       method:'POST',
+       data: JSON.stringify(dataValue),
+       success:function(){
+        alert("수정 성공!!")
+       },
+       error:function(){
+        alert("수정실패")
+       }
+      })
+    }

@@ -26,7 +26,7 @@
 
     <main>
             <div class="header">
-                    <h2>직원리스트</h2>
+                    <h1>직원리스트</h1>
                     <table id="table1"></table>
             </div>
 
@@ -54,25 +54,27 @@
 
 
          <!-- 모달 -->
-         <div class="modal" id="modal">
-             <button class="modal-close" id="modalClose">닫기</button>
-             <h2 id="modalTitle">직원 상세 정보</h2>
-             <div class="modal-content" id="modalContent">
-                 <img id="empImage" src="" alt="프로필 사진">
-                 <div>
-                     <p id="empNo">사원번호: </p>
-                     <p id="empName">사원이름: </p>
-                     <p id="empJoinDate">입사일: </p>
-                     <p id="empContact">연락처: </p>
-                     <p id="empPassword">비밀번호: </p>
-                     <p id="empLoginFailCount">로그인실패횟수: </p>
-                     <p id="empLockStatus">잠금여부: </p>
-                     <p id="empEmail">이메일: </p>
-                 </div>
-             </div>
+<div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">닫기</button>
+    <h2 id="modalTitle">직원 상세 정보</h2>
+    <div class="modal-content" id="modalContent">
+          <img id="empImage" src="" alt="프로필 사진">
+          <div>
+                  <p id="empNo">사원번호: </p>
+                  <p id="empName">사원이름: <input type="text"name="name"></p>
+                   <p id="empJoinDate">입사일: </p>
+                   <p id="empContact">연락처:<input type="text" name="phone"> </p>
+                   <p id="empPassword">비밀번호: <input type="text" name="pwd"> </p>
+                   <p id="empLoginFailCount">로그인실패횟수: <input type="text" name="loginFailNum"> </p>
+                   <p id="empLockStatus">잠금여부: <input type="text" name="lockYn"> </p>
+                   <p id="empEmail">이메일:<input type="text" name="email"> </p>
+                        <button onclick="editEmp()" >수정하기</button>
+                       <button class="" id="">퇴사처리하기</button>
          </div>
+    </div>
+</div>
 
-    </main>
+ </main>
 
 
 
