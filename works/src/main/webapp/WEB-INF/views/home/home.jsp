@@ -23,7 +23,7 @@
         <div id="container">
             <div id="profile-section">
 
-                    <img src="https://sports.chosun.com/news/html/2021/02/19/2021022001001441300094961.jpg" alt="Profile Picture" id="profile-picture">
+                    <img src="${loginEmpVo.profile}" alt="Profile Picture" id="profile-picture">
                     <div id="profile-info">
                         <h2>${loginEmpVo.name} ${loginEmpVo.positionName}</h2>
                         <h3>🖤 ${loginEmpVo.deptName} 🖤</h3>
@@ -107,7 +107,7 @@
           console.log("empNo:", empNo);
 
           $.ajax({
-            url: "/start",
+            url: "home/start",
             method: "post",
             data: {
               empNo: empNo,
@@ -137,7 +137,7 @@
           console.log("empNo:", empNo);
 
           $.ajax({
-            url: "/end",
+            url: "home/end",
             method: "post",
             data: {
               empNo: empNo,

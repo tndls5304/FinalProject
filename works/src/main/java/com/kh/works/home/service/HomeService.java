@@ -29,6 +29,18 @@ public class HomeService {
         return dao.getAttendInfo(empNo);
     }
 
+    //출근버튼을 찍었는데 퇴근버튼을 찍지 않았으면 출근버튼 다시 찍지 못하도록 막는 메서드
+    public boolean alreadyStart(String empNo) {
+        return dao.alreadyStart(empNo) > 0;
+    }
+
+    public boolean alreadyAttend(String empNo) {
+        return dao.alreadyAttend(empNo) > 0;
+    }
+
+
+
+
 
     //*** 수인언니가 작성한 친절한 예시 참고 ***
 //    public EmployeeVo selectEmpInfo(String no) {
