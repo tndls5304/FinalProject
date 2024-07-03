@@ -31,7 +31,11 @@
             </div>
 
             <div>
-              <input placeholder="부서"><input placeholder="직위"><input placeholder="이   름">
+              <select><option>퇴사여부</option> <option>근무</option><option>퇴사</option></select>
+              <select><option>부서선택</option> </select>
+              <select><option>직위선택</option></select>
+             <input placeholder="이   름">
+
               <button>사원검색</button>
             </div>
             <h4> <직위 높은순, 부서순> </h4>
@@ -60,16 +64,16 @@
     <div class="modal-content" id="modalContent">
           <img id="empImage" src="" alt="프로필 사진">
           <div>
-                  <p id="empNo">사원번호: </p>
-                  <p id="empName">사원이름: <input type="text"name="name"></p>
-                   <p id="empJoinDate">입사일: </p>
-                   <p id="empContact">연락처:<input type="text" name="phone"> </p>
-                   <p id="empPassword">비밀번호: <input type="text" name="pwd"> </p>
-                   <p id="empLoginFailCount">로그인실패횟수: <input type="text" name="loginFailNum"> </p>
-                   <p id="empLockStatus">잠금여부: <input type="text" name="lockYn"> </p>
-                   <p id="empEmail">이메일:<input type="text" name="email"> </p>
-                        <button onclick="editEmp()" >수정하기</button>
-                       <button class="" id="">퇴사처리하기</button>
+                                 <p id="empNo"></p>
+                                 <p id="empName">사원이름: <input type="text"name="name"></p>
+                                  <p id="empHireDate"></p>
+                                  <p id="empContact">연락처:<input type="text" name="phone"> </p>
+                                  <p id="empPassword">비밀번호: <input type="text" name="pwd"> </p>
+                                  <p id="empLoginFailCount">로그인실패횟수: <input type="text" name="loginFailNum"> </p>
+                                  <p id="empLockStatus">잠금여부: <input type="text" name="lockYn"> </p>
+                                  <p id="empEmail">이메일:<input type="text" name="email"> </p>
+                                       <button onclick="editEmp();" >수정하기</button>
+                                      <button onclick="resignEmp();">퇴사처리하기</button>
          </div>
     </div>
 </div>

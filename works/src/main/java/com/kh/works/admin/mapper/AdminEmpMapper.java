@@ -58,4 +58,12 @@ public interface AdminEmpMapper {
             WHERE NO=#{no}
             """)
     int editEmp(EmployeeVo vo);
+
+    //퇴사처리
+    @Update("""
+            UPDATE EMPLOYEE
+            SET ENT_YN='Y'
+            WHERE NO=#{no}
+            """)
+    int resignEmp(String no);
 }

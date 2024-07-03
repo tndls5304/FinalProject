@@ -40,4 +40,8 @@ public class AdminDao {
     public int editEmp(EmployeeVo vo) {
         return mapper.editEmp(vo);
     }
+
+    public int resignEmp(String no) {
+        return mapper.resignEmp(no);
+    }
 }
