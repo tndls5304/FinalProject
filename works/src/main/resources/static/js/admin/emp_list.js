@@ -50,21 +50,17 @@
      })
 
 
-//-----------------------------------------------------------사원검색
+//----------------------------------------------------------------------조건으로 사원검색
 //              (문서가 완전히 로드되고 DOM이 준비된 후에 실행)제이쿼리로 해보기
 
 $(document).ready(function(){
   $("#selectEmpByCondition").click(function(){
-  console.log("클릭됨")
+
         const retireYn=document.getElementById("retireYn").value;
         const deptNo=document.getElementById("deptSelect").value;
         const positionNo=document.getElementById("positionSelect").value;
         const name=document.getElementById("name").value;
 
-  console.log("퇴사 여부:", retireYn);
-        console.log("부서 번호:", deptNo);
-        console.log("직급 번호:", positionNo);
-        console.log("이름:", name);
         $.ajax({
              url:"/admin/select_emp_conditional",
              method:"GET",
@@ -75,7 +71,43 @@ $(document).ready(function(){
              name:name
           },
 
-          success:function(empVoList){
+          success:function(empList){
+         const tbodyTag= document.querySelector("tbody");
+         tbodyTag.innerHTML="";
+
+             for(let i=0; i<empList.length; i++){
+
+                   const trTag = document.createElement("tr");
+                   tbodyTag.appendChild(trTag);
+
+                   const empVo=empList[i];
+
+                   const tdTag1=document.createElement("td");
+                   tdTag1.innerText=empVo.no;
+                   trTag.appendChild(tdTag1);
+
+                   const tdTag2=document.createElement("td");
+                   tdTag2.innerText=empVo.deptName;
+                   trTag.appendChild(tdTag2);
+
+                   const tdTag3=document.createElement("td");
+                   tdTag3.innerText=empVo.positionName;
+                   trTag.appendChild(tdTag3);
+
+                   const tdTag4=document.createElement("td");
+                   tdTag4.innerText=empVo.name;
+                   trTag.appendChild(tdTag4);
+
+                   const tdTag5=document.createElement("td");
+                   tdTag5.innerText=empVo.id;
+                   trTag.appendChild(tdTag5);
+
+
+                   const tdTag6=document.createElement("td");
+                   tdTag6.innerText=empVo.lockYn;
+                   trTag.appendChild(tdTag6);
+
+                 }
             console.log("empVoList가져왔을까");
             console.log(empVoList);
           },

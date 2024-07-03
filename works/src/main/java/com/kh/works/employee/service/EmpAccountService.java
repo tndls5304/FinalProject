@@ -53,4 +53,8 @@ public class EmpAccountService {
         }
       return dao.join(vo);
     }
+
+    public int plusLoginFailNum(String loginFailEmpNo) {
+       return dao.plusLoginFailNum(loginFailEmpNo);
+    }
 }

@@ -148,7 +148,7 @@ private final AdminEmpService adminEmpService;
     @ResponseBody
     public List<EmployeeVo> selectEmpByCondition(@ModelAttribute EmployeeVo vo){
         System.out.println("무ㅓ가왔을까???"+vo);
-              List<EmployeeVo> voList=adminEmpService.selectEmpByCondition(vo);
-                return null;
+           return adminEmpService.selectEmpByCondition(vo);
+
     }
 }
