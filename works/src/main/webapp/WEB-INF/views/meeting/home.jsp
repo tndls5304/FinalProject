@@ -27,15 +27,18 @@
             <!--달 나오기-->
             <section class="content-right">
                 <div class="day-of-week">
-                    <div class="dayHeader-sun">Sun</div>
+                    <div class="dayHeader , sun">Sun</div>
                     <div class="dayHeader">Mon</div>
                     <div class="dayHeader">Tue</div>
                     <div class="dayHeader">Wed</div>
                     <div class="dayHeader">Thu</div>
                     <div class="dayHeader">Fri</div>
-                    <div class="dayHeader">Sat</div>
+                    <div class="dayHeader , sat">Sat</div>
                 </div>
                 <div class="calendar-body"></div>
+                <div style="display: none;" id="write">
+                    <div></div>
+                </div>
             </section>
         </div>
             
@@ -45,3 +48,4 @@
     </html>
 
     <script src="/js/rent/home.js"></script>
+    <script src="/js/rent/main.js"></script>
