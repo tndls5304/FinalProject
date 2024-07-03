@@ -368,10 +368,11 @@ CREATE TABLE TODO (
 );
 
 CREATE TABLE TODO_MANAGER (
-    TODO_MANAGER_NO         NUMBER            
-    ,TODO_NO_MAN            NUMBER     
-    ,DEL_YN                 CHAR(1)         DEFAULT 'N' CHECK(DEL_YN IN ('Y', 'N'))
-    ,PRIMARY KEY(TODO_MANAGER_NO, TODO_NO_MAN)
+              
+   	 TODO_NO_MAN		NUMBER 
+	,TODO_MANAGER_NO	NUMBER      
+   	 ,DEL_YN                 	CHAR(1)         DEFAULT 'N' CHECK(DEL_YN IN ('Y', 'N'))
+    	,PRIMARY KEY(TODO_MANAGER_NO, TODO_NO_MAN)
 );
 
 --ToDo 트리거
