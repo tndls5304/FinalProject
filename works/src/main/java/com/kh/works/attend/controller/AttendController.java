@@ -20,7 +20,7 @@ public class AttendController {
 
     private final AttendService service;
 
-    //나의 근태 리스트
+    //나의 근태 리스트 (내 출퇴근 기록 보기)
     @GetMapping("list")
     public String myAttendList(HttpSession session, Model model){
 
