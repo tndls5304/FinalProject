@@ -29,8 +29,8 @@ public class TodoDao {
     }
 
     //참여자인 할일 조회
-    public List<TodoVo> getTodoListPar(String empNo) {
-        return mapper.getTodoListPar(empNo);
+    public List<TodoVo> getTodoListPar(TodoVo vo) {
+        return mapper.getTodoListPar(vo);
     }
 
 

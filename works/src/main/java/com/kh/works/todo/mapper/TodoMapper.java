@@ -23,7 +23,7 @@ public interface TodoMapper {
 
 
     //할일 상세조회(담당자조회도 같이
-    @Select("SELECT T.TODO_NO, T.TODO_EMP_NO, T.TITLE, T.CONTENT, T.COMPLETED_YN, T.CREATE_DATE, T.END_DATE FROM TODO T WHERE T.TODO_NO = #{todoNo}")
+    @Select("SELECT T.TODO_NO, T.TODO_EMP_NO, T.TITLE, T.CONTENT, T.COMPLETED_YN, T.CREATE_DATE, T.END_DATE FROM TODO T WHERE T.TODO_NO = #{vo.todoNo}")
     //@Result : 위의 셀렉트를 실행하고 todoVo에 객체에 매핑해주는 에너테이션
     @Results({
             @Result(property = "todoNo", column = "TODO_NO"),
@@ -66,7 +66,7 @@ public interface TodoMapper {
             "LEFT JOIN EMPLOYEE e ON T.TODO_EMP_NO = E.NO\n" +
             "WHERE M.TODO_MANAGER_NO = #{empNo}\n" +
             "AND M.DEL_YN = 'N'")
-    List<TodoVo> getTodoListPar(String empNo);
+    List<TodoVo> getTodoListPar(TodoVo vo);
 
 
     //할일 수정
