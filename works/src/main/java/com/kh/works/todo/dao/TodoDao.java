@@ -18,8 +18,8 @@ public class TodoDao {
 
 
     //상세조회
-    public TodoVo getTodoByNo(String no) {
-        return mapper.getTodoByNo(no);
+    public TodoVo getTodoByNo(TodoVo vo) {
+        return mapper.getTodoByNo(vo);
     }
 
 
@@ -56,5 +56,11 @@ public class TodoDao {
 
     public List<EmployeeVo> getManagerList() {
         return mapper.getManagerList();
+    }
+
+
+
+    public int todoManager(String todoManagerNo) {
+        return  mapper.todoManager(todoManagerNo);
     }
 }
