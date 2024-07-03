@@ -15,9 +15,14 @@ public class TodoVo {
     private String startDate;
     private String endDate;
     private String todoEmpName;
+    private String todoManagerNo;
 
+
+
+
+    private int todoNoMan;
 
     //한 투두에 담당자가 여러명이라 조회해온걸 List에 담아준다
-    private List<TodoManangerVo > todoManagers;
+    private List<String> todoManagerList;
 
 }

@@ -1,13 +1,12 @@
 package com.kh.works.todo.mapper;
 
 
-import com.kh.works.todo.vo.TodoManangerVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface TodoManagerMapper {
 
-    @Insert("INSERT INTO TODO_MANAGER (TODO_MANAGER_NO, TODO_NO_MAN)VALUES (#{todoManagerNo}, #{todoNoMan})")
-    int todoWrite(TodoManangerVo manVo);
+    @Insert("INSERT INTO TODO_MANAGER (TODO_NO_MAN, TODO_MANAGER_NO)VALUES ( SEQ_TODO.NEXTVAL,#{todoManagerNo})")
+    int todoWrite(String todoManagerList);
 }
