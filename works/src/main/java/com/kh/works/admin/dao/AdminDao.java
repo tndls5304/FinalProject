@@ -44,4 +44,8 @@ public class AdminDao {
     public int resignEmp(String no) {
         return mapper.resignEmp(no);
     }
+
+    public List<EmployeeVo> selectEmpByCondition(EmployeeVo vo) {
+        return mapper.selectEmpByCondition(vo);
+    }
 }

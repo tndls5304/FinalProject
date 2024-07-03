@@ -31,12 +31,11 @@
             </div>
 
             <div>
-              <select><option>퇴사여부</option> <option>근무</option><option>퇴사</option></select>
-              <select><option>부서선택</option> </select>
-              <select><option>직위선택</option></select>
-             <input placeholder="이   름">
-
-              <button>사원검색</button>
+              <select id=retireYn>          <option value="">퇴사여부</option> <option value="N">근무</option><option value="Y">퇴사</option></select>
+              <select id=deptSelect>        </select>
+              <select id=positionSelect>    </select>
+              <input id=name placeholder="이   름">
+              <button id=selectEmpByCondition>조건으로 사원검색</button>
             </div>
             <h4> <직위 높은순, 부서순> </h4>
 

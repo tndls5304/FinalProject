@@ -9,19 +9,19 @@ public class EmployeeVo {
     private String no;
     private String email;
     private String name;
-    private String  id;
+    private String id;
     private String pwd;
     private String pwdCheck;
     private String profile;
     private MultipartFile profileInfo;
     private String phone;
-    private String  hireDate;
-    private String entYn;
-    private String  entDate;
+    private String hireDate;
+    private String retireYn;
+    private String retireDate;
     private String loginFailNum;
-    private String  lockYn;
+    private String lockYn;
     private String deptNo;
     private String positionNo;
-    private String  positionName;
-    private String  deptName;
+    private String positionName;
+    private String deptName;
 }

@@ -37,7 +37,7 @@ public interface AdminEmpMapper {
             ) D ON E.DEPT_NO = D.DEPT_NO
             LEFT JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
             JOIN POSITION P ON E.POSITION_NO=P.NO
-            WHERE E.ENT_YN='N'
+            WHERE E.RETIRE_YN='N'
             ORDER BY E.POSITION_NO ASC, E.DEPT_NO
             """
     )
@@ -47,7 +47,7 @@ public interface AdminEmpMapper {
     @Select("""
                 SELECT NO,NAME,EMAIL,PWD,PROFILE,PHONE,HIRE_DATE,LOGIN_FAIL_NUM,LOCK_YN
                 FROM EMPLOYEE
-                WHERE NO=#{no} AND ENT_YN='N'
+                WHERE NO=#{no} AND RETIRE_YN='N'
             """)
     EmployeeVo getEmpByNo(String no);
 
@@ -59,11 +59,32 @@ public interface AdminEmpMapper {
             """)
     int editEmp(EmployeeVo vo);
 
-    //퇴사처리
+    //퇴사처리 TODO 퇴사처리에  퇴사 날짜 넣기
     @Update("""
             UPDATE EMPLOYEE
-            SET ENT_YN='Y'
+            SET RETIRE_YN='Y'
             WHERE NO=#{no}
             """)
     int resignEmp(String no);
+
+    //조건부 사원검색
+    @Select("""
+            SELECT *  FROM EMPLOYEE
+         
+            where
+               <if   test="retireYn != null and retireYn != ''">
+                     RETIRE_YN=#{retireYn}
+               </if>
+               <if   test="deptNo != null and deptNo != ''">
+                     AND DEPT_NO=#{deptNo}
+               </if>
+               <if   test="positionNo != null and positionNo != ''">
+                     AND POSITION_NO=#{positionNo}
+               </if>
+               <if   test="name != null and name != ''">
+                     AND name LIKE '%' || #{name} || '%'
+               </if>
+          
+            """)
+    List<EmployeeVo> selectEmpByCondition(EmployeeVo vo);
 }

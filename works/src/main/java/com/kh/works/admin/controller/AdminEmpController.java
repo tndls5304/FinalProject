@@ -142,4 +142,13 @@ private final AdminEmpService adminEmpService;
             return  ResponseEntity.internalServerError().body("퇴사처리 실패");
         }
     }
+
+    //조건부 사원 조회
+    @GetMapping("admin/select_emp_conditional")
+    @ResponseBody
+    public List<EmployeeVo> selectEmpByCondition(@ModelAttribute EmployeeVo vo){
+        System.out.println("무ㅓ가왔을까???"+vo);
+              List<EmployeeVo> voList=adminEmpService.selectEmpByCondition(vo);
+                return null;
+    }
 }

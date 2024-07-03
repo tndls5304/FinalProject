@@ -48,4 +48,9 @@ public class AdminEmpService {
     public int resignEmp(String no) {
         return dao.resignEmp(no);
     }
+
+    //조건부사원검색
+    public List<EmployeeVo> selectEmpByCondition(EmployeeVo vo) {
+        return dao.selectEmpByCondition(vo);
+    }
 }

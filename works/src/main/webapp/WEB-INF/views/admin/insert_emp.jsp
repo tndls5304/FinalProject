@@ -38,7 +38,6 @@
           <div class="form-group">
               <label for="email"><h3>이메일</h3> </label>
               <input type="text"  name="email"  placeholder="이메일 입력" value="@gmail.com">
-
           </div>
           <div class="form-group">
               <label for="deptNo"> <h3>부서</h3> </label>
