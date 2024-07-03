@@ -4,7 +4,9 @@ import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.admin.vo.DeptVo;
 import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import com.sun.tools.javac.Main;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -70,21 +72,23 @@ public interface AdminEmpMapper {
     //조건부 사원검색
     @Select("""
             SELECT *  FROM EMPLOYEE
-         
-            where
-               <if   test="retireYn != null and retireYn != ''">
-                     RETIRE_YN=#{retireYn}
+           WHERE 1=1
+               <if test="retireYn != null and retireYn != ''">
+               AND RETIRE_YN=#{retireYn}
                </if>
-               <if   test="deptNo != null and deptNo != ''">
-                     AND DEPT_NO=#{deptNo}
+               <if test="deptNo != null and deptNo != ''">
+               AND DEPT_NO=#{deptNo}
                </if>
-               <if   test="positionNo != null and positionNo != ''">
-                     AND POSITION_NO=#{positionNo}
+               <if test="positionNo != null and positionNo != ''">
+               AND POSITION_NO=#{positionNo}
                </if>
-               <if   test="name != null and name != ''">
-                     AND name LIKE '%' || #{name} || '%'
+               <if test="name != null and name != ''">
+              AND NAME LIKE '%' || #{name} || '%'
                </if>
-          
-            """)
+         """)
     List<EmployeeVo> selectEmpByCondition(EmployeeVo vo);
+
+
+
 }
+
