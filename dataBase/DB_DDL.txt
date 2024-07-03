@@ -266,8 +266,8 @@ CREATE TABLE EMPLOYEE (
     ,PROFILE                VARCHAR2(3000)
     ,PHONE                  CHAR(11)
     ,HIRE_DATE              DATE            DEFAULT SYSDATE
-    ,ENT_YN                 CHAR(1)         DEFAULT 'N' CHECK(ENT_YN IN ('Y', 'N'))
-    ,ENT_DATE               DATE
+    ,RETIRE_YN                 CHAR(1)         DEFAULT 'N' CHECK(RETIRE_YN IN ('Y', 'N'))
+    ,RETIRE_DATE               DATE
     ,LOGIN_FAIL_NUM         NUMBER          DEFAULT 0
     ,LOCK_YN                CHAR(1)         DEFAULT 'N' CHECK(LOCK_YN IN ('Y', 'N'))
     ,DEPT_NO                NUMBER

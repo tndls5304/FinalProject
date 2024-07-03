@@ -1,3 +1,91 @@
+  //----------------------------------------------------------첫화면 셀렉트옵션 모든 부서명가져오기
+  $.ajax({
+    url:"/admin/select_dept",
+       method:"GET",
+       success:function(deptVoList){
+        const deptSelect=document.querySelector("#deptSelect");
+
+        let str='<option value="">부서 선택</option>';
+
+        for(let i=0;i<deptVoList.length;i++){
+          str+="<option value='"
+          str+=deptVoList[i].no
+          str+="'>"
+          str+=deptVoList[i].name
+          str+="</option>"
+            }
+       deptSelect.innerHTML=str;
+       }
+       ,
+       error:function(){
+       alert('통신실패');
+       }
+   });
+
+   //----------------------------------------------------------첫화면  셀렉트옵션  모든 직위명 가져오기
+
+   $.ajax({
+     url:"/admin/select_position",
+     method:"GET",
+     success:function(positionVoList){
+           const positionSelectTag=document.querySelector("#positionSelect");
+           let optionTag= document.createElement("option");
+           optionTag.innerText="직위 선택";
+           optionTag.setAttribute("value","");
+           positionSelectTag.appendChild(optionTag);
+
+            for(let i=0;i<positionVoList.length;i++){
+                const positionVo=positionVoList[i];
+
+                optionTag=document.createElement("option");
+                positionSelectTag.appendChild(optionTag);
+
+                optionTag.setAttribute("value",positionVo.no);
+                optionTag.innerText=positionVo.name;
+                 }
+         },
+         error:function(){
+         console.log("직위명가져오기 통신실패")
+         }
+     })
+
+
+//-----------------------------------------------------------사원검색
+//              (문서가 완전히 로드되고 DOM이 준비된 후에 실행)제이쿼리로 해보기
+
+$(document).ready(function(){
+  $("#selectEmpByCondition").click(function(){
+  console.log("클릭됨")
+        const retireYn=document.getElementById("retireYn").value;
+        const deptNo=document.getElementById("deptSelect").value;
+        const positionNo=document.getElementById("positionSelect").value;
+        const name=document.getElementById("name").value;
+
+  console.log("퇴사 여부:", retireYn);
+        console.log("부서 번호:", deptNo);
+        console.log("직급 번호:", positionNo);
+        console.log("이름:", name);
+        $.ajax({
+             url:"/admin/select_emp_conditional",
+             method:"GET",
+             data:{
+             retireYn:retireYn,
+             deptNo:deptNo,
+             positionNo:positionNo,
+             name:name
+          },
+
+          success:function(empVoList){
+            console.log("empVoList가져왔을까");
+            console.log(empVoList);
+          },
+          error:function(){}
+        })
+    });
+  });
+
+
+   //----------------------------------------------------첫화면 퇴직안한 전체 사원 조회해오기
     $.ajax({
       url:'/admin/list_all_emp',
       method:'GET',
@@ -46,7 +134,7 @@
 
 
 
- // 페이지 모두 로드 된 후 직원 상세보기
+ // --------------------------------------------------------------페이지 모두 로드 된 후 직원 상세보기
 window.onload = function() {
    const tbody=  document.querySelector("tbody");
    tbody.addEventListener("click",getEmpByNo);
@@ -96,7 +184,7 @@ window.onload = function() {
 
 
 
-//------------------------------------------------모달창
+//----------------------------------------------------------------------------직원상세보기 모달창
 // 모달 닫기 버튼 요소 참조
 const modalClose = document.getElementById('modalClose');
 const modal = document.getElementById('modal');
@@ -115,7 +203,7 @@ const modal = document.getElementById('modal');
             modal.style.display = 'none';
         }
     });
-//--------------------------------------------모달창에서 회원정보 수정
+//-----------------------------------------------------------------------모달창에서 회원정보 수정
 
  function editEmp(){
       const no=$('#empNo').text();
@@ -149,7 +237,7 @@ const modal = document.getElementById('modal');
       })
     }
 
-//-------------------------------------------------퇴사처리하기
+//-------------------------------------------------------------------모달창에서 퇴사처리하기
   function resignEmp(){
     const no=$("#empNo").text();
     $.ajax({
