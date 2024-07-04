@@ -35,23 +35,17 @@ public class TodoApiController {
     }
 
 
-    //모든 할일 목록조회(담당자 참여자 모두@@@@@@@@@@@@@@@@@@@@@@@여기서부터 다시 시작
+    //모든 할일 목록조회(담당자 참여자 모두//여기 todoVo넘겨주지 않고 그냥 세션에 있는거 넘겨주면 안되나?
     //리스트로 반환받기
     @GetMapping("listAll")
     @ResponseBody
-    public List<TodoVo> getTodoListAll(TodoVo vo){
+    public List<TodoVo> getTodoListAll(TodoVo vo, HttpSession session){
 
-//        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
-//        String empNo = loginEmpVo.getNo();
-//        vo.setTodoEmpNo(empNo);
-//
-//
-        String todoEmpNo = vo.getTodoEmpNo();
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+        vo.setTodoEmpNo(empNo);
+        vo.setTodoManagerNo(empNo);
 
-
-        vo.setTodoEmpNo(todoEmpNo);
-        System.out.println("@@@@@@@@@@todoEmpNo = " + todoEmpNo);
-        System.out.println("@@@@@@@@@@@@@@empNo = " + vo);
 
         //반환값을 List로 변환
         List<TodoVo> voList = service.getTodoListAll(vo);
@@ -60,11 +54,11 @@ public class TodoApiController {
 
 
 
-    //참여자 할일 목록조회(내가 참여자인것만
+    //참여자 할일 목록조회(내가 참여자인것만 //이것도 세션으로 받으면 되려나...
     @GetMapping("listPar")
     @ResponseBody
-    public List<TodoVo> getTodoListPar(String empNo){
-        List<TodoVo> pvoList = service.getTodoListPar(empNo);
+    public List<TodoVo> getTodoListPar(TodoVo vo){
+        List<TodoVo> pvoList = service.getTodoListPar(vo);
         return pvoList;
     }
 

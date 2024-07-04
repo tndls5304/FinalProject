@@ -26,8 +26,14 @@ public class TodoService {
     private final TodoManagerDao manDao;
 
 
+    //todo작성 쿼리 2개 insert
     public int todoWrite(TodoVo vo) {
+        // 받은 endDate 값 출력
+        System.out.println("@@@@@@@@Received endDate: " + vo.getEndDate());
+
         vo.setEndDate(calculateEndDate(vo));
+
+        System.out.println("@@@@@@@@@@@@Calculated endDate: " + vo.getEndDate());
 
         //todo작성 실행
         int result1 = todoDao.todowrite(vo);
@@ -77,8 +83,8 @@ public class TodoService {
 
 
     //참여자인 할일 조회
-    public List<TodoVo> getTodoListPar(String empNo) {
-        return todoDao.getTodoListPar(empNo);
+    public List<TodoVo> getTodoListPar(TodoVo vo) {
+        return todoDao.getTodoListPar(vo);
     }
 
 

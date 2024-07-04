@@ -28,31 +28,30 @@
           <textarea id="content" name="content" required></textarea>
           <br><br>
 
-
-
-          <br><br>
-          <label for="requesterName" data-name="todoEmpNo">담당자:${loginEmpVo.name}</label>
-
+        
+          <label for="parNo" data-name="todoEmpNo">담당자:${loginEmpVo.name}</label>
           <br><br>
 
 
-          <label for="receiver-select">참여자 선택:</label>
-          <select id="receiver-select" onchange="addReceiver()">
-            <option value="">사원 선택</option>
-            <c:forEach var="employee" items="${empList}">
-              <option value="${employee.no}" data-name="${employee.name}">${employee.name} ${employee.positionNo}
-                ${employee.deptNo}</option>
-            </c:forEach>
-          </select>
-          <input type="hidden" id="todoManagerNo" name="todoManagerNo">
-          <div id="selected-todoManager">
-            <!-- 선택된 참여자가 여기에 표시됩니다 -->
-          </div>
-          <br><br>
+              <select id="todoManager" name="todoManagerList[]" multiple>
+                 <option value="">참여자 선택</option>
+                 <c:forEach var="employee" items="${employeeList}">
+                     <option value="${employee.no}" name="todoManagerList" class="click-option">${employee.name}&nbsp;&nbsp;&nbsp;${employee.deptNo}</option>
+                 </c:forEach>
+              </select>
+              <input type="hidden" id="todoManagerList" name="todoManagerList">
+              <label for="parNo">참여자:</label>
 
-          <!-- 위의 기한버튼을 누르면 날짜가 여기로 들어와서
-           폼으로 날짜 데이터를 제출! -->
+          
+          <br><br>
+          
+          
+          <label for="endDate">기한</label>
           <input type="hidden" id="endDate" name="endDate">
+          <button type="button" onclick="setEndDate('today')">오늘</button>
+          <button type="button" onclick="setEndDate('tomorrow')">내일</button>
+          <button type="button" onclick="setEndDate('nextWeek')">다음주</button>
+          <br><br>
 
           <input type="submit" value="작성">
         </form>
