@@ -23,4 +23,8 @@ public class EmpAccountDao {
     public int join(EmployeeVo vo) {
        return mapper.join(vo);
     }
+
+    public int plusLoginFailNum(String loginFailEmpNo) {
+        return mapper.plusLoginFailNum(loginFailEmpNo);
+    }
 }

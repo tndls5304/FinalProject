@@ -23,10 +23,12 @@ public interface AdminEmpMapper {
             "FROM POSITION")
     List<PositionVo> selectPosition();
 
+
     //신규사원등록하고 사원넘버 가져오기
     @Insert("INSERT INTO EMPLOYEE (NO, EMAIL, NAME, DEPT_NO, POSITION_NO)VALUES(SEQ_EMPLOYEE.NEXTVAL, #{email},#{name}, #{deptNo}, #{positionNo})")
     @Options(useGeneratedKeys = true, keyProperty = "no", keyColumn = "NO")
     void insertEmp(EmployeeVo employeeVo);
+
 
     //전체사원조회 :직위높은순으로 그리고 부서별로
     @Select("""
@@ -70,24 +72,29 @@ public interface AdminEmpMapper {
     int resignEmp(String no);
 
     //조건부 사원검색
+
     @Select("""
-            SELECT *  FROM EMPLOYEE
-           WHERE 1=1
-               <if test="retireYn != null and retireYn != ''">
-               AND RETIRE_YN=#{retireYn}
-               </if>
-               <if test="deptNo != null and deptNo != ''">
-               AND DEPT_NO=#{deptNo}
-               </if>
-               <if test="positionNo != null and positionNo != ''">
-               AND POSITION_NO=#{positionNo}
-               </if>
-               <if test="name != null and name != ''">
-              AND NAME LIKE '%' || #{name} || '%'
-               </if>
+            <script>
+                   SELECT E.NO,E.NAME,E.ID,P.NAME AS POSITION_NAME,D.NAME AS DEPT_NAME,E.LOCK_YN
+                    FROM EMPLOYEE E JOIN POSITION P ON  E.POSITION_NO=P.NO
+                                    JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
+                    <where>
+                          <if test="retireYn != null and retireYn != ''">
+                             AND  E.RETIRE_YN=#{retireYn}
+                          </if>
+                          <if test="deptNo != null and deptNo != ''">
+                             AND  E.DEPT_NO=#{deptNo}
+                          </if>
+                          <if test="positionNo != null and positionNo != ''">
+                             AND  E.POSITION_NO=#{positionNo}
+                          </if>
+                          <if test="name != null and name != ''">
+                             AND  E.NAME LIKE '%' || #{name} || '%'
+                          </if>
+                    </where>
+             </script>
          """)
     List<EmployeeVo> selectEmpByCondition(EmployeeVo vo);
-
 
 
 }
