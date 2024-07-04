@@ -72,14 +72,14 @@ function makeElement(firstDate, pageYear) {
 
     
 
-            // 첫 번째 주에서 시작 날짜를 설정
+
             if (i === 0 && j < firstDay) {
                 const cellText = document.createTextNode("");
                 cell.appendChild(cellText);
                 row.appendChild(cell);
             
             } else if (date > daysInMonth) {
-                // 날짜가 월의 마지막 날짜를 넘어가면 빈 셀 추가
+
                 const cellText = document.createTextNode("");
                 cell.appendChild(cellText);
                 row.appendChild(cell);
@@ -94,9 +94,38 @@ function makeElement(firstDate, pageYear) {
 
         calendarBody.appendChild(row);
 
-        // 모든 날짜가 추가되면 루프 종료
+ 
         if (date > daysInMonth) {
             break;
         }
+        
     }
+
+
+    document.querySelectorAll('.day').forEach(day => {
+        day.addEventListener('click', () => {
+            const write = document.querySelector("#write");
+            write.style.display = 'block'; 
+
+            const date =document.querySelector("#startDate");
+            const date2 =document.querySelector("#endDate");
+            const time = document.querySelector("#startTime");
+            const time2 = document.querySelector("#endTime");
+            const rentDate = document.querySelector("#rentDate");
+
+            rentDate.value= "";
+            time.value="";
+            time2.value="";
+            date.value="";
+            date2.value = "";
+        });
+    });
+
+    const closeButton = document.querySelector("#closeButton");
+    closeButton.addEventListener('click', () => {
+        const write = document.querySelector("#write");
+        write.style.display = 'none'; 
+    });
+    
 }
+

@@ -1,9 +1,9 @@
-package com.kh.works.meeting.vo;
+package com.kh.works.rent.vo;
 
 import lombok.Data;
 
 @Data
-public class MeetingVo {
+public class CarVo {
 
     private String metRsvNo;
     private String metRoomNo;
@@ -11,4 +11,9 @@ public class MeetingVo {
     private String rsvDate;
     private String startDate;
     private String endDate;
+    private String vhclNo;
+    private String vhclTypeNo;
+    private String vhclNumber;
+    private String name;
+
 }
