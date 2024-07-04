@@ -23,7 +23,6 @@ public class ApiRentController {
         EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
         vo.setEmpNo(empNo);
-        System.out.println(vo + "vo 뭐뭐가 안들어온거야~~~~~~~~~~~~~" );
         int result = service.meetingRent(vo);
 
         return "rent/home";
@@ -32,10 +31,10 @@ public class ApiRentController {
     //차량 예약작성하기
     @PostMapping("car")
     public int carRent(CarVo vo , HttpSession session){
-        int result = service.carRent(vo);
         EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
         vo.setEmpNo(empNo);
+        int result = service.carRent(vo);
         return result;
     }
 

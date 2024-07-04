@@ -1,5 +1,12 @@
 let today;
 
+window.addEventListener('keyup', (event) => {
+    if (event.key === 'Escape') {
+        const write = document.querySelector("#write");
+        write.style.display = 'none'; 
+    }
+});
+
 window.onload = () => {
     today = new Date();
     const prevE1 = document.querySelector(".prev");
@@ -18,6 +25,13 @@ window.onload = () => {
         today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
         removeCalendar();
         buildCalendar();
+    });
+
+    window.addEventListener('keyup', (event) => {
+        if (event.key === 'Escape') {
+            const write = document.querySelector("#write");
+            write.style.display = 'none'; 
+        }
     });
 };
 

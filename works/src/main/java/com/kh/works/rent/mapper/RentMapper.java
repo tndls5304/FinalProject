@@ -12,11 +12,26 @@ import java.util.List;
 @Mapper
 public interface RentMapper {
 
-    @Insert("INSERT INTO RESERV_MEETING(MET_RSV_NO, MET_ROOM_NO, EMP_NO, RSV_DATE, START_DATE, END_DATE)\n" +
-            "VALUES (SEQ_RESERV_MEETING.NEXTVAL, #{metRoomNo}, #{empNo}, #{rsvDate}, TO_TIMESTAMP(#{startDate}, 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP(#{endDate}, 'YYYY-MM-DD HH24:MI:SS'))\n")
+    @Insert("INSERT INTO RESERV_MEETING(MET_RSV_NO, MET_ROOM_NO, EMP_NO, RSV_DATE, START_DATE, END_DATE) \n" +
+            "VALUES (SEQ_RESERV_MEETING.NEXTVAL, #{metRoomNo}, #{empNo},  TO_DATE(#{rsvDate}, 'YYYY-MM-DD'), TO_TIMESTAMP(#{startDate}, 'YYYY-MM-DD HH24:MI'), TO_TIMESTAMP(#{endDate}, 'YYYY-MM-DD HH24:MI'))\n")
     int meetingRent(MeetingVo vo);
 
-    @Insert("")
+    @Insert("INSERT INTO RESERV_VEHICLE (\n" +
+            "    VHCL_RSV_NO\n" +
+            "    ,VHCL_NO\n" +
+            "    ,EMP_NO\n" +
+            "    ,LOAN_DATE\n" +
+            "    ,RETURN_DATE\n" +
+            "    ,REASON\n" +
+            ")VALUES \n" +
+            "(\n" +
+            "    SEQ_RESERV_VEHICLE.NEXTVAL\n" +
+            "    ,#{vhclNo}\n" +
+            "    ,#{empNo}\n" +
+            "    ,TO_DATE(#{loanDate}, 'YYYY-MM-DD')" +
+            "    ,TO_DATE(#{returnDate}, 'YYYY-MM-DD')" +
+            "    ,#{reason}\n" +
+            ")")
     int carRent(CarVo vo);
 
     @Select("")
