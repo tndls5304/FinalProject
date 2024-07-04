@@ -33,16 +33,17 @@
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
                 <input type="text" id="id"  name="id" class="id-input" placeholder="아이디 입력">
-
             </div>
+
             <div class="form-group">
                 <label for="password"><h3>비밀번호</h3> </label>
                 <input type="password" id="password" name="pwd" placeholder="비밀번호 입력">
             </div>
 
             <div class="btncenter">
-                <button type="submit" >관리자 로그인</button>
+                <button type="submit">관리자 로그인</button>
             </div>
+
         </form>
     </main>
 

@@ -9,6 +9,7 @@
     <title>직원로그인</title>
     <!-- jstl라이브러리쓰기-->
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
     <!-- 글씨체 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,18 +23,16 @@
        <script>
             <c:if test="${not empty errorMsg}">
                      alert('${errorMsg}');
-             </c:if>
-                  <c:if test="${not empty joinSuccessMsg}">
+            </c:if>
+            <c:if test="${not empty joinSuccessMsg}">
                       alert('${joinSuccessMsg}');
-                 </c:if>
-
+            </c:if>
        </script>
 </head>
 
 <body>
 
-    <main>
-
+   <main>
         <div class="mainjoin"><h1>직원 로그인 </h1></div>
 
         <form id="signupForm" action="/emp/login" method="post">
@@ -41,19 +40,58 @@
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
                 <input type="text" id="id"  name="id" class="id-input" placeholder="아이디 입력">
-
             </div>
+
             <div class="form-group">
                 <label for="password"><h3>비밀번호</h3> </label>
                 <input type="password" id="password" name="pwd" placeholder="비밀번호 입력">
-
             </div>
+
 
             <div class="btncenter">
                 <button type="submit" >로그인하기</button>
             </div>
+
         </form>
+            <div class="btnunder">
+                  <button type="button" onclick="btnFindId();"> 아이디찾기</button>
+                  <button type="button"  onclick="btnFindPwd()";>비밀번호 찾기</button>
+             </div>
     </main>
+
+
+<!-- -------------------아이디찾기 모달창------------------------------------------->
+    <div id="modalFindId" class="modal-find-id">
+      <div class="modalFindAccount-content">
+            <h2>아이디 찾기 모달</h2>
+            <form  action="/?????" method="GET">
+                <label for="nameModalFindId">이름:</label>
+                <input type="text" id="nameModalFindId" name="nameModalFindId" required>
+                <label for="phoneModalFindId">휴대폰번호:</label>
+                <input type="number" id="phoneModalFindId" name="phoneModalFindId" required>
+                <button type="submit">메일로 아이디 받기</button>
+                <button type="button" class="close-modalFindId" onclick="closeModalFindId()">아이디 모달 닫기</button>
+            </form>
+      </div>
+    </div>
+
+<!---------비밀번호 찾기 모달창------------------------------------------->
+        <div id="modalFindPwd" class="modal-find-pwd">
+          <div class="modalFindAccount-content">
+                <h2>비밀번호 찾기 모달</h2>
+                <form  action="/?????" method="GET">
+                  <label for="nameModalFindPwd">이름:</label>
+                  <input type="text" id="nameModalFindPwd" name="nameModalFindPwd" required>
+                 <label for="idModalFindPwd">아이디:</label>
+                        <input type="text" id="idModalFindPwd" name="idModalFindPwd" required>
+
+                    <button type="submit">비번 찾기ㄱㄱㄱ</button>
+                    <button type="button" class="close-modalFindPwd">비밀번호 모달 닫기</button>
+                </form>
+          </div>
+        </div>
+
+
 
 
 </body>

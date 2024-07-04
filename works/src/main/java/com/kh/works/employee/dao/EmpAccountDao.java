@@ -11,9 +11,9 @@ public class EmpAccountDao {
     private final EmpAccountMapper mapper;
 
 
-    public EmployeeVo empLoginMatching(EmployeeVo vo) {
+    public EmployeeVo empLoginIdMatching(EmployeeVo vo) {
 
-        return mapper.empLoginMatching(vo);
+        return mapper.empLoginIdMatching(vo);
     }
 
     public int empJoinDuplicateTest(String id) {
@@ -26,5 +26,9 @@ public class EmpAccountDao {
 
     public int plusLoginFailNum(String loginFailEmpNo) {
         return mapper.plusLoginFailNum(loginFailEmpNo);
+    }
+
+    public int lockAccount(String loginFailEmpNo) {
+        return mapper.lockAccount(loginFailEmpNo);
     }
 }

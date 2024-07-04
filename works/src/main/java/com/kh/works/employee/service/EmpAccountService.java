@@ -14,9 +14,9 @@ public class EmpAccountService {
 
     private final EmpAccountDao dao;
 
-    public EmployeeVo empLoginMatching(EmployeeVo vo) {
+    public EmployeeVo empLoginIdMatching(EmployeeVo vo) {
 
-        return dao.empLoginMatching(vo);
+        return dao.empLoginIdMatching(vo);
     }
 
     public int empJoinDuplicateTest(String id) {
@@ -56,5 +56,10 @@ public class EmpAccountService {
 
     public int plusLoginFailNum(String loginFailEmpNo) {
        return dao.plusLoginFailNum(loginFailEmpNo);
+    }
+
+
+    public int lockAccount(String loginFailEmpNo) {
+        return dao.lockAccount(loginFailEmpNo);
     }
 }
