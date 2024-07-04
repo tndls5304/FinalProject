@@ -11,6 +11,8 @@
 
     <script src="/js/home/home.js"></script>
     <link rel="stylesheet" href="/css/home/home.css">
+    <!-- fontAwesome을 사용하기 위한 코드이다. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -24,6 +26,8 @@
             <div id="profile-section">
 
                     <img src="/img/profile/${loginEmpVo.profile}" alt="Profile Picture" id="profile-picture">
+                    <!-- fontAwesome에서 가지고 온 이모티콘이다. 누르면 나의 근태 리스트로 넘어가게 해두었다!!!!!!!!! -->
+                    <i class="fa-solid fa-list attend-list" onclick="window.location.href='http://localhost:8080/attend/list';"></i>
                     <div id="profile-info">
                         <h2>${loginEmpVo.name} ${loginEmpVo.positionName}</h2>
                         <h3>🖤 ${loginEmpVo.deptName} 🖤</h3>
@@ -38,7 +42,8 @@
                             <div id="button-group">
                                 <button id="start-button">출근하기</button>
                                 <button id="end-button">퇴근하기</button>
-                                <button id="load-button" onclick="location.reload();">새로고침</button>
+                                <!-- <button id="load-button" onclick="location.reload();">새로고침</button> -->
+                                <i class="fa-solid fa-rotate-right" id="load-button" onclick="location.reload();"></i>
                                 <div style="display:none;" class="empNo">${loginEmpVo.no}</div>
                             </div>
                         </div>

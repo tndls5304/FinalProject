@@ -10,6 +10,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Messenger</title>
      <link rel="stylesheet" href="/css/messenger/write.css">
+     <script src="/js/messenger/all.js"></script>
    </head>
 
    <body>
