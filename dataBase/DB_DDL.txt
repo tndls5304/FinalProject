@@ -164,10 +164,10 @@ CREATE TABLE RESERV_VEHICLE (
     VHCL_RSV_NO             NUMBER          PRIMARY KEY
     ,VHCL_NO                NUMBER          NOT NULL
     ,EMP_NO                 NUMBER          NOT NULL
-    ,APPROVAL_NO            NUMBER          NOT NULL
+    ,APPROVAL_NO            NUMBER          DEFAULT 1 NOT NULL
     ,CANCEL_RESERVATION_YN  CHAR(1)         DEFAULT 'N' CHECK(CANCEL_RESERVATION_YN IN ('Y', 'N')) 
-    ,LOAN_DATE              TIMESTAMP       NOT NULL
-    ,RETURN_DATE            TIMESTAMP       NOT NULL
+    ,LOAN_DATE              DATE       NOT NULL
+    ,RETURN_DATE            DATE       NOT NULL
     ,REASON                 VARCHAR2(1000)  NOT NULL
 );
 

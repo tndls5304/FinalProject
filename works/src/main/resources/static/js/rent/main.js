@@ -26,8 +26,7 @@ $.ajax({
         let str ="";
 
         for(let i = 0 ; i< data.length ; i++){
-            str+="<div hidden>" + data[i].vhclNo + "</div>"
-            str+="<option>" + data[i].name + "   [차량번호 : " +data[i].vhclNumber+"]"+"</option>"
+            str+="<option value=" +data[i].vhclNo+ ">" + data[i].name + "   [차량번호 : " +data[i].vhclNumber+"]"+"</option>"
         }
 
         carOption.innerHTML = str;
@@ -45,55 +44,62 @@ $.ajax({
     const endTime = document.querySelector("#endTime").value;
     const meetingRoomNo = document.querySelector("#meetingOption").value;
 
-    const startDate = new Date(rentDate + "T" + startTime + ":00.000Z").toISOString();
-    const endDate = new Date(rentDate + "T" + endTime + ":00.000Z").toISOString();
-
-
+    const startDate = rentDate + " " + startTime ;
+    const endDate = rentDate + " " + endTime ;
 
     console.log(rentDate);
     console.log(startTime);
     console.log(endTime);
     console.log(meetingRoomNo);
 
-
     $.ajax({
         url:"/api/rent/meeting",
         method:"post",
         data:{
-            metRoomNo:meetingRoomNo
-            ,rsvDate:rentDate
-            ,startDate: startDate
-            ,endDate: endDate
-        }
-        ,success:()=>{
+            metRoomNo: meetingRoomNo,
+            rsvDate: rentDate,
+            startDate: startDate,
+            endDate: endDate
+        },
+        success: () => {
             alert("예약 성공하였습니다");
+        },
+        error: () => {
+            alert("예약실패, 다시 확인 후 예약해주세요");
         }
-        ,error:()=>{
-            alert("예약실패 , 다시 확인 후 예약해주세요");
-        }
+    });
+}
 
-    })
-    
- }
 
  
- function carRent() {
+ function carRent(){
+
      const startDate =document.querySelector("#startDate").value;
      const endDate = document.querySelector("#endDate").value;
      const reason = document.querySelector("#reason").value;
+     const carNo = document.querySelector("#carOption").value;
+
+     console.log(startDate);
+     console.log(endDate);
+     console.log(reason);
+     console.log(carNo);
+
      
-     $.ajax({
-    
-         
-         url:""
+     $.ajax({         
+         url:"/api/rent/car"
          ,method:"post"
          ,data:{
-    
+            vhclNo:carNo
+            ,loanDate:startDate
+            ,returnDate:endDate
+            ,reason:reason
         }
         ,success:()=>{
+            alert("예약되었습니다 자세한 내용은 상세페이지에서 확인해주세요")
     
         }
         ,error:()=>{
+            alert("예약실패 , 다시 확인 후 예약해주세요")
     
         }
      })
