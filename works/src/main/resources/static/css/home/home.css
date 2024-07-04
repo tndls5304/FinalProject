@@ -115,6 +115,7 @@ main {
 /* ----------------- */
 /* 프로필 부분 */
 #profile-section {
+    position: relative; /* fontAwesome 이모티콘 위치를 위해 사용 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,6 +132,19 @@ main {
     width: 200px;
     height: 200px;
     object-fit: cover;
+}
+
+/* fontAwesome 이모티콘 CSS */
+.attend-list{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2em;
+    color: black;
+    cursor: pointer;
+}
+.attend-list:hover{
+  color: gray;
 }
 
 #profile-info {
@@ -189,14 +203,14 @@ main {
     font-size: large;
 }
 #load-button {
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #333;
-    padding: 5px 10px;
-    font-size: 13px;
+    border-radius: 4px; */
+    color: black;
+    padding: 15px 10px;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    font-size: larger;
+    /* transition: background-color 0.3s, border-color 0.3s; */
 }
 
 #start-button:hover{
@@ -205,10 +219,10 @@ main {
 #end-button:hover{
     background-color: #ca4d4d;
 }
-#load-button:hover {
+/* #load-button:hover {
     background-color: #e0e0e0;
     border-color: #bbb;
-}
+} */
 
 /* ----------------- */
 /* 알림부분 */
