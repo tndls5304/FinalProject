@@ -48,24 +48,30 @@ public interface TodoMapper {
 
 
 
-    //모든 할일 조회
-    @Select("SELECT DISTINCT T.TITLE, T.END_DATE, E.NAME, T.CREATE_DATE\n" +
+    //모든 할일 조회// 이름 가져올때 별칭을 정해줘야 한다.
+    @Select("SELECT DISTINCT T.TODO_NO, T.TITLE, T.END_DATE, E.NAME AS NAME\n" +
             "FROM TODO T\n" +
             "JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
             "JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO\n" +
-            "WHERE (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{TodoManagerNo})\n" +
+            "WHERE (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{todoManagerNo})\n" +
             "AND T.DEL_YN = 'N'\n" +
-            "AND M.DEL_YN = 'N'")
+            "AND M.DEL_YN = 'N'\n")
+    @Results({
+            @Result(property = "todoEmpName", column = "NAME")}) //내가 만들어둔 vo변수명에 받아온 데이터 들어감
     List<TodoVo> getTodoListAll(TodoVo vo);
 
 
+
+
     //참여자인 할일 조회
-    @Select("SELECT T.TITLE, E.NAME AS 담당자, T.END_DATE\n" +
+    @Select("SELECT T.TODO_NO, T.TITLE, E.NAME AS NAME, T.END_DATE\n" +
             "FROM TODO T\n" +
             "LEFT JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
             "LEFT JOIN EMPLOYEE e ON T.TODO_EMP_NO = E.NO\n" +
-            "WHERE M.TODO_MANAGER_NO = #{empNo}\n" +
+            "WHERE M.TODO_MANAGER_NO = #{todoManagerNo}\n" +
             "AND M.DEL_YN = 'N'")
+    @Results({
+            @Result(property = "todoEmpName", column = "NAME")}) //내가 만들어둔 vo변수명에 받아온 데이터 들어감
     List<TodoVo> getTodoListPar(TodoVo vo);
 
 

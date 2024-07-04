@@ -42,10 +42,10 @@ public class TodoApiController {
     public List<TodoVo> getTodoListAll(TodoVo vo, HttpSession session){
 
         EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
-        String empNo = loginEmpVo.getNo();
-        vo.setTodoEmpNo(empNo);
-        vo.setTodoManagerNo(empNo);
+        String todoEmpNo = loginEmpVo.getNo();
 
+        vo.setTodoEmpNo(todoEmpNo);
+        vo.setTodoManagerNo(todoEmpNo);
 
         //반환값을 List로 변환
         List<TodoVo> voList = service.getTodoListAll(vo);
@@ -57,7 +57,13 @@ public class TodoApiController {
     //참여자 할일 목록조회(내가 참여자인것만 //이것도 세션으로 받으면 되려나...
     @GetMapping("listPar")
     @ResponseBody
-    public List<TodoVo> getTodoListPar(TodoVo vo){
+    public List<TodoVo> getTodoListPar(TodoVo vo, HttpSession session){
+
+        EmployeeVo loginEmpVo =(EmployeeVo)session.getAttribute("loginEmpVo");
+        String todoEmpNo = loginEmpVo.getNo();
+        vo.setTodoManagerNo(todoEmpNo);
+
+
         List<TodoVo> pvoList = service.getTodoListPar(vo);
         return pvoList;
     }

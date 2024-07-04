@@ -31,6 +31,11 @@ public class TodoController {
 //        return "todo/write";
 //    }
 
+    @GetMapping("home")
+    public String todoHome(){
+        return "todo/home";
+    }
+
     //할일 작성
     @PostMapping("write")
 //    반환 타입이 int일때는 JSON으로 직접 변환할 수 없기 때문에,
