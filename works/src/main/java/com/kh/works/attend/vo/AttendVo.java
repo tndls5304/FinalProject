@@ -11,7 +11,9 @@ public class AttendVo {
     private String endTime;
     private String delYn;
 
-    //나의 근태 리스트에서 주차별로 나타내기 위해서 weekNum 변수를 만들어주었다.
-    private String weekNum;
+    //출퇴근 주차 계산하는 쿼리문에서 주차별로 나타내기 위해 작성한 변수.
+    private int weekNum;
+    //출퇴근 주차 계산하는 쿼리문에서 (해당 출퇴근기록이) 몇 월인지 알기 위해 작성한 변수.
+    private String monthNum;
 
 }

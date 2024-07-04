@@ -23,7 +23,7 @@
         <div id="container">
             <div id="profile-section">
 
-                    <img src="${loginEmpVo.profile}" alt="Profile Picture" id="profile-picture">
+                    <img src="/img/profile/${loginEmpVo.profile}" alt="Profile Picture" id="profile-picture">
                     <div id="profile-info">
                         <h2>${loginEmpVo.name} ${loginEmpVo.positionName}</h2>
                         <h3>🖤 ${loginEmpVo.deptName} 🖤</h3>
