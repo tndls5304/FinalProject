@@ -31,4 +31,8 @@ public class EmpAccountDao {
     public int lockAccount(String loginFailEmpNo) {
         return mapper.lockAccount(loginFailEmpNo);
     }
+
+    public String findId(EmployeeVo vo) {
+        return mapper.findId(vo);
+    }
 }

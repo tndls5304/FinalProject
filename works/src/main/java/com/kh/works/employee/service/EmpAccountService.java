@@ -62,4 +62,8 @@ public class EmpAccountService {
     public int lockAccount(String loginFailEmpNo) {
         return dao.lockAccount(loginFailEmpNo);
     }
+
+    public String findId(EmployeeVo vo) {
+        return dao.findId(vo);
+    }
 }
