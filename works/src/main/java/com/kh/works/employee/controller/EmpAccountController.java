@@ -97,31 +97,38 @@ public class EmpAccountController {
         return "login/emp_login";
     }
 
+
+
     //로그인하기
     @PostMapping("emp/login")
-    public String empLoginMatching(EmployeeVo vo, HttpSession session, Model model) {
-        EmployeeVo loginEmpVo = service.empLoginMatching(vo);
+    public String empLoginIdMatching(EmployeeVo vo, HttpSession session, Model model) {
+        EmployeeVo loginEmpVo = service.empLoginIdMatching(vo);
 
         if (loginEmpVo == null) {
             model.addAttribute("errorMsg", "일치하는 아이디가 없습니다 아이디 확인 후 다시 시도 해주세요!");
             return "login/emp_login";
         }
 
+        //TODO 메소드 리턴값에 따라 처리해줄건 없는지 /계정 잠금 한 후에는 계정잠금 확인하는 곳이 없는데?
         int loginFailNum = Integer.parseInt(loginEmpVo.getLoginFailNum());
-
-        if (loginFailNum >= 5) {
-            model.addAttribute("errorMsg", "계정잠금! 관리자에게 문의하세요");
+        String loginFailEmpNo = loginEmpVo.getNo();
+        if (loginFailNum >= 3) {
+            service.lockAccount(loginFailEmpNo);
+            model.addAttribute("errorMsg", "3회실패 ❗ 계정잠금)관리자에게 문의하세요");
             return "login/emp_login";
         }
 
         if (!vo.getPwd().equals(loginEmpVo.getPwd())) {
-            model.addAttribute("errorMsg", "로그인실패!! 5회 실패시에는 계정이 잠금됩니다");
-            String loginFailEmpNo = loginEmpVo.getNo();
+            model.addAttribute("errorMsg", "로그인실패!! 긴장하세요 3회 실패시에는 계정이 잠금됩니다");
             service.plusLoginFailNum(loginFailEmpNo);
 
             return "login/emp_login";
         }
+
         session.setAttribute("loginEmpVo", loginEmpVo);
         return "redirect:/home";
     }
+
+    //자신의 아이디 찾기
+
 }

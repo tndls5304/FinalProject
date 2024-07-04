@@ -1,10 +1,7 @@
 package com.kh.works.employee.mapper;
 
 import com.kh.works.employee.vo.EmployeeVo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface EmpAccountMapper {
@@ -16,7 +13,7 @@ public interface EmpAccountMapper {
                         JOIN POSITION P ON E.POSITION_NO=P.NO
                         WHERE ID=#{id}
             """ )
-    EmployeeVo empLoginMatching(EmployeeVo vo);
+    EmployeeVo empLoginIdMatching(EmployeeVo vo);
 
 
     @Select("SELECT COUNT(*) AS CNT FROM EMPLOYEE WHERE ID =#{id}")
@@ -37,4 +34,14 @@ public interface EmpAccountMapper {
             """)
 
     int plusLoginFailNum(String loginFailEmpNo);
+
+
+    //계정잠금처리하기
+    @Insert("""
+            UPDATE EMPLOYEE
+            SET LOCK_YN='N'
+            WHERE NO=#{loginFailEmpNo}
+            """)
+    int lockAccount(String loginFailEmpNo);
+
 }

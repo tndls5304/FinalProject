@@ -63,26 +63,34 @@ margin-bottom: 30px;
   justify-content: center;
 }
 
+
+.btnunder{
+  display: flex;
+  justify-content: flex-end	;
+}
+
+
+
+
 button {
-  padding: 12px 20px;
-  background-color: #ff7f7f;
+  padding: 5px 10px;
+  background-color:rgb(39, 0, 34);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin-top:30px;
+  margin-right:5px;
 }
 
 button:hover {
   background-color:#afa5d8;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center; /* Center the buttons horizontally */
-}
 
-.button-container button {
-  margin: 0 10px; /* Add some space between buttons */
-}
+.modal-find-id,
+.modal-find-pwd{
+    display: none;
 
+}
