@@ -35,4 +35,12 @@ public class EmpAccountDao {
     public String findId(EmployeeVo vo) {
         return mapper.findId(vo);
     }
+
+    public EmployeeVo selectMailToFindPwd(EmployeeVo vo) {
+        return  mapper.selectMailToFindPwd(vo);
+    }
+
+    public int updatePwd(EmployeeVo vo) {
+        return mapper.updatePwd(vo);
+    }
 }

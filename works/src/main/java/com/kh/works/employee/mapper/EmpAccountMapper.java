@@ -53,4 +53,21 @@ public interface EmpAccountMapper {
             WHERE NAME=#{name} AND PHONE=#{phone}
             """)
     String findId(EmployeeVo vo);
+
+    @Select("""
+            SELECT EMAIL,NO
+            FROM EMPLOYEE
+            WHERE NAME=#{name} AND ID =#{id}
+            """)
+    EmployeeVo selectMailToFindPwd(EmployeeVo vo);
+
+
+    @Update("""
+            UPDATE EMPLOYEE
+            SET PWD=#{pwd}
+            WHERE NO=#{no}
+            """)
+    @Options(useGeneratedKeys = true, keyProperty = "mail", keyColumn = "MAIL")
+
+    int updatePwd(EmployeeVo vo);
 }

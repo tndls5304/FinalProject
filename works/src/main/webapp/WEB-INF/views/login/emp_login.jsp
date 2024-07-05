@@ -58,16 +58,17 @@
             </div>
 
         </form>
+
             <div class="btnunder">
-                  <button type="button" onclick="btnFindId()"> 아이디찾기</button>
-                  <button type="button"  onclick="btnFindPwd()">비밀번호 찾기</button>
+                  <button onclick="btnFindId()"> 아이디찾기</button>
+                  <button onclick="btnFindPwd()">비밀번호 찾기</button>
              </div>
     </main>
 
 
 <!-- -------------------아이디찾기 모달창------------------------------------------->
     <div id="modalFindId" class="modal-find-id" >
-      <div class="modalFindAccount-content">
+      <div class="modalFindAccount-content" id=modalIdContent>
               <h2>아이디 찾기</h2>
                <h4>이름:</h4>
                <input type="text" id="nameModalFindId" class="modal-inputBox"   required>
@@ -81,7 +82,7 @@
 
 <!---------비밀번호 찾기 모달창------------------------------------------->
         <div id="modalFindPwd" class="modal-find-pwd">
-          <div class="modalFindAccount-content">
+          <div class="modalFindAccount-content" id=modalPwdContent>
                 <h2>비밀번호 찾기</h2>
 
                  <h4>이름:</h4>
