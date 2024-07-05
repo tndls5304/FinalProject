@@ -44,4 +44,13 @@ public interface EmpAccountMapper {
             """)
     int lockAccount(String loginFailEmpNo);
 
+
+    //아이디 찾기
+
+    @Select("""
+            SELECT ID
+            FROM EMPLOYEE
+            WHERE NAME=#{name} AND PHONE=#{phone}
+            """)
+    String findId(EmployeeVo vo);
 }

@@ -6,6 +6,7 @@ import com.kh.works.employee.service.EmpAccountService;
 import com.kh.works.employee.vo.EmployeeVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -129,6 +130,19 @@ public class EmpAccountController {
         return "redirect:/home";
     }
 
-    //자신의 아이디 찾기
 
+    //자신의 아이디 찾기
+    @PostMapping("emp/find_id")
+    @ResponseBody
+    public ResponseEntity<String> findId(EmployeeVo vo, Model model){
+        String id = service.findId(vo);
+
+        if(id!=null){
+            StringBuilder sb = new StringBuilder(id);
+            sb.replace(sb.length() - 3, sb.length(), "***");
+            return ResponseEntity.ok(sb.toString());
+        }
+        return ResponseEntity.internalServerError().body("일치하는 아이디가 없습니다 ");
+
+    }
 }

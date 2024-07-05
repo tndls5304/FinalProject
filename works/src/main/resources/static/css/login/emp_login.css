@@ -91,6 +91,24 @@ button:hover {
 
 .modal-find-id,
 .modal-find-pwd{
-    display: none;
+width:450px;
+ display: none;
+position: fixed; /* fixed 위치 */
+  top: 30%; /* 화면의 세로 중앙 */
+  left: 70%; /* 화면의 가로 중앙 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 모달 그림자 효과 */
+  background-color: rgb(239, 238, 254);
 
+
+}
+
+
+.modal-inputBox{
+ display: block;
+margin-bottom: 10px;
+
+}
+
+.modalFindAccount-content{
+margin:0 auto;
 }
