@@ -40,7 +40,7 @@ public interface AttendMapper {
                 END_TIME,
                 MONTH_NUM,
                 WEEK_IN_MONTH AS WEEK_NUM,
-                FLOOR(TOTAL_HOUR) || '시간 ' || ROUND((TOTAL_MINUTES - FLOOR(TOTAL_HOUR) * 60)) || '분' AS TOTAL_WORK
+                FLOOR(TOTAL_HOUR) || '시간 ' || ABS(ROUND((TOTAL_MINUTES - FLOOR(TOTAL_HOUR) * 60))) || '분' AS TOTAL_WORK
             FROM WEEK_CALCUL
             ORDER BY MONTH_NUM, WEEK_NUM, START_TIME
         """)

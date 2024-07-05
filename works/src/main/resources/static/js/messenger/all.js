@@ -1,3 +1,8 @@
+//반복되는 ajax를 처리하기 위해서 생성하였는데,
+//일단 사용하지 않겠습니다.
+
+
+
 //쪽지 읽음 처리 Ajax
 document.querySelectorAll('.click-title').forEach(item => {
   item.addEventListener('click', getMessenNo);
