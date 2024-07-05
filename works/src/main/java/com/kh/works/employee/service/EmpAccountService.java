@@ -66,4 +66,13 @@ public class EmpAccountService {
     public String findId(EmployeeVo vo) {
         return dao.findId(vo);
     }
+
+    public EmployeeVo selectMailToFindPwd(EmployeeVo vo) {
+        return dao.selectMailToFindPwd(vo);
+    }
+
+
+    public int updatePwd(EmployeeVo vo) {
+        return  dao.updatePwd(vo);
+    }
 }
