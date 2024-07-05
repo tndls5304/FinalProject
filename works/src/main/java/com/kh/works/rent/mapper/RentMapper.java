@@ -2,10 +2,7 @@ package com.kh.works.rent.mapper;
 
 import com.kh.works.rent.vo.CarVo;
 import com.kh.works.rent.vo.MeetingVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -37,20 +34,53 @@ public interface RentMapper {
     @Select("")
     List<MeetingVo> meetingList();
 
-    @Select("")
+    @Select("SELECT R.VHCL_RSV_NO\n" +
+            "    ,V.VHCL_NUMBER\n" +
+            "    ,T.NAME \n" +
+            "    ,A.APPROVAL_STATUS\n" +
+            "    ,E.NAME as empName\n" +
+            "FROM RESERV_VEHICLE R\n" +
+            "JOIN VEHICLE V \n" +
+            "ON R.VHCL_NO = V.VHCL_NO\n" +
+            "JOIN VEHICLE_TYPE T\n" +
+            "ON V.VHCL_TYPE_NO = T.VHCL_TYPE_NO\n" +
+            "JOIN APPROVAL_STATUS A\n" +
+            "ON R.APPROVAL_NO = A.APPROVAL_NO\n" +
+            "JOIN EMPLOYEE E\n" +
+            "ON R.EMP_NO = E.NO")
     List<CarVo> carList();
 
     @Select("")
     MeetingVo detailMeeting(String no);
 
-    @Select("")
+    @Select("SELECT R.VHCL_RSV_NO\n" +
+            "    ,TO_CHAR(R.LOAN_DATE, 'YYYY-MM-DD') AS LOAN_DATE\n" +
+            "    ,TO_CHAR(R.RETURN_DATE, 'YYYY-MM-DD') AS RETURN_DATE\n" +
+            "    ,R.REASON\n" +
+            "    ,V.VHCL_NUMBER\n" +
+            "    ,T.NAME\n" +
+            "    ,A.APPROVAL_STATUS\n" +
+            "    ,E.NAME AS empName\n" +
+            "    ,R.EMP_NO\n" +
+            "FROM RESERV_VEHICLE R\n" +
+            "JOIN VEHICLE V \n" +
+            "ON R.VHCL_NO = V.VHCL_NO\n" +
+            "JOIN VEHICLE_TYPE T\n" +
+            "ON V.VHCL_TYPE_NO = T.VHCL_TYPE_NO\n" +
+            "JOIN APPROVAL_STATUS A\n" +
+            "ON R.APPROVAL_NO = A.APPROVAL_NO\n" +
+            "JOIN EMPLOYEE E\n" +
+            "ON R.EMP_NO = E.NO\n" +
+            "WHERE VHCL_RSV_NO = #{no}")
     CarVo detailCar(String no);
 
     @Update("")
     int updateMeeting(MeetingVo vo, String no);
 
-    @Update("")
-    int updateCar(CarVo vo, String no);
+    @Update("UPDATE RESERV_VEHICLE SET VHCL_NO = #{vo.vhclNo}, LOAN_DATE = #{vo.loanDate}, RETURN_DATE = #{vo.returnDate}, REASON = #{vo.reason} \n" +
+            "WHERE VHCL_RSV_NO = #{no}")
+    int updateCar(@Param("vo") CarVo vo, @Param("no") String no);
+
 
     @Select("SELECT * FROM MEETING_ROOM ")
     List<MeetingVo> metList();

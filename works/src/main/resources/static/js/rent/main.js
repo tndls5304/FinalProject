@@ -96,7 +96,7 @@ $.ajax({
         }
         ,success:()=>{
             alert("예약되었습니다 자세한 내용은 상세페이지에서 확인해주세요")
-    
+            window.location.href = "/rent/car";
         }
         ,error:()=>{
             alert("예약실패 , 다시 확인 후 예약해주세요")
