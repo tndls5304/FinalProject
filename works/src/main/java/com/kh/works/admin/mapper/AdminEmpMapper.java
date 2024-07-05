@@ -97,5 +97,17 @@ public interface AdminEmpMapper {
     List<EmployeeVo> selectEmpByCondition(EmployeeVo vo);
 
 
+//서브관리자의 2번메뉴바 신규사원등록 권한체크
+    @Select("""
+            SELECT INSERT_YN
+            FROM ADMIN A
+            JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
+            JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
+            WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='2'
+            """)
+    String checkAuthYn();
+//TODO 집에서해야함
+    @Select("")
+    String checkAuthYnForUpdateEmpInfo();
 }
 

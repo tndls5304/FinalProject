@@ -67,7 +67,6 @@ public interface EmpAccountMapper {
             SET PWD=#{pwd}
             WHERE NO=#{no}
             """)
-    @Options(useGeneratedKeys = true, keyProperty = "mail", keyColumn = "MAIL")
-
+    @Options(useGeneratedKeys = true, keyProperty = "email", keyColumn = "EMAIL")
     int updatePwd(EmployeeVo vo);
 }

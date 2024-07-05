@@ -5,9 +5,11 @@ package com.kh.works.admin.controller;
 import com.kh.works.admin.servcie.AdminEmpService;
 import com.kh.works.admin.email.entity.EmailMessage;
 import com.kh.works.admin.email.service.EmailService;
+import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.admin.vo.DeptVo;
 import com.kh.works.admin.vo.PositionVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +55,19 @@ private final AdminEmpService adminEmpService;
 
     //신규직원등록페이지에서  신규 직원 등록 버튼누르면 동작!
     @PostMapping("admin/insert_emp")
-    public void insertEmp(EmployeeVo employeeVo){
-        adminEmpService.insertEmp(employeeVo);
+    public void insertEmp(EmployeeVo employeeVo, HttpSession session){
+
+        //TODO 서브관리자권한 맞는지 확인하기 2번 이거 모르겠다 !!!!!!! 의문점1번
+        AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+        String authNo=loginAdminVo.getAdminAuthorityNo();
+
+        //2번 의미 서브어드민!! 서브어드민이라면 권한체크하기
+        if(authNo.equals("2")){
+            String authYn=adminEmpService.checkAuthYn();
+            if(authYn.equals("N")){
+//                return "권한이 없습니다! 권한 요청해주세요";
+            }
+        }
 
       //  이메일보내기:  @Options로 담아준 객체의 no를 가져와서 파라미터로
         EmailMessage emailMessage=new EmailMessage();
@@ -121,7 +134,19 @@ private final AdminEmpService adminEmpService;
     //사원정보 수정하기
     @PostMapping("admin/edit_emp")
     @ResponseBody
-    public ResponseEntity<String> editEmp(@RequestBody EmployeeVo vo){
+    public ResponseEntity<String> editEmp(@RequestBody EmployeeVo vo,HttpSession session){
+
+        AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+        String authNo=loginAdminVo.getAdminAuthorityNo();
+        //2번 의미 서브어드민!! 서브어드민이라면 권한체크하기
+        if(authNo.equals("2")){
+            String authYn=adminEmpService.checkAuthYnForUpdateEmpInfo();
+            if(authYn.equals("N")){
+//                return "권한이 없습니다! 권한 요청해주세요";
+            }
+        }
+
+
         int result=adminEmpService.editEmp(vo);
         if(result==1){
             return ResponseEntity.ok("회원정보 수정하기성공");
