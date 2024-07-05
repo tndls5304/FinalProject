@@ -48,6 +48,7 @@ public class ApiRentController {
     //차량 예약 리스트 //이것도
     @GetMapping("car")
     public List<CarVo> carList(){
+
         List<CarVo> voList = service.carList();
         return voList;
     }
@@ -61,7 +62,9 @@ public class ApiRentController {
 
     @GetMapping("detail/car")
     //차량 상세조회
-    public CarVo detailCar(@RequestParam("no") String no){
+    public CarVo detailCar(@RequestParam("no") String no , HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
         CarVo vo = service.detailCar(no);
         return vo;
     }

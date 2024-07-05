@@ -138,8 +138,9 @@ function makeElement(firstDate, pageYear) {
     const closeButton = document.querySelector("#closeButton");
     closeButton.addEventListener('click', () => {
         const write = document.querySelector("#write");
-        write.style.display = 'none'; 
+        write.style.display = 'none';
     });
+    
     
 }
 
