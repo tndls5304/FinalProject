@@ -19,4 +19,8 @@ public class AdminAuthDao {
     public int updateAuth(SubAdminMenuVo vo) {
         return mapper.updateAuth(vo);
     }
+
+    public String checkAuthYn() {
+        return  mapper.checkAuthYn();
+    }
 }

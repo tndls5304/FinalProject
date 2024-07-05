@@ -192,15 +192,13 @@ public class EmpAccountController {
         return ResponseEntity.internalServerError().body("일치하는 계정이 없습니다 다시 입력해주세요!");
     }
 
+
     @PostMapping("emp/send-email-to-find-pwd")
     @ResponseBody
     public ResponseEntity<String> sendMailToFindPwd(String no){
 
-
-
         //비밀번호찾을떄 자기 이메일로 임시 비밀번호 받기
         System.out.println("자신의 사원번호는??"+no);
-
 
         //임시비밀번호 만들기:UUID에서 하이픈제거해서 10글자 만들고 + 사원번호 붙여서 디비에 저장
         String uuid = UUID.randomUUID().toString().replace("-", "");
@@ -211,13 +209,15 @@ public class EmpAccountController {
         vo.setPwd(randomPwd);
         vo.setNo(no);
 
+        //저장하고 이메일주소도 가져옴
         int result= service.updatePwd(vo);
+
         if(result==1){
             //랜덤 비밀번호 디비에 저장 성공
             EmailMessage emailMessage=new EmailMessage();
 
             emailMessage.setTo(vo.getEmail());
-            emailMessage.setSubject("baby works 운영자입니다 "+vo.getName()+"님 ! 임시비밀번호 발급되었습니다 ");
+            emailMessage.setSubject("baby works 운영자입니다~ 임시비밀번호 발급되었습니다");
 
             String mailContent= """
            <!DOCTYPE html>
@@ -228,9 +228,9 @@ public class EmpAccountController {
                       <title>Document</title>
                     </head>
                     <body>
-                      안녕하세요! 임시비밀 번호는 randomPwd 입니다
+                     <h2> 안녕하세요!baby works 회원님!</h2>
+                     <h4> 임시비밀 번호는 randomPwd 입니다 </h4>
           
-                      [02-237-7772]
                     </body>
                </html>
                 """;

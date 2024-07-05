@@ -53,4 +53,12 @@ public class AdminEmpService {
     public List<EmployeeVo> selectEmpByCondition(EmployeeVo vo) {
         return dao.selectEmpByCondition(vo);
     }
+
+    public String checkAuthYn() {
+        return  dao.checkAuthYn();
+    }
+
+    public String checkAuthYnForUpdateEmpInfo() {
+        return dao.checkAuthYnForUpdateEmpInfo();
+    }
 }

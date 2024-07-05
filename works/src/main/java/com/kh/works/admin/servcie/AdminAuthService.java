@@ -29,4 +29,8 @@ public class AdminAuthService {
         }
         return result;
     }
+
+    public String checkAuthYn() {
+        return  dao.checkAuthYn();
+    }
 }

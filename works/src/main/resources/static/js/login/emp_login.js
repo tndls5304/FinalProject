@@ -102,7 +102,10 @@ console.log(no);
     url:"/emp/send-email-to-find-pwd",
     method:"POST",
     data:{no:no},
-    success:function(){},
-    error:function(){}
+    success:function(msg){
+    alert(msg)},
+    error:function(errorMsg){
+     alert(errorMsg.responseText)
+    }
     })
 }
