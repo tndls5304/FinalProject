@@ -18,8 +18,8 @@ public class TodoDao {
 
 
     //상세조회
-    public TodoVo getTodoByNo(TodoVo vo) {
-        return mapper.getTodoByNo(vo);
+    public TodoVo getTodoByNo(int todoNo) {
+        return mapper.getTodoByNo(todoNo);
     }
 
 

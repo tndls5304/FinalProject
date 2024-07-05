@@ -6,6 +6,7 @@ function listAll() {
     method: "GET",
     data: {},
     success: function (listAll) {
+      //리스트 데이터 받아옴
       const table = document.querySelector("#todoList");
 
       let str = "";
@@ -23,7 +24,8 @@ function listAll() {
       table.innerHTML = str;
     },
     error: function (err) {
-      console.error("todoListAll-err", err);
+      console.error("리스트 아작스 실행중 에러", err);
+      alert("리스트 아작스 실행중 에러");
     },
   });
 }

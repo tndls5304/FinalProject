@@ -23,7 +23,8 @@ function listPar() {
       table.innerHTML = str;
     },
     error: function (err) {
-      console.error("todoListPar-err", err);
+      console.error("담당조회 아작스 실행중 에러", err);
+      alert("담당조회 아작스 실행중 에러");
     },
   });
 }

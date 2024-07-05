@@ -25,13 +25,13 @@ public class TodoApiController {
 
     //할일 상세 조회
     @GetMapping
-    public ResponseEntity getTodoByNo(TodoVo vo) {
-      TodoVo todoVo  = service.getTodoByNo(vo);
+    @ResponseBody
+    public TodoVo getTodoByNo(@RequestParam("todoNo") String todoNoStr) {
+        int todoNo = Integer.parseInt(todoNoStr); //todoNo int라서 형변환 해줌.
+      TodoVo todoVo  = service.getTodoByNo(todoNo);
 
-        if (vo == null) {
-            throw new RuntimeException();
-        }
-        return ResponseEntity.ok(todoVo);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~vo" + todoVo);
+        return todoVo;
     }
 
 
