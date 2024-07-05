@@ -10,7 +10,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Messenger</title>
      <link rel="stylesheet" href="/css/messenger/detail.css">
-     <script src="/js/messenger/all.js"></script>
+     <!-- <script src="/js/messenger/all.js"></script> -->
    </head>
 
    <body>
@@ -78,3 +78,5 @@
    </body>
 
    </html>
+
+   <!-- detail(상세페이지)에서는 ajax 할 거 없음. -->
