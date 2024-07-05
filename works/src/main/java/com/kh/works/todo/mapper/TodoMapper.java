@@ -23,7 +23,7 @@ public interface TodoMapper {
 
 
     //할일 상세조회(담당자조회도 같이
-    @Select("SELECT T.TODO_NO, T.TODO_EMP_NO, T.TITLE, T.CONTENT, T.COMPLETED_YN, T.CREATE_DATE, T.END_DATE FROM TODO T WHERE T.TODO_NO = #{vo.todoNo}")
+    @Select("SELECT T.TODO_NO, T.TODO_EMP_NO, T.TITLE, T.CONTENT, T.COMPLETED_YN, T.CREATE_DATE, T.END_DATE FROM TODO T WHERE T.TODO_NO = #{todoNo}")
     //@Result : 위의 셀렉트를 실행하고 todoVo에 객체에 매핑해주는 에너테이션
     @Results({
             @Result(property = "todoNo", column = "TODO_NO"),
@@ -39,7 +39,7 @@ public interface TodoMapper {
             // 그리고 todoVo에 생성해둔 List<String>todoManagerList 에 받아온 리스트를 넣어준다.
             @Result(property = "todoManagerList", column = "TODO_NO", many = @Many(select = "getTodoManagerList"))
     })
-    TodoVo getTodoByNo(TodoVo vo);
+    TodoVo getTodoByNo(@RequestParam("todoNo") int todoNo);
 
     //할일 담당자 조회
     //위에서 가져온 todoNo을 가지고 담당자 테이블에서 담당자를 리스트로 가져와 TodoVo에 만들어둔 TodoManagers에 리스트 반환
@@ -49,13 +49,13 @@ public interface TodoMapper {
 
 
     //모든 할일 조회// 이름 가져올때 별칭을 정해줘야 한다.
-    @Select("SELECT DISTINCT T.TODO_NO, T.TITLE, T.END_DATE, E.NAME AS NAME\n" +
+    @Select("SELECT DISTINCT T.TODO_NO, T.TITLE, TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE, E.NAME AS NAME\n" +
             "FROM TODO T\n" +
             "JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
             "JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO\n" +
             "WHERE (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{todoManagerNo})\n" +
             "AND T.DEL_YN = 'N'\n" +
-            "AND M.DEL_YN = 'N'\n")
+            "AND M.DEL_YN = 'N'")
     @Results({
             @Result(property = "todoEmpName", column = "NAME")}) //내가 만들어둔 vo변수명에 받아온 데이터 들어감
     List<TodoVo> getTodoListAll(TodoVo vo);
@@ -64,11 +64,11 @@ public interface TodoMapper {
 
 
     //참여자인 할일 조회
-    @Select("SELECT T.TODO_NO, T.TITLE, E.NAME AS NAME, T.END_DATE\n" +
+    @Select("SELECT T.TODO_NO, T.TITLE, E.NAME AS NAME, TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE\n" +
             "FROM TODO T\n" +
             "LEFT JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
-            "LEFT JOIN EMPLOYEE e ON T.TODO_EMP_NO = E.NO\n" +
-            "WHERE M.TODO_MANAGER_NO = #{todoManagerNo}\n" +
+            "LEFT JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO\n" +
+            "WHERE M.TODO_MANAGER_NO = #{todoManagerNo} \n" +
             "AND M.DEL_YN = 'N'")
     @Results({
             @Result(property = "todoEmpName", column = "NAME")}) //내가 만들어둔 vo변수명에 받아온 데이터 들어감
@@ -89,7 +89,7 @@ public interface TodoMapper {
 
     //할일 삭제
     @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")
-    int todoDelete(@RequestParam("todoNo") String todoNO);
+    int todoDelete(@RequestParam("todoNo") String todoNo);
 
 
     //할일 완료

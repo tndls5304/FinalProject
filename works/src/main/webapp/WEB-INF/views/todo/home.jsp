@@ -12,82 +12,61 @@
     </head>
 
     <body>
-
-      <nav>
-        <div id="right-sidebar">
-          <div><button><img src="../resources/img/free-icon-menu-2791777.png" alt=""></button></div>
-          <div><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></div>
-          <div id="title">할일</div>
-        </div>
-        <div id="left-sidebar">
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-          <div><button><img src="../resources/img/free-icon-person-11081570.png" alt=""></button></div>
-        </div>
-      </nav>
+      <!-- 네브 -->
+      <%@ include file="/WEB-INF/views/layout/todo/nav.jsp" %>
 
 
-      <!-- 메인 -->
-
-
-      <!-- 사이드바 -->
-      <main>
-        <div id="sidebar">
-          <a href="http://127.0.0.1:8080/todo/write"><button>작성하기</button></a>
-          <br>
-          <button onclick="listAll();">전체 할일</button>
-          <br>
-          <button onclick="listPar();">담당 할일</button>
-        </div>
-
-
-
-
-        <!-- 검색창 -->
-        <div id="content">
-          <div><input type="search" id="search" placeholder="할 일을 검색하세요.">
-            <button type="submit">검색</button>
+        <main>
+          <!-- 사이드바 -->
+          <div id="sidebar">
+            <a href="http://127.0.0.1:8080/todo/write"><button>작성하기</button></a>
+            <br>
+            <button onclick="listAll();">전체 할일</button>
+            <br>
+            <button onclick="listPar();">담당 할일</button>
           </div>
 
 
-          <div>
-            <input type="checkbox" id="del-all">
-            <input type="button" id="del" value="삭제">
-            <label for="sortOptions">정렬 기준:</label>
-            <select id="sortOptions" name="sortOptions">
-              <option value="latest">최신 작성 순</option>
-              <option value="deadline">기한 마감순</option>
-            </select>
-          </div>
-
-
-          <!-- 리스트, 상세조회 -->
-          <div class="todo">
 
 
 
-            <div id="todo-list-all">
-              <table id="todoList">
-              </table>
+          <!-- 검색창 -->
+          <div id="content">
+            <div><input type="search" id="search" placeholder="할 일을 검색하세요.">
+              <button type="submit">검색</button>
             </div>
 
 
-
-            <div id="todo-deatil">
-              상세조회
+            <div>
+              <input type="checkbox" id="del-all">
+              <input type="button" id="del" value="삭제">
+              <label for="sortOptions">정렬 기준:</label>
+              <select id="sortOptions" name="sortOptions">
+                <option value="latest">최신 작성 순</option>
+                <option value="deadline">기한 마감순</option>
+              </select>
             </div>
+
+
+            <!-- 리스트, 상세조회 -->
+            <div class="todo">
+
+              <!-- 리스트조회 -->
+              <div id="todo-list-all">
+                <table id="todoList">
+                </table>
+              </div>
+
+              <!-- 상세조회 -->
+              <div id="detail">
+                상세조회
+              </div>
+            </div>
+
+            <!-- 리스트, 상세조회 -->
+
           </div>
-
-          <!-- 리스트, 상세조회 -->
-
-        </div>
-      </main>
+        </main>
 
     </body>
 
