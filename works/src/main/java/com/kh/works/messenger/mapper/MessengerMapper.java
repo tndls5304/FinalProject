@@ -57,13 +57,14 @@ public interface MessengerMapper {
     @Select("""
             SELECT M.MESSEN_NO, E.NAME, M.TITLE, M.CONTENT, M.SEND_DATE\s
             FROM MESSENGER M\s
-            JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO\s
+            JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO\s
             JOIN MESSENGER_STATUS MS ON M.MESSEN_NO = MS.MESSEN_NO
             WHERE MS.EMP_NO = #{empNo} AND MS.IS_IMPORTANT = 'Y'\s
             ORDER BY M.SEND_DATE DESC
             """)
     List<MessengerVo> getImportantList(@Param("empNo") String empNo);
 
+    //테이블 새로 추가했기 때문에 -> 쿼리문도 수정함. 다시 확인 후 주석 달자.
     @Insert("""
             MERGE INTO MESSENGER_STATUS MS
             USING (SELECT #{messenNo} AS MESSEN_NO, #{empNo} AS EMP_NO FROM DUAL) src
@@ -86,7 +87,32 @@ public interface MessengerMapper {
 //    int importantStatus(@Param("messenNo") int messenNo);
 
 
-    List<MessengerVo> searchByKeyWord(String keyWord);
+    @Select("SELECT M.MESSEN_NO , E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE E.NAME LIKE '%' || #{keyWord} || '%' AND M.RECEIVER_EMP_NO = #{empNo} ORDER BY M.SEND_DATE DESC")
+    List<MessengerVo> searchByKeyword(@Param("keyWord") String keyWord, @Param("empNo") String empNo);
+
+    @Select("""
+            SELECT M.MESSEN_NO, E.NAME, M.TITLE, M.CONTENT, M.SEND_DATE\s
+            FROM MESSENGER M\s
+            JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO\s
+            JOIN MESSENGER_STATUS MS ON M.MESSEN_NO = MS.MESSEN_NO
+            WHERE MS.EMP_NO = #{empNo} AND MS.IS_TRASH = 'Y'\s
+            ORDER BY M.SEND_DATE DESC
+            """)
+    List<MessengerVo> trash(String empNo);
+
+    //휴지통쪽지함으로 이동하는 메서드
+    //테이블 새로 추가했기 때문에 -> 쿼리문도 수정함. 다시 확인 후 주석 달자.
+    @Insert("""
+            MERGE INTO MESSENGER_STATUS MS
+            USING (SELECT #{messenNo} AS MESSEN_NO, #{empNo} AS EMP_NO FROM DUAL) src
+            ON (MS.MESSEN_NO = src.MESSEN_NO AND MS.EMP_NO = src.EMP_NO)
+            WHEN MATCHED THEN
+              UPDATE SET MS.IS_TRASH = 'Y'
+            WHEN NOT MATCHED THEN
+              INSERT (MS.STATUS_NO, MS.MESSEN_NO, MS.EMP_NO, MS.IS_TRASH)
+              VALUES (SEQ_MESSENGER_STATUS.NEXTVAL, src.MESSEN_NO, src.EMP_NO, 'Y')
+            """)
+    void trashMessen(@Param("messenNo") int messenNo, @Param("empNo") String empNo);
 
 
 }

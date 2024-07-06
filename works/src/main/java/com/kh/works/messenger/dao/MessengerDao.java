@@ -68,8 +68,16 @@ public class MessengerDao {
 //        return mapper.importantStatus(messenNo);
 //    }
 
-    public List<MessengerVo> searchByKeyWord(String keyWord) {
-        return mapper.searchByKeyWord(keyWord);
+    public List<MessengerVo> searchByKeyword(String keyWord, String empNo) {
+        return mapper.searchByKeyword(keyWord, empNo);
+    }
+
+    public List<MessengerVo> trash(String empNo) {
+        return mapper.trash(empNo);
+    }
+
+    public void trashMessen(int messenNo, String empNo) {
+        mapper.trashMessen(messenNo, empNo);
     }
 
 

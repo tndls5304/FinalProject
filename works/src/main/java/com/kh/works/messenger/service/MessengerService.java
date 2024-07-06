@@ -70,8 +70,18 @@ public class MessengerService {
 //        return dao.importantStatus(messenNo);
 //    }
 
-    public List<MessengerVo> searchByKeyword(String keyWord) {
-        return dao.searchByKeyWord(keyWord);
+    public List<MessengerVo> searchByKeyword(String keyWord, String empNo) {
+        return dao.searchByKeyword(keyWord, empNo);
+    }
+
+    public List<MessengerVo> trash(String empNo) {
+        return dao.trash(empNo);
+    }
+
+    public void trashMessen(List<Integer> messenNoList, String empNo) {
+        for(int messenNo : messenNoList){
+            dao.trashMessen(messenNo, empNo);
+        }
     }
 
 

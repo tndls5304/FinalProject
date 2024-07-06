@@ -190,11 +190,40 @@ public class MessengerController {
 
     //검색 기능 - 이름으로 검색
     @GetMapping("search")
-    public String searchByKeyword(@RequestParam("keyWord") String keyWord, Model model){
-        List<MessengerVo> voList = service.searchByKeyword(keyWord);
+    public String searchByKeyword(@RequestParam("keyWord") String keyWord, HttpSession session, Model model) {
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+
+        List<MessengerVo> voList = service.searchByKeyword(keyWord, empNo);
         model.addAttribute("voList", voList);
-        return "messenger/search";
+        return "messenger/all";
     }
+
+
+
+    //휴지통 화면
+    @GetMapping("trash")
+    public String trash(HttpSession session, Model model) {
+
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+
+        List<MessengerVo> voList = service.trash(empNo);
+        model.addAttribute("voList", voList);
+        return "messenger/trash";
+    }
+    //휴지통함으로 쪽지 보내기
+    @PostMapping("trashStatus")
+    @ResponseBody
+    //여기에는 ResponseEntity 사용해 볼게요.
+    public ResponseEntity<String> trashMessen(@RequestParam("messenNoList") List<Integer> messenNoList, HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+
+        service.trashMessen(messenNoList, empNo);
+        return ResponseEntity.ok("Success");
+    }
+
 
 
 
