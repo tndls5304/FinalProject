@@ -77,9 +77,24 @@ public interface RentMapper {
     @Update("")
     int updateMeeting(MeetingVo vo, String no);
 
-    @Update("UPDATE RESERV_VEHICLE SET VHCL_NO = #{vo.vhclNo}, LOAN_DATE = #{vo.loanDate}, RETURN_DATE = #{vo.returnDate}, REASON = #{vo.reason} \n" +
-            "WHERE VHCL_RSV_NO = #{no}")
+    @Update("<script>\n" +
+            "UPDATE RESERV_VEHICLE SET \n" +
+            "\t<if test=\"vo.vhclNo != null\">\n" +
+            "\tVHCL_NO = #{vo.vhclNo},\n" +
+            "\t</if>\n" +
+            "\t<if test=\"vo.loanDate != null\">\n" +
+            "\tLOAN_DATE = #{vo.loanDate},\n" +
+            "\t</if>\n" +
+            "\t<if test=\"vo.returnDate != null\">\n" +
+            "\tRETURN_DATE = #{vo.returnDate},\n" +
+            "\t</if>\n" +
+            "\t<if test=\"vo.reason != null\">\n" +
+            "\tREASON = #{vo.reason}\n" +  // 마지막 항목 뒤의 쉼표 제거
+            "\t</if>\n" +
+            "WHERE VHCL_RSV_NO = #{no}\n" +
+            "</script>")
     int updateCar(@Param("vo") CarVo vo, @Param("no") String no);
+
 
 
     @Select("SELECT * FROM MEETING_ROOM ")
