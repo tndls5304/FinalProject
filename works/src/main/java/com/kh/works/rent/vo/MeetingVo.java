@@ -13,4 +13,5 @@ public class MeetingVo {
     private String endDate;
     private String name;
     private String floor;
+    private String empName;
 }

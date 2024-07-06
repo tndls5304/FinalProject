@@ -58,7 +58,11 @@ function detail(no, loginMember) {
             const writeNo = data.empNo;
 
             if (loginMember === writeNo) {
-                str += `<button onclick="editDate('${data.vhclRsvNo}', '${data.loanDate}', '${data.returnDate}', '${data.reason}', '${data.vhclNumber}', '${data.name}')">수정하기</button>`;
+                if (data.approvalStatus !== "승인" && data.approvalStatus !== "보류") {
+                    str += `<button onclick="editDate('${data.vhclRsvNo}', '${data.loanDate}', '${data.returnDate}', '${data.reason}', '${data.vhclNumber}', '${data.name}')">수정하기</button>`;
+                } else {
+                    str += `<button onclick="cancel('${data.vhclRsvNo}')">예약 취소</button>`;
+                }
             }
 
             detail.innerHTML = str;
@@ -134,11 +138,30 @@ function carEdit(no) {
         }
         ,success:()=>{
             alert("수정 성공하였습니다");
+            location.reload();
+            
         }
         ,error:()=>{
             alert("수정 실패하였습니다 담당부서로 연락주세요"+
-                "010 - 5738 - 2844 [총무부 : 박근아]"
+                "010 - 5738 - 2844 [ 인사팀 : 박근아]"
             )
         }
     })
+}
+
+function cancel(no) {
+    $.ajax({
+        url:"/api/rent/carCancle"
+        ,method:"put"
+        ,data:{
+            no:no
+        }
+        ,success:()=>{
+            alert("예약 취소되었습니다 감사합니다")
+            location.reload();
+        }
+        ,error:()=>{
+            alert("예약취소 실패하였습니다 담당부서로 연락주세요 010-5738-2844 [인사팀 : 박근아]")
+        }
+    })    
 }

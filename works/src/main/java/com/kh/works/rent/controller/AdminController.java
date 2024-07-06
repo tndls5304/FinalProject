@@ -4,8 +4,7 @@ import com.kh.works.rent.service.RentService;
 import com.kh.works.rent.vo.CarVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +21,25 @@ public class AdminController {
         return "rent/adminList";
     }
 
-//    @GetMapping("/api/list")
-//    public List<CarVo> carList(){
-//        List<CarVo> voList = service.adminCarList();
-//    }
+    @PutMapping("approve")
+    @ResponseBody
+    public int adminApprove(@RequestParam("no") String no){
+        int result = service.adminApprove(no);
+        return result;
+    }
+
+    @PutMapping("fail")
+    @ResponseBody
+    public int adminFail(@RequestParam("no") String no){
+        int result = service.adminFail(no);
+        return result;
+    }
+
+    @GetMapping("api/list")
+    @ResponseBody
+    public List<CarVo> adminList(){
+        List<CarVo> voList = service.adminList();
+        return voList;
+    }
 
 }

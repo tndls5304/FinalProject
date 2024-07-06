@@ -53,21 +53,6 @@ public class ApiRentController {
         return voList;
     }
 
-    @GetMapping("detail/meeting")
-    //회의실 상세조회
-    public MeetingVo detailMeeting(@RequestParam("no") String no){
-        MeetingVo vo = service.detailMeeting(no);
-        return vo;
-    }
-
-    @GetMapping("detail/car")
-    //차량 상세조회
-    public CarVo detailCar(@RequestParam("no") String no , HttpSession session){
-        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
-        String empNo = loginEmpVo.getNo();
-        CarVo vo = service.detailCar(no);
-        return vo;
-    }
 
     //회의실 예약 변경하기
     @PutMapping("meeting")
@@ -100,6 +85,13 @@ public class ApiRentController {
         System.out.println("voList~~~~~~~~~~~~~~~~~~~~~" + voList);
 
         return voList;
+    }
+
+    //차량예약 취소하기
+    @PutMapping("carCancle")
+    public int cancle(@RequestParam("no") String no){
+        int result = service.cancle(no);
+        return result;
     }
 
 

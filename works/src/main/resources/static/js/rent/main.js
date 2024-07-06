@@ -63,6 +63,7 @@ $.ajax({
         },
         success: () => {
             alert("예약 성공하였습니다");
+            window.location.href = "/rent/meeting";
         },
         error: () => {
             alert("예약실패, 다시 확인 후 예약해주세요");

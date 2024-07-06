@@ -30,10 +30,6 @@ public class RentService {
         return dao.carList();
     }
 
-    public MeetingVo detailMeeting(String no) {
-        return dao.detailMeeting(no);
-    }
-
     public CarVo detailCar(String no) {
         return dao.detailCar(no);
     }
@@ -52,5 +48,21 @@ public class RentService {
 
     public List<CarVo> listCar() {
         return dao.listCar();
+    }
+
+    public int adminFail(String no) {
+        return dao.adminFail(no);
+    }
+
+    public int adminApprove(String no) {
+        return dao.adminApprove(no);
+    }
+
+    public int cancle(String no) {
+        return dao.cancle(no);
+    }
+
+    public List<CarVo> adminList() {
+        return dao.adminList();
     }
 }
