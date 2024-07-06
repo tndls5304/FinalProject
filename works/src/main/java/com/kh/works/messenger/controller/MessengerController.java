@@ -152,23 +152,41 @@ public class MessengerController {
     @GetMapping("important")
     public String getImportantList(HttpSession session, Model model){
 
-        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
 
-        // 로그인한 사원의 사원번호를 가져온다.
-        String receiverEmpNo = loginEmpVo.getNo();
-        String senderEmpNo = loginEmpVo.getNo();
-
-        List<MessengerVo> voList = service.getImportantList(receiverEmpNo, senderEmpNo);
+        List<MessengerVo> voList = service.getImportantList(empNo);
         model.addAttribute("voList", voList);
         return "messenger/important";
+
+
+//        ---------------------------기존 코드----------------------------------
+//        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+//
+//        // 로그인한 사원의 사원번호를 가져온다.
+//        String receiverEmpNo = loginEmpVo.getNo();
+//        String senderEmpNo = loginEmpVo.getNo();
+//
+//        List<MessengerVo> voList = service.getImportantList(receiverEmpNo, senderEmpNo);
+//        model.addAttribute("voList", voList);
+//        return "messenger/important";
     }
     //쪽지를 중요로 표시
-    //*******본인이 중요하다고 표시한 쪽지는 본인 중요함에만 표시한다. - 이걸 아직 해결 안함. 해결하자!!!!!!!
     @PostMapping("importantStatus")
-    public String importantStatus(@RequestParam(name = "messenNo") int messenNo){
-        service.importantStatus(messenNo);
-        return "redirect:/messenger/importantStatus";
+    public String importantStatus(@RequestParam(name = "messenNo") int messenNo, HttpSession session){
+
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+
+        service.importantStatus(messenNo, empNo);
+        return "redirect:/messenger/important";
+
+//        ----------------기존 코드------------------
+//       ------ HttpSession session도 없애야함.------
+//        service.importantStatus(messenNo);
+//        return "redirect:/messenger/importantStatus";
     }
+
 
     //검색 기능 - 이름으로 검색
     @GetMapping("search")

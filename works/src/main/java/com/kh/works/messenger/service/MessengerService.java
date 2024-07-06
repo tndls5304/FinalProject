@@ -52,13 +52,23 @@ public class MessengerService {
         return dao.getMessengerById(messenNo);
     }
 
-    public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
-        return dao.getImportantList(receiverEmpNo, senderEmpNo);
+    public List<MessengerVo> getImportantList(String empNo) {
+        return dao.getImportantList(empNo);
     }
 
-    public int importantStatus(int messenNo) {
-        return dao.importantStatus(messenNo);
+    public void importantStatus(int messenNo, String empNo) {
+        dao.importantStatus(messenNo, empNo);
     }
+
+
+    //----------------------------------기존 코드------------------------------------------
+//    public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
+//        return dao.getImportantList(receiverEmpNo, senderEmpNo);
+//    }
+//
+//    public int importantStatus(int messenNo) {
+//        return dao.importantStatus(messenNo);
+//    }
 
     public List<MessengerVo> searchByKeyword(String keyWord) {
         return dao.searchByKeyWord(keyWord);

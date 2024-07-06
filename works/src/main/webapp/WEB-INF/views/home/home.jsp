@@ -27,7 +27,9 @@
 
                     <img src="/img/profile/${loginEmpVo.profile}" alt="Profile Picture" id="profile-picture">
                     <!-- fontAwesome에서 가지고 온 이모티콘이다. 누르면 나의 근태 리스트로 넘어가게 해두었다!!!!!!!!! -->
-                    <i class="fa-solid fa-list attend-list" onclick="window.location.href='http://localhost:8080/attend/list';"></i>
+                    <!-- **********상황에 따라 링크 바꾸기 -->
+                    <!-- <i class="fa-solid fa-list attend-list" onclick="window.location.href='http://localhost:8080/attend/list';"></i> -->
+                    <i class="fa-solid fa-list attend-list" onclick="window.location.href='http://127.0.0.1:8080/attend/list';"></i>
                     <div id="profile-info">
                         <h2>${loginEmpVo.name} ${loginEmpVo.positionName}</h2>
                         <h3>🖤 ${loginEmpVo.deptName} 🖤</h3>

@@ -50,13 +50,23 @@ public class MessengerDao {
         return mapper.getMessengerById(messenNo);
     }
 
-    public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
-        return mapper.getImportantList(receiverEmpNo, senderEmpNo);
+    public List<MessengerVo> getImportantList(String empNo) {
+        return mapper.getImportantList(empNo);
     }
 
-    public int importantStatus(int messenNo) {
-        return mapper.importantStatus(messenNo);
+    public void importantStatus(int messenNo, String empNo) {
+        mapper.importantStatus(messenNo, empNo);
     }
+
+
+    //-----------------------------------기존 코드------------------------------------
+//    public List<MessengerVo> getImportantList(String receiverEmpNo, String senderEmpNo) {
+//        return mapper.getImportantList(receiverEmpNo, senderEmpNo);
+//    }
+//
+//    public int importantStatus(int messenNo) {
+//        return mapper.importantStatus(messenNo);
+//    }
 
     public List<MessengerVo> searchByKeyWord(String keyWord) {
         return mapper.searchByKeyWord(keyWord);

@@ -54,11 +54,36 @@ public interface MessengerMapper {
     @Select("SELECT MESSEN_NO, SENDER_EMP_NO , RECEIVER_EMP_NO , TITLE , CONTENT , SEND_DATE FROM MESSENGER WHERE MESSEN_NO = #{messenNo}")
     MessengerVo getMessengerById(int messenNo);
 
-    @Select("SELECT M.MESSEN_NO, E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} UNION ALL SELECT M.MESSEN_NO, E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.SENDER_EMP_NO = #{senderEmpNo} ORDER BY SEND_DATE DESC")
-    List<MessengerVo> getImportantList(@Param("receiverEmpNo") String receiverEmpNo, @Param("senderEmpNo") String senderEmpNo);
+    @Select("""
+            SELECT M.MESSEN_NO, E.NAME, M.TITLE, M.CONTENT, M.SEND_DATE\s
+            FROM MESSENGER M\s
+            JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO\s
+            JOIN MESSENGER_STATUS MS ON M.MESSEN_NO = MS.MESSEN_NO
+            WHERE MS.EMP_NO = #{empNo} AND MS.IS_IMPORTANT = 'Y'\s
+            ORDER BY M.SEND_DATE DESC
+            """)
+    List<MessengerVo> getImportantList(@Param("empNo") String empNo);
 
-    @Update("UPDATE MESSENGER SET IMPORTANT_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
-    int importantStatus(@Param("messenNo") int messenNo);
+    @Insert("""
+            MERGE INTO MESSENGER_STATUS MS
+            USING (SELECT #{messenNo} AS MESSEN_NO, #{empNo} AS EMP_NO FROM DUAL) src
+            ON (MS.MESSEN_NO = src.MESSEN_NO AND MS.EMP_NO = src.EMP_NO)
+            WHEN MATCHED THEN
+              UPDATE SET MS.IS_IMPORTANT = 'Y'
+            WHEN NOT MATCHED THEN
+              INSERT (MS.STATUS_NO, MS.MESSEN_NO, MS.EMP_NO, MS.IS_IMPORTANT)
+              VALUES (SEQ_MESSENGER_STATUS.NEXTVAL, src.MESSEN_NO, src.EMP_NO, 'Y')
+            """)
+    int importantStatus(@Param("messenNo") int messenNo, @Param("empNo") String empNo);
+
+
+
+    //---------------------------------------------기존 코드----------------------------------------------------------------
+//    @Select("SELECT M.MESSEN_NO, E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.RECEIVER_EMP_NO = #{receiverEmpNo} UNION ALL SELECT M.MESSEN_NO, E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.RECEIVER_EMP_NO = E.NO WHERE M.IMPORTANT_YN = 'Y' AND M.SENDER_EMP_NO = #{senderEmpNo} ORDER BY SEND_DATE DESC")
+//    List<MessengerVo> getImportantList(@Param("receiverEmpNo") String receiverEmpNo, @Param("senderEmpNo") String senderEmpNo);
+//
+//    @Update("UPDATE MESSENGER SET IMPORTANT_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
+//    int importantStatus(@Param("messenNo") int messenNo);
 
 
     List<MessengerVo> searchByKeyWord(String keyWord);
