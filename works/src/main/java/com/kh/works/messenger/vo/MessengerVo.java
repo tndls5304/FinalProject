@@ -25,6 +25,9 @@ public class MessengerVo {
     private String senderName;
     private String receiverName;
 
+    //쪽지 중요 여부를 나타내기 위해 생성
+    private String isImportant;
+
     //검색 기능을 추가하기 위해 생성
     private String keyWord;
 

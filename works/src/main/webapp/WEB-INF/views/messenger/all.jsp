@@ -40,19 +40,19 @@
             <button onclick="moveToWrite()">쪽지쓰기</button>
          </div>
          <div id="messenger-status">
-           <a href="http://localhost:8080/messenger/unread"><div><button>안읽음</button></div></a>
-           <a href="http://localhost:8080/messenger/important"><div><button>중요</button></div></a>
-           <a href="http://localhost:8080/messenger/delete"><div><button>휴지통</button></div></a>
+           <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음</button></div></a>
+           <a href="http://127.0.0.1:8080/messenger/important"><div><button>중요</button></div></a>
+           <a href="http://127.0.0.1:8080/messenger/delete"><div><button>휴지통</button></div></a>
          </div>
          <hr>
          <div id="all-messenger">
-           <a href="http://localhost:8080/messenger/all"><p>전체쪽지</p></a>
+           <a href="http://127.0.0.1:8080/messenger/all"><p>전체쪽지</p></a>
          </div>
          <div id="receive-messenger">
-           <a href="http://localhost:8080/messenger/received"><p>받은쪽지</p></a>
+           <a href="http://127.0.0.1:8080/messenger/received"><p>받은쪽지</p></a>
          </div>
          <div id="send-messenger">
-           <a href="http://localhost:8080/messenger/sent"><p>보낸쪽지</p></a>
+           <a href="http://127.0.0.1:8080/messenger/sent"><p>보낸쪽지</p></a>
          </div>
        </div>
 
@@ -91,7 +91,7 @@
 
    <!-- jquery 넣기 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
+
     <script>
 
         //쪽지 읽음 처리 Ajax
@@ -186,10 +186,8 @@
         }
 
 
-
         // /messenger/all에서 쪽지쓰기 눌렀을 때, 쪽지쓰기 페이지(/messenger/write)로 이동
         function moveToWrite(){
-            window.location.href = "http://localhost:8080/messenger/write";
+            window.location.href = "http://127.0.0.1:8080/messenger/write";
         }
       </script>
-   
