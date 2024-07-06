@@ -64,14 +64,14 @@ private final AdminEmpService adminEmpService;
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String authNo=loginAdminVo.getAdminAuthorityNo();
 
-        //2번 의미 서브어드민번호 !! 서브어드민이라면 권한체크하기
+        //서브어드민이라면 권한체크하기(권한번호 2번: 서브어드민)
         if(authNo.equals("2")){
             String authYn=adminEmpService.checkAuthYnForInsertEmp();
             if(authYn.equals("N")){ //포비든권한오류
                 return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("신규직원 등록 권한이 없습니다!");
             }
         }
-        //등록하고 동시에 회원번호 가져옴
+        //사원 등록하고 동시에 회원번호 가져옴
         adminEmpService.insertEmp(employeeVo);
       //  이메일보내기:  @Options로 담아준 객체의 no를 가져와서 파라미터로
         EmailMessage emailMessage=new EmailMessage();
@@ -109,7 +109,7 @@ private final AdminEmpService adminEmpService;
 
         emailService.sendMail(emailMessage);
 
-        return ResponseEntity.ok("회원등록완료 후-> 회원에게 가입초대 이메일 보내기 성공!");
+        return ResponseEntity.ok("회원등록완료하고 회원에게 가입초대 이메일 보내기 성공!");
 }
 
 
@@ -140,7 +140,7 @@ private final AdminEmpService adminEmpService;
     @ResponseBody
     public ResponseEntity<String> editEmp(@RequestBody EmployeeVo vo,HttpSession session){
 
-        //권한체크
+        //서브관리자 권한체크
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String authNo=loginAdminVo.getAdminAuthorityNo();
 
@@ -149,13 +149,13 @@ private final AdminEmpService adminEmpService;
             String authYn=adminEmpService.checkAuthYnForUpdateEmpInfo();
             if(authYn.equals("N")){
                //⭐ 403오류 권한 없음  포비든
-              return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이 없습니다!");
+              return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("❌접근 금지! 사원 정보 수정 권한이 없습니다❌ ");
             }
         }
 
         int result=adminEmpService.editEmp(vo);
         if(result==1){
-            return ResponseEntity.ok("회원정보 수정하기성공");
+            return ResponseEntity.ok("사원정보 수정하기 성공!");
         }else{
             return  ResponseEntity.internalServerError().body("회원정보 수정실패");
         }
@@ -165,10 +165,24 @@ private final AdminEmpService adminEmpService;
     //사원퇴사 처리
     @PostMapping("admin/resign_emp")
     @ResponseBody
-    public ResponseEntity<String> resignEmp(@RequestParam("no")String no){
+    public ResponseEntity<String> resignEmp(@RequestParam("no")String no,HttpSession session){
+
+        //서브관리자 권한체크
+        AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+        String authNo=loginAdminVo.getAdminAuthorityNo();
+
+        //2번 의미 서브어드민!! 서브어드민이라면 권한체크하기
+        if(authNo.equals("2")){
+            String authYn=adminEmpService.checkAuthYnForResignEmp();
+            if(authYn.equals("N")){
+                //⭐ 403오류 권한 없음  포비든
+                return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("❌접근 금지! 퇴사 처리 권한이 없습니다❌");
+            }
+        }
+
         int result=adminEmpService.resignEmp(no);
         if(result==1){
-            return ResponseEntity.ok("퇴사처리 완료!");
+            return ResponseEntity.ok("퇴사처리 완료되었습니다");
         }else{
             return  ResponseEntity.internalServerError().body("퇴사처리 실패");
         }

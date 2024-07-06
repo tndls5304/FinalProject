@@ -61,4 +61,8 @@ public class AdminEmpService {
     public String checkAuthYnForUpdateEmpInfo() {
         return dao.checkAuthYnForUpdateEmpInfo();
     }
+
+    public String checkAuthYnForResignEmp() {
+        return  dao.checkAuthYnForResignEmp();
+    }
 }

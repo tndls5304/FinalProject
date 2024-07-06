@@ -57,4 +57,8 @@ public class AdminDao {
     public String checkAuthYnForUpdateEmpInfo() {
         return mapper.checkAuthYnForUpdateEmpInfo();
     }
+
+    public String checkAuthYnForResignEmp() {
+        return mapper.checkAuthYnForResignEmp();
+    }
 }

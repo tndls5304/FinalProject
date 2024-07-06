@@ -259,12 +259,12 @@ const modal = document.getElementById('modal');
        method:'POST',
        data: JSON.stringify(dataValue),
        contentType : 'application/json',
-       success:function(){
-        alert("수정 성공!!");
-        location.reload();
+       success:function(resultMsg){
+            alert(resultMsg);
+            location.reload();
        },
-       error:function(){
-        alert("수정실패");
+       error:function(errorMsg){
+          alert(errorMsg.responseText);
        }
       })
     }
@@ -276,12 +276,12 @@ const modal = document.getElementById('modal');
       url:"/admin/resign_emp",
       method:"POST",
       data:{no:no},
-      success:function(){
-        alert("퇴사처리 완료!");
+      success:function(resultMsg){
+        alert(resultMsg);
         location.reload();
       },
-      error:function(){
-        alert("퇴사처리 실패!")
+      error:function(errorMsg){
+        alert(errorMsg.responseText)
       }
     })
   }
