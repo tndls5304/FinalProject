@@ -35,10 +35,13 @@ public interface RentMapper {
     List<MeetingVo> meetingList();
 
     @Select("SELECT R.VHCL_RSV_NO\n" +
+            "    ,TO_CHAR(R.LOAN_DATE, 'YYYY-MM-DD') AS LOAN_DATE\n" +
+            "    ,TO_CHAR(R.RETURN_DATE, 'YYYY-MM-DD') AS RETURN_DATE\n" +
             "    ,V.VHCL_NUMBER\n" +
             "    ,T.NAME \n" +
             "    ,A.APPROVAL_STATUS\n" +
             "    ,E.NAME as empName\n" +
+            "    ,R.REASON\n" +
             "FROM RESERV_VEHICLE R\n" +
             "JOIN VEHICLE V \n" +
             "ON R.VHCL_NO = V.VHCL_NO\n" +
@@ -78,22 +81,27 @@ public interface RentMapper {
     int updateMeeting(MeetingVo vo, String no);
 
     @Update("<script>\n" +
-            "UPDATE RESERV_VEHICLE SET \n" +
+            "UPDATE RESERV_VEHICLE \n" +
+            "<set>\n" +
             "\t<if test=\"vo.vhclNo != null\">\n" +
             "\tVHCL_NO = #{vo.vhclNo},\n" +
             "\t</if>\n" +
             "\t<if test=\"vo.loanDate != null\">\n" +
-            "\tLOAN_DATE = #{vo.loanDate},\n" +
+            "\tLOAN_DATE = TO_DATE(#{vo.loanDate}, 'YYYY-MM-DD'),\n" +
             "\t</if>\n" +
             "\t<if test=\"vo.returnDate != null\">\n" +
-            "\tRETURN_DATE = #{vo.returnDate},\n" +
+            "\tRETURN_DATE = TO_DATE(#{vo.returnDate}, 'YYYY-MM-DD'),\n" +
             "\t</if>\n" +
-            "\t<if test=\"vo.reason != null\">\n" +
-            "\tREASON = #{vo.reason}\n" +  // 마지막 항목 뒤의 쉼표 제거
+            "\t<if test=\"vo.reason != null and vo.reason != ''\">\n" +
+            "\tREASON = #{vo.reason}\n" +
             "\t</if>\n" +
+            "</set>\n" +
             "WHERE VHCL_RSV_NO = #{no}\n" +
             "</script>")
     int updateCar(@Param("vo") CarVo vo, @Param("no") String no);
+
+
+
 
 
 
