@@ -29,18 +29,19 @@
           <br><br>
 
         
-          <label for="parNo" data-name="todoEmpNo">담당자:${loginEmpVo.name}</label>
+          <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
           <br><br>
 
-
-              <select id="todoManager" name="todoManagerList[]" multiple>
-                 <option value="">참여자 선택</option>
-                 <c:forEach var="employee" items="${employeeList}">
-                     <option value="${employee.no}" name="todoManagerList" class="click-option">${employee.name}&nbsp;&nbsp;&nbsp;${employee.deptNo}</option>
+        
+            <div id="messenger-infor-receiver">
+              <label>담당자</label>
+              <select id="todoManager">
+                 <c:forEach var="empList" items="${empList}">
+                     <option value="${employee.no}" name="receiverEmpNo" class="click-option">${employee.name}&nbsp;&nbsp;&nbsp;${employee.deptNo}</option>
                  </c:forEach>
               </select>
-              <input type="hidden" id="todoManagerList" name="todoManagerList">
-              <label for="parNo">참여자:</label>
+              <input type="hidden" id="todoManagerNo" name="todoManagerNo">
+            </div>
 
           
           <br><br>

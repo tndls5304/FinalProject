@@ -23,28 +23,34 @@ public interface TodoMapper {
 
 
     //할일 상세조회(담당자조회도 같이
-    @Select("SELECT T.TODO_NO, T.TODO_EMP_NO, T.TITLE, T.CONTENT, T.COMPLETED_YN, T.CREATE_DATE, T.END_DATE FROM TODO T WHERE T.TODO_NO = #{todoNo}")
+    @Select("SELECT t.TODO_NO, t.TODO_EMP_NO, t.TITLE, t.CONTENT, t.COMPLETED_YN, \n" +
+            "       t.CREATE_DATE, t.END_DATE, m.TODO_MANAGER_NO\n" +
+            "FROM TODO t\n" +
+            "LEFT JOIN TODO_MANAGER m ON t.TODO_NO = m.TODO_NO_MAN\n" +
+            "WHERE TODO_NO = #{todoNo}")
     //@Result : 위의 셀렉트를 실행하고 todoVo에 객체에 매핑해주는 에너테이션
-    @Results({
-            @Result(property = "todoNo", column = "TODO_NO"),
-            @Result(property = "todoEmpNo", column = "TODO_EMP_NO"),
-            @Result(property = "title", column = "TITLE"),
-            @Result(property = "content", column = "CONTENT"),
-            @Result(property = "completedYn", column = "COMPLETED_YN"),
-            @Result(property = "createDate", column = "CREATE_DATE"),
-            @Result(property = "startDate", column = "START_DATE"),
-            @Result(property = "endDate", column = "END_DATE"),
-            //여기서 todoNo를 받아와서
-            // @Many 애너테이션을 통하여 getTodoManager 호출해준다
-            // 그리고 todoVo에 생성해둔 List<String>todoManagerList 에 받아온 리스트를 넣어준다.
-            @Result(property = "todoManagerList", column = "TODO_NO", many = @Many(select = "getTodoManagerList"))
-    })
-    TodoVo getTodoByNo(@RequestParam("todoNo") int todoNo);
+//    @Results({
+//            @Result(property = "todoNo", column = "TODO_NO"),
+//            @Result(property = "todoEmpNo", column = "TODO_EMP_NO"),
+//            @Result(property = "title", column = "TITLE"),
+//            @Result(property = "content", column = "CONTENT"),
+//            @Result(property = "completedYn", column = "COMPLETED_YN"),
+//            @Result(property = "createDate", column = "CREATE_DATE"),
+//            @Result(property = "startDate", column = "START_DATE"),
+//            @Result(property = "endDate", column = "END_DATE"),
+//            //여기서 todoNo를 받아와서
+//            // @Many 애너테이션을 통하여 getTodoManager 호출해준다
+//            // 그리고 todoVo에 생성해둔 List<String>todoManagerList 에 받아온 리스트를 넣어준다.
+//            @Result(property = "todoManagerList", column = "TODO_NO", many = @Many(select = "getTodoManagerList"))
+//    })이러지말고 컨트롤러에서 리스트로 반환 받으라고 이 멍청아.........
+    List<TodoVo> getTodoByNo(@RequestParam("todoNo") int todoNo);
 
-    //할일 담당자 조회
-    //위에서 가져온 todoNo을 가지고 담당자 테이블에서 담당자를 리스트로 가져와 TodoVo에 만들어둔 TodoManagers에 리스트 반환
-    @Select("SELECT TODO_NO_MAN, TODO_MANAGER_NO FROM TODO_MANAGER WHERE TODO_NO_MAN = #{todoNo}")
-    List<String> getTodoManagerList(int todoNo);
+
+    //애초에 컨트롤러에서 todoVo의 반환타입을 List로 해뒀으면 이거 안썼어도 된다......!!!!!!!!!!!!!!!!!whffkWkwmdsksek
+//    //할일 담당자 조회
+//    //위에서 가져온 todoNo을 가지고 담당자 테이블에서 담당자를 리스트로 가져와 TodoVo에 만들어둔 TodoManagers에 리스트 반환
+//    @Select("SELECT TODO_MANAGER_NO, TODO_NO_MAN FROM TODO_MANAGER WHERE TODO_NO_MAN = #{todoNo}")
+//    List<String> getTodoManagerList(int todoNo);
 
 
 
@@ -101,7 +107,6 @@ public interface TodoMapper {
     @Select("SELECT E.NO , E.NAME , P.NAME AS positionNO , D.NAME AS deptNO FROM EMPLOYEE E JOIN POSITION P ON E.POSITION_NO = P.NO JOIN DEPARTMENT D ON E.DEPT_NO = D.NO")
     @Results({
             @Result(property = "name", column = "name"),
-            @Result(property = "positionNo", column = "positionNo"),
             @Result(property = "deptNo", column = "deptNo")
     })
     List<EmployeeVo> getManagerList();

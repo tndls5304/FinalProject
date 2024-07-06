@@ -22,17 +22,18 @@ public class TodoApiController {
     private final TodoService service;
 
 
-
     //할일 상세 조회
+    //처음에 todoVo로 반환타입을 지정해줬는데 담당자 여러명이니까 List로 해줘야함 아직도 모르겠니...??
     @GetMapping
     @ResponseBody
-    public TodoVo getTodoByNo(@RequestParam("todoNo") String todoNoStr) {
+    public List<TodoVo> getTodoByNo(@RequestParam("todoNo") String todoNoStr) {
         int todoNo = Integer.parseInt(todoNoStr); //todoNo int라서 형변환 해줌.
-      TodoVo todoVo  = service.getTodoByNo(todoNo);
+      List<TodoVo> voList = service.getTodoByNo(todoNo);
 
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~vo" + todoVo);
-        return todoVo;
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~vo" + voList);
+        return voList;
     }
+
 
 
     //모든 할일 목록조회(담당자 참여자 모두//여기 todoVo넘겨주지 않고 그냥 세션에 있는거 넘겨주면 안되나?

@@ -18,7 +18,7 @@ public class TodoDao {
 
 
     //상세조회
-    public TodoVo getTodoByNo(int todoNo) {
+    public List<TodoVo> getTodoByNo(int todoNo) {
         return mapper.getTodoByNo(todoNo);
     }
 
