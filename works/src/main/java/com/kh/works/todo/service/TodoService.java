@@ -71,7 +71,7 @@ public class TodoService {
     }
 
     //상세조회
-    public TodoVo getTodoByNo(int todoNo) {
+    public List<TodoVo> getTodoByNo(int todoNo) {
         return todoDao.getTodoByNo(todoNo);
     }
 
