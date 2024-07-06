@@ -31,9 +31,6 @@ public class RentDao {
         return mapper.carList();
     }
 
-    public MeetingVo detailMeeting(String no) {
-        return mapper.detailMeeting(no);
-    }
 
     public CarVo detailCar(String no) {
         return mapper.detailCar(no);
@@ -53,5 +50,21 @@ public class RentDao {
 
     public List<CarVo> listCar() {
         return mapper.listCar();
+    }
+
+    public int adminFail(String no) {
+        return mapper.adminFail(no);
+    }
+
+    public int adminApprove(String no) {
+        return mapper.adminApprove(no);
+    }
+
+    public int cancle(String no) {
+        return mapper.cancle(no);
+    }
+
+    public List<CarVo> adminList() {
+        return mapper.adminList();
     }
 }

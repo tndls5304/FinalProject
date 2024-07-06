@@ -13,7 +13,7 @@ public class CarVo {
     private String vhclRsvNo;
     private String empNo;
     private String approvalNo;
-    private String cancel_reservationYn;
+    private String cancelReservationYn;
     private String loanDate;
     private String returnDate;
     private String reason;
