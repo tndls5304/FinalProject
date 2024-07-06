@@ -54,8 +54,8 @@ public class AdminEmpService {
         return dao.selectEmpByCondition(vo);
     }
 
-    public String checkAuthYn() {
-        return  dao.checkAuthYn();
+    public String checkAuthYnForInsertEmp() {
+        return  dao.checkAuthYnForInsertEmp();
     }
 
     public String checkAuthYnForUpdateEmpInfo() {

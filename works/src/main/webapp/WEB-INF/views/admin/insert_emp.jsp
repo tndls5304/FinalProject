@@ -30,29 +30,28 @@
         <div class="header">
             <h2>신규 직원 계정등록</h2>
         </div>
-        <form id="signupForm" action="/admin/insert_emp" method="post" >
-          <div class="form-group">
-               <label for="name"><h3> 사원 이름 :</h3></label>
-               <input type="text"  name="name" placeholder="사원 이름 입력">
+          <div class="empInfo-group">
+               <label for="name"><h3> 사원 이름 :</h3>
+               <input type="text"  id="name" placeholder="사원 이름 입력" required>
           </div>
-          <div class="form-group">
-              <label for="email"><h3>이메일</h3> </label>
-              <input type="text"  name="email"  placeholder="이메일 입력" value="@gmail.com">
+          <div class="empInfo-group">
+             <h3>이메일</h3>
+              <input type="text"  id="email"  placeholder="이메일 입력" value="@gmail.com" required>
           </div>
-          <div class="form-group">
-              <label for="deptNo"> <h3>부서</h3> </label>
-                    <select name="deptNo" class="dept_select" id="deptSelect"></select>
+          <div class="empInfo-group">
+             <h3>부서</h3>
+                    <select class="dept_select" id="deptSelect"></select>
           </div>
 
-          <div class="form-group">
-            <label for="positionNo"> <h3>직위</h3> </label>
-                  <select name="positionNo" class="position_select" id="positionSelect"></select>
+          <div class="empInfo-group">
+           <h3>직위</h3>
+                  <select  class="position_select" id="positionSelect"></select>
         </div>
 
           <div class="btncenter">
-              <button type="submit" >신규 직원 등록 </button>
+              <button onclick="insertEmp()" >신규 직원 등록 </button>
           </div>
-      </form>
+
 
 
 

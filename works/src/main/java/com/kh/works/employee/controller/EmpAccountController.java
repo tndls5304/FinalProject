@@ -111,6 +111,7 @@ public class EmpAccountController {
     //로그인하기
     @PostMapping("emp/login")
     public String empLoginIdMatching(EmployeeVo vo, HttpSession session, Model model) {
+        //퇴사안한 직원중에 아이디 매칭
         EmployeeVo loginEmpVo = service.empLoginIdMatching(vo);
 
         if (loginEmpVo == null) {
