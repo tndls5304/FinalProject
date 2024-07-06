@@ -58,8 +58,8 @@
               </div>
 
               <!-- 상세조회 -->
-              <div id="detail">
-              </div>
+              <div id="detail"></div>
+          
             </div>
 
             <!-- 리스트, 상세조회 -->
@@ -75,6 +75,8 @@
     <script src="/js/todo/listAll.js"></script>
     <script src="/js/todo/listPar.js"></script>
     <script src="/js/todo/detail.js"></script>
+    <script src="/js/todo/delTodo.js"></script>
+  
 
 
     <!-- 동적 요소에 이벤트 처리하는 방법  -->
@@ -86,5 +88,12 @@
       $(document).on('click', '#todoList tr', function () {
         var todoNo = $(this).find('.hidden-column').text();
         getTodoDetail(todoNo);
+      });
+    </script>
+    
+    <script>
+      $(document).on('click', '.detTodoBtn', function () {
+        var todoNo = $(this).find('.hidden-column').text();
+        delTodo(todoNo);
       });
     </script>

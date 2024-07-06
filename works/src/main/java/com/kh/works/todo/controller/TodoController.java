@@ -25,12 +25,8 @@ public class TodoController {
 
 
 
-//    //할일 작성 화면
-//    @GetMapping("write")
-//    public String write(){
-//        return "todo/write";
-//    }
 
+    //할일 홈화면
     @GetMapping("home")
     public String todoHome(){
         return "todo/home";
@@ -54,7 +50,7 @@ public class TodoController {
             if (result != 1){
                 return "common/error";
             }
-            return "redirect:/todo/listAll";
+            return "redirect:/todo/home";
         }
 
         //할일작성 화면 - 참여자 추가하기
@@ -66,44 +62,77 @@ public class TodoController {
         return "todo/write";
     }
 
-    //할일 상세 조회 화면
-    @GetMapping("detail")
-    public String detail(){
-        return "todo/detail";
-    }
-
-
-    //모든 할일 목록조회 화면(담당자 참여자 모두
+    //모든 할일 목록조회(담당자 참여자 모두//여기 todoVo넘겨주지 않고 그냥 세션에 있는거 넘겨주면 안되나?
+    //리스트로 반환받기
     @GetMapping("listAll")
-    public String listAll(){
-        return "todo/listAll";
+    @ResponseBody
+    public List<TodoVo> getTodoListAll(TodoVo vo, HttpSession session){
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        String todoEmpNo = loginEmpVo.getNo();
+
+        vo.setTodoEmpNo(todoEmpNo);
+        vo.setTodoManagerNo(todoEmpNo);
+
+        //반환값을 List로 변환
+        List<TodoVo> voList = service.getTodoListAll(vo);
+        return voList;
     }
 
-
-    //참여자 할일 목록조회 화면(내가 참여자인것만
+    //참여자 할일 목록조회(내가 참여자인것만 //이것도 세션으로 받으면 되려나...
     @GetMapping("listPar")
-   public String listPar() {
-        return "todo/listPar";
+    @ResponseBody
+    public List<TodoVo> getTodoListPar(TodoVo vo, HttpSession session){
+
+        EmployeeVo loginEmpVo =(EmployeeVo)session.getAttribute("loginEmpVo");
+        String todoEmpNo = loginEmpVo.getNo();
+        vo.setTodoManagerNo(todoEmpNo);
+
+
+        List<TodoVo> pvoList = service.getTodoListPar(vo);
+        return pvoList;
+    }
+
+    //할일 상세 조회
+    //처음에 todoVo로 반환타입을 지정해줬는데 담당자 여러명이니까 List로 해줘야함 아직도 모르겠니...??
+    @GetMapping("detail")
+    @ResponseBody
+    public List<TodoVo> getTodoByNo(@RequestParam("todoNo") String todoNoStr) {
+        int todoNo = Integer.parseInt(todoNoStr); //todoNo int라서 형변환 해줌.
+        List<TodoVo> voList = service.getTodoByNo(todoNo);
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~vo" + voList);
+        return voList;
     }
 
 
-    //할일 수정 화면
-    @GetMapping("edit")
-    public String edit(){
-        return "todo/edit";
+    //할일 수정(글번호 이용
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity todoEdit(TodoVo vo){
+        int result = service.todoEdit(vo);
 
+        return ResponseEntity.ok(result);
     }
-
 
     //할일 검색
-
-    //할일 삭제...
-
-    //할일 완료
+    //@RequestParam을 이용해 요청을 매개변수로 받기 reqired = false =>해당 파라미터가 필수가 아니라는 뜻
+    @GetMapping("search")
     @ResponseBody
-    @GetMapping("completed")
-    public int todoCompleted(TodoVo vo){
-        int result = service.todoCompleted(vo);
+    public List<TodoVo> todoSearch(@RequestParam(value = "title", required = false) String title,
+                                   @RequestParam(value = "content", required = false) String content){
+        List<TodoVo> voList = service.todoSearch(title, content);
+        return voList;
+    }
+
+
+
+    //할일 삭제
+
+    @ResponseBody
+    @GetMapping("delete")
+    public int todoDelete(@RequestParam("todoNo") String todoNo){
+        int result = service.todoDelete(todoNo);
         return result;
     }
 
