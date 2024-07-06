@@ -115,6 +115,10 @@ function carEdit(no) {
     const returnDate = document.querySelector("#returnDate").value;
     const reason = document.querySelector("#reason").value;
     const carOption = document.querySelector("#carOption").value;
+    console.log(loanDate);
+    console.log(returnDate);
+    console.log(reason);
+    console.log(carOption);
 
     
     $.ajax({
@@ -126,6 +130,7 @@ function carEdit(no) {
             ,loanDate:loanDate
             ,returnDate:returnDate
             ,reason:reason
+
         }
         ,success:()=>{
             alert("수정 성공하였습니다");
