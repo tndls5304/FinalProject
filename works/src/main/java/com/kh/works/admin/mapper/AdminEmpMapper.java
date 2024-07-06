@@ -97,7 +97,7 @@ public interface AdminEmpMapper {
     List<EmployeeVo> selectEmpByCondition(EmployeeVo vo);
 
 
-//서브관리자의 2번메뉴바 신규사원등록 권한체크
+// 신규사원등록하기전에  서브관리자 권한체크
     @Select("""
             SELECT INSERT_YN
             FROM ADMIN A
@@ -106,6 +106,7 @@ public interface AdminEmpMapper {
             WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='2'
             """)
     String checkAuthYnForInsertEmp();
+
 
     //회원정보수정하기전에 서브관리자 권한체크
     @Select("""
@@ -116,5 +117,15 @@ public interface AdminEmpMapper {
             WHERE A.NO='2' AND P.ADMIN_PAGE_MENU_NO='3'
             """)
     String checkAuthYnForUpdateEmpInfo();
+
+    //사원퇴사처리 전에 서브관리자 권한체크
+    @Select("""
+            SELECT REMOVE_YN
+            FROM ADMIN A
+            JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
+            JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
+            WHERE A.NO='2' AND P.ADMIN_PAGE_MENU_NO='3'
+            """)
+    String checkAuthYnForResignEmp();
 }
 
