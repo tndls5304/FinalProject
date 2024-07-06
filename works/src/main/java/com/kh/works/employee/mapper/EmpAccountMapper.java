@@ -6,12 +6,13 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface EmpAccountMapper {
 
+    //퇴사 안한 사원중에 아이디 매칭
     @Select("""
             SELECT E.NO,E.EMAIL,E.NAME,E.PWD,E.ID,E.PROFILE,E.PHONE,E.HIRE_DATE,E.RETIRE_YN,E.RETIRE_DATE,E.LOGIN_FAIL_NUM,E.LOCK_YN,E.DEPT_NO,E.POSITION_NO,D.NAME AS DEPT_NAME,P.NAME AS POSITION_NAME
                         FROM EMPLOYEE E
                         JOIN DEPARTMENT D ON E.DEPT_NO =D.NO
                         JOIN POSITION P ON E.POSITION_NO=P.NO
-                        WHERE ID=#{id}
+                        WHERE ID=#{id} AND RETIRE_YN='N'
             """ )
     EmployeeVo empLoginIdMatching(EmployeeVo vo);
 

@@ -33,19 +33,21 @@ public class AdminAuthController {
         return service.getMenuVoList();
     }
 
-    //ajax로 보낸 데이터를 서브관리자 권한 update처리하기
+
+
+    //서브관리자 권한 update처리하기
     @PostMapping("admin/update_auth")
     @ResponseBody
     public String updateAuth(@RequestBody List<SubAdminMenuVo> list, HttpSession session){
 
-        //TODO 서브관리자권한 맞는지 확인하기 1번
+        //TODO 서브관리자권한1(완료)
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String authNo=loginAdminVo.getAdminAuthorityNo();
         //2번 의미 서브어드민!! 서브어드민이라면 권한체크하기
         if(authNo.equals("2")){
             String authYn=service.checkAuthYn();
             if(authYn.equals("N")){
-                return "권한이 없습니다! 권한 요청해주세요";
+                return "수정 권한이 없습니다! super 관리자에게 권한 요청해주세요!";
                 }
         }
 

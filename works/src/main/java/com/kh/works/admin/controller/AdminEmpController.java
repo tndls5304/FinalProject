@@ -14,11 +14,14 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -53,22 +56,23 @@ private final AdminEmpService adminEmpService;
     }
 
 
-    //신규직원등록페이지에서  신규 직원 등록 버튼누르면 동작!
+    //신규직원등록페이지에서  신규 직원 등록 버튼누르면 동작! RequestBody:무조건 json
     @PostMapping("admin/insert_emp")
-    public void insertEmp(EmployeeVo employeeVo, HttpSession session){
+    public ResponseEntity<String> insertEmp(EmployeeVo employeeVo, HttpSession session){
 
-        //TODO 서브관리자권한 맞는지 확인하기 2번 이거 모르겠다 !!!!!!! 의문점1번
+        //TODO 서브관리자권한 2(완료)
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String authNo=loginAdminVo.getAdminAuthorityNo();
 
-        //2번 의미 서브어드민!! 서브어드민이라면 권한체크하기
+        //2번 의미 서브어드민번호 !! 서브어드민이라면 권한체크하기
         if(authNo.equals("2")){
-            String authYn=adminEmpService.checkAuthYn();
-            if(authYn.equals("N")){
-//                return "권한이 없습니다! 권한 요청해주세요";
+            String authYn=adminEmpService.checkAuthYnForInsertEmp();
+            if(authYn.equals("N")){ //포비든권한오류
+                return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("신규직원 등록 권한이 없습니다!");
             }
         }
-
+        //등록하고 동시에 회원번호 가져옴
+        adminEmpService.insertEmp(employeeVo);
       //  이메일보내기:  @Options로 담아준 객체의 no를 가져와서 파라미터로
         EmailMessage emailMessage=new EmailMessage();
 
@@ -104,9 +108,9 @@ private final AdminEmpService adminEmpService;
         emailMessage.setMessage(mailContent);
 
         emailService.sendMail(emailMessage);
-    }
 
-
+        return ResponseEntity.ok("회원등록완료 후-> 회원에게 가입초대 이메일 보내기 성공!");
+}
 
 
     //사원관리 페이지: 페이지 보여주기
@@ -136,16 +140,18 @@ private final AdminEmpService adminEmpService;
     @ResponseBody
     public ResponseEntity<String> editEmp(@RequestBody EmployeeVo vo,HttpSession session){
 
+        //권한체크
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String authNo=loginAdminVo.getAdminAuthorityNo();
+
         //2번 의미 서브어드민!! 서브어드민이라면 권한체크하기
         if(authNo.equals("2")){
             String authYn=adminEmpService.checkAuthYnForUpdateEmpInfo();
             if(authYn.equals("N")){
-//                return "권한이 없습니다! 권한 요청해주세요";
+               //⭐ 403오류 권한 없음  포비든
+              return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이 없습니다!");
             }
         }
-
 
         int result=adminEmpService.editEmp(vo);
         if(result==1){

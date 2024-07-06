@@ -49,8 +49,8 @@ public class AdminDao {
         return mapper.selectEmpByCondition(vo);
     }
 
-    public String checkAuthYn() {
-        return mapper.checkAuthYn();
+    public String checkAuthYnForInsertEmp() {
+        return mapper.checkAuthYnForInsertEmp();
 
     }
 

@@ -48,3 +48,28 @@ $.ajax({
       console.log("직위명가져오기 통신실패")
       }
   })
+
+  function insertEmp(){
+
+    var nameValue=document.querySelector("#name").value;
+    var emailValue=document.querySelector("#email").value;
+    var deptNoValue=document.querySelector("#deptSelect").value;
+    var positionNoValue=document.querySelector("#positionSelect").value;
+
+$.ajax({
+      url:"/admin/insert_emp",
+      method:"POST",
+      data:{
+          name:nameValue,
+          email:emailValue,
+          deptNo:deptNoValue,
+          positionNo:positionNoValue
+      },
+      success:function(result){
+            alert(result);
+          },
+          error:function(errorMsg){
+            alert(errorMsg.responseText);
+          }
+      })
+  }

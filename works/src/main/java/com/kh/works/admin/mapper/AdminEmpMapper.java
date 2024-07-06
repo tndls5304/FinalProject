@@ -63,10 +63,10 @@ public interface AdminEmpMapper {
             """)
     int editEmp(EmployeeVo vo);
 
-    //퇴사처리 TODO 퇴사처리에  퇴사 날짜 넣기
+    //퇴사처리
     @Update("""
             UPDATE EMPLOYEE
-            SET RETIRE_YN='Y'
+            SET RETIRE_YN='Y', RETIRE_DATE=SYSDATE
             WHERE NO=#{no}
             """)
     int resignEmp(String no);
@@ -105,9 +105,16 @@ public interface AdminEmpMapper {
             JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
             WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='2'
             """)
-    String checkAuthYn();
-//TODO 집에서해야함
-    @Select("")
+    String checkAuthYnForInsertEmp();
+
+    //회원정보수정하기전에 서브관리자 권한체크
+    @Select("""
+            SELECT MODIFY_YN
+            FROM ADMIN A
+            JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
+            JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
+            WHERE A.NO='2' AND P.ADMIN_PAGE_MENU_NO='3'
+            """)
     String checkAuthYnForUpdateEmpInfo();
 }
 

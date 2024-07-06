@@ -1,20 +1,17 @@
 
 /* -----------수인---------------------------- */
-.form-group {
+.empInfo-group {
   margin-bottom: 15px;
   text-align: center; /* 가운데 정렬 */
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
+
 .mainjoin{
 font-size: 23px;
 margin-bottom: 30px;
 }
 
-.form-group input {
+.empInfo-group input {
   width: 600px;
   padding: 8px;
   border: 1px solid #ccc;
