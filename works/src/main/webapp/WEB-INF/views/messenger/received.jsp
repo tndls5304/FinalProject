@@ -61,8 +61,8 @@
        <div id="messenger-main">
         <form action="/messenger/received" method="get" enctype="multipart/form-data">
          <div id="messenger-search">
-           <div><input type="text" placeholder="검색어를 입력해주세요."></div>
-           <div><input type="button" value="검색"></div>
+           <div><input type="text" id="search-keyword" name="keyWord" placeholder="검색어를 입력해주세요."></div>
+           <div><input type="button" value="검색" onclick="searchByKeyword()"></div>
          </div>
          <div id="messenger-check">
            <div id="check-all"><input type="checkbox">전체선택</div>
@@ -192,5 +192,27 @@
       // /messenger/all에서 쪽지쓰기 눌렀을 때, 쪽지쓰기 페이지(/messenger/write)로 이동
       function moveToWrite(){
           window.location.href = "http://localhost:8080/messenger/write";
+      }
+
+
+      // 검색기능을 위한 자바스크립트 함수
+      function searchByKeyword() {
+          var keyword = document.getElementById("search-keyword").value;
+
+          // 새로운 form 생성
+          var searchForm = document.createElement("form");
+          searchForm.method = "get"; //form 전송 방식 - GET
+          searchForm.action = "/messenger/search";
+
+          // 검색을 하기 위해 input 요소 생성
+          var input = document.createElement("input");
+          input.type = "hidden"; //화면에 보이지 않도록 hidden 설정
+          input.name = "keyWord"; //Mapper에 설정한 값으로 name 지정
+          input.value = keyword; //input 값에 keyword 설정
+
+          searchForm.appendChild(input);
+
+          document.body.appendChild(searchForm);
+          searchForm.submit();
       }
     </script>

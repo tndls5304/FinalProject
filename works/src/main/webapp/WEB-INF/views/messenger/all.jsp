@@ -61,17 +61,17 @@
        <div id="messenger-main">
         <form action="/messenger/all" method="get" enctype="multipart/form-data">
          <div id="messenger-search">
-           <div><input type="text" placeholder="검색어를 입력해주세요."></div>
-           <div><input type="button" value="검색"></div>
+           <div><input type="text" id="search-keyword" name="keyWord" placeholder="검색어를 입력해주세요."></div>
+           <div><input type="button" value="검색" onclick="searchByKeyword()"></div>
          </div>
          <div id="messenger-check">
-           <div id="check-all"><input type="checkbox">전체선택</div>
-           <div id="check-delete"><input type="button" value="삭제"></div>
+           <div id="check-all"><input type="checkbox" id="select-all">전체선택</div>
+           <div id="check-delete"><input type="button" value="삭제" onclick="trashMessen()"></div>
          </div>
          <div id="messenger-content">
            <c:forEach var="message" items="${voList}">
-            <div class="messenger-item">
-               <div><input id="checkbox-delete" type="checkbox"></div>
+            <div class="messenger-item" id="messenNo-${message.messenNo}">
+               <div><input class="checkbox-delete" type="checkbox" value="${message.messenNo}"></div>
                <div><input id="checkbox-important" type="checkbox"></div>
                <div id="list-person">${message.name}</div>
                <div id="list-title" class="click-title">${message.title}</div>
@@ -186,8 +186,77 @@
         }
 
 
+        //쪽지 휴지통으로 이동 Ajax
+       // 전체 선택 체크박스 기능
+       document.getElementById('select-all').addEventListener('change', function() {
+           const checkboxes = document.querySelectorAll('.checkbox-delete');
+           checkboxes.forEach(checkbox => {
+               checkbox.checked = this.checked;
+           });
+       });
+
+       // 삭제 버튼 클릭 시 선택된 쪽지 삭제
+       function trashMessen() {
+           const selectedMessages = [];
+           document.querySelectorAll('.checkbox-delete:checked').forEach(item => {
+               selectedMessages.push(item.value);
+           });
+
+           if (selectedMessages.length > 0) {
+               $.ajax({
+                   url: "/messenger/trashStatus",
+                   method: "post",
+                   traditional: true,
+                   data: {
+                       messenNoList: selectedMessages
+                   },
+                   success: (data) => {
+                       console.log("쪽지 삭제 성공");
+                       selectedMessages.forEach(messenNo => {
+                            const messageElement = document.querySelector(`#messenNo-${messenNo}`);
+                            if (messageElement) {
+                                messageElement.remove();
+                            }
+                       });
+                   },
+                   error: (xhr, status, error) => {
+                       console.log("쪽지 삭제 실패");
+                   }
+               });
+           } else {
+               alert("삭제할 쪽지를 선택하세요.");
+           }
+       }
+
+
+
+
+
+
         // /messenger/all에서 쪽지쓰기 눌렀을 때, 쪽지쓰기 페이지(/messenger/write)로 이동
         function moveToWrite(){
             window.location.href = "http://127.0.0.1:8080/messenger/write";
+        }
+
+        
+        // 검색기능을 위한 자바스크립트 함수 
+        function searchByKeyword() {
+            var keyword = document.getElementById("search-keyword").value;
+
+            // 새로운 form 생성 
+            var searchForm = document.createElement("form");
+            searchForm.method = "get"; //form 전송 방식 - GET
+            searchForm.action = "/messenger/search";
+
+            // 검색을 하기 위해 input 요소 생성 
+            var input = document.createElement("input");
+            input.type = "hidden"; //화면에 보이지 않도록 hidden 설정
+            input.name = "keyWord"; //Mapper에 설정한 값으로 name 지정
+            input.value = keyword; //input 값에 keyword 설정
+
+            searchForm.appendChild(input);
+
+            document.body.appendChild(searchForm);
+            searchForm.submit();
         }
       </script>
