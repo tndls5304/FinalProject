@@ -7,8 +7,8 @@ function delTodo(todoNo){
     success : function(){
       alert("삭제완료");
       listAll();
-      const title = document.querySelector("#detail");
-      title.innerHTML= '';
+      const detail = document.querySelector("#detail");
+      detail.innerHTML= "";
     },
     error: function(err){
       console.error("삭제 실행중 에러", err);

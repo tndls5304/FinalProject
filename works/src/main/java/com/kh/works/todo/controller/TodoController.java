@@ -107,7 +107,7 @@ public class TodoController {
 
 
     //할일 수정(글번호 이용
-    @PutMapping
+    @PostMapping("edit")
     @ResponseBody
     public ResponseEntity todoEdit(TodoVo vo){
         int result = service.todoEdit(vo);
@@ -119,9 +119,8 @@ public class TodoController {
     //@RequestParam을 이용해 요청을 매개변수로 받기 reqired = false =>해당 파라미터가 필수가 아니라는 뜻
     @GetMapping("search")
     @ResponseBody
-    public List<TodoVo> todoSearch(@RequestParam(value = "title", required = false) String title,
-                                   @RequestParam(value = "content", required = false) String content){
-        List<TodoVo> voList = service.todoSearch(title, content);
+    public List<TodoVo> todoSearch(@RequestParam(value = "title", required = false) String title){
+        List<TodoVo> voList = service.todoSearch(title);
         return voList;
     }
 
@@ -133,6 +132,14 @@ public class TodoController {
     @GetMapping("delete")
     public int todoDelete(@RequestParam("todoNo") String todoNo){
         int result = service.todoDelete(todoNo);
+        return result;
+    }
+
+    //할일 완료
+    @PostMapping("complete")
+    @ResponseBody
+    public int todoComplete(@RequestParam("todoNo") String todoNo){
+        int result = service.todoComplete(todoNo);
         return result;
     }
 

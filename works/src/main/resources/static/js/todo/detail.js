@@ -6,40 +6,20 @@ function getTodoDetail(todoNo) {
     success: function (data) {
        const detail = document.querySelector("#detail");
 
-
-      //   const title = document.createElement("div");
-      //   title.classList.add("title");
-      //   title.textContent = data[0].title;
-  
-      //   const content = document.createElement("div");
-      //   content.classList.add("content");
-      //   content.textContent = data[0].content;
-  
-      //   const endDate = document.createElement("div");
-      //   endDate.classList.add("endDate");
-      //   endDate.textContent = data[0].endDate;
-        
-        
-      //   const todoManagerNo = document.createElement("div");
-      //   todoManagerNo.classList.add("todoManagerNo");
-      //   todoManagerNo.textContent = data[0].todoManagerNo;
-  
-
-      // detail.appendChild(title);
-      // detail.appendChild(content);
-      // detail.appendChild(endDate);
-      // detail.appendChild(todoManagerNo);
+      // const title = document.querySelector("#detail");
       
-      // detail.innerHTML= detail;
-      const title = document.querySelector("#detail");
-
       let str = "";
       str +=`<div id='todoNo'class='hidden-no'>${data[0].todoNo}</div>`;
-      str +=`<div id='title'>${data[0].title}</div>`;
-      str +=`<div id='content'>${data[0].content}</div>`;
+      str += `<div><span name='changeTitle' id='title'>${data[0].title}</span></div>`;
+      str += `<div><span name='changeContent' id='content'>${data[0].content}</span></div>`;
+      str += `<div id='endDate'>마감일: ${data[0].endDate}</div>`;
       str +=`<div id='endDate'>${data[0].endDate}</div>`;
       str +=`<div id='empName'>${data[0].todoEmpName}</div>`;
-      str += `<button onclick='complete(${data[0].todoNo});'>완료하기</button>`;
+
+      //완료되지 않은 할일에만 버튼 생기게
+      if (data[0].completedYn !== 'Y') {
+        str += `<button class='comBtn' onclick='complete(${data[0].todoNo});'>완료하기</button>`;
+      } 
       
       //담당자만 여러명이라 for문
       str +=`<div id='todoManagerNo'>담당자 :`;
@@ -48,17 +28,17 @@ function getTodoDetail(todoNo) {
       } 
       str += '</div>';
 
-      str += `<button onclick='edit(${data[0].todoNo});'>수정하기</button>`;
+      str += `<button class='editBtn' onclick='editBtn(${data[0].todoNo});'>수정하기</button>`;
       str += `<button class=delToBtn onclick='delTodo(${data[0].todoNo});'>삭제하기</button>`;
       
 
 
-      title.innerHTML= str;
+      detail.innerHTML= str;
 
     },
     error: function (err) {
-      console.error("상세조회 아작스 실행중 에러", err);
-      alert("상세조회 아작스 실행중 에러");
+      console.error("상세조회 ajax 실행중 에러", err);
+      
     },
   });
 }

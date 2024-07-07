@@ -94,9 +94,8 @@ public class TodoService {
 
 
     //할일 검색
-    public List<TodoVo> todoSearch(String title, String content) {
-
-        return todoDao.todoSearch(title, content);
+    public List<TodoVo> todoSearch(String title ){
+        return todoDao.todoSearch(title);
     }
 
     //할일 삭제
@@ -105,11 +104,12 @@ public class TodoService {
 
     }
 
-    public int todoCompleted(TodoVo vo) {
-        return todoDao.todoCompleted(vo);
-    }
-
+    //할일 완료
     public List<EmployeeVo> getMangerList() {
         return todoDao.getManagerList();
+    }
+
+    public int todoComplete(String todoNo) {
+        return todoDao.todocomplete(todoNo);
     }
 }

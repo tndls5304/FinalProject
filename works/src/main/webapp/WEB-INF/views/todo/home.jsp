@@ -32,8 +32,8 @@
 
           <!-- 검색창 -->
           <div id="content">
-            <div><input type="search" id="search" placeholder="할 일을 검색하세요.">
-              <button type="submit">검색</button>
+            <div><input type="search" id="search" placeholder="제목을 검색하세요.">
+              <button type="submit" onclick="search();">검색</button>
             </div>
 
 
@@ -62,7 +62,6 @@
           
             </div>
 
-            <!-- 리스트, 상세조회 -->
 
           </div>
         </main>
@@ -76,14 +75,16 @@
     <script src="/js/todo/listPar.js"></script>
     <script src="/js/todo/detail.js"></script>
     <script src="/js/todo/delTodo.js"></script>
-  
+    <script src="/js/todo/complete.js"></script>
+    <script src="/js/todo/edit.js"></script>
+   
 
 
     <!-- 동적 요소에 이벤트 처리하는 방법  -->
     <!--(document).on('click', ...) => 이벤트 위임 제이쿼리 메소드 동적으로 추가되는 요소에대해 이벤트 처리를 해준다...!-->
     <!--'#todoList tr' => 이벤트를 수신할 모든 요소 선택 todoList아래에 tr을 선택-->
     <!--var todoNo = $(this).find('.hidden-column').text(); => 클릭된 요소의 텍스트를 가져옴..todoNo를 가져온다-->
-    <!--getTodoDetail(todoNo); => 앞에서 가져온 할이번호를 매개변수로 넣어준 뒤 함수실행..! -->
+    <!--getTodoDetail(todoNo); => 앞에서 가져온 할일번호를 매개변수로 넣어준 뒤 함수실행..! -->
     <script>
       $(document).on('click', '#todoList tr', function () {
         var todoNo = $(this).find('.hidden-column').text();
@@ -97,3 +98,56 @@
         delTodo(todoNo);
       });
     </script>
+
+  <script>
+    $(document).on('click', '.comBtn', function () {
+      var todoNo = $(this).find('.hidden-column').text();
+      complete(todoNo);
+    });
+  </script>
+
+  <script>
+    $(document).on('click', '.editBtn', function () {
+      var todoNo = $(this).find('.hidden-column').text();
+      edit(todoNo);
+    });
+  </script>
+
+
+<!-- 검색하고 목록 조회 -->
+ <script>
+  function search(searchData){
+    const searchTitle = document.querySelector("#search").value;
+    const searchContent = document.querySelector("#search").value;
+    $.ajax({
+      url : "http://127.0.0.1:8080/todo/search",
+      method:"GET",
+      data:{
+        title : searchTitle,
+      },
+      success: function(searchData){
+        const table = document.querySelector("#todoList");
+
+      let str = "";
+      for (let i = 0; i < searchData.length; i++) {
+        str += "<tr>";
+        str += "<td>" + searchData[i].title + "</td>";
+        str += "<td class='hidden-column'>" + searchData[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
+        str += "</tr>";
+        str += "<tr>";
+        str += "<td>요청자 " + searchData[i].todoEmpName + "</td>";
+        str += "<td>기한 " + searchData[i].endDate + "</td>";
+        str += "</tr>";
+        str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
+      }
+      table.innerHTML = str;
+
+      },
+      error: function (err) {
+      alert("검색 ajax 실행중 에러");
+  },
+
+    });
+
+  }
+ </script>
