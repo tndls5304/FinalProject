@@ -1,6 +1,8 @@
 package com.kh.works.messenger.service;
 
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import com.kh.works.handler.NotificationHandler;
 import com.kh.works.messenger.dao.MessengerDao;
 import com.kh.works.messenger.vo.MessengerVo;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +17,24 @@ import java.util.List;
 public class MessengerService {
 
     private final MessengerDao dao;
+//    알림 소켓 추가
+    private final NotificationHandler notificationHandler;
 
     public int write(MessengerVo vo) {
-        return dao.write(vo);
+//        기존 코드
+//        return dao.write(vo);
+
+//        알림 소켓 추가
+        int result = dao.write(vo);
+
+        if (result == 1) {
+            String notificationMessage = "새로운 쪽지가 도착했습니다. 보내는 사람: " + vo.getSenderEmpNo();
+            dao.saveAlarm(vo.getReceiverEmpNo(), notificationMessage);
+            notificationHandler.sendNotification(notificationMessage);
+        }
+
+        return result;
+
     }
 
     public List<EmployeeVo> getEmployeeList() {
@@ -60,8 +77,8 @@ public class MessengerService {
         return dao.getImportantList(empNo);
     }
 
-    public void importantStatus(int messenNo, String empNo) {
-        dao.importantStatus(messenNo, empNo);
+    public int importantStatus(int messenNo, String empNo) {
+        return dao.importantStatus(messenNo, empNo);
     }
 
 
@@ -98,5 +115,12 @@ public class MessengerService {
     }
 
 
+    public List<AlarmVo> getAlarmInfor(String receiverEmpNo) {
+        return dao.getAlarmInfor(receiverEmpNo);
+    }
+
+    public void readAlarm(String receiverEmpNo) {
+        dao.readAlarm(receiverEmpNo);
+    }
 }
 
