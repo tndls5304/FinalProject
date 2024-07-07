@@ -40,9 +40,9 @@
             <button onclick="moveToWrite()">쪽지쓰기</button>
          </div>
          <div id="messenger-status">
-            <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음</button></div></a>
+            <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음 (<c:out value="${unreadCount}"/>)</button></div></a>
             <a href="http://127.0.0.1:8080/messenger/important"><div><button>중요</button></div></a>
-            <a href="http://127.0.0.1:8080/messenger/delete"><div><button>휴지통</button></div></a>
+            <a href="http://127.0.0.1:8080/messenger/trash"><div><button>휴지통</button></div></a>
          </div>
          <hr>
          <div id="all-messenger">
@@ -65,13 +65,13 @@
            <div><input type="button" value="검색" onclick="searchByKeyword()"></div>
          </div>
          <div id="messenger-check">
-           <div id="check-all"><input type="checkbox">전체선택</div>
-           <div id="check-delete"><input type="button" value="삭제"></div>
+           <div id="check-all"><input type="checkbox" id="select-all">전체선택</div>
+           <div id="check-delete"><input type="button" value="삭제" onclick="trashMessen()"></div>
          </div>
          <div id="messenger-content">
            <c:forEach var="message" items="${voList}">
             <div class="messenger-item">
-               <div><input id="checkbox-delete" type="checkbox"></div>
+               <div><input class="checkbox-delete" type="checkbox" value="${message.messenNo}"></div>
                <div><input id="checkbox-important" type="checkbox"></div>
                <div id="list-person">${message.name}</div>
                <div id="list-title" class="click-title">${message.title}</div>
@@ -186,6 +186,46 @@
              },
            });
        }
+
+
+
+
+       //쪽지 휴지통으로 이동 Ajax
+       // 전체 선택 체크박스 기능
+       document.querySelector('#select-all').addEventListener('change', function() {
+           const checkboxes = document.querySelectorAll('.checkbox-delete');
+           checkboxes.forEach(checkbox => {
+               checkbox.checked = this.checked;
+           });
+       });
+
+       // 삭제 버튼 클릭 시 선택된 쪽지 삭제
+       function trashMessen() {
+           const selectedMessages = [];
+           document.querySelectorAll('.checkbox-delete:checked').forEach(item => {
+               selectedMessages.push(item.value);
+           });
+
+           if (selectedMessages.length > 0) {
+               $.ajax({
+                   url: "/messenger/trashStatus",
+                   method: "post",
+                   data: {
+                       messenNoList: selectedMessages
+                   },
+                   success: (data) => {
+                       console.log("쪽지 삭제 성공");
+                       location.reload();
+                   },
+                   error: (xhr, status, error) => {
+                       console.log("쪽지 삭제 실패");
+                   }
+               });
+           } else {
+               alert("삭제할 쪽지를 선택하세요.");
+           }
+       }
+
 
 
 

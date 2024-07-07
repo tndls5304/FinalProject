@@ -74,7 +74,12 @@ public class MessengerController {
         String receiverEmpNo = loginEmpVo.getNo();
 
         List<MessengerVo> voList = service.getMessengerList(senderEmpNo, receiverEmpNo);
+
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(receiverEmpNo);
+
         model.addAttribute("voList", voList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/all";  // all.jsp로 포워딩
     }
 
@@ -87,8 +92,12 @@ public class MessengerController {
         // 로그인한 사원의 사원번호를 가져온다.
         String receiverEmpNo = loginEmpVo.getNo();
 
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(receiverEmpNo);
+
         List<MessengerVo> voList = service.getReceivedList(receiverEmpNo);
         model.addAttribute("voList", voList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/received";
     }
 
@@ -101,8 +110,12 @@ public class MessengerController {
         // 로그인한 사원의 사원번호를 가져온다.
         String senderEmpNo = loginEmpVo.getNo();
 
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(senderEmpNo);
+
         List<MessengerVo> voList = service.getSentList(senderEmpNo);
         model.addAttribute("voList", voList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/sent";
     }
 
@@ -124,7 +137,12 @@ public class MessengerController {
         String receiverEmpNo = loginEmpVo.getNo();
 
         List<MessengerVo> voList = service.getUnreadList(receiverEmpNo);
+        //안 읽음 쪽지 갯수 세기 위한 코드
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(receiverEmpNo);
+
         model.addAttribute("voList", voList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/unread";
     }
     // 쪽지를 읽음으로 표시 - all.jsp에서 ajax 사용
@@ -155,8 +173,12 @@ public class MessengerController {
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
 
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(empNo);
+
         List<MessengerVo> voList = service.getImportantList(empNo);
         model.addAttribute("voList", voList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/important";
 
 
@@ -208,20 +230,35 @@ public class MessengerController {
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
 
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(empNo);
+
         List<MessengerVo> voList = service.trash(empNo);
         model.addAttribute("voList", voList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/trash";
     }
     //휴지통함으로 쪽지 보내기
     @PostMapping("trashStatus")
     @ResponseBody
     //여기에는 ResponseEntity 사용해 볼게요.
+    //List로 매개변수를 넘기는 이유 : 체크박스 (개별과) 전체 선택이 가능하도록 하기 위함.
     public ResponseEntity<String> trashMessen(@RequestParam("messenNoList") List<Integer> messenNoList, HttpSession session){
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
 
         service.trashMessen(messenNoList, empNo);
-        return ResponseEntity.ok("Success");
+        return ResponseEntity.ok("[Success] Trash");
+    }
+    //휴지통함에서 쪽지 완전 삭제하기
+    @PostMapping("delete")
+    @ResponseBody
+    public ResponseEntity<String> delete(@RequestParam("messenNoList") List<Integer> messenNoList, HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+
+        service.delete(messenNoList, empNo);
+        return ResponseEntity.ok("[Success] Delete");
     }
 
 

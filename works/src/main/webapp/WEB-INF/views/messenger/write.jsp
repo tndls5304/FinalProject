@@ -42,7 +42,7 @@
         <div id="messenger-status">
            <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음</button></div></a>
            <a href="http://127.0.0.1:8080/messenger/important"><div><button>중요</button></div></a>
-           <a href="http://127.0.0.1:8080/messenger/delete"><div><button>휴지통</button></div></a>
+           <a href="http://127.0.0.1:8080/messenger/trash"><div><button>휴지통</button></div></a>
         </div>
         <hr>
         <div id="all-messenger">

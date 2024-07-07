@@ -44,6 +44,10 @@ public class MessengerService {
         return dao.getUnreadList(receiverEmpNo);
     }
 
+    public int getUnreadCount(String receiverEmpNo) {
+        return dao.getUnreadCount(receiverEmpNo);
+    }
+
     public int read(int messenNo) {
         return dao.read(messenNo);
     }
@@ -81,6 +85,15 @@ public class MessengerService {
     public void trashMessen(List<Integer> messenNoList, String empNo) {
         for(int messenNo : messenNoList){
             dao.trashMessen(messenNo, empNo);
+        }
+    }
+
+
+    @Transactional
+    public void delete(List<Integer> messenNoList, String empNo) {
+        for(int messenNo : messenNoList){
+            dao.deleteStatus(messenNo, empNo);
+            dao.deleteMessen(messenNo, empNo);
         }
     }
 

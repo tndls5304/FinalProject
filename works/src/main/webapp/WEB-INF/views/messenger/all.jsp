@@ -40,9 +40,9 @@
             <button onclick="moveToWrite()">쪽지쓰기</button>
          </div>
          <div id="messenger-status">
-           <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음</button></div></a>
+           <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음 (<c:out value="${unreadCount}"/>)</button></div></a>
            <a href="http://127.0.0.1:8080/messenger/important"><div><button>중요</button></div></a>
-           <a href="http://127.0.0.1:8080/messenger/delete"><div><button>휴지통</button></div></a>
+           <a href="http://127.0.0.1:8080/messenger/trash"><div><button>휴지통</button></div></a>
          </div>
          <hr>
          <div id="all-messenger">
@@ -70,7 +70,7 @@
          </div>
          <div id="messenger-content">
            <c:forEach var="message" items="${voList}">
-            <div class="messenger-item" id="messenNo-${message.messenNo}">
+            <div class="messenger-item">
                <div><input class="checkbox-delete" type="checkbox" value="${message.messenNo}"></div>
                <div><input id="checkbox-important" type="checkbox"></div>
                <div id="list-person">${message.name}</div>
@@ -185,10 +185,9 @@
             });
         }
 
-
         //쪽지 휴지통으로 이동 Ajax
        // 전체 선택 체크박스 기능
-       document.getElementById('select-all').addEventListener('change', function() {
+       document.querySelector('#select-all').addEventListener('change', function() {
            const checkboxes = document.querySelectorAll('.checkbox-delete');
            checkboxes.forEach(checkbox => {
                checkbox.checked = this.checked;
@@ -206,18 +205,12 @@
                $.ajax({
                    url: "/messenger/trashStatus",
                    method: "post",
-                   traditional: true,
                    data: {
                        messenNoList: selectedMessages
                    },
                    success: (data) => {
                        console.log("쪽지 삭제 성공");
-                       selectedMessages.forEach(messenNo => {
-                            const messageElement = document.querySelector(`#messenNo-${messenNo}`);
-                            if (messageElement) {
-                                messageElement.remove();
-                            }
-                       });
+                       location.reload();
                    },
                    error: (xhr, status, error) => {
                        console.log("쪽지 삭제 실패");
