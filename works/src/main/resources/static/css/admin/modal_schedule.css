@@ -85,9 +85,3 @@
  background-color: rgb(196, 196, 196);
 }
 
-.mapStyle{
-  display: none;
-  position: fixed;
-  top: 25%; /* 화면위치 */
-  left: 60%; /* 화면위치 */
-}

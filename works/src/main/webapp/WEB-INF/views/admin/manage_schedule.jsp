@@ -14,12 +14,16 @@
         <link rel="stylesheet" href="/css/layout/admin/same.css">
 
    <!--지도 js api불러오기-->
-      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5da1687d10c0a4c9bb9e0e849d2b635a&libraries=services"></script>
+          <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5da1687d10c0a4c9bb9e0e849d2b635a&libraries=services"></script>
 
 
    <!-- 모달 정적파일-->
          <link rel="stylesheet" href="/css/admin/modal_schedule.css">
          <script defer src="/js/admin/modal_schedule.js"></script>
+   <!-- 지도api 정적파일-->
+          <link rel="stylesheet" href="/css/admin/map_schedule.css">
+          <script defer src="/js/admin/map_schedule.js"></script>
+
    <!--달력-->
          <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
            <script>
@@ -172,8 +176,34 @@
 
 
  <!-- 지도 모달 -->
+ <div id="modalMap" class="mapModal">
+    <button style="
+     position: absolute;
+     top: 0;
+     right: 0;
+     z-index: 9999;
+     margin: 0;">X</button>
+      <div class="map_wrap">
+            <div id="map" style="width:600px;height:600px;posi overflow:hidden;"></div>
+            <div id="menu_wrap" class="bg_white">
+                <div class="option">
+                        <div>
+                            <form onsubmit="searchPlaces(); return false;">
+                            키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15">
+                            <button type="submit">검색하기</button>
+                            </form>
+                        </div>
+                </div>
+                <hr>
+                <ul id="placesList"></ul>
+                <div id="pagination"></div>
+            </div>
+      </div>
+ </div>
+ <!-- 지도 모달 끝-->
 
-        <div id="map" style="width:500px;height:400px;position: fixed;z-index: 9999;"  class="mapStyle"></div>
+
+
 </main>
 
 
