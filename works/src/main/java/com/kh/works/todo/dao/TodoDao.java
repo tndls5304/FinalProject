@@ -12,10 +12,15 @@ import org.springframework.stereotype.Repository;
 public class TodoDao {
     private final TodoMapper mapper;
 
+    //할일 작성
     public int todowrite(TodoVo todoVo) {
         return mapper.todoWrite(todoVo);
     }
 
+
+    public int todoManager(String todoManagerNo) {
+        return  mapper.todoManager(todoManagerNo);
+    }
 
     //상세조회
     public List<TodoVo> getTodoByNo(int todoNo) {
@@ -41,8 +46,8 @@ public class TodoDao {
 
 
     //할일 검색
-    public List<TodoVo> todoSearch(String title, String content) {
-        return mapper.todoSearch(title, content);
+    public List<TodoVo> todoSearch(String title ){
+        return mapper.todoSearch(title);
     }
 
     //할일 삭제
@@ -50,17 +55,13 @@ public class TodoDao {
         return mapper.todoDelete(todoNo);
     }
 
-    public int todoCompleted(TodoVo vo) {
-        return mapper.todoCompleted(vo);
-    }
-
+    //담당자 리스트 가져오기
     public List<EmployeeVo> getManagerList() {
         return mapper.getManagerList();
     }
 
 
-
-    public int todoManager(String todoManagerNo) {
-        return  mapper.todoManager(todoManagerNo);
+    public int todocomplete(String todoNo) {
+        return mapper.todoComplete(todoNo);
     }
 }

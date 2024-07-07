@@ -70,7 +70,6 @@ public interface TodoMapper {
 //    List<String> getTodoManagerList(int todoNo);
 
 
-
     //모든 할일 조회// 이름 가져올때 별칭을 정해줘야 한다.
     @Select("SELECT DISTINCT T.TODO_NO, T.TITLE, TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE, E.NAME AS NAME\n" +
             "FROM TODO T\n" +
@@ -80,10 +79,9 @@ public interface TodoMapper {
             "AND T.DEL_YN = 'N'\n" +
             "AND M.DEL_YN = 'N'")
     @Results({
-            @Result(property = "todoEmpName", column = "NAME")}) //내가 만들어둔 vo변수명에 받아온 데이터 들어감
+            @Result(property = "todoEmpName", column = "NAME")})
+    //내가 만들어둔 vo변수명에 받아온 데이터 들어감
     List<TodoVo> getTodoListAll(TodoVo vo);
-
-
 
 
     //참여자인 할일 조회
@@ -94,7 +92,8 @@ public interface TodoMapper {
             "WHERE M.TODO_MANAGER_NO = #{todoManagerNo} \n" +
             "AND M.DEL_YN = 'N'")
     @Results({
-            @Result(property = "todoEmpName", column = "NAME")}) //내가 만들어둔 vo변수명에 받아온 데이터 들어감
+            @Result(property = "todoEmpName", column = "NAME")})
+    //내가 만들어둔 vo변수명에 받아온 데이터 들어감
     List<TodoVo> getTodoListPar(TodoVo vo);
 
 
@@ -107,8 +106,15 @@ public interface TodoMapper {
     // @Param 애너테이션을 이용해 바인딩
     // 바인딩이란 말 그대로 Java 프로그램에서 SQL 쿼리를 실행하기 위해 사용하는 매개변수를 SQL 쿼리의 실제 컬럼명이나 필드명과 일치시키는 과정
     //@Param 어노테이션은 메서드의 매개변수 이름을 SQL 쿼리에서 사용할 때 사용
-    @Select("SELECT TITLE FROM TODO WHERE (TITLE LIKE '%' || #{title} || '%' AND CONTENT LIKE '%' || #{content} || '%') AND DEL_YN = 'N'")
-    List<TodoVo> todoSearch(@Param("title") String title, @Param("content") String content);
+    @Select("SELECT T.TODO_NO, T.TITLE, E.NAME AS NAME, T.END_DATE\n" +
+            "FROM TODO T\n" +
+            "LEFT JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
+            "LEFT JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO\n" +
+            "WHERE T.TITLE LIKE '%' || #{title} || '%'\n" +
+            "AND M.DEL_YN = 'N'")
+    @Results({
+            @Result(property = "todoEmpName", column = "NAME")})
+    List<TodoVo> todoSearch(@Param("title") String title);
 
     //할일 삭제
     @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")
@@ -117,7 +123,7 @@ public interface TodoMapper {
 
     //할일 완료
     @Update("UPDATE TODO SET COMPLETED_YN = 'Y' WHERE TODO_NO = #{todoNo}")
-    int todoCompleted(TodoVo vo);
+    int todoComplete(@RequestParam("todoNo") String todoNo);
 
 
     //참여자 목록 가져오기
@@ -127,7 +133,7 @@ public interface TodoMapper {
             @Result(property = "deptNo", column = "deptNo")
     })
     List<EmployeeVo> getManagerList();
-
-
-
 }
+
+
+
