@@ -23,11 +23,28 @@ public interface TodoMapper {
 
 
     //할일 상세조회(담당자조회도 같이
-    @Select("SELECT t.TODO_NO, t.TODO_EMP_NO, t.TITLE, t.CONTENT, t.COMPLETED_YN, \n" +
-            "       t.CREATE_DATE, t.END_DATE, m.TODO_MANAGER_NO\n" +
-            "FROM TODO t\n" +
-            "LEFT JOIN TODO_MANAGER m ON t.TODO_NO = m.TODO_NO_MAN\n" +
-            "WHERE TODO_NO = #{todoNo}")
+    @Select("SELECT \n" +
+            "    t.TODO_NO, \n" +
+            "    e_employee.NAME AS EMP,  \n" +
+            "    t.TITLE, \n" +
+            "    t.CONTENT, \n" +
+            "    t.COMPLETED_YN, \n" +
+            "    t.CREATE_DATE, \n" +
+            "    t.END_DATE, \n" +
+            "    e_manager.NAME AS MAN  \n" +
+            "FROM \n" +
+            "    TODO t\n" +
+            "LEFT JOIN \n" +
+            "    TODO_MANAGER m ON t.TODO_NO = m.TODO_NO_MAN\n" +
+            "LEFT JOIN \n" +
+            "    EMPLOYEE e_employee ON t.TODO_EMP_NO = e_employee.NO \n" +
+            "LEFT JOIN \n" +
+            "    EMPLOYEE e_manager ON m.TODO_MANAGER_NO = e_manager.NO  \n" +
+            "WHERE \n" +
+            "    t.TODO_NO = #{todoNo}")
+    @Results({
+            @Result(property = "todoEmpName", column = "EMP"),
+            @Result(property = "todoManagerName", column = "MAN")})
     //@Result : 위의 셀렉트를 실행하고 todoVo에 객체에 매핑해주는 에너테이션
 //    @Results({
 //            @Result(property = "todoNo", column = "TODO_NO"),

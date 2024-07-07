@@ -32,16 +32,9 @@
           <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
           <br><br>
 
-        
-            <div id="messenger-infor-receiver">
-              <label>담당자</label>
-              <select id="todoManager">
-                 <c:forEach var="empList" items="${empList}">
-                     <option value="${employee.no}" name="receiverEmpNo" class="click-option">${employee.name}&nbsp;&nbsp;&nbsp;${employee.deptNo}</option>
-                 </c:forEach>
-              </select>
-              <input type="hidden" id="todoManagerNo" name="todoManagerNo">
-            </div>
+        <label for="">담당자</label>
+        <input type="number" name="todoManagerList">
+
 
           
           <br><br>

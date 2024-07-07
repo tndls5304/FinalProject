@@ -2,7 +2,7 @@ function listAll() {
   console.log("전체할일");
 
   $.ajax({
-    url: "http://127.0.0.1:8080/api/todo/listAll",
+    url: "http://127.0.0.1:8080/todo/listAll",
     method: "GET",
     data: {},
     success: function (listAll) {

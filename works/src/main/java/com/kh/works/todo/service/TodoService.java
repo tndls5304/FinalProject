@@ -38,7 +38,6 @@ public class TodoService {
         //todo작성 실행
         int result1 = todoDao.todowrite(vo);
 
-
        List<String>todoManageList = vo.getTodoManagerList();
        int result2 = 1;
         for (String manVo : todoManageList) {

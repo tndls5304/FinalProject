@@ -2,7 +2,7 @@ function listPar() {
   console.log("담당할일");
 
   $.ajax({
-    url: "http://127.0.0.1:8080/api/todo/listPar",
+    url: "http://127.0.0.1:8080/todo/listPar",
     method: "GET",
     data: {},
     success: function (listPar) {
