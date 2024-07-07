@@ -68,8 +68,7 @@
                 <div id="right-section">
                     <div id="notify">
                         <h3>최근 알림</h3>
-                        <p>구현.. 해볼까요</p>
-                        <p></p>
+                        <!-- 여기에 알림이 표시됩니다 -->
                     </div>
                 </div>
             </div>
@@ -101,6 +100,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
+         $(document).ready(function() {
+            $.ajax({
+                url: "/messenger/alarmInfor",
+                method: "post",
+                success: function(data) {
+                    let notificationDiv = document.getElementById("notify");
+                    data.forEach(function(notification) {
+                        let newNotification = document.createElement("p");
+                        newNotification.innerText = notification.message;
+                        notificationDiv.appendChild(newNotification);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.log("Failed to load notifications:", error);
+                }
+            });
+
+            // WebSocket 설정
+            let socket = new WebSocket("ws://localhost:8080/notifications");
+
+            socket.onopen = function(event) {
+                console.log("WebSocket is open now.");
+            };
+
+            socket.onmessage = function(event) {
+                console.log("WebSocket message received:", event.data);
+                let notificationDiv = document.getElementById("notify");
+                let newNotification = document.createElement("p");
+                newNotification.innerText = event.data;
+                notificationDiv.appendChild(newNotification);
+                alert(event.data); // 실시간 알림을 띄웁니다.
+            };
+
+            socket.onclose = function(event) {
+                if (event.wasClean) {
+                    console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                } else {
+                    console.log('Connection died');
+                }
+            };
+
+            socket.onerror = function(error) {
+                console.log(`[error] ${error.message}`);
+            };
+        });
+
+
+
+
+
+
+
+
 
         //출근 처리 Ajax
         document.querySelectorAll('#start-button').forEach(item => {

@@ -1,6 +1,7 @@
 package com.kh.works.messenger.controller;
 
 //import에 EmpSessionVo 꼭 추가하기
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
 //import com.kh.works.security.EmpSessionVo;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -200,8 +201,14 @@ public class MessengerController {
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
 
-        service.importantStatus(messenNo, empNo);
-        return "redirect:/messenger/important";
+        int result = service.importantStatus(messenNo, empNo);
+
+        if(result > 0){
+            return "redirect:/messenger/important";
+        }else{
+            return "redirect:/messenger/error";
+        }
+
 
 //        ----------------기존 코드------------------
 //       ------ HttpSession session도 없애야함.------
@@ -262,6 +269,19 @@ public class MessengerController {
     }
 
 
+
+    //알림 소켓 기능을 위한 Controller
+    @PostMapping("alarmInfor")
+    @ResponseBody
+    public ResponseEntity<List<AlarmVo>> getAlarmInfor(HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String receiverEmpNo = loginEmpVo.getNo();
+
+        List<AlarmVo> unreadAlarm = service.getAlarmInfor(receiverEmpNo);
+        service.readAlarm(receiverEmpNo);
+
+        return ResponseEntity.ok(unreadAlarm);
+    }
 
 
 }

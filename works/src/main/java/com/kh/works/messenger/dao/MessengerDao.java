@@ -1,5 +1,6 @@
 package com.kh.works.messenger.dao;
 
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.messenger.mapper.MessengerMapper;
 import com.kh.works.messenger.vo.MessengerVo;
@@ -58,8 +59,8 @@ public class MessengerDao {
         return mapper.getImportantList(empNo);
     }
 
-    public void importantStatus(int messenNo, String empNo) {
-        mapper.importantStatus(messenNo, empNo);
+    public int importantStatus(int messenNo, String empNo) {
+        return mapper.importantStatus(messenNo, empNo);
     }
 
 
@@ -93,6 +94,16 @@ public class MessengerDao {
     }
 
 
+    public List<AlarmVo> getAlarmInfor(String receiverEmpNo) {
+        return mapper.getAlarmInfor(receiverEmpNo);
+    }
 
+    public void readAlarm(String receiverEmpNo) {
+        mapper.readAlarm(receiverEmpNo);
+    }
+
+    public void saveAlarm(String receiverEmpNo, String notificationMessage) {
+        mapper.saveAlarm(receiverEmpNo, notificationMessage);
+    }
 }
 

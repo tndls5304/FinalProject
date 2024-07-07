@@ -1,5 +1,6 @@
 package com.kh.works.messenger.mapper;
 
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.messenger.vo.MessengerVo;
 import org.apache.ibatis.annotations.*;
@@ -109,6 +110,12 @@ public interface MessengerMapper {
     @Delete("DELETE FROM MESSENGER WHERE MESSEN_NO = #{messenNo}")
     void deleteMessen(@Param("messenNo") int messenNo, @Param("empNo") String empNo);
 
+    @Select("SELECT ALARM_NO, EMP_NO, MESSAGE, IS_READ, CREATE_DATE FROM ALARM WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
+    List<AlarmVo> getAlarmInfor(@Param("empNo") String empNo);
 
+    @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
+    void readAlarm(@Param("empNo") String empNo);
 
+    @Insert("INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE) VALUES (SEQ_ALARM.NEXTVAL, #{empNo}, #{message})")
+    void saveAlarm(@Param("empNo") String empNo, @Param("message") String message);
 }
