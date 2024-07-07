@@ -9,9 +9,17 @@
     <title>Document</title>
    <!-- 제이쿼리-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
    <!-- 공통css-->
         <link rel="stylesheet" href="/css/layout/admin/same.css">
-   <!-- 개별 정적파일-->
+
+   <!--지도 js api불러오기-->
+      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5da1687d10c0a4c9bb9e0e849d2b635a&libraries=services"></script>
+
+
+   <!-- 모달 정적파일-->
+         <link rel="stylesheet" href="/css/admin/modal_schedule.css">
+         <script defer src="/js/admin/modal_schedule.js"></script>
    <!--달력-->
          <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
            <script>
@@ -19,17 +27,42 @@
                  var calendarEl = document.getElementById('calendar');
                  var calendar = new FullCalendar.Calendar(calendarEl, {
                            initialView: 'dayGridMonth',
+                                    //드래그모달창
+                           selectable: true,
+                           select:function( selectionInfo) {
+                                 const insertModal = document.getElementById("insertModal");
+                                 const startDate =document.querySelector("input[id=startDate]")
+                                 const endDate =document.querySelector("input[id=endDate]")
+  //TODO 3초뒤에 모달창 나오게 하는게 이게 맞는지 확인해보기
+                                 insertModal.style.display="block",3000
+                                 startDate.value=selectionInfo.startStr;
+                                 endDate.value=selectionInfo.endStr;
 
-                           eventClick:  function(info){
-                                         console.log(info)
-                                           },
+                                console.log(selectionInfo.startStr);
+                                console.log( selectionInfo.endStr);
+                                console.log("selectionInfo",selectionInfo);
+                             },
+                           eventClick:  function(info) {
+                                        console.log('eventClick');
+                                            console.log(info);
+                                            alert('Event: ' + info.event.title);
+                                            alert('Content: ' + info.event.content);
+
+                                            // change the border color just for fun 이벤트확인후에 바뀌는 색깔
+                                            info.el.style.borderColor = 'red';
+                                          },
+
+                           timeZone: 'UTC',
+
                            customButtons:{
                                 myCustomButton:{
                                     text:"일정 추가하기"
-                                    },
-                                 mySaveButton:{
-                                    text:"저장하기"
                                     }
+
+                            },
+                            //헤더 툴바
+                            headerToolbar:{
+                            left: 'prev,next today,myCustomButton,mySaveButton'
                             }
 
 
@@ -37,12 +70,31 @@
                      //화면 보여주기
                 calendar.render();
                      //내가 원하는작업
-                calendar.addEvent({
+      /*            $.ajax({
+                     url:""
+                     data:""
+                     success:function(list){
+                        for(var idx = 0; idx < list.length;idx++){
+                        var obj=list[idx];
+                         calendar.addEvent(obj);
+                     }
+                     })
+      */
+                calendar.addEvent(
+                {
                         title:"공부",
                          content: '마무리하기',
                         start:'2024-07-03',
                         end:'2024-07-06',
-                       })//addEvent
+                       }
+                       )//addEvent
+
+
+               //-----------------------------
+
+
+
+               //=-------------------------
               })//DOMContentLoaded
            </script>
 
@@ -64,6 +116,64 @@
          <div id='calendar'></div>
 
 
+
+         <!-- 모달 -->
+<div class="modal-insert" id="insertModal">
+      <button class="modal-close" id="closeInsertModal">닫기</button>
+      <h2>일정 등록</h2>
+      <input type="text" class="input-title" placeholder="제목을 입력하세요">
+      <h5>startDate<input type="date" id="startDate"></h5>
+      <h5>endDate<input type="date" id="endDate"></h5>
+     <textarea placeholder="내용을 입력해 주세요."></textarea>
+      <h3 id="address">일정 장소:                         <button onclick="showMap()">장소검색</button></h3>
+     <select id="openRangeNo" onchange="changeOpenRange(this.value)">
+                      <option disabled selected>공개범위설정 🍊</option>
+                      <option value="1">전체공개</option>
+                      <option value="2">참여자 지정하기 </option>
+                      <option value="3">개인 일정</option>
+     </select>
+
+     <div>
+
+     </div>
+      <button class="btn-insert" onclick="insert()" >등록하기</button>
+
+</div>
+
+
+  <!-- 참여자 선택 모달 -->
+      <div class="modal-partner" id="partnerModal">
+            <h2 >참여자선택</h2>
+            <button class="modal-close" id="closePartnerModal">닫기</button>
+            <h4> 부서선택:<select id=deptSelect onchange="changeDept(this.value)">
+                    <option disabled selected id="deptNo">부서 목록입니다 🍊</option>
+                    <option value="1">인사부</option>
+                    <option value="2">총무부</option>
+                    <option value="3">개발부</option>
+                    <option value="4">영업부</option>
+            </select></h4>
+            <table width="300px" border="1">
+                  <thead>
+                    <tr> <td><input type="checkbox" id="topCheckbox" onclick="allChangeCheck();"> </td>
+                         <td>사원번호</td>
+                         <td>이름</td>
+                     </tr>
+                  </thead>
+                  <tbody id="partnerModalTBody">
+                  </tbody>
+            </table>
+            <button class="btnPlus">목록에 추가</button>
+            <h3>선택한 참여자 목록</h3>
+            <div class="partner-list"id="partnerList">
+                <span>1.이수인</span> <span>3.김정우</span>
+            </div>
+            <button class="btn-insert"id=insertPartner>참여자 반영</button>
+      </div>
+
+
+ <!-- 지도 모달 -->
+
+        <div id="map" style="width:500px;height:400px;position: fixed;z-index: 9999;"  class="mapStyle"></div>
 </main>
 
 
