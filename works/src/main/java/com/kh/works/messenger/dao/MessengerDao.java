@@ -42,6 +42,10 @@ public class MessengerDao {
         return mapper.getUnreadList(receiverEmpNo);
     }
 
+    public int getUnreadCount(String receiverEmpNo) {
+        return mapper.getUnreadCount(receiverEmpNo);
+    }
+
     public int read(int messenNo) {
         return mapper.read(messenNo);
     }
@@ -79,6 +83,15 @@ public class MessengerDao {
     public void trashMessen(int messenNo, String empNo) {
         mapper.trashMessen(messenNo, empNo);
     }
+
+    public void deleteStatus(int messenNo, String empNo) {
+        mapper.deleteStatus(messenNo, empNo);
+    }
+
+    public void deleteMessen(int messenNo, String empNo) {
+        mapper.deleteMessen(messenNo, empNo);
+    }
+
 
 
 }

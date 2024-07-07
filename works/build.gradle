@@ -54,6 +54,9 @@ dependencies {
 
 	// 메일 설정  추가 했어요 (수인)
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	// 알림 WebSocket 설정 추가했어요 (지수)
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
 tasks.named('test') {

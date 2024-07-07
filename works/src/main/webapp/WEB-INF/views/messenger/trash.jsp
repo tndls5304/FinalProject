@@ -40,9 +40,9 @@
             <button onclick="moveToWrite()">쪽지쓰기</button>
          </div>
          <div id="messenger-status">
-            <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음</button></div></a>
+            <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음 (<c:out value="${unreadCount}"/>)</button></div></a>
             <a href="http://127.0.0.1:8080/messenger/important"><div><button>중요</button></div></a>
-            <a href="http://127.0.0.1:8080/messenger/delete"><div><button>휴지통</button></div></a>
+            <a href="http://127.0.0.1:8080/messenger/trash"><div><button>휴지통</button></div></a>
          </div>
          <hr>
          <div id="all-messenger">
@@ -65,14 +65,14 @@
            <div><input type="button" value="검색" onclick="searchByKeyword()"></div>
          </div>
          <div id="messenger-check">
-           <div id="check-all"><input type="checkbox">전체선택</div>
-           <div id="check-delete"><input type="button" value="삭제"></div>
+           <div id="check-all"><input type="checkbox" id="select-all">전체선택</div>
+           <div id="check-delete"><input type="button" value="삭제" onclick="deleteMessen()"></div>
          </div>
          <div id="messenger-content">
            <c:forEach var="message" items="${voList}">
             <div class="messenger-item">
-               <div><input id="checkbox-delete" type="checkbox"></div>
-               <div><input id="checkbox-important" type="checkbox"></div>
+               <div><input class="checkbox-delete" type="checkbox" value="${message.messenNo}"></div>
+               <!-- <div><input id="checkbox-important" type="checkbox"></div> -->
                <div id="list-person">${message.name}</div>
                <div id="list-title" class="click-title">${message.title}</div>
                <div id="list-date">${message.sendDate}</div>
@@ -96,5 +96,136 @@
 
    <script>
 
+        //쪽지 읽음 처리 Ajax
+        document.querySelectorAll('.click-title').forEach(item => {
+          item.addEventListener('click', getMessenNo);
+        });
 
-   </script
+        function getMessenNo(evt){
+          console.log("함수 실행됨 ~~~");
+          console.log("클릭된 요소:", evt.target);
+
+          const messenNo = evt.target.parentNode.querySelector('.messenNo').innerText.trim();
+          console.log("messenNo:", messenNo);
+
+          $.ajax({
+            url: "/messenger/read",
+            method: "post",
+            data: {
+              messenNo: messenNo,
+            },
+            success: (data) => {
+              console.log("쪽지 통신성공!");
+              console.log(data);
+            },
+
+            error: (xhr, status, error) => {
+              console.log("쪽지 통신실패...");
+            },
+          });
+        }
+
+
+        //전체 쪽지 목록에서 쪽지 상세페이지로 처리 Ajax
+        document.querySelectorAll('.click-title').forEach(item => {
+          item.addEventListener('click', moveToDetail);
+        });
+
+        function moveToDetail(evt){
+          console.log("함수 실행됨 ~~~");
+          console.log("클릭된 요소:", evt.target);
+
+          const messenNo = evt.target.parentNode.querySelector('.messenNo').innerText.trim();
+          console.log("messenNo:", messenNo);
+
+          $.ajax({
+            url: "/messenger/detail",
+            method: "get",
+            data: {
+              messenNo: messenNo,
+            },
+            success: (data) => {
+              console.log("쪽지번호 통신성공!");
+              console.log(data);
+
+              //(제목)클릭시, detail 페이지로 바로 이동할 수 있도록 설정해줘야 한다.
+              location.href = "/messenger/detail?messenNo=" + messenNo;
+            },
+
+            error: (xhr, status, error) => {
+              console.log("쪽지번호 통신실패...");
+            },
+          });
+        }
+
+
+
+
+       //쪽지 휴지통으로 이동 Ajax
+       // 전체 선택 체크박스 기능
+       document.querySelector('#select-all').addEventListener('change', function() {
+           const checkboxes = document.querySelectorAll('.checkbox-delete');
+           checkboxes.forEach(checkbox => {
+               checkbox.checked = this.checked;
+           });
+       });
+
+       // 삭제 버튼 클릭 시 선택된 쪽지 삭제
+       function deleteMessen() {
+           const selectedMessages = [];
+           document.querySelectorAll('.checkbox-delete:checked').forEach(item => {
+               selectedMessages.push(item.value);
+           });
+
+           if (selectedMessages.length > 0) {
+               $.ajax({
+                   url: "/messenger/delete",
+                   method: "post",
+                   data: {
+                       messenNoList: selectedMessages
+                   },
+                   success: (data) => {
+                       console.log("쪽지 삭제 성공");
+                       location.reload();
+                   },
+                   error: (xhr, status, error) => {
+                       console.log("쪽지 삭제 실패");
+                   }
+               });
+           } else {
+               alert("삭제할 쪽지를 선택하세요.");
+           }
+       }
+
+
+
+        // /messenger/all에서 쪽지쓰기 눌렀을 때, 쪽지쓰기 페이지(/messenger/write)로 이동
+        function moveToWrite(){
+            window.location.href = "http://127.0.0.1:8080/messenger/write";
+        }
+
+        
+        // 검색기능을 위한 자바스크립트 함수 
+        function searchByKeyword() {
+            var keyword = document.getElementById("search-keyword").value;
+
+            // 새로운 form 생성 
+            var searchForm = document.createElement("form");
+            searchForm.method = "get"; //form 전송 방식 - GET
+            searchForm.action = "/messenger/search";
+
+            // 검색을 하기 위해 input 요소 생성 
+            var input = document.createElement("input");
+            input.type = "hidden"; //화면에 보이지 않도록 hidden 설정
+            input.name = "keyWord"; //Mapper에 설정한 값으로 name 지정
+            input.value = keyword; //input 값에 keyword 설정
+
+            searchForm.appendChild(input);
+
+            document.body.appendChild(searchForm);
+            searchForm.submit();
+        }
+
+
+
+   </script>
