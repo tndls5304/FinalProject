@@ -64,4 +64,25 @@ function deletePage(evt) {
     window.location.href= det;
 }
 
+function comment() {
+    
+    const comment = document.querySelector("#comment");
+
+    $.ajax({
+        url:"/board/comment"
+        ,method:"post"
+        ,data:{
+
+        }
+        ,success:()=>{
+            location.reload();
+            const commtnt = document.querySelector("#commentContent");
+            $.ajax({
+
+            })
+        }
+    })
+    
+}
+
 

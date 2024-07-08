@@ -53,6 +53,12 @@ public class ApiRentController {
         return voList;
     }
 
+    @GetMapping("detail/car")
+    public CarVo detailCar(@RequestParam("no") String no){
+        CarVo voList = service.detailCar(no);
+        return voList;
+    }
+
 
     //회의실 예약 변경하기
     @PutMapping("meeting")

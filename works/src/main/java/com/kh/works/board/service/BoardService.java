@@ -4,11 +4,13 @@ import com.kh.works.board.dao.BoardDao;
 import com.kh.works.board.vo.BoardVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BoardService {
 
     private final BoardDao dao;
@@ -22,6 +24,7 @@ public class BoardService {
 
     public List<BoardVo> getBoardList() {
         List<BoardVo> voList = dao.getBoardList();
+
         return  voList;
     }
 
@@ -31,9 +34,19 @@ public class BoardService {
         return voList;
 
     }
-    public BoardVo getBoardDetail(String boardNo) {
-        System.out.println("service No" + boardNo);
-        return dao.getBoardDetail(boardNo);
+    public BoardVo getBoardDetail(String boardNo, String loginNo) {
+
+        BoardVo vo =dao.getBoardDetail(boardNo);
+
+        if (vo != null){
+            if (!loginNo.equals(vo.getEmpNo())){
+                int no = Integer.parseInt(boardNo);
+                dao.updateViewCount(no);
+                vo.setViewCount(vo.getViewCount()+1);
+            }
+        }
+        return vo;
+
     }
 
     public int editBoard(BoardVo vo, String boardNo) {
@@ -45,5 +58,13 @@ public class BoardService {
 
     public int deleteBoard(String boardNo) {
         return dao.deleteBoard(boardNo);
+    }
+
+    public List<BoardVo> searchTitle(String title) {
+        return dao.searchTitle(title);
+    }
+
+    public List<BoardVo> searchEmpName(String empName) {
+        return dao.searchEmpName(empName);
     }
 }

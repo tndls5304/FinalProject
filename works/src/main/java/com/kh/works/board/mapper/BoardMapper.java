@@ -16,7 +16,6 @@ public interface BoardMapper {
             "    ,EMP_NO\n" +
             "    ,TITLE\n" +
             "    ,CONTENT\n" +
-            "    ,VIEW_COUNT\n" +
             "    ,CRTN_DATE\n" +
             "    ,MDFD_DATE\n" +
             "    ,FILE_NAME\n" +
@@ -27,7 +26,6 @@ public interface BoardMapper {
             "    ,#{empNo}\n" +
             "    ,'${title}'\n" +
             "    ,'${content}'\n" +
-            "    ,NULL\n" +
             "    ,SYSTIMESTAMP\n" +
             "    ,NULL\n" +
             "    ,NULL\n" +
@@ -80,4 +78,34 @@ public interface BoardMapper {
 
     @Update("UPDATE BOARD SET DEL_YN = 'Y' WHERE BOARD_NO = #{boardNo}")
     int deleteBoard(@Param("boardNo") String boardNo);
+
+    @Select("SELECT BOARD_NO\n" +
+            "    ,E.NAME\n" +
+            "    ,B.TITLE\n" +
+            "    ,B.CRTN_DATE\n" +
+            "    ,VIEW_COUNT\n" +
+            "FROM BOARD B\n" +
+            "JOIN EMPLOYEE E\n" +
+            "ON B.EMP_NO = E.NO\n" +
+            "WHERE B.TITLE LIKE '%'||#{title}||'%'")
+    List<BoardVo> searchTitle(@Param("title") String title);
+
+    @Select("SELECT BOARD_NO\n" +
+            "    ,E.NAME\n" +
+            "    ,B.TITLE\n" +
+            "    ,B.CRTN_DATE\n" +
+            "    ,VIEW_COUNT\n" +
+            "FROM BOARD B\n" +
+            "JOIN EMPLOYEE E\n" +
+            "ON B.EMP_NO = E.NO\n" +
+            "WHERE E.NAME LIKE '%'||#{empName}||'%'")
+    List<BoardVo> searchEmpName(String empName);
+
+    @Update("""
+            UPDATE BOARD
+            SET VIEW_COUNT = VIEW_COUNT +1
+            WHERE BOARD_NO = #{no}
+            """)
+    void updateViewCount(int no);
+
 }

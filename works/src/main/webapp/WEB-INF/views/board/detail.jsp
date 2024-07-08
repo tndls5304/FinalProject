@@ -26,6 +26,11 @@
             <div id="content"></div>
             <button id="btn" style="display:none;">수정하기</button>
             <button id="delete">삭제하기</button>
+            <br>
+            <div>댓글</div>
+            <input type="text" id="comment" placeholder="댓글을 작성해주세요">
+            <button onclick="comment();">작성하기</button>
+            <div id="commentContent"></div>
         </div>
     </main>
 
