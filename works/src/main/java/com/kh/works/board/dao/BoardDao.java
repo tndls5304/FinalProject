@@ -41,4 +41,17 @@ public class BoardDao {
     public int deleteBoard(String boardNo) {
         return mapper.deleteBoard(boardNo);
     }
+
+    public List<BoardVo> searchTitle(String title) {
+        return mapper.searchTitle(title);
+    }
+
+    public List<BoardVo> searchEmpName(String empName) {
+        return mapper.searchEmpName(empName);
+    }
+
+    public void updateViewCount(int no) {
+        mapper.updateViewCount(no);
+    }
+
 }

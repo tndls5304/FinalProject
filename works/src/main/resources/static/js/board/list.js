@@ -4,8 +4,7 @@ $.ajax( {
     success: (data)=> {
         console.log("통신성공~");
 
-       const x = document.querySelector("#content")
-       console.log(x);
+       const x = document.querySelector("#content");
 
        let str = "";
        for (let i = 0; i < data.length; i++) {
@@ -36,6 +35,47 @@ $.ajax( {
         console.log("통신실패 ㅠㅠ");
     }
 
-
-
 } );
+
+function search() {
+    const searchOption = document.querySelector("#searchTitle").value;
+    const search = document.querySelector("#search").value;
+    const content = document.querySelector("#content");
+
+    content.innerHTML= "";
+
+    let data = {};
+    if(searchOption === "제목"){
+        data = {title : search}
+    }else if(searchOption === "작성자"){
+        data = {empName: search}
+    }
+    
+    $.ajax({
+        url:"/board/search"
+        ,method:"post"
+        ,data:data
+        ,success:(data)=>{
+            let str = "";
+            for(let i= 0 ;  i < data.length ; i++){
+                str+= `<div>
+                            <div>${data[i].boardNo}</div>
+                            <div>${data[i].name}</div>
+                            <div>${data[i].title}</div>
+                            <div>${data[i].crtnDate}</div>
+                            <div>${data[i].viewCount}</div>
+                       </div>`
+            }
+
+            content.innerHTML = str;
+            
+    
+        }
+        ,error:()=>{
+    
+        }
+    
+    })
+    
+}
+

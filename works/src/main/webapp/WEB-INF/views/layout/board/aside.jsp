@@ -3,17 +3,17 @@
 <link rel="stylesheet" href="/css/layout/board/aside.css">
 
 <aside>
-    <div><button>글쓰기</button></div>
-    <div>
-        <div><a href="">최신글</a></div>
-        <div><a href="">중요</a></div>
-        <div><a href="">내 게시글</a></div>
+ 
+    <div id="top">
+       <h2>게시판</h2>
+       <button type="button" onclick="location.href='/board/write'">작성</button>
     </div>
-    <ul>전체게시판</ul>
-    <div>
-        <ul>
-            <li>베이비개발자웍스</li>
-        </ul>
+    <div id="bottom">
+        <div><a href="/notice/list">공지사항</a></div>
+        <div><a href="#">최신게시글</a></div>
+        <div><a href="/board/list">자유게시판</a></div>
+        <div><a href="/board/myList">내가 작성한 게시글</a></div>
+        <div><a href="#">중요 게시물</a></div>
     </div>
 
 </aside>
