@@ -5,7 +5,7 @@ package com.kh.works.todo.controller;
 //import com.kh.works.security.EmpSessionVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.service.TodoService;
-import com.kh.works.todo.vo.TodoAllVo;
+//import com.kh.works.todo.vo.TodoAllVo;
 import com.kh.works.todo.vo.TodoVo;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
@@ -37,6 +37,7 @@ public class TodoController {
     public String todoWrite(TodoVo vo, HttpSession session){
 //        getAttribute :세션에 저장된 객체 가져오는 메소드
         EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@loginEmpVo = " + loginEmpVo);
 
 
         //로그인한 회원 번호를 세션에서 가져와 EmpNo에 담아준다
@@ -116,11 +117,22 @@ public class TodoController {
     }
 
     //할일 검색
+    //세션추가 == 로그인 한 사람 글만 검색해야 하니까
     //@RequestParam을 이용해 요청을 매개변수로 받기 reqired = false =>해당 파라미터가 필수가 아니라는 뜻
     @GetMapping("search")
     @ResponseBody
-    public List<TodoVo> todoSearch(@RequestParam(value = "title", required = false) String title){
-        List<TodoVo> voList = service.todoSearch(title);
+    public List<TodoVo> todoSearch(TodoVo vo, HttpSession session){
+        EmployeeVo loginEmpVo =(EmployeeVo)session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+        vo.setTodoEmpNo(empNo);
+        vo.setTodoManagerNo(empNo);
+
+        System.out.println("@@@@@@@@@@@@@@@todoEmpNo = " + empNo);
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@TodoVo = " + vo);
+
+        List<TodoVo> voList = service.todoSearch(vo);
+
+
         return voList;
     }
 

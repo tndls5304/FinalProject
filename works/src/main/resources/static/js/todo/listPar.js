@@ -16,7 +16,7 @@ function listPar() {
         str += "</tr>";
         str += "<tr>";
         str += "<td>요청자 " + listPar[i].todoEmpName + "</td>";
-        str += "<td>기한 " + listPar[i].endDate + "</td>";
+        str += "<td class='listEndDate'>기한 " + listPar[i].endDate + "</td>";
         str += "</tr>";
         str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
       }

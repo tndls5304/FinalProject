@@ -46,8 +46,8 @@ public class TodoDao {
 
 
     //할일 검색
-    public List<TodoVo> todoSearch(String title ){
-        return mapper.todoSearch(title);
+    public List<TodoVo> todoSearch(TodoVo vo ){
+        return mapper.todoSearch(vo);
     }
 
     //할일 삭제
