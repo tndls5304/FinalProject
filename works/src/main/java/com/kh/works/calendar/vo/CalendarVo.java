@@ -1,6 +1,9 @@
 package com.kh.works.calendar.vo;
 
+import com.kh.works.employee.vo.EmployeeVo;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class CalendarVo {
@@ -19,4 +22,5 @@ public class CalendarVo {
    private String  empName;
    private String  adminNo;
    private String  adminName;
+   private List<EmployeeVo> partner;
 }
