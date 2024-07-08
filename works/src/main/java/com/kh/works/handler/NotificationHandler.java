@@ -8,6 +8,8 @@ import org.springframework.web.socket.TextMessage;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+//알림 기능 - Socket 환경설정
+
 public class NotificationHandler extends TextWebSocketHandler {
 
     private final CopyOnWriteArrayList<WebSocketSession> sessions = new CopyOnWriteArrayList<>();

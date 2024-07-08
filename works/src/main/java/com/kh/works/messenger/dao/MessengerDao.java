@@ -94,6 +94,7 @@ public class MessengerDao {
     }
 
 
+    //알림 기능 - Socket을 사용하기 위한 Dao
     public List<AlarmVo> getAlarmInfor(String receiverEmpNo) {
         return mapper.getAlarmInfor(receiverEmpNo);
     }

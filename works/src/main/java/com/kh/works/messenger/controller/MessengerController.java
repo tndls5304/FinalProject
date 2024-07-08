@@ -42,9 +42,15 @@ public class MessengerController {
 
         //내가 가지고 올 칼럼명, 즉 나는 사원번호이니까 empNo로 변수명 지어줌
         String empNo = loginEmpVo.getNo();
-        System.out.println("empNo = " + empNo);
+        //알림(Socket) 띄워줄 때, 보낸사람 이름이 나오게 하려고 설정함
+        String empName = loginEmpVo.getName();
+
+        //System.out.println("empNo = " + empNo);
+
         //현재 MessengerVo에 senderEmpNo가 필요하니까 setSenderEmpNo(내가 지어준 변수명)
         vo.setSenderEmpNo(empNo);
+        //알림(Socket) 띄워줄 때, 보낸사람 이름이 나오게 하려고 설정함
+        vo.setSenderName(empName);
 
         int result = service.write(vo);
         if (result == 1) {
@@ -54,7 +60,7 @@ public class MessengerController {
         }
     }
 
-    //쪽지 작성 - 사원목록 처리하기 위한 메서드
+    //쪽지 작성 - 작성할 때, 사원목록 띄우기 위한 메서드
     @GetMapping("write")
     public String showEmployee(Model model){
         List<EmployeeVo> employeeList = service.getEmployeeList();
@@ -64,7 +70,7 @@ public class MessengerController {
     }
 
 
-    //전체 쪽지 화면
+    //전체 쪽지 화면(목록조회)
     @GetMapping("all")
     public String getMessengerList(HttpSession session, Model model) {
 
@@ -84,7 +90,7 @@ public class MessengerController {
         return "messenger/all";  // all.jsp로 포워딩
     }
 
-    //받은 쪽지 화면
+    //받은 쪽지 화면(목록조회)
     @GetMapping("/received")
     public String getReceivedList(HttpSession session, Model model) {
 
@@ -102,7 +108,7 @@ public class MessengerController {
         return "messenger/received";
     }
 
-    //보낸 쪽지 화면
+    //보낸 쪽지 화면(목록조회)
     @GetMapping("sent")
     public String getSentList(HttpSession session, Model model){
 
@@ -128,7 +134,7 @@ public class MessengerController {
         return "messenger/detail";
     }
 
-    //안 읽음 쪽지 화면
+    //안 읽음 쪽지 화면(목록조회)
     @GetMapping("unread")
     public String getUnreadList(HttpSession session, Model model){
 
@@ -167,7 +173,7 @@ public class MessengerController {
         return "redirect:/messenger/unread";
     }
 
-    //중요 쪽지 화면
+    //중요 쪽지 화면(목록조회)
     @GetMapping("important")
     public String getImportantList(HttpSession session, Model model){
 
@@ -217,7 +223,7 @@ public class MessengerController {
     }
 
 
-    //검색 기능 - 이름으로 검색
+    //검색 기능 - 목록조회에서 사원이름으로 검색
     @GetMapping("search")
     public String searchByKeyword(@RequestParam("keyWord") String keyWord, HttpSession session, Model model) {
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
@@ -230,7 +236,7 @@ public class MessengerController {
 
 
 
-    //휴지통 화면
+    //휴지통 화면(목록조회)
     @GetMapping("trash")
     public String trash(HttpSession session, Model model) {
 
@@ -270,11 +276,12 @@ public class MessengerController {
 
 
 
-    //알림 소켓 기능을 위한 Controller
+    //알림 기능 - Socket을 사용하기 위한 Controller
     @PostMapping("alarmInfor")
     @ResponseBody
     public ResponseEntity<List<AlarmVo>> getAlarmInfor(HttpSession session){
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        //사원번호가 아닌, 이름으로 띄워주면 좋을 것 같다.
         String receiverEmpNo = loginEmpVo.getNo();
 
         List<AlarmVo> unreadAlarm = service.getAlarmInfor(receiverEmpNo);

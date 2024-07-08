@@ -110,6 +110,7 @@ public interface MessengerMapper {
     @Delete("DELETE FROM MESSENGER WHERE MESSEN_NO = #{messenNo}")
     void deleteMessen(@Param("messenNo") int messenNo, @Param("empNo") String empNo);
 
+    //알림 기능 - Socket을 사용하기 위한 Mapper
     @Select("SELECT ALARM_NO, EMP_NO, MESSAGE, IS_READ, CREATE_DATE FROM ALARM WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
     List<AlarmVo> getAlarmInfor(@Param("empNo") String empNo);
 
