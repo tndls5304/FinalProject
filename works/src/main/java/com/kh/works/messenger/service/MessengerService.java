@@ -28,7 +28,7 @@ public class MessengerService {
 //        알림 소켓 추가
         int result = dao.write(vo);
         if (result == 1) {
-            String notificationMessage = "새로운 쪽지가 도착했습니다. \n" + vo.getSenderName() + " 님이 쪽지를 보냈습니다.";
+            String notificationMessage = "💌새로운 쪽지가 도착했습니다. \n" + vo.getSenderName() + " 님이 쪽지를 보냈습니다.";
             //알림을 저장하는 메서드
             dao.saveAlarm(vo.getReceiverEmpNo(), notificationMessage);
             //NotificationHandler.java 파일 확인하기
