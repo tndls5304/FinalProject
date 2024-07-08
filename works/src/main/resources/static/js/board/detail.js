@@ -84,5 +84,48 @@ function comment() {
     })
     
 }
+const like = document.querySelector("#like");
 
+like.addEventListener("click", () => {
+    if (like.classList.contains("fa-regular")) {
+        // 현재 비워진 하트일 경우, 채워진 하트로 변경
+        like.classList.remove("fa-regular");
+        like.classList.add("fa-solid");
+        like.style.color = "#f005dc";
 
+        //채워진 하트의 ajax
+        $.ajax({
+            url:"/board/like"
+            ,method:"post"
+            ,data:{
+                
+            }
+            ,success:()=>{
+                alert("My게시판에 추가되었습니다")
+            }
+
+        })
+    } else {
+        // 현재 채워진 하트일 경우, 비워진 하트로 변경
+        like.classList.remove("fa-solid");
+        like.classList.add("fa-regular");
+        like.style.color = "#f005dc";
+
+        //채워졌다가 비워진하트의 ajax
+        $.ajax({
+            url:"/board/like/cancle"
+            ,method:"post"
+            ,data:{
+
+            }
+            ,success:()=>{
+                alert("My게시판에서 취소다")
+
+            }
+            ,error:()=>{
+
+            }
+
+        })
+    }
+});

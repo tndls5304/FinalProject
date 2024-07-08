@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="/css/board/detail.css">
 </head>
 <body>
@@ -19,8 +20,7 @@
                 <div>번호</div>
                 <div>작성자</div>
                 <div>제목</div>
-                <div>작성일</div>
-                <div>조회수</div>
+                <i class="fa-regular fa-heart fa-lg" style="color:#f005dc" id="like"></i>
                 <div style="display:none;" id="empNo">${empNo}</div>
             </div>
             <div id="content"></div>

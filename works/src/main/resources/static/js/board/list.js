@@ -14,7 +14,6 @@ $.ajax( {
                + data[i].title + " " 
                + data[i].crtnDate + " " 
                + data[i].viewCount 
-               + `<i class="fa-regular fa-heart">"+"</i>`
        }
        x.innerHTML = str;
 

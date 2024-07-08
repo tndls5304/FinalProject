@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/board/list.css">
+    <!-- fontAwesome을 사용하기 위한 코드이다. -->
 </head>
 <body>
 

@@ -20,3 +20,11 @@ main{
     width: 85%;
     height: auto;
 }
+
+#like {
+    cursor: pointer;
+}
+
+#like.liked {
+    color: #f005dc;
+}
