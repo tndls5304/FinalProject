@@ -166,10 +166,10 @@
                   <tbody id="partnerModalTBody">
                   </tbody>
             </table>
-            <button class="btnPlus">목록에 추가</button>
+            <button class="btnPlus" onclick="addList()">목록에 추가</button>
             <h3>선택한 참여자 목록</h3>
             <div class="partner-list"id="partnerList">
-                <span>1.이수인</span> <span>3.김정우</span>
+
             </div>
             <button class="btn-insert"id=insertPartner>참여자 반영</button>
       </div>

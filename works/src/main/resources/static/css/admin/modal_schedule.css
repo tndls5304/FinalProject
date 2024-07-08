@@ -72,8 +72,13 @@
   background-color: rgb(12, 26, 26);
 }
 .partner-list{
-  width: 200px;
+  width: 380px;
   background-color: rgb(255, 202, 124);
+}
+.partner-list>div{
+ display: inline-block;
+ margin:2px;
+ border:1px solid salmon;
 }
 
 .btnPlus{
