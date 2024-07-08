@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Document</title>
       <link rel="stylesheet" href="/css/todo/todoWrite.css">
-      <script defer src="/js/todo/write.js"></script>
+
     </head>
 
     <body>
@@ -28,18 +28,25 @@
           <textarea id="content" name="content" required></textarea>
           <br><br>
 
-        
+
           <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
           <br><br>
 
-        <label for="">담당자</label>
-        <input type="number" name="todoManagerList">
-
-
-          
+          <!-- 수정된 부분: 체크박스를 사용하여 여러 명의 담당자를 선택 -->
+          <!-- 이버튼의 타입을 button으로 바꿔줘야 함
+            그냥 버튼으로하면 제출이 된다. -->
+          <button type="button" onclick="clickBtn()">담당자 불러오기</button>
+          <div id="managerList" style="display: none;">
+            <label for="todoManager">담당자</label>
+            <c:forEach var="emp" items="${empList}">
+              <input type="checkbox" name="todoManagerList" value="${emp.no}"> ${emp.name}&nbsp;&nbsp;${emp.deptNo}<br>
+            </c:forEach>
+          </div>
           <br><br>
-          
-          
+
+          <br><br>
+
+
           <label for="endDate">기한</label>
           <input type="hidden" id="endDate" name="endDate">
           <button type="button" onclick="setEndDate('today')">오늘</button>
@@ -59,3 +66,6 @@
     </body>
 
     </html>
+
+    <script src=" /js/todo/write.js">
+    </script>

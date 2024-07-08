@@ -1,7 +1,7 @@
 package com.kh.works.todo.mapper;
 
 import com.kh.works.employee.vo.EmployeeVo;
-import com.kh.works.todo.vo.TodoManangerVo;
+//import com.kh.works.todo.vo.TodoManangerVo;
 import com.kh.works.todo.vo.TodoVo;
 import java.util.List;
 import org.apache.ibatis.annotations.*;
@@ -29,8 +29,8 @@ public interface TodoMapper {
             "    t.TITLE, \n" +
             "    t.CONTENT, \n" +
             "    t.COMPLETED_YN, \n" +
-            "    t.CREATE_DATE, \n" +
-            "    t.END_DATE, \n" +
+            "    TO_CHAR(T.CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE, \n" +
+            "    TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE, \n" +
             "    e_manager.NAME AS MAN  \n" +
             "FROM \n" +
             "    TODO t\n" +
@@ -59,7 +59,7 @@ public interface TodoMapper {
 //            // @Many 애너테이션을 통하여 getTodoManager 호출해준다
 //            // 그리고 todoVo에 생성해둔 List<String>todoManagerList 에 받아온 리스트를 넣어준다.
 //            @Result(property = "todoManagerList", column = "TODO_NO", many = @Many(select = "getTodoManagerList"))
-//    })이러지말고 컨트롤러에서 리스트로 반환 받으라고 이 멍청아.........
+//    })!!!!이러지말고 컨트롤러에서 리스트로 반환 받으라고 이 멍청아.........
     List<TodoVo> getTodoByNo(@RequestParam("todoNo") int todoNo);
 
 
@@ -102,19 +102,21 @@ public interface TodoMapper {
     int todoEdit(TodoVo vo);
 
 
-    //할일 검색
+    //할일 검색 //세션에 로그인 한 직원것만 보이게
     // @Param 애너테이션을 이용해 바인딩
     // 바인딩이란 말 그대로 Java 프로그램에서 SQL 쿼리를 실행하기 위해 사용하는 매개변수를 SQL 쿼리의 실제 컬럼명이나 필드명과 일치시키는 과정
     //@Param 어노테이션은 메서드의 매개변수 이름을 SQL 쿼리에서 사용할 때 사용
-    @Select("SELECT T.TODO_NO, T.TITLE, E.NAME AS NAME, T.END_DATE\n" +
-            "FROM TODO T\n" +
-            "LEFT JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
-            "LEFT JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO\n" +
-            "WHERE T.TITLE LIKE '%' || #{title} || '%'\n" +
-            "AND M.DEL_YN = 'N'")
+    @Select("""
+            SELECT T.TODO_NO, T.TITLE, T.CONTENT, E.NAME AS NAME, T.END_DATE
+            FROM TODO T
+            JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO
+            LEFT JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN AND M.DEL_YN = 'N'
+            WHERE T.CONTENT LIKE '%' || #{content} || '%'
+            AND (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{todoManagerNo})
+            """)
     @Results({
             @Result(property = "todoEmpName", column = "NAME")})
-    List<TodoVo> todoSearch(@Param("title") String title);
+    List<TodoVo> todoSearch(TodoVo vo);
 
     //할일 삭제
     @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")

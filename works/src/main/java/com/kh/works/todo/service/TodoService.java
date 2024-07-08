@@ -3,9 +3,9 @@ package com.kh.works.todo.service;
 
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.dao.TodoDao;
-import com.kh.works.todo.dao.TodoManagerDao;
-import com.kh.works.todo.vo.TodoAllVo;
-import com.kh.works.todo.vo.TodoManangerVo;
+//import com.kh.works.todo.dao.TodoManagerDao;
+//import com.kh.works.todo.vo.TodoAllVo;
+//import com.kh.works.todo.vo.TodoManangerVo;
 import com.kh.works.todo.vo.TodoVo;
 
 import java.time.LocalDate;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TodoService {
 
     private final TodoDao todoDao;
-    private final TodoManagerDao manDao;
+//    private final TodoManagerDao manDao;
 
 
     //todo작성 쿼리 2개 insert
@@ -52,6 +52,13 @@ public class TodoService {
         return result1 * result2;
 
     }
+
+    //할일 담당자 조회해서 화면에 보여주기
+    public List<EmployeeVo> getMangerList() {
+        return todoDao.getManagerList();
+    }
+
+
     public String calculateEndDate(TodoVo vo) {
         LocalDate currentDate = LocalDate.now();
 
@@ -94,8 +101,8 @@ public class TodoService {
 
 
     //할일 검색
-    public List<TodoVo> todoSearch(String title ){
-        return todoDao.todoSearch(title);
+    public List<TodoVo> todoSearch(TodoVo vo){
+        return todoDao.todoSearch(vo);
     }
 
     //할일 삭제
@@ -104,11 +111,8 @@ public class TodoService {
 
     }
 
-    //할일 완료
-    public List<EmployeeVo> getMangerList() {
-        return todoDao.getManagerList();
-    }
 
+    //할일 완료
     public int todoComplete(String todoNo) {
         return todoDao.todocomplete(todoNo);
     }
