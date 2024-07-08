@@ -20,21 +20,21 @@ public class MessengerService {
 //    알림 소켓 추가
     private final NotificationHandler notificationHandler;
 
+    //기존 쪽지 작성하기 + 알림 기능 - Socket을 사용하기 위한 Service
     public int write(MessengerVo vo) {
 //        기존 코드
 //        return dao.write(vo);
 
 //        알림 소켓 추가
         int result = dao.write(vo);
-
         if (result == 1) {
-            String notificationMessage = "새로운 쪽지가 도착했습니다. 보내는 사람: " + vo.getSenderEmpNo();
+            String notificationMessage = "새로운 쪽지가 도착했습니다. \n" + vo.getSenderName() + " 님이 쪽지를 보냈습니다.";
+            //알림을 저장하는 메서드
             dao.saveAlarm(vo.getReceiverEmpNo(), notificationMessage);
+            //NotificationHandler.java 파일 확인하기
             notificationHandler.sendNotification(notificationMessage);
         }
-
         return result;
-
     }
 
     public List<EmployeeVo> getEmployeeList() {
@@ -106,6 +106,8 @@ public class MessengerService {
     }
 
 
+    //부모 테이블인 MESSENGER, 자식 테이블인 MESSENGER_STATUS에서 모두 삭제해야 하기 때문에,
+    //query문을 2개 날렸다 > Transactional 애노테이션 사용
     @Transactional
     public void delete(List<Integer> messenNoList, String empNo) {
         for(int messenNo : messenNoList){
@@ -114,7 +116,7 @@ public class MessengerService {
         }
     }
 
-
+    //알림 기능 - Socket을 사용하기 위한 Service
     public List<AlarmVo> getAlarmInfor(String receiverEmpNo) {
         return dao.getAlarmInfor(receiverEmpNo);
     }
