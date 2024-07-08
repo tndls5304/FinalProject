@@ -121,15 +121,20 @@
 
 
 
-         <!-- 모달 -->
+<!-- -----일정등록모달 --------------->
 <div class="modal-insert" id="insertModal">
       <button class="modal-close" id="closeInsertModal">닫기</button>
       <h2>일정 등록</h2>
-      <input type="text" class="input-title" placeholder="제목을 입력하세요">
-      <h5>startDate<input type="date" id="startDate"></h5>
+      <input type="text" id="titleInsert" class="input-title" placeholder="제목을 입력하세요">
+      <h5>startDate <input type="date" id="startDate"></h5>
       <h5>endDate<input type="date" id="endDate"></h5>
-     <textarea placeholder="내용을 입력해 주세요."></textarea>
-      <h3 id="address">일정 장소:                         <button onclick="showMap()">장소검색</button></h3>
+      <textarea id="content" placeholder="내용을 입력해 주세요."></textarea>
+      <h3 id="address">일정 장소:
+               <input id="placeName"    placeholder="장소">
+               <input id="latitude"      class="nonShow"   placeholder="위도">
+               <input id="longitude"     class="nonShow"    placeholder="경도">
+            <button onclick="showMap()">선택</button>
+      </h3>
      <select id="openRangeNo" onchange="changeOpenRange(this.value)">
                       <option disabled selected>공개범위설정 🍊</option>
                       <option value="1">전체공개</option>
@@ -137,10 +142,16 @@
                       <option value="3">개인 일정</option>
      </select>
 
-     <div>
-
+     <div id="partnerPlace" class="partner-place">
+             <%--여기에 들어올 정보    <div class="empDiv">
+                                         <span>번호</span>
+                                         <span>이름</span>
+                                         <span class="removeEmp" onclick="removeEmp()">x</span>
+                                  </div>
+    --%>
      </div>
-      <button class="btn-insert" onclick="insert()" >등록하기</button>
+
+      <button class="btn-insert-schedule" onclick="insertSchedule()" >등록하기</button>
 
 </div>
 
@@ -171,7 +182,7 @@
             <div class="partner-list"id="partnerList">
 
             </div>
-            <button class="btn-insert"id=insertPartner>참여자 반영</button>
+            <button class="btn-insert" onclick="insertPartner()">참여자 반영</button>
       </div>
 
 

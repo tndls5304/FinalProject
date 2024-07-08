@@ -5,6 +5,7 @@ import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Repository
@@ -14,5 +15,9 @@ public class AdminScheduleDao {
 
     public List<EmployeeVo> empList(String deptNo) {
         return mapper.empList(deptNo);
+    }
+
+    public int insertSchedule(Calendar vo) {
+        return mapper.insertSchedule(vo);
     }
 }

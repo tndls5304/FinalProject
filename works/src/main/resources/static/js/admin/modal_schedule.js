@@ -104,6 +104,13 @@ for(let i=0;i<checkTags.length; i++){
                      break;
                      }
              }
+             /*<div class="empDiv">
+                    <span>번호</span>
+                    <span>이름</span>
+                    <span class="removeEmp" onclick="removeEmp()">x</span>
+               </div>
+
+                */
             if (!alreadyAdded) {
                 //목록에 추가할 새로운 디브 생성
                 var empDiv=document.createElement('div');
@@ -118,8 +125,8 @@ for(let i=0;i<checkTags.length; i++){
 
                 var span3=document.createElement('span');
                 span3.innerText='x';
-                span3.setAttribute('id','removeEmp');
-
+                span3.setAttribute('class','removeEmp');
+                span3.setAttribute('onclick','removeEmp(this)');
                 //
                 empDiv.appendChild(span1);
                 empDiv.appendChild(span2);
@@ -130,12 +137,74 @@ for(let i=0;i<checkTags.length; i++){
     }
 
 
-//삭제버튼에 클릭이벤트
-    var removeEmp= document.getElementById("removeEmp");
-      removeEmp.addEventListener('click',function(){
-       removeEmp.parentElement.remove();                   //DOM에서 완전히 제거하는거💦💦 즉, 해당 요소와 그 자식 요소들이 모두 제거함 .innerHTML = "";이렇게 하면 Dom에 그대로 남아있음
-      })
-
 }
 
 
+//참여자 모달창에서 삭제스팬 클릭이벤트 걸기
+function removeEmp(myselfTag){
+myselfTag.parentElement.remove();    //DOM에서 완전히 제거하는거💦💦 즉, 해당 요소와 그 자식 요소들이 모두 제거함 .innerHTML = "";이렇게 하면 Dom에 그대로 남아있음
+}
+
+
+//참여자 모달창에서 [참여자반영버튼] 누르면 동작
+function insertPartner(){
+    var partnerList=document.getElementById("partnerList");
+    var partnerPlace=document.getElementById("partnerPlace");
+    partnerPlace.innerHTML=partnerList.innerHTML;
+}
+
+//일정 등록하기 버튼을 눌렀을때 동작
+function insertSchedule(){
+    var title=document.getElementById("titleInsert").value;
+    var startDate=document.getElementById("startDate").value;
+    var endDate=document.getElementById("endDate").value;
+    var content=document.getElementById("content").value;
+    var placeName=document.getElementById("placeName").value;
+    var latitude=document.getElementById("latitude").value;
+    var longitude=document.getElementById("longitude").value;
+    var openRangeNo=document.getElementById("openRangeNo").value;
+
+    //배열로 만들어서 가져갈꼬!
+    var arr = [];
+    var empDivs=document.getElementById("partnerPlace").children;
+        for(let i=0; i<empDivs.length; i++){
+            var empDiv=empDivs[i];
+            var empNo= empDiv.children[0].innerText; //번호
+            var partnerVo={empNo : empNo};             //번호 있는 객체 만들어서
+            arr.push(partnerVo);                        //배열에 넣어주기
+        }
+
+        console.log("--------------서버로 보내질 데이터 확인작업");
+        console.log("title",title);
+        console.log("startDate",startDate);
+        console.log("endDate",endDate);
+        console.log("content",content);
+        console.log("placeName",placeName);
+        console.log("latitude",latitude);
+        console.log("longitude",longitude);
+        console.log("openRangeNo",openRangeNo);
+        console.log("참여자 배열은??");
+        console.log("arr",arr);
+
+      $.ajax({
+        url:'/admin/insert/schedule',
+        method:'POST',
+        data:{
+            title:title,
+            startDate:startDate,
+            endDate:endDate,
+            content:content,
+            placeName:placeName,
+            latitude:latitude,
+            longitude:longitude,
+            openRangeNo:openRangeNo,
+            partner:arr                        //배열담기
+            }
+            success:function(result){
+            alert(result);
+            },
+            error:function(errorMsg){
+            alert(errorMsg.responseText);
+            }
+       })
+}

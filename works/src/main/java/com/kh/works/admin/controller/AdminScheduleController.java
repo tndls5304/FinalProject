@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,15 +33,23 @@ public class AdminScheduleController {
     @GetMapping("admin/give/emp-in-dept")
     @ResponseBody
     public ResponseEntity<Object> empList(@RequestParam("deptNo")String deptNo){
-
         List<EmployeeVo> empList =service.empList(deptNo);
         if(empList==null){
             return ResponseEntity.internalServerError().body("부서검색 결과 조회 실패");
         }
-
         return ResponseEntity.ok(empList);
-    }
+        }
 
+    //일정등록
+    @PostMapping("admin/insert/schedule")
+    @ResponseBody
+    public ResponseEntity<String> insertSchedule(Calendar vo){
+        int result=service.insertSchedule(vo);
+        if(result==1){
+            return  ResponseEntity.ok("스케줄 등록 성공!");
+        }
+        return ResponseEntity.internalServerError().body("스케줄 등록 실패");
+    }
 
 
 

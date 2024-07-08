@@ -62,7 +62,7 @@
 .input-title{
   width: 300px;
 }
-.btn-insert{
+.btn-insert-schedule{
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 4px;
@@ -75,7 +75,7 @@
   width: 380px;
   background-color: rgb(255, 202, 124);
 }
-.partner-list>div{
+.empDiv{
  display: inline-block;
  margin:2px;
  border:1px solid salmon;
@@ -88,5 +88,12 @@
   margin-left: 320px;
   height: 30px;
  background-color: rgb(196, 196, 196);
+}
+.removeEmp{
+ cursor: pointer;
+}
+
+.partner-place{
+width:500px;
 }
 
