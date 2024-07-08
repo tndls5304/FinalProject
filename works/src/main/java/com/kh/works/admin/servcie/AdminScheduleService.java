@@ -1,6 +1,7 @@
 package com.kh.works.admin.servcie;
 
 import com.kh.works.admin.dao.AdminScheduleDao;
+import com.kh.works.calendar.vo.CalendarVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class AdminScheduleService {
         return dao.empList(deptNo);
     }
 
-    public int insertSchedule(Calendar vo) {
+    public int insertSchedule(CalendarVo vo) {
         return dao.insertSchedule(vo);
     }
 }

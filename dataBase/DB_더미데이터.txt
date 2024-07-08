@@ -175,6 +175,13 @@ INSERT INTO EMPLOYEE (NO, EMAIL, NAME, ID, PWD, PROFILE, PHONE, HIRE_DATE, RETIR
 VALUES (SEQ_EMPLOYEE.NEXTVAL, 'baby.human1@gmail.com', '안효섭', 'baby.CEO', '12345', '안효섭.jpg', '01088082111', TO_DATE('1999-02-07', 'YYYY-MM-DD'),  'N', 'N', 1);
 
 
+------------------------------------------------------------------------------------------------------------------------★★★캘린더 공개범위 더미데이터(수인)
+INSERT INTO OPEN_RANGE(NO,NAME) VALUES ('1','전체공개');
+INSERT INTO OPEN_RANGE(NO,NAME) VALUES ('2','참여자 지정하기');
+INSERT INTO OPEN_RANGE(NO,NAME) VALUES ('3','개인일정');   
+INSERT INTO OPEN_RANGE(NO,NAME) VALUES ('4','부서내 공개'); 
+
+
 commit;
 
 

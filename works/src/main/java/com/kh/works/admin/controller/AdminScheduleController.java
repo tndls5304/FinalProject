@@ -2,7 +2,10 @@ package com.kh.works.admin.controller;
 
 import com.kh.works.admin.servcie.AdminAccountService;
 import com.kh.works.admin.servcie.AdminScheduleService;
+import com.kh.works.admin.vo.AdminVo;
+import com.kh.works.calendar.vo.CalendarVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,15 +46,16 @@ public class AdminScheduleController {
     //일정등록
     @PostMapping("admin/insert/schedule")
     @ResponseBody
-    public ResponseEntity<String> insertSchedule(Calendar vo){
+    public ResponseEntity<String> insertSchedule(CalendarVo vo, HttpSession session){
+        AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+        String no=loginAdminVo.getNo();
+
+        vo.setAdminNo(no);
+
         int result=service.insertSchedule(vo);
         if(result==1){
             return  ResponseEntity.ok("스케줄 등록 성공!");
         }
         return ResponseEntity.internalServerError().body("스케줄 등록 실패");
     }
-
-
-
-
 }//class
