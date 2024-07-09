@@ -46,6 +46,23 @@ $.ajax({
         btn.addEventListener("click" , editPage);
         btn2.addEventListener("click" , deletePage);
 
+         // 찜 목록 상태를 확인하는 AJAX 요청
+         $.ajax({
+            url: "/board/checkWishList",
+            method: "get",
+            data: { boardNo: boardNo },
+            success: (response) => {
+                if (response.wishList) {
+                    like.classList.remove("fa-regular");
+                    like.classList.add("fa-solid");
+                    like.style.color = "#f005dc";
+                } else {
+                    like.classList.remove("fa-solid");
+                    like.classList.add("fa-regular");
+                    like.style.color = "#f005dc";
+                }
+            }
+        });
 
     },
 
@@ -112,21 +129,22 @@ like.addEventListener("click", () => {
         like.classList.add("fa-regular");
         like.style.color = "#f005dc";
 
-        // //채워졌다가 비워진하트의 ajax
-        // $.ajax({
-        //     url:"/board/like/cancle"
-        //     ,method:"post"
-        //     ,data:{
+        //채워졌다가 비워진하트의 ajax
+        $.ajax({
+            url:"/board/wishList/cancle"
+            ,method:"post"
+            ,data:{
+                boardWishNo:boardNo
 
-        //     }
-        //     ,success:()=>{
-        //         alert("My게시판에서 취소다")
+            }
+            ,success:()=>{
+                alert("My게시판에서 취소되었습니다")
 
-        //     }
-        //     ,error:()=>{
+            }
+            ,error:()=>{
+                alert("취소에 실패했습니다. 잠시후 다시 시도해주세요.");
+            }
 
-        //     }
-
-        // })
+        })
     }
 });

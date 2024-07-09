@@ -69,11 +69,23 @@ public class BoardService {
         return dao.searchEmpName(empName);
     }
 
-    public int wishBoard(WishBoardVo vo) {
-        return dao.wishBoard(vo);
-    }
-
     public BoardVo myListDetail(String boardNo, String empNo) {
         return dao.myListDetail(boardNo , empNo);
+    }
+
+    public int wishBoard(WishBoardVo vo) {
+        return dao.wishBoard(vo );
+    }
+
+    public int wishCancleBoard(WishBoardVo vo ) {
+        return dao.wishCancleBoard(vo);
+    }
+
+    public boolean checkWishList(WishBoardVo vo ) {
+        return dao.checkWishList(vo);
+    }
+
+    public List<WishBoardVo> myWishList() {
+        return dao.myWishList();
     }
 }

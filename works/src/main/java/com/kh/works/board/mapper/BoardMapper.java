@@ -2,10 +2,7 @@ package com.kh.works.board.mapper;
 
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.WishBoardVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -109,6 +106,17 @@ public interface BoardMapper {
             """)
     void updateViewCount(int no);
 
+    @Select("""
+            SELECT B.*
+                   ,E.NAME
+            FROM BOARD B
+            JOIN EMPLOYEE E
+            ON B.EMP_NO = E.NO
+            WHERE B.BOARD_NO = #{boardNo} AND B.EMP_NO = #{empNo}
+            AND B.DEL_YN = 'N'
+            """)
+    BoardVo myListDetail(@Param("boardNo") String boardNo, @Param("empNo") String empNo);
+
     @Insert("""
         <script>
             INSERT INTO WISHLIST_BOARD (EMP_NO
@@ -128,17 +136,25 @@ public interface BoardMapper {
             </if>
             )
         </script>
-            """)
+    """)
     int wishBoard(WishBoardVo vo);
 
+    @Delete("""
+        DELETE
+        FROM WISHLIST_BOARD
+        WHERE BOARD_WISH_NO = #{boardWishNo}
+        AND EMP_NO = #{empNo}
+    """)
+    int wishCanclaBoard(WishBoardVo vo );
+
     @Select("""
-            SELECT B.*
-                   ,E.NAME
-            FROM BOARD B
-            JOIN EMPLOYEE E
-            ON B.EMP_NO = E.NO
-            WHERE B.BOARD_NO = #{boardNo} AND B.EMP_NO = #{empNo}
-            AND B.DEL_YN = 'N'
+        SELECT COUNT(*) FROM WISHLIST_BOARD WHERE EMP_NO = #{empNo} AND BOARD_WISH_NO = #{boardWishNo}
+    """)
+    boolean checkWishList(WishBoardVo vo);
+
+    @Select("""
+            
             """)
-    BoardVo myListDetail(@Param("boardNo") String boardNo, @Param("empNo") String empNo);
+    List<WishBoardVo> myWishList();
+
 }
