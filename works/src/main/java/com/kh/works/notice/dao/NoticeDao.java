@@ -28,4 +28,12 @@ public class NoticeDao {
     public int delete(String noticeNo) {
         return mapper.delete(noticeNo);
     }
+
+    public List<NoticeVo> empView() {
+        return mapper.empView();
+    }
+
+    public NoticeVo noticeDetail(String noticeNo) {
+        return mapper.noticeDetail(noticeNo);
+    }
 }

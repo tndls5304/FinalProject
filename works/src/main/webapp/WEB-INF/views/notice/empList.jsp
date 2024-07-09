@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/board/list.css">
+<link rel="stylesheet" href="/css/notice/empList.css">
+
 </head>
 <body>
 
@@ -23,7 +24,6 @@
                 </select>
                 <input type="search" id="search">
                 <button id="searchBtn" onclick="search();">검색하기</button>
-                
             </div>
             <div id="list">
                 <div id="title">
@@ -53,4 +53,4 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<script src="/js/board/list.js"></script>
+<script src="/js/notice/empList.js"></script>

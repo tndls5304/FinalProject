@@ -31,4 +31,13 @@ public class NoticeService {
     public int delete(String noticeNo) {
         return dao.delete(noticeNo);
     }
+
+    public List<NoticeVo> empView() {
+        return dao.empView();
+    }
+
+    public NoticeVo noticeDetail(String noticeNo) {
+        return dao.noticeDetail(noticeNo);
+
+    }
 }

@@ -93,12 +93,13 @@ like.addEventListener("click", () => {
         like.classList.add("fa-solid");
         like.style.color = "#f005dc";
 
+        console.log(boardNo);
         //채워진 하트의 ajax
         $.ajax({
-            url:"/board/like"
+            url:"/board/wishList"
             ,method:"post"
             ,data:{
-                
+                boardWishNo:boardNo
             }
             ,success:()=>{
                 alert("My게시판에 추가되었습니다")
@@ -111,21 +112,21 @@ like.addEventListener("click", () => {
         like.classList.add("fa-regular");
         like.style.color = "#f005dc";
 
-        //채워졌다가 비워진하트의 ajax
-        $.ajax({
-            url:"/board/like/cancle"
-            ,method:"post"
-            ,data:{
+        // //채워졌다가 비워진하트의 ajax
+        // $.ajax({
+        //     url:"/board/like/cancle"
+        //     ,method:"post"
+        //     ,data:{
 
-            }
-            ,success:()=>{
-                alert("My게시판에서 취소다")
+        //     }
+        //     ,success:()=>{
+        //         alert("My게시판에서 취소다")
 
-            }
-            ,error:()=>{
+        //     }
+        //     ,error:()=>{
 
-            }
+        //     }
 
-        })
+        // })
     }
 });
