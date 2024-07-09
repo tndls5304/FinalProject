@@ -52,4 +52,10 @@ public interface NoticeMapper {
             """)
     NoticeVo noticeDetail(@Param("noticeNo") String noticeNo);
 
+    @Update("""
+            UPDATE NOTICE_BOARD
+            SET VIEW_COUNT = VIEW_COUNT +1
+            WHERE NOTICE_NO =#{no}
+            """)
+    void updateViewCount(int no);
 }
