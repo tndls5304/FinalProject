@@ -31,20 +31,16 @@
                  var calendarEl = document.getElementById('calendar');
                  var calendar = new FullCalendar.Calendar(calendarEl, {
                            initialView: 'dayGridMonth',
-                                    //드래그모달창
+                                    //드래그했을때 동작하는거 :모달창띄우기
                            selectable: true,
                            select:function( selectionInfo) {
                                  const insertModal = document.getElementById("insertModal");
                                  const startDate =document.querySelector("input[id=startDate]")
                                  const endDate =document.querySelector("input[id=endDate]")
-  //TODO 3초뒤에 모달창 나오게 하는게 이게 맞는지 확인해보기
+  //TODO 3초뒤에 모달창 나오게 하는게 이게 맞는지 확인해보기 날짜가 이상해
                                  insertModal.style.display="block",3000
                                  startDate.value=selectionInfo.startStr;
                                  endDate.value=selectionInfo.endStr;
-
-                                console.log(selectionInfo.startStr);
-                                console.log( selectionInfo.endStr);
-                                console.log("selectionInfo",selectionInfo);
                              },
                            eventClick:  function(info) {
                                         console.log('eventClick');
@@ -68,30 +64,22 @@
                             headerToolbar:{
                             left: 'prev,next today,myCustomButton,mySaveButton'
                             }
+                         });                                                    //calendar기본설정
 
-
-                 });                                                    //calendar
-                     //화면 보여주기
+                //화면 보여주기
                 calendar.render();
-                     //내가 원하는작업
-      /*            $.ajax({
-                     url:""
-                     data:""
-                     success:function(list){
-                        for(var idx = 0; idx < list.length;idx++){
-                        var obj=list[idx];
-                         calendar.addEvent(obj);
-                     }
+                //내가 원하는작업 캘린더리스트 쭉 다 조회해오자
+                $.ajax({
+                         url:"/admin/calendar/all",
+                         success:function(list){
+                           for(let i = 0; i < list.length;i++){
+                           var calendarVo=list[i];
+                           calendar.addEvent(calendarVo);
+                          }
+                         }
                      })
-      */
-                calendar.addEvent(
-                {
-                        title:"공부",
-                         content: '마무리하기',
-                        start:'2024-07-03',
-                        end:'2024-07-06',
-                       }
-                       )//addEvent
+
+
 
 
                //-----------------------------

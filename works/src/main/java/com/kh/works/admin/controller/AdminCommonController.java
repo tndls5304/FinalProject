@@ -25,7 +25,6 @@ public class AdminCommonController {
         String adminAuthNo=loginAdminVo.getAdminAuthorityNo();
 
         List<AdminPageMenuVo> voList=service.selectSidePageComponent(adminAuthNo);
-        System.out.println("AdminCommonController > selectSidePageComponent > voList : " + voList);
         return  voList;
     }
 }
