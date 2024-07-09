@@ -170,7 +170,9 @@ function insertSchedule(){
         for(let i=0; i<empDivs.length; i++){
             var empDiv=empDivs[i];
             var empNo= empDiv.children[0].innerText; //번호
-            var partnerVo={empNo : empNo};             //번호 있는 객체 만들어서
+
+            var partnerVo={empNo:empNo}
+                                  //객체 만들어서
             arr.push(partnerVo);                        //배열에 넣어주기
         }
 
@@ -186,20 +188,22 @@ function insertSchedule(){
         console.log("참여자 배열은??");
         console.log("arr",arr);
 
+
       $.ajax({
         url:'/admin/insert/schedule',
         method:'POST',
-        data:{
-            title:title,
-            startDate:startDate,
-            endDate:endDate,
-            content:content,
-            placeName:placeName,
-            latitude:latitude,
-            longitude:longitude,
-            openRangeNo:openRangeNo,
-            partner:arr                        //배열담기
-            }
+        contentType : 'application/json',
+        data:JSON.stringify{                                  //js객체를 제이슨문자열로 바꾸기
+                            title:title,
+                            startDate:startDate,
+                            endDate:endDate,
+                            content:content,
+                            placeName:placeName,
+                            latitude:latitude,
+                            longitude:longitude,
+                            openRangeNo:openRangeNo,
+                            partnerList:arr                        //배열담기
+                            }
             success:function(result){
             alert(result);
             },

@@ -21,5 +21,5 @@ public class CalendarVo {
   private String  latitude;      //위도 (후순위)
   private String  longitude;     //경도 (후순위)
   private String  adminNo;
-  private List<EmployeeVo> partner;
+  private List<PartnerVo> partnerList;
 }

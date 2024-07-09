@@ -2,6 +2,7 @@ package com.kh.works.admin.dao;
 
 import com.kh.works.admin.mapper.AdminScheduleMapper;
 import com.kh.works.calendar.vo.CalendarVo;
+import com.kh.works.calendar.vo.PartnerVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,9 @@ public class AdminScheduleDao {
     public int insertSchedule(CalendarVo vo) {
         return mapper.insertSchedule(vo);
     }
+
+    public int insertPartner(PartnerVo partnerVo) {
+      return mapper.insertPartner(partnerVo);
+    }
+
 }

@@ -47,10 +47,12 @@ public class AdminScheduleController {
     @PostMapping("admin/insert/schedule")
     @ResponseBody
     public ResponseEntity<String> insertSchedule(CalendarVo vo, HttpSession session){
+        System.out.println("CalendarVo vo에 든거 확인하기: "+vo);
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+        //로그인한 관리자의 번호를 넣어주기
         String no=loginAdminVo.getNo();
-
         vo.setAdminNo(no);
+
 
         int result=service.insertSchedule(vo);
         if(result==1){
