@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,5 +33,15 @@ public class AttendController {
         model.addAttribute("attendList", attendList);
         return "attend/list";
     }
+
+    //나의 근태 리스트에서 달.월로 검색하기
+    @GetMapping("search")
+    public String searchByDate(@RequestParam("dateSearch") String dateSearch, Model model){
+        //list.jsp에서 attendList로 받고 있기 때문에 변경하면 안 된다.
+        List<AttendVo> attendList = service.searchByDate(dateSearch);
+        model.addAttribute("attendList", attendList);
+        return "attend/list";
+    }
+
 
 }

@@ -77,3 +77,41 @@ th {
   font-weight: bold;
   margin-left: 6.5%;
 }
+
+
+/* 나의 근태리스트에서 검색창 css */
+#date-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+#date-search-keyword{
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #777676;
+  border-radius: 5px;
+  width: 280px;
+  transition: border-color 0.3s;
+}
+#date-search-keyword:focus {
+  border-color: #1835D0;
+  outline: none;
+}
+
+
+#date-search input[type="button"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #1835D0;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#date-search input[type="button"]:hover {
+  background-color: #237fe0;
+}
