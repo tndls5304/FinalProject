@@ -7,6 +7,7 @@ function listPar() {
     data: {},
     success: function (listPar) {
       const table = document.querySelector("#todoList");
+      const detail = document.querySelector("#detail");
 
       let str = "";
       for (let i = 0; i < listPar.length; i++) {
@@ -21,6 +22,7 @@ function listPar() {
         str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
       }
       table.innerHTML = str;
+      detail.innerHTML = "";
     },
     error: function (err) {
       console.error("담당조회 아작스 실행중 에러", err);

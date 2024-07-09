@@ -16,10 +16,11 @@
       <%@ include file="/WEB-INF/views/layout/todo/nav.jsp" %>
 
 
+
         <main>
           <!-- 사이드바 -->
           <div id="sidebar">
-            <a href="http://127.0.0.1:8080/todo/write"><button>작성하기</button></a>
+            <button id="writeModalBtn">작성하기</button>
             <br>
             <button onclick="listAll();">전체 할일</button>
             <br>
@@ -59,11 +60,21 @@
 
               <!-- 상세조회 -->
               <div id="detail"></div>
-
             </div>
-
-
           </div>
+
+
+          <!-- 모달 -->
+          <div id="todoModal" class="modal">
+            <div class="modal-content">
+              <!-- 모달창 안에 닫기 버튼 만들기 -->
+              <span class="close">&times;</span>
+              <!-- 할일 작성 폼 포함 -->
+              <jsp:include page="/WEB-INF/views/todo/write.jsp" />
+            </div>
+          </div>
+
+
         </main>
 
     </body>
@@ -78,6 +89,30 @@
     <script src="/js/todo/complete.js"></script>
     <script src="/js/todo/edit.js"></script>
 
+
+    <script>
+      //모달 열기
+      $(document).ready(function () {
+        var modal = document.getElementById("todoModal"); //모달div가져오기
+        var btn = document.getElementById("writeModalBtn"); //작성하기 버튼 가져오기
+        var span = document.getElementsByClassName("close")[0];//getElementsByClassName은 모두 배열로 반환 그래서 0번째 배열을 가져옴
+
+        btn.onclick = function () {
+          modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+          modal.style.display = "none";
+        }
+
+        //evt타겟이 모달이 아닐때 모달창을 닫아줌.
+        window.onclick = function (evt) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+      });
+    </script>
 
 
     <!-- 동적 요소에 이벤트 처리하는 방법  -->
