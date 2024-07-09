@@ -8,12 +8,13 @@ function listAll() {
     success: function (listAll) {
       //리스트 데이터 받아옴
       const table = document.querySelector("#todoList");
+      const detail = document.querySelector("#detail");
 
       let str = "";
       for (let i = 0; i < listAll.length; i++) {
         str += "<tr>";
-        str += "<td>" + listAll[i].title + "</td>";
-        str += "<td class='hidden-column'>" + listAll[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
+        str += "<td class='todo-title'>" + listAll[i].title + "</td>";
+        str += "<td class='hidden-column' >" + listAll[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
         str += "</tr>";
         str += "<tr>";
         str += "<td>요청자 " + listAll[i].todoEmpName + "</td>";
@@ -22,6 +23,7 @@ function listAll() {
         str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
       }
       table.innerHTML = str;
+      detail.innerHTML = "";
     },
     error: function (err) {
       console.error("리스트 아작스 실행중 에러", err);
