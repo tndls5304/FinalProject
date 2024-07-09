@@ -2,6 +2,7 @@ package com.kh.works.board.service;
 
 import com.kh.works.board.dao.BoardDao;
 import com.kh.works.board.vo.BoardVo;
+import com.kh.works.board.vo.WishBoardVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,5 +67,13 @@ public class BoardService {
 
     public List<BoardVo> searchEmpName(String empName) {
         return dao.searchEmpName(empName);
+    }
+
+    public int wishBoard(WishBoardVo vo) {
+        return dao.wishBoard(vo);
+    }
+
+    public BoardVo myListDetail(String boardNo, String empNo) {
+        return dao.myListDetail(boardNo , empNo);
     }
 }

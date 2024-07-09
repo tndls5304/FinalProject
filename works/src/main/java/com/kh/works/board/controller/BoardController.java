@@ -4,6 +4,7 @@ package com.kh.works.board.controller;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.kh.works.board.service.BoardService;
 import com.kh.works.board.vo.BoardVo;
+import com.kh.works.board.vo.WishBoardVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.rent.vo.CarVo;
 import jakarta.servlet.http.HttpSession;
@@ -75,6 +76,22 @@ public class BoardController {
         return service.myBoardList(empNo);
     }
 
+    //내게시물 상세 화면
+    @GetMapping("myList/detail")
+    public String getMyListDetail(){
+        return "board/myDetail";
+    }
+
+    //내게시물 상세 데이터
+    @GetMapping("api/myList/detail")
+    @ResponseBody
+    public BoardVo myListDetail(@RequestParam("boardNo") String boardNo ,HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String empNo = loginEmpVo.getNo();
+        BoardVo voList = service.myListDetail(boardNo ,empNo);
+        return voList;
+    }
+
     //게시물 상세조회 화면
     @GetMapping("/detail")
     public String getdetailBoard(@RequestParam("boardNo") String boardNo, Model model, HttpSession session) {
@@ -135,5 +152,18 @@ public class BoardController {
         return voList;
     }
 
+
+    //좋아요 누르면 디비에 저장되게하기
+    @PostMapping("wishList")
+    @ResponseBody
+    public int wishBoard(WishBoardVo vo , HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String loginNo = loginEmpVo.getNo();
+        vo.setEmpNo(loginNo);
+        int result = service.wishBoard(vo);
+        return result;
+    }
+
+    //좋아요 취소
     
 }

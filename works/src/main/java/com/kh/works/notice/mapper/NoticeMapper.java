@@ -1,11 +1,7 @@
 package com.kh.works.notice.mapper;
 
 import com.kh.works.notice.vo.NoticeVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -18,7 +14,6 @@ public interface NoticeMapper {
             "    ,NO\n" +
             "    ,TITLE\n" +
             "    ,CONTENT\n" +
-            "    ,VIEW_COUNT\n" +
             "    ,CRTN_DATE\n" +
             "    ,MDFD_DATE\n" +
             "    ,IMG\n" +
@@ -28,7 +23,6 @@ public interface NoticeMapper {
             "    ,#{no}\n" +
             "    ,#{title}\n" +
             "    ,#{content}\n" +
-            "    ,NULL\n" +
             "    ,SYSTIMESTAMP\n" +
             "    ,NULL\n" +
             "    ,NULL\n" +
@@ -47,4 +41,15 @@ public interface NoticeMapper {
 
     @Update("UPDATE NOTICE_BOARD SET DEL_YN = 'Y' WHERE NOTICE_NO =#{noticeNo}")
     int delete(String noticeNo);
+
+    @Select("""
+            SELECT * FROM NOTICE_BOARD WHERE DEL_YN = 'N'
+            """)
+    List<NoticeVo> empView();
+
+    @Select("""
+            SELECT * FROM NOTICE_BOARD WHERE NOTICE_NO = #{noticeNo}
+            """)
+    NoticeVo noticeDetail(@Param("noticeNo") String noticeNo);
+
 }
