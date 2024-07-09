@@ -129,9 +129,11 @@ main {
 
 #profile-picture {
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    width: 230px;
+    height: 250px;
+    /* 딱 맞게 하려면 fill로 속성 설정. 대신 좀 눌려서 나온다. */
+    /* contain로 속성 설정하면 프로필에 빈 부분이 생긴다. */
+    object-fit: fill;
 }
 
 /* fontAwesome 이모티콘 CSS */

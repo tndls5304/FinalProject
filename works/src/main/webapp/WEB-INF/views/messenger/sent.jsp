@@ -231,7 +231,7 @@
 
        // /messenger/all에서 쪽지쓰기 눌렀을 때, 쪽지쓰기 페이지(/messenger/write)로 이동
        function moveToWrite(){
-           window.location.href = "http://localhost:8080/messenger/write";
+           window.location.href = "http://127.0.0.1:8080/messenger/write";
        }
 
 
