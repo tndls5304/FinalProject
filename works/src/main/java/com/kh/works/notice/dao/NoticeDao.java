@@ -36,4 +36,8 @@ public class NoticeDao {
     public NoticeVo noticeDetail(String noticeNo) {
         return mapper.noticeDetail(noticeNo);
     }
+
+    public void updateViewCount(int no) {
+        mapper.updateViewCount(no);
+    }
 }

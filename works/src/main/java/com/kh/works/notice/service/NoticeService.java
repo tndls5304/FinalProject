@@ -37,7 +37,13 @@ public class NoticeService {
     }
 
     public NoticeVo noticeDetail(String noticeNo) {
-        return dao.noticeDetail(noticeNo);
 
+        NoticeVo vo = dao.noticeDetail(noticeNo);
+
+        int no = Integer.parseInt(noticeNo);
+        dao.updateViewCount(no);
+        vo.setViewCount(vo.getViewCount()+1);
+
+        return vo;
     }
 }
