@@ -24,7 +24,10 @@ public class AdminScheduleDao {
     }
 
     public int insertPartner(PartnerVo partnerVo) {
-      return mapper.insertPartner(partnerVo);
+        return mapper.insertPartner(partnerVo);
     }
 
+    public List<CalendarVo> selectScheduleList(String no) {
+        return mapper.selectScheduleList(no);
+    }
 }

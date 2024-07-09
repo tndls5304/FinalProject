@@ -190,22 +190,23 @@ function insertSchedule(){
 
 
       $.ajax({
-        url:'/admin/insert/schedule',
+        url:'/admin/calendar',
         method:'POST',
         contentType : 'application/json',
-        data:JSON.stringify{                                  //js객체를 제이슨문자열로 바꾸기
+        data:JSON.stringify({                                  //js객체를 제이슨문자열로 바꾸기
                             title:title,
-                            startDate:startDate,
-                            endDate:endDate,
+                            start:startDate,
+                            end:endDate,
                             content:content,
                             placeName:placeName,
                             latitude:latitude,
                             longitude:longitude,
                             openRangeNo:openRangeNo,
                             partnerList:arr                        //배열담기
-                            }
+                            }),
             success:function(result){
             alert(result);
+            location.reload();  // 페이지 리로드
             },
             error:function(errorMsg){
             alert(errorMsg.responseText);
