@@ -56,7 +56,7 @@ public interface AdminScheduleMapper {
     //로그인된 관리자에 따라 모든 캘린더목록 다가져오기
     @Select("""
             SELECT
-            C.NO,
+            NO,
             START_DATE,
             END_DATE,
             TITLE,
@@ -66,13 +66,9 @@ public interface AdminScheduleMapper {
             PLACE_NAME,
             LATITUDE,
             LONGITUDE,
-            OPEN_RANGE_NO,
-            P.EMP_NO AS PARTNER_NO,
-            E.NAME AS PARTNER_NAME
-            FROM CALENDAR C
-            LEFT JOIN CALENDAR_PARTNER P ON C.NO=P.CALENDAR_NO
-            JOIN EMPLOYEE E ON P.EMP_NO=E.NO
-            WHERE C.ADMIN_NO=#{adminNo} AND C.DEL_YN='N'
+            OPEN_RANGE_NO
+            FROM CALENDAR
+            WHERE ADMIN_NO=#{adminNo} AND DEL_YN='N'
             """)
     List<CalendarVo> selectScheduleList(@Param("adminNo") String no);
 }

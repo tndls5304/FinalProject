@@ -74,8 +74,13 @@
                          success:function(list){
                            for(let i = 0; i < list.length;i++){
                            var calendarVo=list[i];
-                           calendar.addEvent(calendarVo);
-                          }
+                           calendar.addEvent({
+                                start:calendarVo.startDate,
+                                end:calendarVo.endDate,
+                                title:calendarVo.title,
+                                content:calendarVo.content
+                                });
+                           }
                          }
                      })
 
