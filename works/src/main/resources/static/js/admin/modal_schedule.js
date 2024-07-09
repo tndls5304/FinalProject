@@ -195,8 +195,8 @@ function insertSchedule(){
         contentType : 'application/json',
         data:JSON.stringify({                                  //js객체를 제이슨문자열로 바꾸기
                             title:title,
-                            start:startDate,
-                            end:endDate,
+                            startDate:startDate,
+                            endDate:endDate,
                             content:content,
                             placeName:placeName,
                             latitude:latitude,
