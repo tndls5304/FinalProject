@@ -8,6 +8,7 @@ import com.kh.works.messenger.vo.MessengerVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -24,6 +25,17 @@ public class MessengerService {
     public int write(MessengerVo vo) {
 //        기존 코드
 //        return dao.write(vo);
+
+        // ==null로 확인하는 방법 말고, StringUtils를 통해 널값인지 확인할 수 있다. 오호!
+        if (!StringUtils.hasText(vo.getTitle())) {
+            throw new IllegalArgumentException("제목을 입력해 주세요.");
+        }
+        if (!StringUtils.hasText(vo.getContent())){
+            throw new IllegalArgumentException("내용을 입력해 주세요.");
+        }
+        if(vo.getReceiverEmpNo() == null){
+            throw new IllegalArgumentException("보내는 사람을 선택해 주세요.");
+        }
 
 //        알림 소켓 추가
         int result = dao.write(vo);

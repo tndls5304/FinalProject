@@ -32,8 +32,9 @@ body {
 } */
 
 #employee-name {
-  font-size: 1.2em;
-  margin-top: 10px;
+  font-size: 1.5em;
+  font-weight: medium;
+  margin-top: 20px;
 }
 
 /* fontAwesome 이모티콘 CSS */
@@ -63,7 +64,7 @@ th, td {
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #d2d2d2;
 }
 
 .week-group {
@@ -72,6 +73,7 @@ th {
 }
 
 .week-group p{
-  font-size: larger;
+  font-size: large;
   font-weight: bold;
+  margin-left: 6.5%;
 }
