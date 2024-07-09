@@ -99,52 +99,77 @@
  <!-- jquery 넣기 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script>
-         $(document).ready(function() {
-            $.ajax({
-                url: "/messenger/alarmInfor",
-                method: "post",
-                success: function(data) {
-                    let notificationDiv = document.getElementById("notify");
-                    data.forEach(function(notification) {
-                        let newNotification = document.createElement("p");
-                        newNotification.innerText = notification.message;
-                        notificationDiv.appendChild(newNotification);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log("Failed to load notifications:", error);
-                }
-            });
+   <script>
+     $(document).ready(function() {
+         // 알림 정보를 가져오는 AJAX 요청
+         $.ajax({
+             url: "/messenger/alarmInfor",
+             method: "post",
+             success: function(data) {
+                 let notificationDiv = document.getElementById("notify");
+                 data.forEach(function(notification) {
+                     let newNotification = document.createElement("p");
+                     newNotification.innerText = notification.message;
+                     newNotification.classList.add("notification-message");
+                     newNotification.dataset.messenNo = notification.messenNo; // messenNo 데이터를 설정
+                     newNotification.onclick = function() {
+                         window.location.href = "http://127.0.0.1:8080/messenger/all"; // 메시지 상세 페이지로 이동
+                         markNotificationAsRead(notification.messenNo); // 알림을 읽음 처리
+                     };
+                     notificationDiv.appendChild(newNotification);
+                 });
+             },
+             error: function(xhr, status, error) {
+                 console.log("Failed to load notifications:", error);
+             }
+         });
 
-            // WebSocket 설정
-            let socket = new WebSocket("ws://localhost:8080/notifications");
+         // WebSocket 설정
+         let socket = new WebSocket("ws://localhost:8080/notifications");
 
-            socket.onopen = function(event) {
-                console.log("WebSocket is open now.");
-            };
+         socket.onopen = function(event) {
+             console.log("WebSocket is open now.");
+         };
 
-            socket.onmessage = function(event) {
-                console.log("WebSocket message received:", event.data);
-                let notificationDiv = document.getElementById("notify");
-                let newNotification = document.createElement("p");
-                newNotification.innerText = event.data;
-                notificationDiv.appendChild(newNotification);
-                alert(event.data); // 실시간 알림을 띄웁니다.
-            };
+         socket.onmessage = function(event) {
+             console.log("WebSocket message received:", event.data);
+             let notificationDiv = document.getElementById("notify");
+             let newNotification = document.createElement("p");
+             newNotification.innerText = event.data;
+             newNotification.classList.add("notification-message");
+             newNotification.onclick = function() {
+                 window.location.href = "http://127.0.0.1:8080/messenger/all"; // 메시지 목록 페이지로 이동
+             };
+             notificationDiv.appendChild(newNotification);
+             alert(event.data); // 실시간 알림을 띄웁니다.
+         };
 
-            socket.onclose = function(event) {
-                if (event.wasClean) {
-                    console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-                } else {
-                    console.log('Connection died');
-                }
-            };
+         socket.onclose = function(event) {
+             if (event.wasClean) {
+                 console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+             } else {
+                 console.log('Connection died');
+             }
+         };
 
-            socket.onerror = function(error) {
-                console.log(`[error] ${error.message}`);
-            };
-        });
+         socket.onerror = function(error) {
+             console.log(`[error] ${error.message}`);
+         };
+     });
+
+     function markNotificationAsRead(messenNo) {
+         $.ajax({
+             url: "/messenger/readAlarm",
+             method: "post",
+             data: { messenNo: messenNo },
+             success: function() {
+                 console.log("Notification marked as read.");
+             },
+             error: function(xhr, status, error) {
+                 console.log("Failed to mark notification as read:", error);
+             }
+         });
+     }
 
 
 
@@ -183,7 +208,6 @@
         }
 
 
-
         //퇴근 처리 Ajax
         document.querySelectorAll('#end-button').forEach(item => {
           item.addEventListener('click', endAttend);
@@ -211,8 +235,7 @@
             },
           });
         }
-
-    </script>
+   </script>
 
 
 
