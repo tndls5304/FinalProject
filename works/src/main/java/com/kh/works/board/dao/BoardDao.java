@@ -62,4 +62,16 @@ public class BoardDao {
     public BoardVo myListDetail(String boardNo, String empNo) {
         return mapper.myListDetail(boardNo , empNo);
     }
+
+    public int wishCancleBoard(WishBoardVo vo) {
+        return mapper.wishCanclaBoard(vo);
+    }
+
+    public boolean checkWishList(WishBoardVo vo) {
+        return mapper.checkWishList(vo);
+    }
+
+    public List<WishBoardVo> myWishList() {
+        return mapper.myWishList();
+    }
 }

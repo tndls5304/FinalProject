@@ -10,12 +10,15 @@ import com.kh.works.rent.vo.CarVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -153,17 +156,57 @@ public class BoardController {
     }
 
 
+    @GetMapping("checkWishList")
+    public ResponseEntity<Map<String, Boolean>> checkWishList(WishBoardVo vo, HttpSession session , @RequestParam("boardNo") String boardNo){
+        // 로그인 멤버 형변환해서 담아주기
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String loginNo = loginEmpVo.getNo();
+        int empNo = Integer.parseInt(loginNo);
+
+        int board = Integer.parseInt(boardNo);
+        vo.setBoardWishNo(board);
+        vo.setEmpNo(empNo);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`empNo는 =" + empNo);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`boardNo =" + vo.getBoardWishNo());
+        // 불린으로 판단
+        boolean wishList = service.checkWishList(vo);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`vo 를 갔다고오는 empNo는 =" + empNo);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`vo 를 갔다고오는  boardNo =" + vo.getBoardWishNo());
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("wishList", wishList);
+        return ResponseEntity.ok(response);
+    }
+
+
     //좋아요 누르면 디비에 저장되게하기
     @PostMapping("wishList")
     @ResponseBody
     public int wishBoard(WishBoardVo vo , HttpSession session){
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String loginNo = loginEmpVo.getNo();
-        vo.setEmpNo(loginNo);
+        int empNo = Integer.parseInt(loginNo);
+        vo.setEmpNo(empNo);
         int result = service.wishBoard(vo);
         return result;
     }
 
-    //좋아요 취소
+    @PostMapping("wishList/cancle")
+    @ResponseBody
+    public int wishCancleBoard(WishBoardVo vo , HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String loginNo = loginEmpVo.getNo();
+        int empNo = Integer.parseInt(loginNo);
+        vo.setEmpNo(empNo);
+        int result = service.wishCancleBoard(vo);
+        return  result;
+    }
+
+    //좋아요 목록 보여주기
+    @GetMapping("api/wishList/mylist")
+    @ResponseBody
+    public List<WishBoardVo> myWishList(){
+        List<WishBoardVo> voList = service.myWishList();
+        return voList;
+    }
     
 }

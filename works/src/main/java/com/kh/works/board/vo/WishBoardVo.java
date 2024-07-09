@@ -6,5 +6,5 @@ import lombok.Data;
 public class WishBoardVo {
     private Integer boardWishNo;
     private Integer noticeWishNo;
-    private String empNo;
+    private Integer empNo;
 }
