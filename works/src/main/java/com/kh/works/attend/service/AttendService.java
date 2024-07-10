@@ -21,4 +21,8 @@ public class AttendService {
     public List<AttendVo> searchByDate(String dateSearch) {
         return dao.searchByDate(dateSearch);
     }
+
+    public List<AttendVo> showAllList() {
+        return dao.showAllList();
+    }
 }
