@@ -3,10 +3,7 @@ package com.kh.works.admin.mapper;
 import com.kh.works.calendar.vo.CalendarVo;
 import com.kh.works.calendar.vo.PartnerVo;
 import com.kh.works.employee.vo.EmployeeVo;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Calendar;
 import java.util.List;
@@ -71,4 +68,35 @@ public interface AdminScheduleMapper {
             WHERE ADMIN_NO=#{adminNo} AND DEL_YN='N'
             """)
     List<CalendarVo> selectScheduleList(@Param("adminNo") String no);
+
+    @Select("""
+            SELECT E.NO AS empNo,E.NAME AS empName
+            FROM CALENDAR_PARTNER C
+            JOIN EMPLOYEE E ON C.EMP_NO=E.NO
+            WHERE CALENDAR_NO=#{no}
+            """)
+    List<PartnerVo> selectPartnerList(String no);
+
+    @Update("""
+            UPDATE CALENDAR
+            SET
+                TITLE=#{title},
+                START_DATE=#{startDate},
+                END_DATE=#{endDate},
+                OPEN_RANGE_NO=#{openRangeNo},
+                CONTENT=#{content},
+                PLACE_NAME=#{placeName},
+                LATITUDE=#{latitude},
+                LONGITUDE=#{longitude}
+            WHERE
+                ADMIN_NO=#{adminNo} AND  NO=#{no}
+            """)
+    int updateCalendar(CalendarVo vo);
+
+    @Update("""
+            UPDATE CALENDAR_PARTNER
+            SET EMP_NO=#{empNo}
+            WHERE CALENDAR_NO=#{calendarNo}
+            """)
+    int updatePartner(PartnerVo partnerVo);
 }
