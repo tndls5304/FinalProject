@@ -148,13 +148,33 @@ public interface BoardMapper {
     int wishCanclaBoard(WishBoardVo vo );
 
     @Select("""
-        SELECT COUNT(*) FROM WISHLIST_BOARD WHERE EMP_NO = #{empNo} AND BOARD_WISH_NO = #{boardWishNo}
+        SELECT COUNT(*) FROM 
+        WISHLIST_BOARD WHERE EMP_NO = #{empNo} AND 
+        BOARD_WISH_NO = #{boardWishNo}
     """)
     boolean checkWishList(WishBoardVo vo);
 
     @Select("""
-            
+            SELECT 
+                W.EMP_NO,
+                W.BOARD_WISH_NO,
+                B.BOARD_NO,
+                B.TITLE,
+                B.CONTENT,
+                B.VIEW_COUNT,
+                B.CRTN_DATE,
+                E.NAME
+            FROM WISHLIST_BOARD W
+            JOIN BOARD B
+                ON W.BOARD_WISH_NO = B.BOARD_NO
+            JOIN EMPLOYEE E
+                ON W.EMP_NO = E.NO
+            WHERE W.EMP_NO = #{empNo}
+                AND (SELECT COUNT(*)
+                     FROM WISHLIST_BOARD
+                     WHERE EMP_NO = W.EMP_NO
+                       AND BOARD_WISH_NO = W.BOARD_WISH_NO) > 0
             """)
-    List<WishBoardVo> myWishList();
+    List<WishBoardVo> myWishList(WishBoardVo vo);
 
 }

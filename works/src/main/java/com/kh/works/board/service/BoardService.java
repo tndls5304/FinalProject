@@ -85,7 +85,7 @@ public class BoardService {
         return dao.checkWishList(vo);
     }
 
-    public List<WishBoardVo> myWishList() {
-        return dao.myWishList();
+    public List<WishBoardVo> myWishList(WishBoardVo vo) {
+        return dao.myWishList(vo);
     }
 }

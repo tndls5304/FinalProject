@@ -204,9 +204,20 @@ public class BoardController {
     //좋아요 목록 보여주기
     @GetMapping("api/wishList/mylist")
     @ResponseBody
-    public List<WishBoardVo> myWishList(){
-        List<WishBoardVo> voList = service.myWishList();
+    public List<WishBoardVo> myWishList(HttpSession session){
+
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String loginNo = loginEmpVo.getNo();
+        int empNo = Integer.parseInt(loginNo);
+        WishBoardVo vo = new WishBoardVo();
+        vo.setEmpNo(empNo);
+        List<WishBoardVo> voList = service.myWishList(vo);
         return voList;
+    }
+
+    @GetMapping("wishList/mylist")
+    public String myWishListView(){
+        return "board/wishList";
     }
     
 }

@@ -57,7 +57,7 @@ function search() {
         ,success:(data)=>{
             let str = "";
             for(let i= 0 ;  i < data.length ; i++){
-                str+= `<div>
+                str+= `<div class='detail' data-boardNo='${data[i].boardNo}' >
                             <div>${data[i].boardNo}</div>
                             <div>${data[i].name}</div>
                             <div>${data[i].title}</div>
@@ -67,6 +67,17 @@ function search() {
             }
 
             content.innerHTML = str;
+
+            const details = document.querySelectorAll(".detail");
+            for (let i = 0; i < details.length; i++) {
+                details[i].addEventListener("click", detail);
+            }
+     
+            function detail(event) {
+                const detailDiv = event.target.closest('.detail');
+                const boardNo = detailDiv.getAttribute('data-boardNo');
+                window.location.href = "/board/detail?boardNo=" + boardNo;
+            }
             
     
         }
