@@ -4,11 +4,6 @@ function complete(todoNo) {
     method: "POST",
     data: { todoNo: todoNo },
     success: function () {
-      //할일 완료후 제목에 줄긋기
-      const titleLine = document.querySelector("#title");
-      titleLine.classList.add("completed");
-      document.querySelector("#todo-title").classList.add("completed");
-
       listAll();
       const detail = document.querySelector("#detail");
       detail.innerHTML = "";

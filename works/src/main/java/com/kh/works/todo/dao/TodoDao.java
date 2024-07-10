@@ -1,5 +1,6 @@
 package com.kh.works.todo.dao;
 
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.mapper.TodoMapper;
 import com.kh.works.todo.vo.TodoVo;
@@ -61,7 +62,24 @@ public class TodoDao {
     }
 
 
+    //할일 완료
     public int todocomplete(String todoNo) {
         return mapper.todoComplete(todoNo);
+    }
+
+    //받은 알람 리스트로 가져오기
+    public List<AlarmVo> getTodoAlarm(String todoManagerNo) {
+        return mapper.getTodoAlarm(todoManagerNo);
+    }
+
+    //읽은 알람 처리
+    public int read(String todoManagerNo) {
+        return mapper.read(todoManagerNo);
+    }
+
+    //알람 저장하기
+    public void saveAlarm(String todoManagerNo, String notificationMessage) {
+        mapper.saveAlarm(todoManagerNo, notificationMessage);
+
     }
 }

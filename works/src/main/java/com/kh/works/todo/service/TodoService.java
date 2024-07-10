@@ -1,7 +1,9 @@
 package com.kh.works.todo.service;
 
 
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import com.kh.works.handler.NotificationHandler;
 import com.kh.works.todo.dao.TodoDao;
 //import com.kh.works.todo.dao.TodoManagerDao;
 //import com.kh.works.todo.vo.TodoAllVo;
@@ -24,6 +26,7 @@ public class TodoService {
 
     private final TodoDao todoDao;
 //    private final TodoManagerDao manDao;
+    private final NotificationHandler notificationHandler;
 
 
     //todo작성 쿼리 2개 insert
@@ -47,6 +50,17 @@ public class TodoService {
         if(result1 * result2 != 1){
             throw new RuntimeException();
         }
+
+        if(result1 * result2 == 1){
+            String notificationMessage = "할일 담당자로 지정되었습니다.\n" + vo.getTodoEmpName() + "님이 요청하였습니다.";
+//            todoDao.saveAlarm(vo.getTodoManagerNo(), notificationMessage);
+//            notificationHandler.sendNotification(notificationMessage);
+        for (String managerNo : todoManageList) {
+            todoDao.saveAlarm(managerNo, notificationMessage);
+            notificationHandler.sendNotification(notificationMessage);
+        }
+        }
+
 
 
         return result1 * result2;
@@ -115,5 +129,16 @@ public class TodoService {
     //할일 완료
     public int todoComplete(String todoNo) {
         return todoDao.todocomplete(todoNo);
+    }
+
+
+    //받은알람 가져오기
+    public List<AlarmVo> getTodoAlarm(String todoManagerNo) {
+        return todoDao.getTodoAlarm(todoManagerNo);
+    }
+
+    //읽은 알람 처리
+    public int read(String todoManagerNo) {
+        return todoDao.read(todoManagerNo);
     }
 }

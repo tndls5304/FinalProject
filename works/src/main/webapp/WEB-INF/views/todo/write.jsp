@@ -37,10 +37,12 @@
             그냥 버튼으로하면 제출이 된다. -->
           <button type="button" onclick="clickBtn()">담당자 추가</button>
           <div id="managerList" style="display: none;">
-            <label for="todoManager">담당자</label>
-            <c:forEach var="emp" items="${empList}">
-              <input type="checkbox" name="todoManagerList" value="${emp.no}"> ${emp.name}&nbsp;&nbsp;${emp.deptNo}<br>
-            </c:forEach>
+            <div id="todoManager">
+              <c:forEach var="emp" items="${empList}">
+                <input type="checkbox" name="todoManagerList" value="${emp.no}">
+                ${emp.name}&nbsp;&nbsp;${emp.deptNo}<br>
+              </c:forEach>
+            </div>
           </div>
           <br><br>
 

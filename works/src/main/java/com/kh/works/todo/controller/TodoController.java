@@ -3,6 +3,7 @@ package com.kh.works.todo.controller;
 //주석처리 했어용
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 //import com.kh.works.security.EmpSessionVo;
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import com.kh.works.todo.service.TodoService;
 //import com.kh.works.todo.vo.TodoAllVo;
@@ -24,11 +25,16 @@ public class TodoController {
     private final TodoService service;
 
 
-
+    //!!!뭔가를 셀렉트 해올때 그냥 다 넘겨받아오는게 기능구현하기 편하다 받아와야할 항목만 받아오면 나중에 추가해야할게 많아지니까 시간이 많으면 ///
 
     //할일 홈화면
+    // 할일 작성을 모달로 만들면 여기서 담당 사원 목록을 가져왔어야 한다.== 모달을 동적이라 새로운 서버로 요청을 보내지 않기 때문에 미리 받아오기!!todoHome에서 모달창을 여는것이기 때문에!
     @GetMapping("home")
-    public String todoHome(){
+    public String todoHome(Model model){
+
+        List<EmployeeVo> empList = service.getMangerList();
+        model.addAttribute("empList", empList);
+
         return "todo/home";
     }
 
@@ -38,7 +44,7 @@ public class TodoController {
 //        getAttribute :세션에 저장된 객체 가져오는 메소드
         EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@loginEmpVo = " + loginEmpVo);
-
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@vo = " + vo);
 
         //로그인한 회원 번호를 세션에서 가져와 EmpNo에 담아준다
         String empNo = loginEmpVo.getNo();
@@ -54,16 +60,18 @@ public class TodoController {
             return "redirect:/todo/home";
         }
 
+//    @모달창을 열때는 별도의 URL요청을 보내지 않는다.(창이 열릴때 서버에 새로운 요청을 보내지 않기 때문에!==현재 상태를 유지하며 데이터 표시)
+//    @따라서 todoHome에서 미리 담당자 데이터를 받아와야 한다.그래서 모달창에서 담당자 리스트가 안떴었던 것...!
         //할일작성 화면 - 참여자 추가하기
     //model : 컨트롤러와 화면(뷰) 사이에서 데이터를 전달해주는 역할 empList를 가져와model에 담아준다
-    @GetMapping("write")
-   public String writeView(Model model){
-        List<EmployeeVo> empList = service.getMangerList();
-        model.addAttribute("empList", empList);
-        return "todo/write";
-    }
+//    @GetMapping("write")
+//   public String writeView(Model model){
+//        List<EmployeeVo> empList = service.getMangerList();
+//        model.addAttribute("empList", empList);
+//        return "todo/write";
+//    }
 
-    //모든 할일 목록조회(담당자 참여자 모두//여기 todoVo넘겨주지 않고 그냥 세션에 있는거 넘겨주면 안되나?
+    //모든 할일 목록조회(담당자 참여자 모두
     //리스트로 반환받기
     @GetMapping("listAll")
     @ResponseBody
@@ -80,7 +88,7 @@ public class TodoController {
         return voList;
     }
 
-    //참여자 할일 목록조회(내가 참여자인것만 //이것도 세션으로 받으면 되려나...
+    //참여자 할일 목록조회(내가 참여자인것만
     @GetMapping("listPar")
     @ResponseBody
     public List<TodoVo> getTodoListPar(TodoVo vo, HttpSession session){
@@ -153,6 +161,27 @@ public class TodoController {
     public int todoComplete(@RequestParam("todoNo") String todoNo){
         int result = service.todoComplete(todoNo);
         return result;
+    }
+
+//    할일을 작성할때 알람 테이블에 같이 insert를 해준다
+//    그 다음 알람 컨트롤러를 만들어 읽지않은 알람(받은알람)과 읽은알람 처리를 해준다
+//    =>select, update
+
+    //할일 담당자 알림
+    @PostMapping("todoAlarm")
+    @ResponseBody
+    public ResponseEntity<List<AlarmVo>> getTodoAlarm(HttpSession session){
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String todoManagerNo = loginEmpVo.getNo();
+
+        //받은 알람 가져오기
+        List<AlarmVo> unread = service.getTodoAlarm(todoManagerNo);
+
+        //읽은 알람 처리
+        service.read(todoManagerNo);
+
+        //읽지 않은 알람 목록 띄워주기
+        return ResponseEntity.ok(unread);
     }
 
 }
