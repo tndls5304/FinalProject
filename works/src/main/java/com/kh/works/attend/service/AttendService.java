@@ -17,4 +17,8 @@ public class AttendService {
     public List<AttendVo> myAttendList(String empNo) {
         return dao.myAttendList(empNo);
     }
+
+    public List<AttendVo> searchByDate(String dateSearch) {
+        return dao.searchByDate(dateSearch);
+    }
 }

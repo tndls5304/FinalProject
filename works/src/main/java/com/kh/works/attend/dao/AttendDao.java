@@ -16,4 +16,8 @@ public class AttendDao {
     public List<AttendVo> myAttendList(String empNO) {
         return mapper.myAttendList(empNO);
     }
+
+    public List<AttendVo> searchByDate(String dateSearch) {
+        return mapper.searchByDate(dateSearch);
+    }
 }

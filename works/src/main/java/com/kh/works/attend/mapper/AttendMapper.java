@@ -1,10 +1,7 @@
 package com.kh.works.attend.mapper;
 
 import com.kh.works.attend.vo.AttendVo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -56,5 +53,41 @@ public interface AttendMapper {
     List<AttendVo> myAttendList(String empNo);
     //왜 @Results를 사용하여 매핑하나요?
     // > 데이터베이스(sql)의 칼럼 값과 해당 Vo의 이름이 다를 경우에 @Results를 사용하여 명시적으로 매핑하여 처리해 준다.
+    // 근데 굳이 해주지 않아도, 잘 처리된다..
+
+
+    //위 쿼리문과 동일. 대신 검색하는 기능이기 때문에, WHERE절만 추가
+    @Select("""
+            WITH WEEK_CALCUL AS (
+                        SELECT
+                            ATTEND_NO,
+                            EMP_NO,
+                            START_TIME,
+                            END_TIME,
+                            TO_CHAR(START_TIME, 'MM') AS MONTH_NUM,
+                            CEIL(EXTRACT(DAY FROM START_TIME) / 7) AS WEEK_IN_MONTH,
+                            ROUND(
+                                (TO_DATE(TO_CHAR(END_TIME, 'HH24:MI:SS'), 'HH24:MI:SS') -
+                                 TO_DATE(TO_CHAR(START_TIME, 'HH24:MI:SS'), 'HH24:MI:SS')) * 24\s
+                            ) AS TOTAL_HOUR,
+                            ROUND(
+                                (TO_DATE(TO_CHAR(END_TIME, 'HH24:MI:SS'), 'HH24:MI:SS') -
+                                 TO_DATE(TO_CHAR(START_TIME, 'HH24:MI:SS'), 'HH24:MI:SS')) * 24 * 60
+                            ) AS TOTAL_MINUTES
+                        FROM ATTEND
+            )
+            SELECT
+                ATTEND_NO,
+                EMP_NO,
+                START_TIME,
+                END_TIME,
+                MONTH_NUM,
+                WEEK_IN_MONTH AS WEEK_NUM,
+                FLOOR(TOTAL_HOUR) || '시간 ' || ABS(ROUND((TOTAL_MINUTES - FLOOR(TOTAL_HOUR) * 60))) || '분' AS TOTAL_WORK
+            FROM WEEK_CALCUL
+            WHERE TO_CHAR(START_TIME, 'MM') = #{dateSearch}
+            ORDER BY MONTH_NUM, WEEK_NUM, START_TIME
+            """)
+    List<AttendVo> searchByDate(@Param("dateSearch") String dateSearch);
 
 }

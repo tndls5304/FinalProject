@@ -24,6 +24,12 @@
             <!-- <i class="fa-solid fa-circle-xmark close-button" onclick="window.location.href='http://localhost:8080/home';"></i> -->
             <i class="fa-solid fa-circle-xmark close-button"
               onclick="window.location.href='http://127.0.0.1:8080/home';"></i>
+            <br>
+            <div id="date-search">
+                 <div><input type="text" id="date-search-keyword" name="dateSearch" placeholder="날짜를 입력해주세요. 예) 07"></div>
+                 <div><input type="button" value="검색" onclick="searchByDate()"></div>
+            </div>
+            <br>
           </div>
           <c:forEach var="attend" items="${attendList}" varStatus="status">
             <c:if test="${status.first || attend.weekNum != prevWeekNum || attend.monthNum != prevMonthNum}">
@@ -66,3 +72,30 @@
     </body>
 
     </html>
+
+     <!-- jquery 넣기 -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+     <script>
+          // 검색기능을 위한 자바스크립트 함수
+          function searchByDate() {
+          	    var keyword = document.getElementById("date-search-keyword").value;
+
+          	    // 새로운 form 생성
+          	    var searchForm = document.createElement("form");
+          	    searchForm.method = "get"; //form 전송 방식 - GET
+          	    searchForm.action = "/attend/search";
+
+          	    // 검색을 하기 위해 input 요소 생성
+          	    var input = document.createElement("input");
+          	    input.type = "hidden"; //화면에 보이지 않도록 hidden 설정
+          	    input.name = "dateSearch"; //Mapper에 설정한 값으로 name 지정
+          	    input.value = keyword; //input 값에 keyword 설정
+
+          	    searchForm.appendChild(input);
+
+          	    document.body.appendChild(searchForm);
+          	    searchForm.submit();
+          }
+
+     </script>

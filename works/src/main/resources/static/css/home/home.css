@@ -261,7 +261,7 @@ main {
 
 /* 홈에서 보여주는 알림 스타일 적용이다. */
 .notification-message {
-    font-weight: bold;
+    font-weight: normal;
     font-size: large;
     cursor: pointer;
 }

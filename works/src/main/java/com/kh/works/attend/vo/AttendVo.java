@@ -19,4 +19,7 @@ public class AttendVo {
     //쿼리문에서 꺼낸 시간과 분을 계산하여 총 시간으로 나타낼 때 사용하여 작성한 변수.
     private String totalWork;
 
+    //나의 근태목록에서 검색기능을 하도록 변수 설정.
+    private String dateSearch;
+
 }
