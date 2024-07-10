@@ -91,5 +91,6 @@ public interface AttendMapper {
     List<AttendVo> searchByDate(@Param("dateSearch") String dateSearch);
 
 
+    @Select("SELECT E.NAME, A.START_TIME, A.END_TIME FROM EMPLOYEE E JOIN ( SELECT EMP_NO, MAX(START_TIME) AS START_TIME FROM ATTEND GROUP BY EMP_NO ) LATEST ON E.NO = LATEST.EMP_NO JOIN ATTEND A ON LATEST.EMP_NO = A.EMP_NO AND LATEST.START_TIME = A.START_TIME")
     List<AttendVo> showAllList();
 }
