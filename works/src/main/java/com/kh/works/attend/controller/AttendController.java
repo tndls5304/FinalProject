@@ -3,6 +3,7 @@ package com.kh.works.attend.controller;
 import com.kh.works.attend.service.AttendService;
 import com.kh.works.attend.vo.AttendVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import com.oracle.wls.shaded.org.apache.xpath.operations.Mod;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,22 @@ public class AttendController {
         List<AttendVo> attendList = service.searchByDate(dateSearch);
         model.addAttribute("attendList", attendList);
         return "attend/list";
+    }
+
+    //전체 사원 근태관리 리스트 (인사부.DEPT_NO=1인 사원들로 로그인했을 때만 볼 수 있도록)
+    @GetMapping("allList")
+    public String showAllList(HttpSession session, Model model){
+
+        EmployeeVo loginEmpvo = (EmployeeVo) session.getAttribute("loginEmpVo");
+
+        if(loginEmpvo != null && loginEmpvo.getDeptNo() == "1"){
+            List<AttendVo> attenList = service.showAllList();
+            model.addAttribute("attendList", attenList);
+            return "attend/allList";
+        }
+        else{
+            return "attend/invalidAccess";
+        }
     }
 
 
