@@ -55,6 +55,11 @@ public class AttendController {
             String deptNo = String.valueOf(loginEmpvo.getDeptNo());
             System.out.println("Department No: " + deptNo);
 
+            //EmployeeVo를 model에 추가할 수 있다. -> JSP에서 사용하기 위해서.
+            //loginEmpVo 객체를 employee 이름으로 모델에 추가하게 된다. -> JSP로 데이터를 전달.
+            //그런데, JSP에서 ${employee.x}로 작성할 경우, 현재 로그인한 사원의 정보로 나온다는 점.
+            model.addAttribute("employee", loginEmpvo);
+
             if (deptNo.equals("1")) {
                 List<AttendVo> attenList = service.showAllList();
                 model.addAttribute("attendList", attenList);
@@ -64,5 +69,13 @@ public class AttendController {
         return "attend/invalidAccess";
     }
 
+    //전체 근태 리스트에서 부서명, 이름으로 검색하기 -> 인사부에서만 확인 가능.
+    @GetMapping("searchFromAll")
+    public String search(@RequestParam("deptSearch") String deptSearch, @RequestParam("nameSearch") String nameSearch, Model model){
+
+        List<AttendVo> attendList = service.search(deptSearch, nameSearch);
+        model.addAttribute("attendList", attendList);
+        return "attend/allList";
+    }
 
 }
