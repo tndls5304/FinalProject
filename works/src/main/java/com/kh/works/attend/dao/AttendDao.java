@@ -24,4 +24,16 @@ public class AttendDao {
     public List<AttendVo> showAllList() {
         return mapper.showAllList();
     }
+
+    public List<AttendVo> searchByNameAndDepartment(String nameSearch, String deptSearch) {
+        return mapper.searchByNameAndDepartment(nameSearch, deptSearch);
+    }
+
+    public List<AttendVo> searchByName(String nameSearch) {
+        return mapper.searchByName(nameSearch);
+    }
+
+    public List<AttendVo> searchByDepartment(String deptSearch) {
+        return mapper.searchByDepartment(deptSearch);
+    }
 }

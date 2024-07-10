@@ -22,4 +22,13 @@ public class AttendVo {
     //나의 근태목록에서 검색기능을 하도록 변수 설정.
     private String dateSearch;
 
+    //전체 근태목록에서 부서랑 이름 검색기능 하도록 변수 설정.
+    private String deptSearch;
+    private String nameSearch;
+
+    //전체 사원 근태목록에서 사원이름, 부서명, 직급명 나오게 하기 위해서 설정.
+    private String empName;
+    private String deptName;
+    private String positionName;
+
 }

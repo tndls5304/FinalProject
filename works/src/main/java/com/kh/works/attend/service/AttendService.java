@@ -25,4 +25,16 @@ public class AttendService {
     public List<AttendVo> showAllList() {
         return dao.showAllList();
     }
+
+    public List<AttendVo> search(String deptSearch, String nameSearch) {
+        if (nameSearch != null && !nameSearch.isEmpty() && deptSearch != null && !deptSearch.isEmpty()) {
+            return dao.searchByNameAndDepartment(nameSearch, deptSearch);
+        } else if (nameSearch != null && !nameSearch.isEmpty()) {
+            return dao.searchByName(nameSearch);
+        } else if (deptSearch != null && !deptSearch.isEmpty()) {
+            return dao.searchByDepartment(deptSearch);
+        } else {
+            return dao.searchByNameAndDepartment("", "");
+        }
+    }
 }
