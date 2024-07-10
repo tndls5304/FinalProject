@@ -5,6 +5,7 @@ import com.kh.works.calendar.vo.CalendarVo;
 import com.kh.works.calendar.vo.PartnerVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Calendar;
@@ -29,5 +30,17 @@ public class AdminScheduleDao {
 
     public List<CalendarVo> selectScheduleList(String no) {
         return mapper.selectScheduleList(no);
+    }
+
+    public List<PartnerVo> selectPartnerList(String no) {
+    return mapper.selectPartnerList(no);
+    }
+
+    public int updateCalendar(CalendarVo vo) {
+        return mapper.updateCalendar(vo);
+    }
+
+    public int updatePartner(PartnerVo partnerVo) {
+        return mapper.updatePartner(partnerVo);
     }
 }

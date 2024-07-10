@@ -293,13 +293,13 @@ CREATE TABLE CALENDAR (
     ,END_DATE                 	 DATE            		NOT NULL        
     ,TITLE                  		VARCHAR2(100)   		NOT NULL
     ,OPEN_RANGE_NO          	    NUMBER         		    NOT NULL
-    ,CONTENT                		VARCHAR2(3000)  
-    ,PLACE_NAME        	           VARCHAR2(100)  
+    ,CONTENT                		VARCHAR2(3000)  		DEFAULT NULL
+    ,PLACE_NAME        	           VARCHAR2(100)  		DEFAULT NULL
     ,DEL_YN              	    	CHAR(1)     	    	DEFAULT 'N' CHECK(DEL_YN IN ('Y', 'N'))
     ,INSERT_DATE         	    	DATE          	 	    DEFAULT SYSDATE
     ,UPDATE_DATE      	         	DATE
-    ,LATITUDE			            VARCHAR2(10)
-    ,LONGITUDE     		            VARCHAR2(10)
+    ,LATITUDE			            VARCHAR2(10)		DEFAULT NULL
+    ,LONGITUDE     		            VARCHAR2(10)		DEFAULT NULL
     ,EMP_NO         	          	NUMBER
    ,ADMIN_NO			            NUMBER
 );

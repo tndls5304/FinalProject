@@ -161,61 +161,118 @@ function insertPartner(){
 
 //일정 등록하기 버튼을 눌렀을때 동작
 function insertSchedule(){
-    var title=document.getElementById("titleInsert").value;
-    var startDate=document.getElementById("startDate").value;
-    var endDate=document.getElementById("endDate").value;
-    var content=document.getElementById("content").value;
-    var placeName=document.getElementById("placeName").value;
-    var latitude=document.getElementById("latitude").value;
-    var longitude=document.getElementById("longitude").value;
-    var openRangeNo=document.getElementById("openRangeNo").value;
+        var title=document.getElementById("titleInsert").value;
+        var startDate=document.getElementById("startDate").value;
+        var endDate=document.getElementById("endDate").value;
+        var content=document.getElementById("content").value;
+        var placeName=document.getElementById("placeName").value;
+        var latitude=document.getElementById("latitude").value;
+        var longitude=document.getElementById("longitude").value;
+        var openRangeNo=document.getElementById("openRangeNo").value;
 
-    //배열로 만들어서 가져갈꼬!
-    var arr = [];
-    var empDivs=document.getElementById("partnerPlace").children;
-        for(let i=0; i<empDivs.length; i++){
-            var empDiv=empDivs[i];
-            var empNo= empDiv.children[0].innerText; //번호
+        //배열로 만들어서 가져갈꼬!
+        var arr = [];
+        var empDivs=document.getElementById("partnerPlace").children;
+            for(let i=0; i<empDivs.length; i++){
+                var empDiv=empDivs[i];
+                var empNo= empDiv.children[0].innerText; //번호
 
-            var partnerVo={empNo:empNo}
-                                  //객체 만들어서
-            arr.push(partnerVo);                        //배열에 넣어주기
-        }
+                var partnerVo={empNo:empNo}
+                                      //객체 만들어서
+                arr.push(partnerVo);                        //배열에 넣어주기
+            }
 
-        console.log("--------------서버로 보내질 데이터 확인작업");
-        console.log("title",title);
-        console.log("startDate",startDate);
-        console.log("endDate",endDate);
-        console.log("content",content);
-        console.log("placeName",placeName);
-        console.log("latitude",latitude);
-        console.log("longitude",longitude);
-        console.log("openRangeNo",openRangeNo);
-        console.log("참여자 배열은??");
-        console.log("arr",arr);
+            console.log("--------------서버로 보내질 데이터 확인작업");
+            console.log("title",title);
+            console.log("startDate",startDate);
+            console.log("endDate",endDate);
+            console.log("content",content);
+            console.log("placeName",placeName);
+            console.log("latitude",latitude);
+            console.log("longitude",longitude);
+            console.log("openRangeNo",openRangeNo);
+            console.log("참여자 배열은??");
+            console.log("arr",arr);
+
+
+          $.ajax({
+            url:'/admin/calendar',
+            method:'POST',
+            contentType : 'application/json',
+            data:JSON.stringify({                                  //js객체를 제이슨문자열로 바꾸기
+                                title:title,
+                                startDate:startDate,
+                                endDate:endDate,
+                                content:content,
+                                placeName:placeName,
+                                latitude:latitude,
+                                longitude:longitude,
+                                openRangeNo:openRangeNo,
+                                partnerList:arr                        //배열담기
+                                }),
+                success:function(result){
+                alert(result);
+                location.reload();  // 페이지 리로드
+                },
+                error:function(errorMsg){
+                alert(errorMsg.responseText);
+                }
+           })//ajax
+
+}//일정등록하기
+
+
+
+
+//-------------------일정 수정하기 버튼 클릭시 -------------------------
+function update(){
+      var no=document.getElementById("detailNo").innerText;
+      var title=document.getElementById("titleDetail").value;
+      var startDate=document.getElementById("startDetail").value;
+      var endDate=document.getElementById("endDetail").value;
+      var content=document.getElementById("contentDetail").value;
+      var placeName=document.getElementById("placeNameDetail").value;
+      var latitude=document.getElementById("latitudeDetail").value;
+      var longitude=document.getElementById("longitudeDetail").value;
+      var openRangeNo=document.getElementById("openRangeDetail").value;
+
+      //배열로 만들어서 가져갈꼬!
+      var arr = [];
+      var empDivs=document.getElementById("partnerDetail").children;
+           for(let i=0; i<empDivs.length; i++){
+                var empDiv=empDivs[i];
+                var empNo= empDiv.children[0].innerText; //번호
+
+                var partnerVo={empNo:empNo,
+                               calendarNo:no}
+                                          //객체 만들어서
+                    arr.push(partnerVo);                        //배열에 넣어주기
+            }
 
 
       $.ajax({
-        url:'/admin/calendar',
-        method:'POST',
-        contentType : 'application/json',
-        data:JSON.stringify({                                  //js객체를 제이슨문자열로 바꾸기
-                            title:title,
-                            startDate:startDate,
-                            endDate:endDate,
-                            content:content,
-                            placeName:placeName,
-                            latitude:latitude,
-                            longitude:longitude,
-                            openRangeNo:openRangeNo,
-                            partnerList:arr                        //배열담기
-                            }),
-            success:function(result){
-            alert(result);
-            location.reload();  // 페이지 리로드
-            },
-            error:function(errorMsg){
-            alert(errorMsg.responseText);
-            }
-       })
-}
+            url:'/admin/calendar/update',
+            method:'POST',
+            contentType : 'application/json',
+            data:JSON.stringify({                                  //js객체를 제이슨문자열로 바꾸기
+                                no:no,
+                                title:title,
+                                startDate:startDate,
+                                endDate:endDate,
+                                content:content,
+                                placeName:placeName,
+                                latitude:latitude,
+                                longitude:longitude,
+                                openRangeNo:openRangeNo,
+                                partnerList:arr                        //배열담기
+                                }),
+                success:function(result){
+                alert(result);
+                location.reload();  // 페이지 리로드
+                },
+                error:function(errorMsg){
+                alert(errorMsg.responseText);
+                }
+      })//ajax
+
+}//일정 수정하기 끝!
