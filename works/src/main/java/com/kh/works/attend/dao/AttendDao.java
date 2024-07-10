@@ -20,4 +20,8 @@ public class AttendDao {
     public List<AttendVo> searchByDate(String dateSearch) {
         return mapper.searchByDate(dateSearch);
     }
+
+    public List<AttendVo> showAllList() {
+        return mapper.showAllList();
+    }
 }

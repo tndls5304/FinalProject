@@ -71,7 +71,7 @@ public class BoardDao {
         return mapper.checkWishList(vo);
     }
 
-    public List<WishBoardVo> myWishList() {
-        return mapper.myWishList();
+    public List<WishBoardVo> myWishList(WishBoardVo vo) {
+        return mapper.myWishList(vo);
     }
 }

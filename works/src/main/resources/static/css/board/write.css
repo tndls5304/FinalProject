@@ -14,8 +14,41 @@ main{
     padding: 0;
 }
 
-#content{
+#main{
     width: 85%;
     height: auto;
 }
 
+#main form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#top{
+    width: 100%;
+    height: 10%;
+}
+
+#line{
+    width: 100%;
+    height: 2px;
+    background-color: black;
+}
+
+#titleTag{
+    width: 100%;
+    height: 10%;
+}
+
+#fileTag{
+    width: 100%;
+    height: 10%;
+}
+
+#contentTag{
+    width: 100%;
+    height: 50%;
+}

@@ -90,4 +90,6 @@ public interface AttendMapper {
             """)
     List<AttendVo> searchByDate(@Param("dateSearch") String dateSearch);
 
+
+    List<AttendVo> showAllList();
 }
