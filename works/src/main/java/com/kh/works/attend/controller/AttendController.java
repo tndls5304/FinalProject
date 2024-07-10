@@ -50,14 +50,18 @@ public class AttendController {
 
         EmployeeVo loginEmpvo = (EmployeeVo) session.getAttribute("loginEmpVo");
 
-        if(loginEmpvo != null && loginEmpvo.getDeptNo() == "1"){
-            List<AttendVo> attenList = service.showAllList();
-            model.addAttribute("attendList", attenList);
-            return "attend/allList";
+        if (loginEmpvo != null) {
+            //DEPT_NO가 1인 사원임을 확인하기 위한 구현
+            String deptNo = String.valueOf(loginEmpvo.getDeptNo());
+            System.out.println("Department No: " + deptNo);
+
+            if (deptNo.equals("1")) {
+                List<AttendVo> attenList = service.showAllList();
+                model.addAttribute("attendList", attenList);
+                return "attend/allList";
+            }
         }
-        else{
-            return "attend/invalidAccess";
-        }
+        return "attend/invalidAccess";
     }
 
 
