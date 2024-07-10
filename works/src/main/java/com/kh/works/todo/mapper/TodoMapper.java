@@ -1,5 +1,6 @@
 package com.kh.works.todo.mapper;
 
+import com.kh.works.alarm.vo.AlarmVo;
 import com.kh.works.employee.vo.EmployeeVo;
 //import com.kh.works.todo.vo.TodoManangerVo;
 import com.kh.works.todo.vo.TodoVo;
@@ -135,6 +136,19 @@ public interface TodoMapper {
             @Result(property = "deptNo", column = "deptNo")
     })
     List<EmployeeVo> getManagerList();
+
+    //받은 알람 리스트
+    @Select("SELECT ALARM_NO, EMP_NO, MESSAGE, IS_READ, CREATE_DATE FROM ALARM WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
+    List<AlarmVo> getTodoAlarm(@Param("empNo") String empNo);
+
+
+    //읽은 알람 처리
+    @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
+    int read(@Param("empNo") String empNo);
+
+    //알람 저장
+    @Insert("INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE) VALUES (SEQ_ALARM.NEXTVAL, #{empNo}, #{message})")
+    void saveAlarm(@Param("empNo") String empNo, @Param("message") String notificationMessage);
 }
 
 
