@@ -12,7 +12,15 @@ function listPar() {
       let str = "";
       for (let i = 0; i < listPar.length; i++) {
         str += "<tr>";
-        str += "<td>" + listPar[i].title + "</td>";
+        if (listPar[i].completedYn === "Y") {
+          str +=
+            "<td class='todo-title' style='text-decoration: line-through;'>" +
+            listPar[i].title +
+            "</td>";
+        } else {
+          str += "<td class='todo-title'>" + listPar[i].title + "</td>";
+        }
+        // str += "<td>" + listPar[i].title + "</td>";
         str += "<td class='hidden-column'>" + listPar[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
         str += "</tr>";
         str += "<tr>";

@@ -126,11 +126,6 @@ main {
   display: none; /* 투두 상세조회에서 번호 숨김 */
 }
 
-.completed {
-  text-decoration: line-through;
-  color: black;
-}
-
 .listEndDate {
   padding-left: 20px;
 }

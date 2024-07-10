@@ -141,4 +141,8 @@ public class TodoService {
     public int read(String todoManagerNo) {
         return todoDao.read(todoManagerNo);
     }
+
+    public EmployeeVo getEmpInfo(EmployeeVo empVo) {
+        return todoDao.getEmpInfo(empVo);
+    }
 }

@@ -13,7 +13,16 @@ function listAll() {
       let str = "";
       for (let i = 0; i < listAll.length; i++) {
         str += "<tr>";
-        str += "<td class='todo-title'>" + listAll[i].title + "</td>";
+        //completedYn이용하여 완료한 할일은 제목에 줄 그어주기...!
+        if (listAll[i].completedYn === "Y") {
+          str +=
+            "<td class='todo-title' style='text-decoration: line-through;'>" +
+            listAll[i].title +
+            "</td>";
+        } else {
+          str += "<td class='todo-title'>" + listAll[i].title + "</td>";
+        }
+        // str += "<td class='todo-title'>" + listAll[i].title + "</td>";
         str += "<td class='hidden-column' >" + listAll[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
         str += "</tr>";
         str += "<tr>";
