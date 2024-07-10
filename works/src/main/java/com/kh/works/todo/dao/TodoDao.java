@@ -82,4 +82,8 @@ public class TodoDao {
         mapper.saveAlarm(todoManagerNo, notificationMessage);
 
     }
+
+    public EmployeeVo getEmpInfo(EmployeeVo empVo) {
+        return mapper.getEmpInfo(empVo);
+    }
 }

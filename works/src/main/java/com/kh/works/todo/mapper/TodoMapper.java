@@ -72,13 +72,15 @@ public interface TodoMapper {
 
 
     //모든 할일 조회// 이름 가져올때 별칭을 정해줘야 한다.
-    @Select("SELECT DISTINCT T.TODO_NO, T.TITLE, TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE, E.NAME AS NAME\n" +
-            "FROM TODO T\n" +
-            "JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
-            "JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO\n" +
-            "WHERE (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{todoManagerNo})\n" +
-            "AND T.DEL_YN = 'N'\n" +
-            "AND M.DEL_YN = 'N'")
+    @Select("""
+            SELECT DISTINCT T.TODO_NO, T.TITLE, COMPLETED_YN, TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE, E.NAME AS NAME
+            FROM TODO T
+            JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN
+            JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO
+            WHERE (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{todoManagerNo})
+            AND T.DEL_YN = 'N'
+            AND M.DEL_YN = 'N'
+            """)
     @Results({
             @Result(property = "todoEmpName", column = "NAME")})
     //내가 만들어둔 vo변수명에 받아온 데이터 들어감
@@ -86,12 +88,13 @@ public interface TodoMapper {
 
 
     //참여자인 할일 조회
-    @Select("SELECT T.TODO_NO, T.TITLE, E.NAME AS NAME, TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE\n" +
-            "FROM TODO T\n" +
-            "LEFT JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN\n" +
-            "LEFT JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO\n" +
-            "WHERE M.TODO_MANAGER_NO = #{todoManagerNo} \n" +
-            "AND M.DEL_YN = 'N'")
+    @Select("""
+            SELECT T.TODO_NO, T.TITLE, COMPLETED_YN, E.NAME AS NAME, TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE
+            FROM TODO T
+            LEFT JOIN TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN
+            LEFT JOIN EMPLOYEE E ON T.TODO_EMP_NO = E.NO
+            WHERE M.TODO_MANAGER_NO = #{todoManagerNo} AND M.DEL_YN = 'N'
+            """)
     @Results({
             @Result(property = "todoEmpName", column = "NAME")})
     //내가 만들어둔 vo변수명에 받아온 데이터 들어감
@@ -149,6 +152,18 @@ public interface TodoMapper {
     //알람 저장
     @Insert("INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE) VALUES (SEQ_ALARM.NEXTVAL, #{empNo}, #{message})")
     void saveAlarm(@Param("empNo") String empNo, @Param("message") String notificationMessage);
+
+    //사원 상세 조회
+    @Select("""
+            SELECT NO,NAME,EMAIL,PWD,PROFILE,PHONE,HIRE_DATE,LOGIN_FAIL_NUM,LOCK_YN
+                FROM EMPLOYEE
+                WHERE NO=#{no} AND RETIRE_YN='N'
+            """)
+    @Results({
+            @Result(property = "todoEmpNo", column = "NO"),
+            @Result(property = "todoManagerNo", column = "NO")
+    })
+    EmployeeVo getEmpInfo(EmployeeVo empVo);
 }
 
 

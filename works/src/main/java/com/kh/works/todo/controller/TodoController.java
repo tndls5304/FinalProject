@@ -184,4 +184,12 @@ public class TodoController {
         return ResponseEntity.ok(unread);
     }
 
+
+    //사원 정보 조회
+    @GetMapping("empInfo")
+    @ResponseBody
+    public EmployeeVo getEmpInfo(EmployeeVo empVo){
+        EmployeeVo empInfo = service.getEmpInfo(empVo);
+        return empInfo;
+    }
 }
