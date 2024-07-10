@@ -13,7 +13,13 @@ const partnerModal = document.getElementById('partnerModal');
     closePartnerModal.addEventListener('click', function() {
         partnerModal.style.display = 'none';
     });
+//내가 쓴 일정 상세보기 모달창 닫기 버튼 클릭시 이벤트 핸들러
+const closeMyDetailModal = document.getElementById('closeMyDetailModal');
+const myDetailModal = document.getElementById('myDetailModal');
 
+    closeMyDetailModal.addEventListener('click', function() {
+        myDetailModal.style.display = 'none';
+    });
 
 //일정등록모달창에서 공개범위 선택 select 요소에 변경이벤트가 발생했을때 호출됨
 function changeOpenRange(value){
