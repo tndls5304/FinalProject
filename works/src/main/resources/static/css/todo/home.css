@@ -130,42 +130,121 @@ main {
   padding-left: 20px;
 }
 
+/* 모달 전체 DIV */
 .modal {
-  display: none; /* 기본적으로 숨김 처리 */
+  display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1; /* 맨앞에 표시되도록  */
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+  overflow: auto; /* 스크롤 */
   background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-  padding-top: 60px;
+  background-color: rgba(0, 0, 0, 0.4); /* 불투명도 조절 */
 }
 
+/* 모달 컨텐츠를  DIV */
 .modal-content {
-  background-color: rgb(200, 229, 240);
+  background-color: #fefefe;
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 35%;
-  height: 60%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation: animatetop 0.4s; /*모달 천천히 열림
 }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
+/* 모달 닫기 버튼 */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* 모달 열릴 때 애니메이션 */
+  @keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
+
+  /* 폼 스타일 */
+  .modal-content form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-content form label,
+  .modal-content form input,
+  .modal-content form textarea,
+  .modal-content form button {
+    margin-bottom: 15px;
+  }
+
+  .modal-content form label {
+    font-weight: bold;
+  }
+
+  .modal-content form input[type="text"],
+  .modal-content form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .modal-content form input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .modal-content form input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+  .modal-content form button[type="button"] {
+    background-color: #008cba;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .modal-content form button[type="button"]:hover {
+    background-color: #007b9a;
+  }
+
+  #managerList {
+    margin-bottom: 15px;
+  }
+
+  #managerList div {
+    margin-top: 10px;
+  }
+
+  #endDate {
+    display: inline-block;
+    margin-top: 10px;
+  }
 }

@@ -71,7 +71,7 @@ public class TodoController {
 //        return "todo/write";
 //    }
 
-    //모든 할일 목록조회(담당자 참여자 모두
+    //모든 할일 목록조회(요청자 담당자 모두
     //리스트로 반환받기
     @GetMapping("listAll")
     @ResponseBody
@@ -88,7 +88,7 @@ public class TodoController {
         return voList;
     }
 
-    //참여자 할일 목록조회(내가 참여자인것만
+    //담당자 할일 목록조회(내가 담당자인것만
     @GetMapping("listPar")
     @ResponseBody
     public List<TodoVo> getTodoListPar(TodoVo vo, HttpSession session){

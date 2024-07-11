@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <!DOCTYPE html>
@@ -30,12 +30,12 @@
 
 
           <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
-          <br><br>
+          <br><br> -->
 
-          <!-- 수정된 부분: 체크박스를 사용하여 여러 명의 담당자를 선택 -->
-          <!-- 이버튼의 타입을 button으로 바꿔줘야 함
+<!-- 수정된 부분: 체크박스를 사용하여 여러 명의 담당자를 선택 -->
+<!-- 이버튼의 타입을 button으로 바꿔줘야 함
             그냥 버튼으로하면 제출이 된다. -->
-          <button type="button" onclick="clickBtn()">담당자 추가</button>
+<!-- <button type="button" onclick="clickBtn()">담당자 추가</button>
           <div id="managerList" style="display: none;">
             <div id="todoManager">
               <c:forEach var="emp" items="${empList}">
@@ -55,17 +55,17 @@
           <br><br>
 
           <input type="submit" value="작성">
-        </form>
+        </form> -->
 
 
 
 
 
-      </main>
+</main>
 
-    </body>
+</body>
 
-    </html>
+</html>
 
-    <script src=" /js/todo/write.js">
-    </script>
+<script src=" /js/todo/write.js">
+</script>
