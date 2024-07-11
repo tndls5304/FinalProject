@@ -25,8 +25,9 @@ public class AttendDao {
         return mapper.showAllList();
     }
 
-    public List<AttendVo> searchByNameAndDepartment(String nameSearch, String deptSearch) {
-        return mapper.searchByNameAndDepartment(nameSearch, deptSearch);
+    //검색하는 기능 - 인사부에서 보는 전체 사원 근태기록 목록에서 검색하기
+    public List<AttendVo> searchByNameAndDept(String nameSearch, String deptSearch) {
+        return mapper.searchByNameAndDept(nameSearch, deptSearch);
     }
 
     public List<AttendVo> searchByName(String nameSearch) {
@@ -35,5 +36,10 @@ public class AttendDao {
 
     public List<AttendVo> searchByDepartment(String deptSearch) {
         return mapper.searchByDepartment(deptSearch);
+    }
+
+    //jsp에서 value가 5일 때, 전체 사원이 조회되도록 설정하는 메서드
+    public List<AttendVo> searchAllDept() {
+        return mapper.searchAllDept();
     }
 }

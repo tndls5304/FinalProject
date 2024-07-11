@@ -69,7 +69,7 @@ public class AttendController {
         return "attend/invalidAccess";
     }
 
-    //전체 근태 리스트에서 부서명, 이름으로 검색하기 -> 인사부에서만 확인 가능.
+    //검색하기 기능. 전체 근태 리스트에서 부서명, 이름으로 검색하기 -> 인사부에서만 확인 가능. (부서명 || 이름 || 부서명 && 이름)
     @GetMapping("searchFromAll")
     public String search(@RequestParam("deptSearch") String deptSearch, @RequestParam("nameSearch") String nameSearch, Model model){
 

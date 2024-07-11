@@ -99,12 +99,18 @@ public interface AttendMapper {
     })
     List<AttendVo> showAllList();
 
-    @Select("SELECT E.NAME AS empName, D.NAME AS deptName, P.NAME AS positionName, A.START_TIME AS startTime, A.END_TIME AS endTime FROM EMPLOYEE E JOIN ( SELECT EMP_NO, MAX(START_TIME) AS START_TIME FROM ATTEND GROUP BY EMP_NO ) LATEST ON E.NO = LATEST.EMP_NO JOIN ATTEND A ON LATEST.EMP_NO = A.EMP_NO AND LATEST.START_TIME = A.START_TIME JOIN DEPARTMENT D ON E.DEPT_NO = D.NO JOIN POSITION P ON E.POSITION_NO = P.NO WHERE E.NAME LIKE '%' || #{nameSearch} || '%' AND E.DEPT_NO = #{deptSearch}")
-    List<AttendVo> searchByNameAndDepartment(@Param("nameSearch") String nameSearch, @Param("deptSearch") String deptSearch);
+    //JSP에서 EL로 사용하기 위해 별칭을 붙여야 한다.
+    @Select("SELECT E.NAME AS empName , D.NAME AS deptName , P.NAME AS positionName , A.START_TIME AS startTime , A.END_TIME AS endTime FROM EMPLOYEE E JOIN ( SELECT EMP_NO , MAX(START_TIME) AS START_TIME FROM ATTEND GROUP BY EMP_NO ) LATEST ON E.NO = LATEST.EMP_NO JOIN ATTEND A ON LATEST.EMP_NO = A.EMP_NO AND LATEST.START_TIME = A.START_TIME JOIN DEPARTMENT D ON E.DEPT_NO = D.NO JOIN POSITION P ON E.POSITION_NO = P.NO WHERE E.NAME LIKE '%' || #{nameSearch} || '%' AND E.DEPT_NO = #{deptSearch}")
+    List<AttendVo> searchByNameAndDept(@Param("nameSearch") String nameSearch, @Param("deptSearch") String deptSearch);
 
     @Select("SELECT E.NAME AS empName, D.NAME AS deptName, P.NAME AS positionName, A.START_TIME AS startTime, A.END_TIME AS endTime FROM EMPLOYEE E JOIN ( SELECT EMP_NO, MAX(START_TIME) AS START_TIME FROM ATTEND GROUP BY EMP_NO ) LATEST ON E.NO = LATEST.EMP_NO JOIN ATTEND A ON LATEST.EMP_NO = A.EMP_NO AND LATEST.START_TIME = A.START_TIME JOIN DEPARTMENT D ON E.DEPT_NO = D.NO JOIN POSITION P ON E.POSITION_NO = P.NO WHERE E.NAME LIKE '%' || #{nameSearch} || '%'")
     List<AttendVo> searchByName(@Param("nameSearch") String nameSearch);
 
     @Select("SELECT E.NAME AS empName, D.NAME AS deptName, P.NAME AS positionName, A.START_TIME AS startTime, A.END_TIME AS endTime FROM EMPLOYEE E JOIN ( SELECT EMP_NO, MAX(START_TIME) AS START_TIME FROM ATTEND GROUP BY EMP_NO ) LATEST ON E.NO = LATEST.EMP_NO JOIN ATTEND A ON LATEST.EMP_NO = A.EMP_NO AND LATEST.START_TIME = A.START_TIME JOIN DEPARTMENT D ON E.DEPT_NO = D.NO JOIN POSITION P ON E.POSITION_NO = P.NO WHERE E.DEPT_NO = #{deptSearch}")
     List<AttendVo> searchByDepartment(@Param("deptSearch") String deptSearch);
+
+    //jsp에서 value가 5일 때, 전체 사원이 조회되도록 설정하는 메서드 - 부서로 검색하는 쿼리문에서 WHERE문(deptSearch를 가지고 오는)만 제거하면 된다.
+    //전체 사원 검색이므로 매개변수로 아무것도 가지고 오지 않아도 된다.
+    @Select("SELECT E.NAME AS empName , D.NAME AS deptName , P.NAME AS positionName , A.START_TIME AS startTime , A.END_TIME AS endTime FROM EMPLOYEE E JOIN ( SELECT EMP_NO , MAX(START_TIME) AS START_TIME FROM ATTEND GROUP BY EMP_NO ) LATEST ON E.NO = LATEST.EMP_NO JOIN ATTEND A ON LATEST.EMP_NO = A.EMP_NO AND LATEST.START_TIME = A.START_TIME JOIN DEPARTMENT D ON E.DEPT_NO = D.NO JOIN POSITION P ON E.POSITION_NO = P.NO")
+    List<AttendVo> searchAllDept();
 }
