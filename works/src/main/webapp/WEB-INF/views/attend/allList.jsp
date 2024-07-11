@@ -14,7 +14,7 @@
 
         <nav>
            <div id="right-sidebar">
-             <div><button><img src="../resources/img/free-icon-menu-2791777.png" alt=""></button></div>
+             <div><a href="http://127.0.0.1:8080/home"><button><img src="/img/icon/board.png" alt=""></button></a></div>
              <div><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></div>
              <div id="title">게시판</div>
            </div>
@@ -39,11 +39,14 @@
                   <div id="name-search">
                       <div>
                           <select id="department-select" name="deptSearch">
+                            <!-- 여기에서 value는 DB에 있는 DEPARTMENT 테이블에서 NO의 값이다. -->
+                            <!-- 그렇기 때문에 value를 5로 하면 값이 나오지 않음.  -->
                               <option value="">부서 선택</option>
                               <option value="1">인사부</option>
                               <option value="2">총무부</option>
                               <option value="3">개발부</option>
                               <option value="4">영업부</option>
+                              <option value="5">전체</option>
                           </select>
                       </div>
                       <div>
