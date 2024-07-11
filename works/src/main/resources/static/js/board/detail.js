@@ -83,20 +83,25 @@ function deletePage(evt) {
 
 function comment() {
     
-    const comment = document.querySelector("#comment");
+    const comment = document.querySelector("#comment").value;
+
+    console.log(comment);
 
     $.ajax({
         url:"/board/comment"
         ,method:"post"
         ,data:{
-
+            boardNo : boardNo
+            ,boardComment : comment
         }
         ,success:()=>{
             location.reload();
-            const commtnt = document.querySelector("#commentContent");
-            $.ajax({
-
-            })
+            alert("댓글 작성 완료");
+        }
+        ,error:()=>{
+            alert("댓글 작성 실패하였습니다"
+                + "개발팀부서로 연락주시길 바랍니다"
+            +"개발팀 박근아 [010-5738-2844]")
         }
     })
     
@@ -148,3 +153,7 @@ like.addEventListener("click", () => {
         })
     }
 });
+
+
+
+

@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class WishBoardVo {
+
     private Integer boardWishNo;
     private Integer noticeWishNo;
     private Integer empNo;
@@ -17,4 +18,6 @@ public class WishBoardVo {
     private String delYn;
     private String fileName;
     private String img;
+
+
 }

@@ -2,6 +2,7 @@ package com.kh.works.board.dao;
 
 import com.kh.works.board.mapper.BoardMapper;
 import com.kh.works.board.vo.BoardVo;
+import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -73,5 +74,9 @@ public class BoardDao {
 
     public List<WishBoardVo> myWishList(WishBoardVo vo) {
         return mapper.myWishList(vo);
+    }
+
+    public int commentWrite(CommentVo vo, String boardNo) {
+        return mapper.commentWrite(vo, boardNo);
     }
 }

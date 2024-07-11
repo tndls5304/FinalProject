@@ -2,6 +2,7 @@ package com.kh.works.board.service;
 
 import com.kh.works.board.dao.BoardDao;
 import com.kh.works.board.vo.BoardVo;
+import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -87,5 +88,9 @@ public class BoardService {
 
     public List<WishBoardVo> myWishList(WishBoardVo vo) {
         return dao.myWishList(vo);
+    }
+
+    public int commentWrite(CommentVo vo, String boardNo) {
+        return  dao.commentWrite(vo, boardNo);
     }
 }

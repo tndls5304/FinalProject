@@ -4,18 +4,16 @@ package com.kh.works.board.controller;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.kh.works.board.service.BoardService;
 import com.kh.works.board.vo.BoardVo;
+import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
 import com.kh.works.employee.vo.EmployeeVo;
-import com.kh.works.rent.vo.CarVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -218,6 +216,21 @@ public class BoardController {
     @GetMapping("wishList/mylist")
     public String myWishListView(){
         return "board/wishList";
+    }
+
+    @PostMapping("comment")
+    @ResponseBody
+    public int commentWrite(CommentVo vo , HttpSession session , @RequestParam("boardNo") String boardNo){
+        System.out.println("테스트");
+        EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
+        String loginNo = loginEmpVo.getNo();
+        vo.setEmpNo(loginNo);
+        System.out.println("vo~~~~~~~~~~~~~~~~~~~~~~~~~~:" + vo);
+        System.out.println("vo~~~~~~~~~~~~~~~~~~~~~~~~~~:" + boardNo);
+        System.out.println("vo~~~~~~~~~~~~~~~~~~~~~~~~~~:" + loginNo);
+         int result = service.commentWrite(vo , boardNo);
+        System.out.println("return~~~~~~~~~~~~~~~~~~~~~~~~~~:" + vo);
+         return result;
     }
     
 }
