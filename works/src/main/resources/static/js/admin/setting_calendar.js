@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-              var calendarEl = document.getElementById('calendar');
-              var calendar = new FullCalendar.Calendar(calendarEl, {
+              const calendarEl = document.getElementById('calendar');
+              const calendar = new FullCalendar.Calendar(calendarEl, {
                         locale : 'ko',                                                               //한국어 설정
                         initialView: 'dayGridMonth',
                         selectable: true,                                                          //달력 일자 드래그 설정가능
@@ -15,45 +15,47 @@ document.addEventListener('DOMContentLoaded', function() {
                               },
 
                         eventClick:  function(info) {
-
+                                           //일단 모달창안에 참여자들 비워주기
+                                           const test=document.querySelector('#partnerDetail').innerHTML="";
+                                           console.log(test);
                                          //일단 전체 캘린더 목록을 쫙 뿌려줬기 때문에
                                          //상세정보는 따로 서버에 요청할 필요 없음 api에서 제공하는걸로 사용하면 됨
-                                         var titleBox=document.querySelector('#titleDetail');
+                                         const titleBox=document.querySelector('#titleDetail');
                                          titleBox.value=info.event.title;
 
-                                         var contentBox=document.querySelector('#contentDetail');
+                                         const contentBox=document.querySelector('#contentDetail');
                                          contentBox.value=info.event.extendedProps.content;
 
-                                         var placeNameBox=document.querySelector('#placeNameDetail');
+                                         const placeNameBox=document.querySelector('#placeNameDetail');
                                          placeNameBox.value=info.event.extendedProps.placeName;
 
-                                         var latitudeBox=document.querySelector('#latitudeDetail');
+                                         const latitudeBox=document.querySelector('#latitudeDetail');
                                          latitudeBox.value=info.event.extendedProps.latitude;
 
-                                         var longitudeBox=document.querySelector('#longitudeDetail');
+                                         const longitudeBox=document.querySelector('#longitudeDetail');
                                          longitudeBox.value=info.event.extendedProps.longitude;
 
 
                                          //파트너가져와야됨
-                                         var insertDateBox=document.querySelector('#insertDate');
+                                         const insertDateBox=document.querySelector('#insertDate');
                                          insertDateBox.innerText=info.event.extendedProps.insertDate;
 
-                                         var updateDateBox=document.querySelector('#updateDate');
+                                         const updateDateBox=document.querySelector('#updateDate');
                                          updateDateBox.innerText=info.event.extendedProps.updateDate;
 
                                          // 시작날짜 종료날짜는 서버에서 2024-07-10 20:39:26 이런식으로 보내주니까 날짜만 뽑아내는 작업하기
-                                         var startBox = document.querySelector('#startDetail');
+                                         const startBox = document.querySelector('#startDetail');
                                          startBox.value = info.event.start.toISOString().slice(0, 10); // yyyy-mm-dd 형식으로 변환
 
-                                         var endBox = document.querySelector('#endDetail');
+                                         const endBox = document.querySelector('#endDetail');
                                          endBox.value = info.event.end.toISOString().slice(0, 10);      // yyyy-mm-dd 형식으로 변환
 
-                                         var calendarNoBox = document.querySelector('#detailNo');
+                                         const calendarNoBox = document.querySelector('#detailNo');
                                           calendarNoBox.innerText=info.event.extendedProps.no;
 
                                          //클릭해서 상세정보 나오기전에 공개여부가 참여자가 있으면 사람들 목록을 ajax로 가져와야함
-                                        var openRangeNo=info.event.extendedProps.openRangeNo;
-                                        var calendarNo=info.event.extendedProps.no;
+                                        const openRangeNo=info.event.extendedProps.openRangeNo;
+                                        const calendarNo=info.event.extendedProps.no;
 
                                         //공개범위가 2라면(참여자 누구인지 디비에 조회해와야함 )
                                         if(openRangeNo==="2"){
@@ -63,18 +65,18 @@ document.addEventListener('DOMContentLoaded', function() {
                                                         data:{no:calendarNo},
                                                             success:function(partnerList){
                                                             for(let i=0;i<partnerList.length; i++){
-                                                                             var partner=partnerList[i];
+                                                                             const partner=partnerList[i];
                                                                   //참여자들을 담을 새로운 디브 생성
-                                                                            var empDiv=document.createElement('div');
+                                                                            const empDiv=document.createElement('div');
                                                                             empDiv.setAttribute('class','empDiv');
                                                                             //사원번호가 담기는 span태그 생성
-                                                                            var span1=document.createElement('span');
+                                                                            const span1=document.createElement('span');
                                                                             span1.innerText=partner.empNo;
                                                             		        //사원 이름 담아주고
-                                                                            var span2=document.createElement('span');
+                                                                            const span2=document.createElement('span');
                                                                             span2.innerText=partner.empName;
                                                             		        //닫기 버튼도 넣어주기
-                                                                            var span3=document.createElement('span');
+                                                                            const span3=document.createElement('span');
                                                                             span3.innerText='x';
                                                                             span3.setAttribute('class','removeEmp');
                                                                             span3.setAttribute('onclick','removeEmp(this)');
@@ -91,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                                       })//ajax
                                         }
 
-                                        var openRangeBox=document.querySelector('#openRangeDetail');
+                                        const openRangeBox=document.querySelector('#openRangeDetail');
                                         openRangeBox.value=openRangeNo;
 
-                                         var myDetailModal=document.getElementById("myDetailModal");
+                                         const myDetailModal=document.getElementById("myDetailModal");
                                          myDetailModal.style.display="block";
 
                        },   //이벤트클릭에 동작하는거 끝!
@@ -130,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       url:"/admin/calendar/all",
                        success:function(list){
                             for(let i = 0; i < list.length;i++){
-                                 var calendarVo=list[i];
+                                 const calendarVo=list[i];
                                  calendar.addEvent({
                                     title:calendarVo.title,
                                     start:calendarVo.startDate,
@@ -151,7 +153,5 @@ document.addEventListener('DOMContentLoaded', function() {
                          }//ajax성공했을때
              })//ajax
 
-
-
-
 })//DOMContentLoaded
+
