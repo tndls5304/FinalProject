@@ -19,9 +19,9 @@
         <!-- 쪽지 -->
         <div><a href="http://127.0.0.1:8080/messenger/all"><img src="/img/icon/paper.png" alt=""></a></div>
         <div><a href=""><img src="/img/icon/reserved.png" alt=""></a></div>
-        <div><a href=""><img src="/img/icon/board.png" alt=""></a></div>
+        <div><a href="http://127.0.0.1:8080/board/list"><img src="/img/icon/board.png" alt=""></a></div>
         <div><a href=""><img src="/img/icon/calendar.png" alt=""></a></div>
-        <div><a href=""><img src="/img/icon/todo.png" alt=""></a></div>
+        <div><a href="http://127.0.0.1:8080/todo/home"><img src="/img/icon/todo.png" alt=""></a></div>
         <div><button><img src="/img/icon/user.png" alt=""></button></div>
     </div>
 </nav>

@@ -99,12 +99,17 @@ public class MessengerDao {
         return mapper.getAlarmInfor(receiverEmpNo);
     }
 
-    public void readAlarm(String receiverEmpNo) {
-        mapper.readAlarm(receiverEmpNo);
-    }
+//    public void readAlarm(String receiverEmpNo) {
+//        mapper.readAlarm(receiverEmpNo);
+//    }
 
     public void saveAlarm(String receiverEmpNo, String notificationMessage) {
         mapper.saveAlarm(receiverEmpNo, notificationMessage);
+    }
+
+
+    public int readAlarm(int alarmNo) {
+        return mapper.readAlarm(alarmNo);
     }
 }
 

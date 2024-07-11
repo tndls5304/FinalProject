@@ -9,6 +9,10 @@
 
       <!-- <script defer src="/js/home/emp_info.js"></script> -->
 
+      <!-- jquery 넣기 -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
       <script src="/js/home/home.js"></script>
       <link rel="stylesheet" href="/css/home/home.css">
       <!-- fontAwesome을 사용하기 위한 코드이다. -->
@@ -98,129 +102,137 @@
 
     </html>
 
-
-    <!-- jquery 넣기 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
     <script>
-      $(document).ready(function () {
-        // --------------------알림 정보를 가져오는 AJAX 요청
-        $.ajax({
-          url: "/messenger/alarmInfor",
-          method: "post",
-          success: function (data) {
+    $(document).ready(function () {
 
-            //전체적으로, html에 형식을 미리 만드는 것이 아닌, js를 통해서 요소를 설정해주고 생성해준다는 것만 기억하면 된다.
+      // --------------------알림 정보를 가져오는 AJAX 요청
 
-            //HTML에서 id가 notify인 요소를 가지고 와, 설정해준다.
-            let notificationDiv = document.getElementById("notify");
+      $.ajax({
+        url: "/messenger/alarmInfor",
+        method: "post",
+        success: function (data) {
 
-            //notification, newNotification임의로 지어준 변수명이다.
-            data.forEach(function (notification) {
-              //p 태그를 만들어, 그곳에 알림을 띄운다는 설정이다.
-              let newNotification = document.createElement("p");
-              //message는 NotificationHandler에서 매개변수로 받아오는 친구다.
-              newNotification.innerText = notification.message;
+          //전체적으로, html에 형식을 미리 만드는 것이 아닌, js를 통해서 요소를 설정해주고 생성해준다는 것만 기억하면 된다.
 
-              //"notification-message"라는 class를 생성해준 것이다.
-              //css에서 스타일 적용을 위해 작성한 코드이다.
-              //css -> .notification-messag{} 작성해주면 된다.
-              newNotification.classList.add("notification-message");
-
-              //messenNo 데이터를 설정한다.
-              newNotification.dataset.messenNo = notification.messenNo;
-
-              //띄운 알림을 클릭했을 때, 이동하는 경로를 작성해준다.
-              newNotification.onclick = function () {
-                window.location.href = "http://127.0.0.1:8080/messenger/all";
-
-                //해당 알림을 읽음처리한다.
-                //여기에서 markNotificationAsRead는 아래에서 설명할 ajax 함수이름이다.
-                markNotificationAsRead(notification.messenNo);
-              };
-
-              //위의 모든 요소들을 최종적으로 HTML 알림창에 띄우기 위해 넣어주는 작업이다.
-              notificationDiv.appendChild(newNotification);
-            });
-          },
-          error: function (xhr, status, error) {
-            console.log("알림 띄우기 실패: ", error);
-          }
-        });
-
-        // --------------------WebSocket 설정(일부분만 바꿔주면 된다.
-        // 본인이 Ajax로 쓴 값을 넘어주면 된다. 주석으로 해놓은 부분만 바꿔주면 된다.)
-        let socket = new WebSocket("ws://localhost:8080/notifications");
-
-        socket.onopen = function (event) {
-          console.log("WebSocket is open now.");
-        };
-
-        socket.onmessage = function (event) {
-          console.log("WebSocket message received:", event.data);
-
-          //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
-          //추가
-          let data = JSON.parse(event.data);
-
+          //HTML에서 id가 notify인 요소를 가지고 와, 설정해준다.
           let notificationDiv = document.getElementById("notify");
-          let newNotification = document.createElement("p");
 
-          //수정
-          //newNotification.innerText = event.data;
-          newNotification.innerText = data.message;
 
-          //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
-          newNotification.classList.add("notification-message");
+          //기존 알림 지우고 추가
+          notificationDiv.innerHTML = "";
 
-          //추가
-          newNotification.dataset.messenNo = data.messenNo;
 
-          //본인이 Ajax에 이미 넣은 값과 링크로 값을 바꿔줘야 한다.
-          newNotification.onclick = function () {
-            //window.location.href = "http://127.0.0.1:8080/messenger/all";
-            //추가
-            markNotificationAsRead(data.messenNo);
-            window.location.href = data.link;
-          };
-          notificationDiv.appendChild(newNotification);
+          //notification, newNotification임의로 지어준 변수명이다.
+          data.forEach(function (notification) {
+            //p 태그를 만들어, 그곳에 알림을 띄운다는 설정이다.
+            let newNotification = document.createElement("p");
+            //message는 NotificationHandler에서 매개변수로 받아오는 친구다.
+            newNotification.innerText = notification.message;
 
-          //실시간으로 알림을 띄운다. (수정X)
-          //수정
-          //alert(event.data);
-          alert(data.message);
-        };
+            //"notification-message"라는 class를 생성해준 것이다.
+            //css에서 스타일 적용을 위해 작성한 코드이다.
+            //css -> .notification-messag{} 작성해주면 된다.
+            newNotification.classList.add("notification-message");
 
-        socket.onclose = function (event) {
-          if (event.wasClean) {
-            console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-          } else {
-            console.log('Connection died');
-          }
-        };
+            //alarmNo 데이터를 설정한다.
+            newNotification.dataset.alarmNo = notification.alarmNo;
 
-        socket.onerror = function (error) {
-          console.log(`[error] ${error.message}`);
-        };
+            //띄운 알림을 클릭했을 때, 이동하는 경로를 작성해준다.
+            newNotification.onclick = function () {
+              window.location.href = "http://127.0.0.1:8080/messenger/all";
+
+              //해당 알림을 읽음처리한다.
+              //여기에서 markNotificationAsRead는 아래에서 설명할 ajax 함수이름이다.
+              markNotificationAsRead(notification.alarmNo);
+            };
+
+            //위의 모든 요소들을 최종적으로 HTML 알림창에 띄우기 위해 넣어주는 작업이다.
+            notificationDiv.appendChild(newNotification);
+          });
+        },
+        error: function (xhr, status, error) {
+          console.log("알림 띄우기 실패: ", error);
+        }
       });
 
-      // --------------------알림을 읽었는지 확인하는 AJAX 요청
-      function markNotificationAsRead(messenNo) {
-        $.ajax({
-          url: "/messenger/readAlarm",
-          method: "post",
-          data: { messenNo: messenNo },
-          success: function () {
-            console.log("알림 읽었는지 확인 성공");
-          },
-          error: function (xhr, status, error) {
-            console.log("알림 읽었는지 확인 실패: ", error);
-          }
-        });
+    // --------------------WebSocket 설정(일부분만 바꿔주면 된다.
+    // 본인이 Ajax로 쓴 값을 넘어주면 된다. 주석으로 해놓은 부분만 바꿔주면 된다.)
+    let socket = new WebSocket("ws://localhost:8080/notifications");
+
+    socket.onopen = function (event) {
+      console.log("WebSocket is open now.");
+    };
+
+    socket.onmessage = function (event) {
+      console.log("WebSocket message received:", event.data);
+
+      //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
+      //추가
+      let data = JSON.parse(event.data);
+
+      let notificationDiv = document.getElementById("notify");
+      let newNotification = document.createElement("p");
+
+      //수정
+      //newNotification.innerText = event.data;
+      newNotification.innerText = data.message;
+
+      //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
+      newNotification.classList.add("notification-message");
+
+      //추가
+      newNotification.dataset.todoNo = data.todoNo;
+
+      //본인이 Ajax에 이미 넣은 값과 링크로 값을 바꿔줘야 한다.
+      newNotification.onclick = function () {
+        //window.location.href = "http://127.0.0.1:8080/messenger/all";
+        //추가
+        markNotificationAsRead(data.todoNo);
+        window.location.href = data.link;
+      };
+      notificationDiv.appendChild(newNotification);
+
+      //실시간으로 알림을 띄운다. (수정X)
+      //수정
+      //alert(event.data);
+      alert(data.message);
+    };
+
+    socket.onclose = function (event) {
+      if (event.wasClean) {
+        console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+      } else {
+        console.log('Connection died');
       }
+    };
+
+    socket.onerror = function (error) {
+      console.log(`[error] ${error.message}`);
+    };
+  });
 
 
-      // ----------------------------------------------------------------------------------------------------------
+    // --------------------알림을 읽었는지 확인하는 AJAX 요청
+    function markNotificationAsRead(alarmNo) {
+        console.log("markNotificationAsRead 호출됨: " + alarmNo); // 호출 로그
+        $.ajax({
+            url: "/messenger/readAlarm",
+            method: "post",
+            data: { alarmNo: alarmNo },
+            success: function (result) {
+                console.log("알림 읽음 처리 성공: " + result); // 성공 메시지 출력
+            },
+            error: function (xhr, status, error) {
+                console.log("알림 읽음 처리 실패: ", error);
+                console.log("상태: ", status);
+                console.log("응답 텍스트: ", xhr.responseText);
+            }
+        });
+    }
+
+
+
+    // 지수 근태관리----------------------------------------------------------------------------------------------------------
 
       //출근 처리 Ajax
       document.querySelectorAll('#start-button').forEach(item => {
@@ -280,7 +292,7 @@
       }
     </script>
 
-
+<!-- ---------------------------------------------------------- -->
 
 
     <!-- 예린 투두 알림~~~ -->
@@ -303,20 +315,20 @@
             //notification, newNotification임의로 지어준 변수명이다.
             data.forEach(function (notification) {
               //p 태그를 만들어, 그곳에 알림을 띄운다는 설정이다.
-              let newNotification = document.createElement("p");
+              let newNotificationToDo = document.createElement("p");
               //message는 NotificationHandler에서 매개변수로 받아오는 친구다.
-              newNotification.innerText = notification.message;
+              newNotificationToDo.innerText = notification.message;
 
               //"notification-message"라는 class를 생성해준 것이다.
               //css에서 스타일 적용을 위해 작성한 코드이다.
               //css -> .notification-messag{} 작성해주면 된다.
-              newNotification.classList.add("notification-message");
+              newNotificationToDo.classList.add("notification-message");
 
               //messenNo 데이터를 설정한다.
-              newNotification.dataset.todoNo = notification.todoNo;
+              newNotificationToDo.dataset.todoNo = notification.todoNo;
 
               //띄운 알림을 클릭했을 때, 이동하는 경로를 작성해준다.
-              newNotification.onclick = function () {
+              newNotificationToDo.onclick = function () {
                 window.location.href = "http://127.0.0.1:8080/todo/home";
 
                 //해당 알림을 읽음처리한다.
@@ -325,7 +337,7 @@
               };
 
               //위의 모든 요소들을 최종적으로 HTML 알림창에 띄우기 위해 넣어주는 작업이다.
-              notificationDiv.appendChild(newNotification);
+              notificationDiv.appendChild(newNotificationToDo);
 
 
 
@@ -352,26 +364,26 @@
           let data = JSON.parse(event.data);
 
           let notificationDiv = document.getElementById("notify");
-          let newNotification = document.createElement("p");
+          let newNotificationToDo = document.createElement("p");
 
           //수정
           //newNotification.innerText = event.data;
-          newNotification.innerText = data.message;
+          newNotificationToDo.innerText = data.message;
 
           //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
-          newNotification.classList.add("notification-message");
+          newNotificationToDo.classList.add("notification-message");
 
           //추가
-          newNotification.dataset.todoNo = data.todoNo;
+          newNotificationToDo.dataset.todoNo = data.todoNo;
 
           //본인이 Ajax에 이미 넣은 값과 링크로 값을 바꿔줘야 한다.
-          newNotification.onclick = function () {
+          newNotificationToDo.onclick = function () {
             //window.location.href = "http://127.0.0.1:8080/messenger/all";
             //추가
             markNotificationAsRead(data.todoNo);
             window.location.href = data.link;
           };
-          notificationDiv.appendChild(newNotification);
+          notificationDiv.appendChild(newNotificationToDo);
 
           //실시간으로 알림을 띄운다. (수정X)
           //수정

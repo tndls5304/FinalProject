@@ -11,6 +11,8 @@ import com.kh.works.messenger.vo.MessengerVo;
 import com.oracle.wls.shaded.org.apache.xpath.operations.Mod;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("messenger")
@@ -285,9 +288,21 @@ public class MessengerController {
         String receiverEmpNo = loginEmpVo.getNo();
 
         List<AlarmVo> unreadAlarm = service.getAlarmInfor(receiverEmpNo);
-        service.readAlarm(receiverEmpNo);
 
         return ResponseEntity.ok(unreadAlarm);
+    }
+    @PostMapping("readAlarm")
+    @ResponseBody
+    public ResponseEntity<String> readAlarm(@RequestParam("alarmNo") int alarmNo) {
+        System.out.println("readAlarm 호출: alarmNo = " + alarmNo);
+
+        int result = service.readAlarm(alarmNo);
+
+        if (result > 0) {
+            return ResponseEntity.ok("알림 읽음 처리 성공");
+        } else {
+            return ResponseEntity.status(500).body("알림 읽음 처리 실패");
+        }
     }
 
 
