@@ -1,6 +1,7 @@
 package com.kh.works.board.mapper;
 
 import com.kh.works.board.vo.BoardVo;
+import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
 import org.apache.ibatis.annotations.*;
 
@@ -176,5 +177,22 @@ public interface BoardMapper {
                        AND BOARD_WISH_NO = W.BOARD_WISH_NO) > 0
             """)
     List<WishBoardVo> myWishList(WishBoardVo vo);
+
+    @Insert("""
+            INSERT INTO BOARD_COMMENT
+            (COMT_NO
+            ,BOARD_NO
+            ,EMP_NO
+            ,BOARD_COMMENT
+            ,COMT_DATE
+            )
+            VALUES
+            (SEQ_BOARD_COMMENT.NEXTVAL
+            ,#{boardNo}
+            ,#{vo.empNo}
+            ,#{vo.boardComment}
+            ,TO_CHAR(SYSTIMESTAMP, 'YYYY-MM-DD HH24:MI'))
+            """)
+    int commentWrite(@Param("vo") CommentVo vo, @Param("boardNo") String boardNo);
 
 }

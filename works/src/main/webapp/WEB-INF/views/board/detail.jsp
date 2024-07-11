@@ -29,8 +29,10 @@
             <br>
             <div>댓글</div>
             <input type="text" id="comment" placeholder="댓글을 작성해주세요">
-            <button onclick="comment();">작성하기</button>
-            <div id="commentContent"></div>
+            <button onclick="comment();" type="button">작성하기</button>
+            <div id="commentContent">
+
+            </div>
         </div>
     </main>
 
