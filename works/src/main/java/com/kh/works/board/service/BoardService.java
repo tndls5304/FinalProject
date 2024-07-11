@@ -1,6 +1,7 @@
 package com.kh.works.board.service;
 
 import com.kh.works.board.dao.BoardDao;
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -19,8 +20,8 @@ public class BoardService {
 
     //작성 화면 보여주기
     public int write(BoardVo vo) {
-        int result = dao.write(vo);
-        return result;
+        return  dao.write(vo);
+
     }
 
 
@@ -92,5 +93,22 @@ public class BoardService {
 
     public int commentWrite(CommentVo vo, String boardNo) {
         return  dao.commentWrite(vo, boardNo);
+    }
+
+    public List<CommentVo> commentApi(String boardNo) {
+        return dao.commentApi(boardNo);
+    }
+
+    public int commentDel(String comtNo) {
+        return dao.commentDel(comtNo);
+    }
+
+    public int writeImg(BoardImgVo imgVo) {
+        return dao.writeImg(imgVo);
+    }
+
+
+    public String getBoardByNo() {
+        return dao.getBoardByNo();
     }
 }

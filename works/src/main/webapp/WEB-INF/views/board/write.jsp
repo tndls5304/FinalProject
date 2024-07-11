@@ -15,7 +15,7 @@
         <%@ include file="/WEB-INF/views/layout/board/aside.jsp" %>
        
         <div id="main">
-            <form action="/board/write" method="post">
+            <form action="/board/write" method="post"  enctype="multipart/form-data">
                 <div id="top">
                     <h2>게시판</h2>
                     <div id="line"></div>
@@ -26,7 +26,7 @@
                 </div>
                 <div id="fileTag">
                     <span>파일첨부</span>
-                    <input type="file" name="img" placeholder="사진첨부">
+                    <input type="file" name="img" multiple placeholder="사진첨부">
                 </div>
                 <div id="contentTag">
                     <textarea name="content" id="" placeholder="내용을 입력하세요"></textarea>

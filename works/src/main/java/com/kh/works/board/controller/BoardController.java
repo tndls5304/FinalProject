@@ -3,17 +3,22 @@ package com.kh.works.board.controller;
 //import com.kh.works.security.EmpSessionVo;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.kh.works.board.service.BoardService;
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
 import com.kh.works.employee.vo.EmployeeVo;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,20 +38,39 @@ public class BoardController {
 
     //게시물 작성하기 백엔드
     @PostMapping("write")
-    public String write(BoardVo vo, HttpSession session) {
+    public String write(BoardVo vo, HttpSession session ,@RequestParam(value = "img", required = false) List<MultipartFile> imgs) throws Exception {
 
-        //추가했어요 !!!!
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
-
-        //추가했어요!!!!
         String empNo = loginEmpVo.getNo();
-        //String empNo = loginEmployeeVo.getNo();
         vo.setEmpNo(empNo);
+
         int result = service.write(vo);
-        if (result != 1) {
-            return "common/error";
+
+        String no = service.getBoardByNo();
+
+        System.out.println("no : "+no);
+
+        vo.setBoardNo(no);
+        String boardNo = vo.getBoardNo();
+        System.out.println(boardNo + "~~~~~~~~~~~~");
+
+        // 각 이미지를 파일로 저장하는 처리
+        for (MultipartFile img : imgs) {
+            if (!img.isEmpty()) {
+
+                String imgName = img.getOriginalFilename();
+                File fileAdd = new File("D:\\dev\\final\\works\\src\\main\\resources\\static\\img\\icon\\" + imgName);
+                img.transferTo(fileAdd);
+
+                BoardImgVo imgVo = new BoardImgVo();
+                imgVo.setBoardNo(boardNo);
+                imgVo.setImgName(imgName);
+                int imgResult = service.writeImg(imgVo);
+            }
         }
+
         return "redirect:/board/list";
+
     }
 
     //게시물 리스트 화면
@@ -164,12 +188,10 @@ public class BoardController {
         int board = Integer.parseInt(boardNo);
         vo.setBoardWishNo(board);
         vo.setEmpNo(empNo);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`empNo는 =" + empNo);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`boardNo =" + vo.getBoardWishNo());
+
         // 불린으로 판단
         boolean wishList = service.checkWishList(vo);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`vo 를 갔다고오는 empNo는 =" + empNo);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~`vo 를 갔다고오는  boardNo =" + vo.getBoardWishNo());
+
         Map<String, Boolean> response = new HashMap<>();
         response.put("wishList", wishList);
         return ResponseEntity.ok(response);
@@ -221,16 +243,25 @@ public class BoardController {
     @PostMapping("comment")
     @ResponseBody
     public int commentWrite(CommentVo vo , HttpSession session , @RequestParam("boardNo") String boardNo){
-        System.out.println("테스트");
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String loginNo = loginEmpVo.getNo();
         vo.setEmpNo(loginNo);
-        System.out.println("vo~~~~~~~~~~~~~~~~~~~~~~~~~~:" + vo);
-        System.out.println("vo~~~~~~~~~~~~~~~~~~~~~~~~~~:" + boardNo);
-        System.out.println("vo~~~~~~~~~~~~~~~~~~~~~~~~~~:" + loginNo);
          int result = service.commentWrite(vo , boardNo);
-        System.out.println("return~~~~~~~~~~~~~~~~~~~~~~~~~~:" + vo);
          return result;
+    }
+
+    @GetMapping("api/comment")
+    @ResponseBody
+    public List<CommentVo> commentApi(@RequestParam("boardNo")String boardNo){
+        List<CommentVo> voList = service.commentApi(boardNo);
+        return voList;
+    }
+
+    @PostMapping("comment/del")
+    @ResponseBody
+    public int commentDel(@RequestParam("comtNo")String comtNo){
+        int result = service.commentDel(comtNo);
+        return result;
     }
     
 }
