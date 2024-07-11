@@ -63,7 +63,7 @@
                       <option value="3">개인 일정</option>
      </select>
 
-     <div id="partnerPlace" class="partner-place">
+     <div id="partnerPlace" class="partners-place">
                  <%--여기에 들어올 정보    <div class="empDiv">
                                              <span>번호</span>
                                              <span>이름</span>
@@ -121,14 +121,14 @@
                 <button onclick="showMapDetail()" class="hidden">조회</button>
             </h3>
 
-            <select id="openRangeDetail" onchange="changeOpenRangeDetail(this.value)">
+            <select id="openRangeDetail"onchange="changeOpenRangeDetail(this.value)">
                 <option disabled selected >필수🍋공개범위설정 </option>
                 <option value="1">전체공개</option>
                 <option value="2">참여자 지정하기 </option>
                 <option value="3">개인 일정</option>
             </select>
 
-            <div id="partnerDetail" class="partner-place">
+            <div id="partnerDetail" class="partners-place">
                      <%--여기에 들어올 정보는 js에서 그려줄 예정  <div class="empDiv">
                                                                 <span>번호</span>
                                                                 <span>이름</span>
