@@ -56,7 +56,7 @@
                <input id="longitude"        placeholder="경도" class="hidden">
             <button onclick="showMap()" class="hidden">선택</button>
       </h3>
-      <select id="openRangeNo" onchange="changeOpenRange(this.value)">
+      <select id="openRangeNo" onchange="changeOpenRange(this.value)">  <!-- 공부하깅 🐬자신의 value를 바로 보내줌  -->
                       <option disabled selected>필수🍊공개범위설정 </option>
                       <option value="1">전체공개</option>
                       <option value="2">참여자 지정하기 </option>
@@ -121,7 +121,7 @@
                 <button onclick="showMapDetail()" class="hidden">조회</button>
             </h3>
 
-            <select id="openRangeDetail" onchange="changeOpenRange(this.value)">
+            <select id="openRangeDetail" onchange="changeOpenRangeDetail(this.value)">
                 <option disabled selected >필수🍋공개범위설정 </option>
                 <option value="1">전체공개</option>
                 <option value="2">참여자 지정하기 </option>

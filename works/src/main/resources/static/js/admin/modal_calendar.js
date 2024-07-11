@@ -276,3 +276,21 @@ function update(){
       })//ajax
 
 }//일정 수정하기 끝!
+
+
+
+//등록된 캘린더를 클릭했을때 상세모달창이 나오고
+//다시 공개범위를 바꾸고 싶을때!!!! 공개범위 select option을 클릭했을떄?
+//일정등록모달창에서 공개범위 선택 select 요소에 변경이벤트가 발생했을때 호출됨
+function changeOpenRangeDetail(value){
+  document.getElementById("partnerDetail").innerHTML="";
+            //옵션조건에 따라 모달창 ✔️✔️✔️✔️공부하기
+
+    if(value==="2"){
+    partnerModal.style.display = 'block';
+    }else{
+    partnerModal.style.display = 'none';
+
+    }
+}
+
