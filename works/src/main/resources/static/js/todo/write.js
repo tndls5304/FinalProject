@@ -12,3 +12,6 @@ function clickBtn() {
 function setEndDate(endDateValue) {
   document.getElementById("endDate").value = endDateValue;
 }
+
+  
+  

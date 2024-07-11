@@ -7,7 +7,12 @@
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>할일</title>
+      <script>
+        window.onload = function(){
+          listAll();
+        };
+      </script>
       <link rel="stylesheet" href="/css/todo/home.css">
     </head>
 
@@ -64,14 +69,14 @@
           </div>
 
 
-          <!-- 모달 -->
+          <!-- 참여자 모달 -->
           <div id="todoModal" class="modal">
             <div class="modal-content">
               <!-- 모달창 안에 닫기 버튼 만들기 -->
               <span class="close">&times;</span>
               <!-- 할일 작성 폼 -->
               <h3>할 일 쓰기</h3>
-              <form action="/todo/write" method="post">
+              <form id="todoForm" action="/todo/write" method="post" >
                 <label for="todo-title">제목:</label>
                 <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
                 <br><br>
@@ -102,11 +107,23 @@
                 <button type="button" onclick="setEndDate('tomorrow')">내일</button>
                 <button type="button" onclick="setEndDate('nextWeek')">다음주</button>
                 <br><br>
-
+                
                 <input type="submit" value="작성">
               </form>
             </div>
           </div>
+
+          <!-- 사원조회 모달 -->
+          <div id="empModal" class="modal">
+            <div class="modal-content">
+              <!-- 모달창 안에 닫기 버튼 만들기 -->
+              <span class="close">&times;</span>
+              <!-- 사원 정보 표시 -->
+              <h3>사원 정보</h3>
+              <div id="empDetail"></div>
+            </div>
+          </div>
+
 
 
         </main>
@@ -224,3 +241,28 @@
 
       }
     </script>
+
+<!-- <script>
+  //할일 폼 제출
+  $('#todoForm').on('submit', function (event) {
+    event.preventDefault(); // 기본 폼 제출 방지
+
+    var formData = $(this).serialize(); // 폼 데이터 직렬화
+
+    $.ajax({
+      url: '/todo/write', // 폼 action에서 URL 가져오기
+      type: 'POST', // 폼 method에서 HTTP 메서드 가져오기
+      data: formData,
+      success: function (data) {
+        // 성공 시 처리
+        modal.style.display = "none"; // 모달 닫기
+        listAll(); // listAll 함수 호출하여 할 일 목록 갱신
+      },
+      error: function (error) {
+        // 에러 시 처리
+        alert('할 일 작성에 실패하였습니다.');
+      }
+    });
+  });
+</script> -->
+    
