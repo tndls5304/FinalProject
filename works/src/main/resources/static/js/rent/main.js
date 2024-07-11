@@ -38,11 +38,20 @@ $.ajax({
  })
  
 
+ const day = new Date();
+
  function meetingRent() {
     const rentDate = document.querySelector("#rentDate").value;
     const startTime = document.querySelector("#startTime").value;
     const endTime = document.querySelector("#endTime").value;
     const meetingRoomNo = document.querySelector("#meetingOption").value;
+
+    const selectedDate = new Date(rentDate);
+
+    if (selectedDate < day) {
+        alert("오늘 이후의 날짜만 선택 가능합니다."); 
+        return; 
+    }
 
     const startDate = rentDate + " " + startTime ;
     const endDate = rentDate + " " + endTime ;
@@ -79,6 +88,20 @@ $.ajax({
      const endDate = document.querySelector("#endDate").value;
      const reason = document.querySelector("#reason").value;
      const carNo = document.querySelector("#carOption").value;
+
+     const selectedStartDate = new Date(startDate); // 시작 날짜를 Date 객체로 변환
+     const selectedStartDate2 = new Date(startDate); // 시작 날짜를 Date 객체로 변환
+
+     // 오늘 날짜보다 이전 날짜인지 비교
+     if (selectedStartDate < day && selectedStartDate2 < day) {
+         alert("오늘 이후의 날짜만 선택 가능합니다."); 
+         return; 
+     }
+
+     if(startDate > endDate){
+        alert("대여시작 날짜보다 이전 날짜를 선택하셨습니다 다시 예약해주세요");
+        return;
+     }
 
      console.log(startDate);
      console.log(endDate);
