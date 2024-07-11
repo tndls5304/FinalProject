@@ -14,7 +14,7 @@ function getTodoDetail(todoNo) {
       str += `<div><span name='changeContent' id='content'>${data[0].content}</span></div>`;
       str += `<div id='endDate'>작성일: ${data[0].createDate}</div>`;
       str += `<div id='endDate'>기한:  ${data[0].endDate}</div>`;
-      str += `<div id='empName'>요청자: <button class="empBtn">${data[0].todoEmpName}</button></div>`;
+      str += `<div id='empName'>요청자: <button class="empBtn" onclick="todoEmpDetail(${data[0].todoEmpNo});">${data[0].todoEmpName}</button></div>`;
 
       //완료되지 않은 할일에만 버튼 생기게
       if (data[0].completedYn !== "Y") {
@@ -24,7 +24,7 @@ function getTodoDetail(todoNo) {
       //담당자만 여러명이라 for문
       str += `<div id='todoManagerNo'>담당자 :`;
       for (let i = 0; i < data.length; i++) {
-        str += `<button class="managerBtn">${data[i].todoManagerName}</button>`;
+        str += `<button class="managerBtn" onclick="todoManagerDetail(${data[i].todoManagerNo});">${data[i].todoManagerName}</button>`;
       }
       str += "</div>";
 

@@ -155,14 +155,21 @@ public interface TodoMapper {
 
     //사원 상세 조회
     @Select("""
-            SELECT NO,NAME,EMAIL,PWD,PROFILE,PHONE,HIRE_DATE,LOGIN_FAIL_NUM,LOCK_YN
-                FROM EMPLOYEE
-                WHERE NO=#{no} AND RETIRE_YN='N'
+            SELECT\s
+                E.NO AS NO  ,
+                E.NAME AS NAME,
+                E.EMAIL AS EMAIL,
+                P.NAME AS POSITION,
+                D.NAME AS DEPARTMENT
+            FROM\s
+                EMPLOYEE E
+            JOIN\s
+                POSITION P ON E.POSITION_NO = P.NO
+            JOIN\s
+                DEPARTMENT D ON E.DEPT_NO = D.NO
+            WHERE\s
+                E.NO = #{no}
             """)
-    @Results({
-            @Result(property = "todoEmpNo", column = "NO"),
-            @Result(property = "todoManagerNo", column = "NO")
-    })
     EmployeeVo getEmpInfo(EmployeeVo empVo);
 }
 
