@@ -88,7 +88,7 @@ public class AdminScheduleController {
     }
 
     //일정 수정하기
-    @GetMapping("admin/calendar/update")
+    @PostMapping("admin/calendar/update")
     @ResponseBody
     public ResponseEntity<String> updateCalendar(@RequestBody CalendarVo vo, HttpSession session){
 
@@ -105,4 +105,15 @@ public class AdminScheduleController {
         }
         return ResponseEntity.internalServerError().body("스케줄 수정 실패");
     }
+
+    //일정삭제
+//    @PostMapping("admin/calendar/update")
+//    @ResponseBody
+//    public ResponseEntity<String> deleteCalendar(String calendarNo,HttpSession session){
+//        AdminVo loginAdminVo = (AdminVo)session.getAttribute("loginAdminVo");
+//        //로그인한 관리자의 번호를 넣어주기
+//        String adminNo=loginAdminVo.getNo();
+//        int result= service.deleteCalendar(adminNo,calendarNo);
+//
+//    }
 }//class

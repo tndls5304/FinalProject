@@ -153,10 +153,22 @@ myselfTag.parentElement.remove();    //DOM에서 완전히 제거하는거💦�
 
 
 //참여자 모달창에서 [참여자반영버튼] 누르면 동작
+var popStatus = 'create';
 function insertPartner(){
-    var partnerList=document.getElementById("partnerList");
-    var partnerPlace=document.getElementById("partnerPlace");
-    partnerPlace.innerHTML=partnerList.innerHTML;
+    if (popStatus == 'create') {
+        const partnerList=document.getElementById("partnerList");
+        const partnerPlace=document.getElementById("partnerPlace");
+        partnerPlace.innerHTML=partnerList.innerHTML;
+    }
+    if (popStatus == 'modify') {
+        /* [일정상세보기&수정하기 모달창] 클릭 후 -> [참여자 선택 모달창]으로 가서
+        선택한 참여자 목록을 모두 본래의 [일정상세보기& 수정하기 모달창]으로 끌어오고 싶음
+        [참여자 반영]버튼을 눌렀을떄 동작하는 함수 짜기
+        */
+        const partnerList=document.getElementById("partnerList");
+        const partnersPlace =document.getElementById("partnerDetail");
+        partnersPlace.innerHTML=partnerList.innerHTML;
+    }
 }
 
 //일정 등록하기 버튼을 눌렀을때 동작
@@ -293,4 +305,16 @@ function changeOpenRangeDetail(value){
 
     }
 }
+
+/* [일정상세보기&수정하기 모달창] 클릭 후 -> [참여자 선택 모달창]으로 가서
+선택한 참여자 목록을 모두 본래의 [일정상세보기& 수정하기 모달창]으로 끌어오고 싶음
+[참여자 반영]버튼을 눌렀을떄 동작하는 함수 짜기
+*/
+/*
+function insertPartner(){
+    const partnerList=document.getElementById("partnerList");
+    const partnersPlace =document.querySelector("partners-place");
+    partnersPlace.innerHTML=partnerList.innerHTML;
+}
+*/
 

@@ -3,8 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
               const calendar = new FullCalendar.Calendar(calendarEl, {
                         locale : 'ko',                                                               //한국어 설정
                         initialView: 'dayGridMonth',
-                        selectable: true,                                                          //달력 일자 드래그 설정가능
+                        selectable: true,
+                        //캘린더 등록하기: 달력 일자 드래그 설정가능
                         select:function( selectionInfo) {
+                                //----------곧 지워야하는 코드 --------
+                                popStatus = 'create';
+                                //------------------------------
                               const insertModal = document.getElementById("insertModal");
                               const startDate =document.querySelector("input[id=startDate]")
                               const endDate =document.querySelector("input[id=endDate]")
@@ -15,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
                               },
 
                         eventClick:  function(info) {
+                                      //----------곧 지워야하는 코드 --------
+                                        popStatus = 'modify';
+                                      //------------------------------
                                            //일단 모달창안에 참여자들 비워주기
                                            const test=document.querySelector('#partnerDetail').innerHTML="";
                                            console.log(test);
