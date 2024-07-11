@@ -12,6 +12,7 @@ window.onload = () => {
     const prevE1 = document.querySelector(".prev");
     const nextE1 = document.querySelector(".next");
     const calendarBody = document.querySelector(".calendar-body");
+    const backToTodayButton = document.querySelector(".back-to-today");
     let currentDate;
     buildCalendar();
 
@@ -23,6 +24,12 @@ window.onload = () => {
 
     nextE1.addEventListener('click', function () {
         today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+        removeCalendar();
+        buildCalendar();
+    });
+
+    backToTodayButton.addEventListener('click', function () {
+        today = new Date(); // 현재 날짜로 설정
         removeCalendar();
         buildCalendar();
     });
@@ -61,8 +68,11 @@ function removeCalendar() {
 }
 
 function makeElement(firstDate, pageYear) {
+
+
     
     const calendarBody = document.querySelector(".calendar-body");
+    const today = new Date();
 
     // 첫 번째 날짜의 요일 계산하라고!!!!!
     const firstDay = firstDate.getDay();
@@ -87,6 +97,7 @@ function makeElement(firstDate, pageYear) {
     
 
 
+
             if (i === 0 && j < firstDay) {
                 const cellText = document.createTextNode("");
                 cell.appendChild(cellText);
@@ -101,9 +112,16 @@ function makeElement(firstDate, pageYear) {
                 const cellText = document.createTextNode(date);
                 cell.appendChild(cellText);
                 cell.setAttribute("id", `day${today.getFullYear()}-${monthList[firstDate.getMonth()]}-${date}`);
-                row.appendChild(cell);
+                
+                // 현재 날짜인 경우 "today" 텍스트 추가
+                if (today.getDate() === date && today.getMonth() === firstDate.getMonth() && today.getFullYear() === firstDate.getFullYear()) {
+                    const todayLabel = document.createElement("div");
+                    todayLabel.textContent = "Today";
+                    cell.appendChild(todayLabel);
+                }
                 date++;
             }
+            row.appendChild(cell);
         }
 
         calendarBody.appendChild(row);
@@ -118,6 +136,12 @@ function makeElement(firstDate, pageYear) {
 
     document.querySelectorAll('.day').forEach(day => {
         day.addEventListener('click', () => {
+            const selectedDate = new Date(today.getFullYear(), firstDate.getMonth(), parseInt(day.textContent));
+            if (selectedDate < today) {
+                alert("지나간 날짜는 예약할 수 없습니다."); // 알림창 띄우기
+                return; // 함수 종료
+            }
+           
             const write = document.querySelector("#write");
             write.style.display = 'block'; 
 

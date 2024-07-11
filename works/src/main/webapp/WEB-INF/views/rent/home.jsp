@@ -22,6 +22,7 @@
                 <button class="prev">&#60;</button>
                 <span class="current-year-month"></span>
                 <button class="next">&#62;</button>
+                <button class="back-to-today">Today</button>
             </div>
             
             <!--달 나오기-->
