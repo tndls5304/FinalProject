@@ -15,8 +15,8 @@ public class BoardVo {
     private String crtnDate;
     private String mdfdDate;
     private String delYn;
-    private List<MultipartFile> fileName;
     private List<MultipartFile> img;
+    private String imgNames;
     private String name;
 
 }

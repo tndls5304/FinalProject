@@ -1,6 +1,7 @@
 package com.kh.works.board.dao;
 
 import com.kh.works.board.mapper.BoardMapper;
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -16,8 +17,8 @@ public class BoardDao {
     private final BoardMapper mapper;
 
     public int write(BoardVo vo) {
-        int result = mapper.write(vo);
-        return result;
+        return mapper.write(vo);
+
     }
 
     public List<BoardVo> getBoardList() {
@@ -78,5 +79,22 @@ public class BoardDao {
 
     public int commentWrite(CommentVo vo, String boardNo) {
         return mapper.commentWrite(vo, boardNo);
+    }
+
+    public List<CommentVo> commentApi(String boardNo) {
+        return mapper.commentApi(boardNo);
+    }
+
+    public int commentDel(String comtNo) {
+        return mapper.commentDel(comtNo);
+    }
+
+    public int writeImg(BoardImgVo imgVo) {
+        return mapper.imgVo(imgVo);
+    }
+
+
+    public String getBoardByNo() {
+        return mapper.getBoardByNo();
     }
 }

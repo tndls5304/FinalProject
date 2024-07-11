@@ -1,5 +1,6 @@
 package com.kh.works.board.mapper;
 
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -17,20 +18,24 @@ public interface BoardMapper {
             "    ,CONTENT\n" +
             "    ,CRTN_DATE\n" +
             "    ,MDFD_DATE\n" +
-            "    ,FILE_NAME\n" +
-            "    ,IMG\n" +
-            ")VALUES\n" +
+            ") VALUES\n" +
             "(\n" +
             "    SEQ_BOARD.NEXTVAL\n" +
             "    ,#{empNo}\n" +
-            "    ,'${title}'\n" +
-            "    ,'${content}'\n" +
+            "    ,#{title}\n" +
+            "    ,#{content}\n" +
             "    ,SYSTIMESTAMP\n" +
             "    ,NULL\n" +
-            "    ,NULL\n" +
-            "    ,NULL\n" +
-            "    )")
+            ")")
     int write(BoardVo vo);
+
+    @Insert("""
+            INSERT INTO BOARD_IMG 
+            (NO, BOARD_NO, IMG_NAME) 
+            VALUES (SEQ_BOARD_IMG.NEXTVAL, #{boardNo}, #{imgName})
+            """)
+    int imgVo(BoardImgVo imgVo);
+
 
     @Select("SELECT \n" +
             "    B.BOARD_NO\n" +
@@ -57,7 +62,14 @@ public interface BoardMapper {
             "AND B.DEL_YN = 'N'")
     List<BoardVo> myBoardList(String empNo);
 
-    @Select("SELECT * FROM BOARD WHERE BOARD_NO = #{boardNo}")
+    @Select("""
+            SELECT B.BOARD_NO, B.EMP_NO, B.TITLE, B.CONTENT, B.CRTN_DATE, B.MDFD_DATE,
+                   LISTAGG(I.IMG_NAME, ',') WITHIN GROUP (ORDER BY I.IMG_NAME) AS IMG_NAMES
+            FROM BOARD B
+            JOIN BOARD_IMG I ON B.BOARD_NO = I.BOARD_NO
+            WHERE B.BOARD_NO = #{boardNo}
+            GROUP BY B.BOARD_NO, B.EMP_NO, B.TITLE, B.CONTENT, B.CRTN_DATE, B.MDFD_DATE
+            """)
     BoardVo getdetailBoard(String boardNo);
 
     @Update("<script>" +
@@ -195,4 +207,31 @@ public interface BoardMapper {
             """)
     int commentWrite(@Param("vo") CommentVo vo, @Param("boardNo") String boardNo);
 
+    @Select("""
+            SELECT C.*
+                   ,E.NAME
+                   ,D.NAME AS depName
+            FROM BOARD_COMMENT C
+            JOIN EMPLOYEE E
+            ON C.EMP_NO = E.NO
+            JOIN BOARD B
+            ON C.BOARD_NO = B.BOARD_NO
+            JOIN DEPARTMENT D
+            ON E.DEPT_NO = D.NO 
+            WHERE C.BOARD_NO = #{boardNo}
+            """)
+    List<CommentVo> commentApi(String boardNo);
+
+    @Delete("""
+            DELETE 
+            FROM  BOARD_COMMENT
+            WHERE COMT_NO = #{comtNo}
+            """)
+    int commentDel(String comtNo);
+
+
+    @Select("""
+            SELECT SEQ_BOARD.CURRVAL FROM DUAL
+            """)
+    String getBoardByNo();
 }

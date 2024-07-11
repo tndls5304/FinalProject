@@ -11,4 +11,6 @@ public class CommentVo {
     private String boardComment;
     private String comtDate;
     private String delYn;
+    private String name;
+    private String depName;
 }
