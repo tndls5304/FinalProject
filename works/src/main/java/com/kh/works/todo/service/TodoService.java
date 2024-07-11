@@ -52,7 +52,7 @@ public class TodoService {
         }
 
         if(result1 * result2 == 1){
-            String notificationMessage = "✅" + vo.getTodoEmpName() + "님이 할일 담당자로 지정하였습니다.";
+            String notificationMessage = "✅" + vo.getTodoEmpName() + "님이 할일 담당자로 \n                                               지정하였습니다.";
 //            todoDao.saveAlarm(vo.getTodoManagerNo(), notificationMessage);
 //            notificationHandler.sendNotification(notificationMessage);
         for (String managerNo : todoManageList) {

@@ -69,8 +69,42 @@
             <div class="modal-content">
               <!-- 모달창 안에 닫기 버튼 만들기 -->
               <span class="close">&times;</span>
-              <!-- 할일 작성 폼 포함 -->
-              <jsp:include page="/WEB-INF/views/todo/write.jsp" />
+              <!-- 할일 작성 폼 -->
+              <h3>할 일 쓰기</h3>
+              <form action="/todo/write" method="post">
+                <label for="todo-title">제목:</label>
+                <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
+                <br><br>
+
+                <label for="content">내용:</label>
+                <textarea id="content" name="content" placeholder="내용을 입력해주세요." required></textarea>
+                <br><br>
+
+                <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
+                <br><br>
+
+                <button type="button" onclick="clickBtn()">담당자 조회</button>
+                <div id="managerList" style="display: none;">
+                  <div id="todoManager">
+                    <c:forEach var="emp" items="${empList}">
+                      <div class="managerItem">
+                        <input type="checkbox" name="todoManagerList" value="${emp.no}">
+                        ${emp.name}&nbsp;&nbsp;${emp.deptNo}
+                      </div>
+                    </c:forEach>
+                  </div>
+                </div>
+                <br><br>
+
+                <label for="endDate">기한</label>
+                <input type="hidden" id="endDate" name="endDate">
+                <button type="button" onclick="setEndDate('today')">오늘</button>
+                <button type="button" onclick="setEndDate('tomorrow')">내일</button>
+                <button type="button" onclick="setEndDate('nextWeek')">다음주</button>
+                <br><br>
+
+                <input type="submit" value="작성">
+              </form>
             </div>
           </div>
 
@@ -88,6 +122,7 @@
     <script src="/js/todo/delTodo.js"></script>
     <script src="/js/todo/complete.js"></script>
     <script src="/js/todo/edit.js"></script>
+    <script src="/js/todo/write.js"></script>
 
 
     <script>

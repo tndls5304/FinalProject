@@ -127,7 +127,7 @@ public interface TodoMapper {
     int todoDelete(@RequestParam("todoNo") String todoNo);
 
 
-    //할일 완료
+    //할일 완료//트리거 이용해서 todo와 todoManager테이블 한번에 업데이트
     @Update("UPDATE TODO SET COMPLETED_YN = 'Y' WHERE TODO_NO = #{todoNo}")
     int todoComplete(@RequestParam("todoNo") String todoNo);
 
