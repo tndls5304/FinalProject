@@ -133,8 +133,16 @@ public class MessengerService {
         return dao.getAlarmInfor(receiverEmpNo);
     }
 
-    public void readAlarm(String receiverEmpNo) {
-        dao.readAlarm(receiverEmpNo);
+    @Transactional
+    public int readAlarm(int alarmNo) {
+        System.out.println("readAlarm 호출: alarmNo = " + alarmNo);
+
+        return dao.readAlarm(alarmNo);
     }
+
+
+//    public void readAlarm(String receiverEmpNo) {
+//        dao.readAlarm(receiverEmpNo);
+//    }
 }
 

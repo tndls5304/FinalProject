@@ -114,9 +114,12 @@ public interface MessengerMapper {
     @Select("SELECT ALARM_NO, EMP_NO, MESSAGE, IS_READ, CREATE_DATE FROM ALARM WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
     List<AlarmVo> getAlarmInfor(@Param("empNo") String empNo);
 
-    @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
-    void readAlarm(@Param("empNo") String empNo);
+//    @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
+//    void readAlarm(@Param("empNo") String empNo);
 
     @Insert("INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE) VALUES (SEQ_ALARM.NEXTVAL, #{empNo}, #{message})")
     void saveAlarm(@Param("empNo") String empNo, @Param("message") String message);
+
+    @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE ALARM_NO = #{alarmNo} AND IS_READ = 'N'")
+    int readAlarm(@Param("alarmNo") int alarmNo);
 }
