@@ -35,4 +35,12 @@ public class AdminAccountController {
             return "redirect:/admin/home";
         }
     }
+
+
+//로그아웃시키기
+    @GetMapping("admin/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/admin/login";
+    }
 }
