@@ -27,11 +27,11 @@ $.ajax({
 
         // img_names 필드를 쉼표로 분리하여 배열로 변환
         if (data.imgNames) {
-            const imgArray = data.imgNames.split(',');
+            const imgArray = data.imgNames.split(",");
             for (let i = 0; i < imgArray.length; i++) {  // imgArray.length로 수정
                 console.log(imgArray[i]);
                 // 실제 이미지 파일 경로 설정
-                str += "<img src='/img/icon/" + imgArray[i] + "' alt='ImageName " + (i + 1) + "'>";
+                str += "<img src='/img/boardImg/" + imgArray[i] + "' alt='ImageName " + (i + 1) + "'>";
             }
         }
 
