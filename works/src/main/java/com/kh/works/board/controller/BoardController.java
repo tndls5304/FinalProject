@@ -58,8 +58,9 @@ public class BoardController {
         for (MultipartFile img : imgs) {
             if (!img.isEmpty()) {
 
+                String realPaht = session.getServletContext().getRealPath("/save");
                 String imgName = img.getOriginalFilename();
-                File fileAdd = new File("D:\\dev\\final\\works\\src\\main\\resources\\static\\img\\icon\\" + imgName);
+                File fileAdd = new File("src/main/resources/static/img/icon/" + imgName);
                 img.transferTo(fileAdd);
 
                 BoardImgVo imgVo = new BoardImgVo();
