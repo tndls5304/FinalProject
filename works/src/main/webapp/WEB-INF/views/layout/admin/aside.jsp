@@ -24,7 +24,7 @@
                     <ul>
                          <div id="sidebarMenu"></div>
 
-                           <li><button>로그아웃</button></a></li>
+                           <li><a href="/admin/logout"><button>로그아웃</button></a></li>
                     </ul>
                 </nav>
             </aside>

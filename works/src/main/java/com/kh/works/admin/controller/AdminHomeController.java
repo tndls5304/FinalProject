@@ -1,5 +1,6 @@
 package com.kh.works.admin.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,10 @@ public class AdminHomeController {
 
     @GetMapping("admin/home")
     public String showHomePage(){
+
         return "admin/admin_home";
     }
+
 
 
 }
