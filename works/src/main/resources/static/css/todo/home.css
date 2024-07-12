@@ -182,69 +182,70 @@ main {
       opacity: 1;
     }
   }
-
-  /* 폼 스타일 */
-  .modal-content form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .modal-content form label,
-  .modal-content form input,
-  .modal-content form textarea,
-  .modal-content form button {
-    margin-bottom: 15px;
-  }
-
-  .modal-content form label {
-    font-weight: bold;
-  }
-
-  .modal-content form input[type="text"],
-  .modal-content form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-
-  .modal-content form input[type="submit"] {
-    background-color: #4caf50;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .modal-content form input[type="submit"]:hover {
-    background-color: #45a049;
-  }
-
-  .modal-content form button[type="button"] {
-    background-color: #008cba;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .modal-content form button[type="button"]:hover {
-    background-color: #007b9a;
-  }
-
-  #managerList {
-    margin-bottom: 15px;
-  }
-
-  #managerList div {
-    margin-top: 10px;
-  }
-
-  #endDate {
-    display: inline-block;
-    margin-top: 10px;
-  }
 }
+
+/* 폼 스타일 */
+/* .modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content form label,
+.modal-content form input,
+.modal-content form textarea,
+.modal-content form button {
+  margin-bottom: 15px;
+}
+
+.modal-content form label {
+  font-weight: bold;
+}
+
+.modal-content form input[type="text"],
+.modal-content form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.modal-content form input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.modal-content form button[type="button"] {
+  background-color: #008cba;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content form button[type="button"]:hover {
+  background-color: #007b9a;
+}
+
+#managerList {
+  margin-bottom: 15px;
+}
+
+#managerList div {
+  margin-top: 10px;
+}
+
+#endDate {
+  display: inline-block;
+  margin-top: 10px;
+}
+} */

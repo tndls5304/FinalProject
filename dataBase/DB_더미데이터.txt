@@ -1231,7 +1231,26 @@ VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.' || CHR(
 
 COMMIT;
 
--------------------------------------------------------------------------------------------------------------------------★★★테이블명(조원 이름)
+-------------------------------------------------------------------------------------------------------------------------★★★테이블명(예린 더미)
+--할일 1: 요청자 근아, 담당자 유아       할일 2 : 요청자 남주혁, 담당자 유아 , 담당자 근아      할일 3 : 요청자 유아 담당자 근아    
+INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT, END_DATE) VALUES (SEQ_TODO.NEXTVAL, 17, '유아님과 중간점검하기', '점검하고 머지하기', SYSDATE);
+--할일2번
+INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT, END_DATE) VALUES (SEQ_TODO.NEXTVAL, 27, '개발팀과 점심', '12시 역삼역', SYSDATE);
+--할일 3번
+INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT, END_DATE) VALUES (SEQ_TODO.NEXTVAL, 21, '백엔드 문서작업 넘기기', '근아님한테 확인', SYSDATE);
+
+--1번할일 담당자
+INSERT INTO TODO_MANAGER (TODO_MANAGER_NO, TODO_NO_MAN)VALUES (21, 1);
+
+--2번할일 담당자
+INSERT INTO TODO_MANAGER (TODO_MANAGER_NO, TODO_NO_MAN)VALUES (17, 2);
+INSERT INTO TODO_MANAGER (TODO_MANAGER_NO, TODO_NO_MAN)VALUES (21, 2);
+
+--3번할일 담당자
+INSERT INTO TODO_MANAGER (TODO_MANAGER_NO, TODO_NO_MAN)VALUES (17, 3);
+
+commit;
+
 
 -------------------------------------------------------------------------------------------------------------------------★★★테이블명(조원 이름)
 
