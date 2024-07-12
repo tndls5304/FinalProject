@@ -105,7 +105,7 @@
     <script>
     $(document).ready(function () {
 
-      // --------------------알림 정보를 가져오는 AJAX 요청
+      // ----------------------------------------알림 정보를 가져오는 AJAX 요청
 
       $.ajax({
         url: "/messenger/alarmInfor",
@@ -155,7 +155,7 @@
         }
       });
 
-    // --------------------WebSocket 설정(일부분만 바꿔주면 된다.
+    // ----------------------------------------WebSocket 설정(일부분만 바꿔주면 된다.
     // 본인이 Ajax로 쓴 값을 넘어주면 된다. 주석으로 해놓은 부분만 바꿔주면 된다.)
     let socket = new WebSocket("ws://localhost:8080/notifications");
 
@@ -212,7 +212,7 @@
   });
 
 
-    // --------------------알림을 읽었는지 확인하는 AJAX 요청
+    // ----------------------------------------알림을 읽었는지 확인하는 AJAX 요청
     function markNotificationAsRead(alarmNo) {
         console.log("markNotificationAsRead 호출됨: " + alarmNo); // 호출 로그
         $.ajax({
