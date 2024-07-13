@@ -13,7 +13,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
-      <script src="/js/home/home.js"></script>
+      <script defer src="/js/home/home.js"></script>
       <link rel="stylesheet" href="/css/home/home.css">
       <!-- fontAwesome을 사용하기 위한 코드이다. -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -66,9 +66,15 @@
                   <p></p>
                 </div>
                 <div id="documents">
-                  <h3>필요한 거</h3>
-                  <p>작성</p>
-                  <p></p>
+                  <section id="memo-container">
+                      <div id="memo-box">
+                        <textarea id="memo-content" cols="30" rows="13" placeholder="메모를 적어주세요."></textarea>
+                        <div id="button-container">
+                          <button id="save-button">저 장</button>
+                          <button id="clear-button">초기화</button>
+                        </div>
+                      </div>
+                  </section>
                 </div>
               </div>
               <div id="right-section">

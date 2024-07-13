@@ -83,9 +83,9 @@ public interface MessengerMapper {
 //    @Update("UPDATE MESSENGER SET IMPORTANT_YN = 'Y' WHERE MESSEN_NO = #{messenNo}")
 //    int importantStatus(@Param("messenNo") int messenNo);
 
-
-    @Select("SELECT M.MESSEN_NO , E.NAME , M.TITLE , M.CONTENT , M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E ON M.SENDER_EMP_NO = E.NO WHERE E.NAME LIKE '%' || #{keyWord} || '%' AND M.RECEIVER_EMP_NO = #{empNo} ORDER BY M.SEND_DATE DESC")
-    List<MessengerVo> searchByKeyword(@Param("keyWord") String keyWord, @Param("empNo") String empNo);
+    //받은쪽지, 보낸쪽지 전부 사원명으로 검색되어야 한다.
+    @Select("SELECT M.MESSEN_NO, CASE WHEN M.RECEIVER_EMP_NO = #{receiverEmpNo} THEN E1.NAME ELSE E2.NAME END AS NAME, M.TITLE, M.CONTENT, M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E1 ON M.SENDER_EMP_NO = E1.NO JOIN EMPLOYEE E2 ON M.RECEIVER_EMP_NO = E2.NO WHERE (E1.NAME LIKE '%' || #{keyWord} || '%' AND M.RECEIVER_EMP_NO = #{receiverEmpNo}) OR (E2.NAME LIKE '%' || #{keyWord} || '%' AND M.SENDER_EMP_NO = #{senderEmpNo}) ORDER BY M.SEND_DATE DESC")
+    List<MessengerVo> searchByKeyword(@Param("keyWord") String keyWord, @Param("receiverEmpNo") String receiverNo, @Param("senderEmpNo") String senderNo);
 
     @Select("SELECT M.MESSEN_NO, CASE WHEN M.SENDER_EMP_NO = MS.EMP_NO THEN E2.NAME ELSE E1.NAME END AS NAME, M.TITLE, M.CONTENT, M.SEND_DATE FROM MESSENGER M JOIN EMPLOYEE E1 ON M.SENDER_EMP_NO = E1.NO JOIN EMPLOYEE E2 ON M.RECEIVER_EMP_NO = E2.NO JOIN MESSENGER_STATUS MS ON M.MESSEN_NO = MS.MESSEN_NO WHERE MS.EMP_NO = #{empNo} AND MS.IS_TRASH = 'Y' ORDER BY M.SEND_DATE DESC")
     List<MessengerVo> trash(String empNo);
