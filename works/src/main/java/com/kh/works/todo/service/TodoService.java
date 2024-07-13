@@ -51,8 +51,9 @@ public class TodoService {
             throw new RuntimeException();
         }
 
+        //할일 담당자 지정하면 담당자에게 알림
         if(result1 * result2 == 1){
-            String notificationMessage = "✅" + vo.getTodoEmpName() + "님이 할일 담당자로 \n                                               지정하였습니다.";
+            String notificationMessage = "✅" + vo.getTodoEmpName() + "님이 할일 담당자로 \n 지정하였습니다.";
 //            todoDao.saveAlarm(vo.getTodoManagerNo(), notificationMessage);
 //            notificationHandler.sendNotification(notificationMessage);
         for (String managerNo : todoManageList) {
@@ -76,6 +77,7 @@ public class TodoService {
     public String calculateEndDate(TodoVo vo) {
         LocalDate currentDate = LocalDate.now();
 
+        //오늘, 내일, 다음주 버튼 날짜형식으로 넘겨주기
         String inputDate = vo.getEndDate();
         if ("today".equalsIgnoreCase(inputDate)) {
             return currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

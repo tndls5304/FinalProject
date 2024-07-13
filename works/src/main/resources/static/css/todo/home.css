@@ -249,3 +249,8 @@ main {
   margin-top: 10px;
 }
 } */
+
+
+#empDetail{
+  background-color: lightyellow; /* 임시로 배경색 추가 */
+}

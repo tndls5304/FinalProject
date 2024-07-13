@@ -191,10 +191,6 @@ public class TodoController {
     public EmployeeVo getEmpInfo(EmployeeVo empVo){
         EmployeeVo empInfo = service.getEmpInfo(empVo);
 
-
-
-
-
         return empInfo;
     }
 }
