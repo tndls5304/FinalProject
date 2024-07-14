@@ -193,4 +193,40 @@ public class TodoController {
 
         return empInfo;
     }
+
+    //최신작성순
+    @GetMapping("createDate")
+    @ResponseBody
+    public List<TodoVo> getTodoListCreateData(TodoVo vo, HttpSession session){
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        String todoEmpNo = loginEmpVo.getNo();
+
+        vo.setTodoEmpNo(todoEmpNo);
+        vo.setTodoManagerNo(todoEmpNo);
+
+        //반환값을 List로 변환
+        List<TodoVo> voList = service.getTodoListCreateDate(vo);
+        return voList;
+    }
+
+
+    //기한 마감순
+    @GetMapping("endDate")
+    @ResponseBody
+    public List<TodoVo> getTodoListEndDate(TodoVo vo, HttpSession session){
+
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        String todoEmpNo = loginEmpVo.getNo();
+
+        vo.setTodoEmpNo(todoEmpNo);
+        vo.setTodoManagerNo(todoEmpNo);
+
+        //반환값을 List로 변환
+        List<TodoVo> voList = service.getTodoListEndDate(vo);
+        return voList;
+    }
+
+
+
 }
