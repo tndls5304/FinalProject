@@ -53,6 +53,7 @@ private final AdminEmpService adminEmpService;
     public List<PositionVo> selectPosition(){
         List<PositionVo> voList=adminEmpService.selectPosition();
         return voList;
+        // return adminEmpService.selectPosition(); 로 변경 필요 의미없는 지역변수 사용 하지 말것
     }
 
 
@@ -65,7 +66,7 @@ private final AdminEmpService adminEmpService;
         String authNo=loginAdminVo.getAdminAuthorityNo();
 
         //서브어드민이라면 권한체크하기(권한번호 2번: 서브어드민)
-        if(authNo.equals("2")){
+        if(authNo.equals("2")){                                         // "2".equals(authNo) 수정 필요 아래도 동일하게
             String authYn=adminEmpService.checkAuthYnForInsertEmp();
             if(authYn.equals("N")){ //포비든권한오류
                 return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("신규직원 등록 권한이 없습니다!");
@@ -77,6 +78,10 @@ private final AdminEmpService adminEmpService;
         EmailMessage emailMessage=new EmailMessage();
 
         emailMessage.setTo(employeeVo.getEmail());
+        
+        // String 문자를 합칠때는 Buffer 나 String.format 사용
+        // 방법1 new StringBuffer().append(employeeVo.getName()).append("님 ! baby works 회원가입 양식입니다").toString();  
+        // 방법2 String.format("%s 님 ! baby works 회원가입 양식입니다", employeeVo.getName()); // %s 에 변수가 들어감
         emailMessage.setSubject(employeeVo.getName()+"님 ! baby works 회원가입 양식입니다");
 
         String mailContent= """
@@ -159,6 +164,9 @@ private final AdminEmpService adminEmpService;
         }else{
             return  ResponseEntity.internalServerError().body("회원정보 수정실패");
         }
+        // 이런식으로 작성하면 가독성이 더좋음
+        // result==1 ? ResponseEntity.ok("사원정보 수정하기 성공!") 
+        //           : ResponseEntity.internalServerError().body("회원정보 수정실패");
     }
 
 

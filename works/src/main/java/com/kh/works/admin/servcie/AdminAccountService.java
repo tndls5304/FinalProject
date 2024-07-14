@@ -11,6 +11,11 @@ public class AdminAccountService {
 
     private final AdminAccountDao dao;
 
+    /**
+     * 아이디 확인
+     * @param vo 로그인 회원정보
+     * @return
+     */
     public AdminVo adminLoginMatching(AdminVo vo) {
        return dao.adminLoginMatching(vo);
     }

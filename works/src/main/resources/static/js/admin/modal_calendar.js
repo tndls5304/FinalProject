@@ -29,7 +29,6 @@ function changeOpenRange(value){
     partnerModal.style.display = 'block';
     }else{
     partnerModal.style.display = 'none';
-
     }
 }
 
@@ -182,6 +181,17 @@ function insertSchedule(){
         var longitude=document.getElementById("longitude").value;
         var openRangeNo=document.getElementById("openRangeNo").value;
 
+      //수정하기 전에 공개범위가 설정안되어 있으면 작성못하게 하기
+      if (openRangeNo === "") {
+        alert('공개 범위를 선택해 주세요.');
+        return; // 선택안하면 ajax도 못보냄
+      }
+      if(title===""){
+          alert('제목을 입력해 주세요.');
+          return; // 선택안하면 ajax도 못보냄
+      }
+
+
         //배열로 만들어서 가져갈꼬!
         var arr = [];
         var empDivs=document.getElementById("partnerPlace").children;
@@ -237,7 +247,8 @@ function insertSchedule(){
 
 
 //-------------------일정 수정하기 버튼 클릭시 -------------------------
-function update(){
+function updateCalendar(){
+
       var no=document.getElementById("detailNo").innerText;
       var title=document.getElementById("titleDetail").value;
       var startDate=document.getElementById("startDetail").value;
@@ -247,6 +258,17 @@ function update(){
       var latitude=document.getElementById("latitudeDetail").value;
       var longitude=document.getElementById("longitudeDetail").value;
       var openRangeNo=document.getElementById("openRangeDetail").value;
+
+
+       //수정하기 전에 공개범위가 설정안되어 있으면 수정못하게 하기
+      if (openRangeNo === "") {
+        alert('공개 범위를 선택해 주세요.');
+        return; // 선택안하면 ajax도 못보냄
+      }
+      if(titleDetail===""){
+          alert('제목을 입력해 주세요.');
+          return; // 선택안하면 ajax도 못보냄
+      }
 
       //배열로 만들어서 가져갈꼬!
       var arr = [];
