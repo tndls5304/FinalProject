@@ -20,3 +20,30 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1초마다 위에 getClock 함수를 호출하여 시각을 업데이트하도록 작성
     setInterval(getClock, 1000);
 });
+
+
+
+// -----------------메모장 JS--------------------------
+const memoBtn = document.getElementById('save-button');
+const clearBtn = document.getElementById('clear-button');
+const memoContent = document.getElementById('memo-content');
+
+// 페이지 로드 시 로컬 스토리지에서 메모를 불러온다.
+document.addEventListener('DOMContentLoaded', () => {
+  const savedMemo = localStorage.getItem('memo');
+  if (savedMemo) {
+    memoContent.value = savedMemo;
+  }
+});
+
+// 저장 버튼 클릭 시 메모를 로컬 스토리지에 저장한다.
+memoBtn.addEventListener('click', () => {
+  localStorage.setItem('memo', memoContent.value);
+  alert('저장 완료!');
+});
+
+// 초기화 버튼 클릭 시 메모 내용을 초기화하고 로컬 스토리지에서 삭제
+clearBtn.addEventListener('click', () => {
+    memoContent.value = '';
+    localStorage.removeItem('memo', memoContent.value);
+});

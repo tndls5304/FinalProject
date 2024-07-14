@@ -230,9 +230,10 @@ public class MessengerController {
     @GetMapping("search")
     public String searchByKeyword(@RequestParam("keyWord") String keyWord, HttpSession session, Model model) {
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
-        String empNo = loginEmpVo.getNo();
+        String receiverNo = loginEmpVo.getNo();
+        String senderNo = loginEmpVo.getNo();
 
-        List<MessengerVo> voList = service.searchByKeyword(keyWord, empNo);
+        List<MessengerVo> voList = service.searchByKeyword(keyWord, receiverNo, senderNo);
         model.addAttribute("voList", voList);
         return "messenger/all";
     }

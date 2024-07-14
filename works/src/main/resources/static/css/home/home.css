@@ -247,7 +247,8 @@ main {
     gap: 20px;
 }
 
-#board, #documents, #notify {
+/* 여기에서 #documents 뺐음. */
+#board, #notify {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -264,4 +265,68 @@ main {
     font-weight: normal;
     font-size: large;
     cursor: pointer;
+}
+
+
+/* ----------------메모장 css----------------- */
+#memo-container {
+    position: relative;
+    width: 100%;
+}
+
+#memo-box > * {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+#memo-content {
+    font-size: 23px;
+    padding: 20px;
+    height: 300px;
+    border: 1px solid #b4b4b4;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFDA;
+    box-shadow: 0 0 10px rgba(77, 76, 76, 0.2);
+}
+
+#button-container{
+    display: flex;
+    gap: 10px;
+}
+
+#button-container button{
+    flex: 1;
+}
+
+#save-button {
+    border: 1px solid grey;
+    font-weight: bold;
+    padding: 15px;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    cursor: pointer;
+    color: grey;
+    border-radius: 20px;
+    font-size: 20px;
+}
+#save-button:hover {
+    background-color: #f0f0f0;
+}
+
+#clear-button {
+    border: 1px solid grey;
+    font-weight: bold;
+    padding: 15px;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    cursor: pointer;
+    color: grey;
+    border-radius: 20px;
+    font-size: 20px;
+}
+#clear-button:hover {
+    background-color: #f0f0f0;
 }

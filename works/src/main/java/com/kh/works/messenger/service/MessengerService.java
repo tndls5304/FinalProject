@@ -103,8 +103,8 @@ public class MessengerService {
 //        return dao.importantStatus(messenNo);
 //    }
 
-    public List<MessengerVo> searchByKeyword(String keyWord, String empNo) {
-        return dao.searchByKeyword(keyWord, empNo);
+    public List<MessengerVo> searchByKeyword(String keyWord, String receiverNo, String senderNo) {
+        return dao.searchByKeyword(keyWord, receiverNo, senderNo);
     }
 
     public List<MessengerVo> trash(String empNo) {
