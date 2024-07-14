@@ -22,7 +22,7 @@
                 <div>작성일</div>
                 <div>조회수</div>
             </div>
-            <form action="/board/edit" method="post">
+            <form action="/board/edit" method="post" id="postForm">
                 <div id="content">
                         
                     

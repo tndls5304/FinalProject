@@ -3,12 +3,10 @@ package com.kh.works.board.controller;
 //import com.kh.works.security.EmpSessionVo;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.kh.works.board.service.BoardService;
-import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
 import com.kh.works.employee.vo.EmployeeVo;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +34,11 @@ public class BoardController {
 
     //게시물 작성하기 백엔드
     @PostMapping("write")
-    public String write(BoardVo vo, HttpSession session ,@RequestParam(value = "img", required = false) List<MultipartFile> imgs) throws Exception {
+    public String write(BoardVo vo,
+                        HttpSession session ,
+                        @RequestParam(value = "img", required = false) List<MultipartFile> imgs) throws Exception {
+
+        System.out.println(imgs);
 
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
@@ -46,32 +46,35 @@ public class BoardController {
 
         int result = service.write(vo);
 
-        String no = service.getBoardByNo();
+//
+//        vo.setBoardNo(no);
+//        String boardNo = vo.getBoardNo();
+//        System.out.println(boardNo + "~~~~~~~~~~~~");
 
-        System.out.println("no : "+no);
-
-        vo.setBoardNo(no);
-        String boardNo = vo.getBoardNo();
-        System.out.println(boardNo + "~~~~~~~~~~~~");
-
-        // 각 이미지를 파일로 저장하는 처리
-        for (MultipartFile img : imgs) {
-            if (!img.isEmpty()) {
-
-                String realPaht = session.getServletContext().getRealPath("/save");
-                String imgName = img.getOriginalFilename();
-                File fileAdd = new File("src/main/resources/static/img/icon/" + imgName);
-                img.transferTo(fileAdd);
-
-                BoardImgVo imgVo = new BoardImgVo();
-                imgVo.setBoardNo(boardNo);
-                imgVo.setImgName(imgName);
-                int imgResult = service.writeImg(imgVo);
-            }
-        }
-
+//        // 각 이미지를 파일로 저장하는 처리
+//        if (imgs != null) {
+//            for (MultipartFile img : imgs) {
+//                if (!img.isEmpty()) {
+//                    //실제 이미지 이름
+//                    String imgName = img.getOriginalFilename();
+//                    //이미지를 저장할 경로
+//                    String savePath = "/src/main/resources/static/img/icon/"+ imgName; // 실제 서버 경로로 변경해야 함
+//                    //파일이 저장될 최종 경로
+//                    String filePath = savePath + imgName;
+//                    //파일 객체 생성해서 저장
+//                    File fileAdd = new File(filePath);
+//                    //그리고 넘기기
+//                    img.transferTo(fileAdd);
+//
+//                    BoardImgVo imgVo = new BoardImgVo();
+//                    imgVo.setBoardNo(boardNo);
+//                    imgVo.setImgName(imgName);
+//                    int imgResult = service.writeImg(imgVo);
+//                }
+//            }
+//
+//        }
         return "redirect:/board/list";
-
     }
 
     //게시물 리스트 화면

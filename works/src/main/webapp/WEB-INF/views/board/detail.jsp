@@ -23,7 +23,8 @@
                 <i class="fa-regular fa-heart fa-lg" style="color:#f005dc" id="like"></i>
                 <div style="display:none;" id="empNo">${empNo}</div>
             </div>
-            <div id="content"></div>
+            <div id="postTitle"></div>
+            <div id="postContent"></div>
             <button id="btn" style="display:none;">수정하기</button>
             <button id="delete">삭제하기</button>
             <br>

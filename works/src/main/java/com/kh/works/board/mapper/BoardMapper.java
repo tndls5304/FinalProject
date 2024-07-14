@@ -1,6 +1,5 @@
 package com.kh.works.board.mapper;
 
-import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -29,13 +28,6 @@ public interface BoardMapper {
             ")")
     int write(BoardVo vo);
 
-    @Insert("""
-            INSERT INTO BOARD_IMG 
-            (NO, BOARD_NO, IMG_NAME) 
-            VALUES (SEQ_BOARD_IMG.NEXTVAL, #{boardNo}, #{imgName})
-            """)
-    int imgVo(BoardImgVo imgVo);
-
 
     @Select("SELECT \n" +
             "    B.BOARD_NO\n" +
@@ -63,12 +55,9 @@ public interface BoardMapper {
     List<BoardVo> myBoardList(String empNo);
 
     @Select("""
-            SELECT B.BOARD_NO, B.EMP_NO, B.TITLE, B.CONTENT, B.CRTN_DATE, B.MDFD_DATE,
-                   LISTAGG(I.IMG_NAME, ',') WITHIN GROUP (ORDER BY I.IMG_NAME) AS IMG_NAMES
+            SELECT BOARD_NO, EMP_NO, TITLE, CONTENT, CRTN_DATE, MDFD_DATE
             FROM BOARD B
-            JOIN BOARD_IMG I ON B.BOARD_NO = I.BOARD_NO
             WHERE B.BOARD_NO = #{boardNo}
-            GROUP BY B.BOARD_NO, B.EMP_NO, B.TITLE, B.CONTENT, B.CRTN_DATE, B.MDFD_DATE
             """)
     BoardVo getdetailBoard(String boardNo);
 
@@ -229,9 +218,4 @@ public interface BoardMapper {
             """)
     int commentDel(String comtNo);
 
-
-    @Select("""
-            SELECT SEQ_BOARD.CURRVAL FROM DUAL
-            """)
-    String getBoardByNo();
 }

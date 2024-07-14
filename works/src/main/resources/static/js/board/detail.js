@@ -21,24 +21,11 @@ $.ajax({
         console.log(x);
 
         // 게시물 제목과 내용을 HTML로 생성
-        let str = "<div>" 
-                + "<h2>" + data.title + "</h2>" 
-                + "<p>" + data.content + "</p>";
+        $('#postTitle').html(data.title);
 
-        // img_names 필드를 쉼표로 분리하여 배열로 변환
-        if (data.imgNames) {
-            const imgArray = data.imgNames.split(",");
-            for (let i = 0; i < imgArray.length; i++) {  // imgArray.length로 수정
-                console.log(imgArray[i]);
-                // 실제 이미지 파일 경로 설정
-                str += "<img src='/img/boardImg/" + imgArray[i] + "' alt='ImageName " + (i + 1) + "'>";
-            }
-        }
+        // 내용 설정 (HTML 그대로 삽입)
+        $('#postContent').html(data.content);
 
-        str += "</div>";
-
-        // content 요소에 생성된 HTML을 삽입
-        x.innerHTML = str;
 
         const userNo = data.empNo;
         const authorNo = loginNo;

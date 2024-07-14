@@ -15,32 +15,21 @@
         <%@ include file="/WEB-INF/views/layout/board/aside.jsp" %>
        
         <div id="main">
-            <form action="/board/write" method="post"  enctype="multipart/form-data">
-                <div id="top">
-                    <h2>게시판</h2>
-                    <div id="line"></div>
-                </div>
-                <div id="titleTag">
-                    <span>제목</span>
-                    <input type="text" name="title" placeholder="제목을 입력하세요">
-                </div>
-                <div id="fileTag">
-                    <span>파일첨부</span>
-                    <input type="file" name="img" multiple placeholder="사진첨부">
-                </div>
-                <div id="contentTag">
-                    <textarea name="content" id="" placeholder="내용을 입력하세요"></textarea>
-                </div>
-                <input type="submit" value="작성">
+            <form id="postForm" action="/board/write" method="post" enctype="multipart/form-data">
+                <label for="title">제목:</label>
+                <input type="text" id="title"><br>
+                <label for="content">내용:</label>
+                <div id="content" contenteditable="true"></div><br>
+                <input type="file" id="imageFile" accept="image/*" style="display: none;"><br>
+                <button type="button" onclick="addImage()">사진 추가</button>
+                <button type="button" onclick="submitPost()">포스트 작성</button>
             </form>
         </div>
+        
 
     </main>
-
-    </body>
-    </html>
-    
-
-
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="/js/board/write.js"></script>
