@@ -43,9 +43,13 @@
             </div>
 
 
-            <div>
-              <input type="checkbox" id="del-all">
-              <input type="button" id="del" value="삭제">
+            <div id="todo-check">
+              <div>
+                <input type="checkbox" id="select-all"> 전체선택
+                <input type="button" value="삭제" onclick="checkDelete()">
+              </div>
+            </div>
+            
               <label for="sortOptions">정렬 기준:</label>
               <select id="sortOptions" name="sortOptions">
                 <option value="latest">최신 작성 순</option>
@@ -76,7 +80,7 @@
               <span class="close">&times;</span>
               <!-- 할일 작성 폼 -->
               <h3>할 일 쓰기</h3>
-              <form id="todoForm" action="/todo/write" method="post">
+              <form id="todoForm" action="/todo/write" method="post" >
                 <label for="todo-title">제목:</label>
                 <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
                 <br><br>
@@ -107,22 +111,22 @@
                 <button type="button" onclick="setEndDate('tomorrow')">내일</button>
                 <button type="button" onclick="setEndDate('nextWeek')">다음주</button>
                 <br><br>
-
+                
                 <input type="submit" value="작성">
               </form>
             </div>
           </div>
 
-          <!-- 사원조회 모달
+          <!-- 사원조회 모달 -->
           <div id="empModal" class="modal">
-            <div class="modal-content"> -->
-          <!-- 모달창 안에 닫기 버튼 만들기 -->
-          <!-- <span class="close">&times;</span> -->
-          <!-- 사원 정보 표시 -->
-          <!-- <h3>사원 정보</h3>
+            <div class="modal-content">
+              <!-- 모달창 안에 닫기 버튼 만들기 -->
+              <span class="close">&times;</span>
+              <!-- 사원 정보 표시 -->
+              <h3>사원 정보</h3>
               <div id="empDetail"></div>
             </div>
-          </div> -->
+          </div>
 
 
 
@@ -174,28 +178,28 @@
     <!--getTodoDetail(todoNo); => 앞에서 가져온 할일번호를 매개변수로 넣어준 뒤 함수실행..! -->
     <script>
       $(document).on('click', '#todoList tr', function () {
-        var todoNo = $(this).find('.hidden-column').text();
+        const todoNo = $(this).find('.hidden-column').text();
         getTodoDetail(todoNo);
       });
     </script>
 
     <script>
       $(document).on('click', '.detTodoBtn', function () {
-        var todoNo = $(this).find('.hidden-column').text();
+        const todoNo = $(this).find('.hidden-column').text();
         delTodo(todoNo);
       });
     </script>
 
     <script>
       $(document).on('click', '.comBtn', function () {
-        var todoNo = $(this).find('.hidden-column').text();
+        const todoNo = $(this).find('.hidden-column').text();
         complete(todoNo);
       });
     </script>
 
     <script>
       $(document).on('click', '.editBtn', function () {
-        var todoNo = $(this).find('.hidden-column').text();
+        const todoNo = $(this).find('.hidden-column').text();
         edit(todoNo);
       });
     </script>
@@ -242,8 +246,8 @@
       }
     </script>
 
-    <!-- <script>
-  //할일 폼 제출
+<!-- <script>
+  //할일 폼 제출//아무짝에도 쓸모없다....
   $('#todoForm').on('submit', function (event) {
     event.preventDefault(); // 기본 폼 제출 방지
 
@@ -265,3 +269,56 @@
     });
   });
 </script> -->
+  
+<!-- 사원 상제조회 왜 안되는데-->
+<script>
+function getEmpDetail(empNo) {
+
+    $.ajax({
+    url: "/todo/empInfo",
+    method: "GET",
+    data: { no : empNo },
+    success: function (data) {
+      console.log("Received Data:", data); // 서버로부터 받은 데이터 로그 출력
+
+      const empDetailDiv = document.querySelector("#empDetail");
+      console.log("empDetailDiv:", empDetailDiv); // 선택된 요소 확인
+
+      let str = "";
+      str += `<p>이름:${data.name}</p>`;
+      str += `<p>이메일: ${data.email}</p>`;
+      str += `<p>직급: ${data.positionName}</p>`;
+      str += `<p>부서: ${data.deptName}</p>`;
+      
+      empDetailDiv.innerHTML = str; // 데이터 삽입
+
+      // 데이터 삽입 후 로그 출력
+      console.log("@@@@@empDetailDiv updated:", empDetailDiv.innerHTML);
+
+      // 모달 열기
+      const empModal = document.getElementById("empModal");
+      empModal.style.display = "block";
+    },
+    error: function (err) {
+      console.error("사원 정보 조회 중 오류 발생", err);
+    }
+  });
+}
+
+// 모달 닫기 기능
+$(document).ready(function () {
+  const empModal = document.getElementById("empModal");
+  const closeBtn = document.querySelector("#empModal .close");
+
+  closeBtn.onclick = function () {
+    empModal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == empModal) {
+      empModal.style.display = "none";
+    }
+  }
+});
+
+</script>
