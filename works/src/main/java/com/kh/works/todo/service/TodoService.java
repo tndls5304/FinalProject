@@ -147,4 +147,15 @@ public class TodoService {
     public EmployeeVo getEmpInfo(EmployeeVo empVo) {
         return todoDao.getEmpInfo(empVo);
     }
+
+
+    //최신 작성순
+    public List<TodoVo> getTodoListCreateDate(TodoVo vo) {
+        return todoDao.getTodoListCreateDate(vo);
+    }
+
+    //기한 마감순
+    public List<TodoVo> getTodoListEndDate(TodoVo vo) {
+        return todoDao.getTodoListEndDate(vo);
+    }
 }

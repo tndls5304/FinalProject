@@ -86,4 +86,15 @@ public class TodoDao {
     public EmployeeVo getEmpInfo(EmployeeVo empVo) {
         return mapper.getEmpInfo(empVo);
     }
+
+
+    //최신 작성순
+    public List<TodoVo> getTodoListCreateDate(TodoVo vo) {
+        return mapper.getTodoListCreateDate(vo);    }
+
+
+    //기한 마감순
+    public List<TodoVo> getTodoListEndDate(TodoVo vo) {
+        return mapper.getTodoListEndDate(vo);
+    }
 }

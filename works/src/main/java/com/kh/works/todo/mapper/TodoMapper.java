@@ -187,6 +187,68 @@ public interface TodoMapper {
     })
 
     EmployeeVo getEmpInfo(EmployeeVo empVo);
+
+
+    @Select("""
+            SELECT DISTINCT\s
+                T.TODO_NO,\s
+                T.TITLE,\s
+                T.COMPLETED_YN,\s
+                TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE,\s
+                E.NAME AS NAME,\s
+                T.CREATE_DATE AS CREATE_DATE  -- CREATE_DATE에 별칭 추가
+            FROM\s
+                TODO T
+            JOIN\s
+                TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN
+            JOIN\s
+                EMPLOYEE E ON T.TODO_EMP_NO = E.NO
+            WHERE\s
+                (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{todoManagerNo})
+                AND T.DEL_YN = 'N'
+                AND M.DEL_YN = 'N'
+            ORDER BY\s
+                T.CREATE_DATE DESC
+            """)
+    @Results({
+            @Result(property = "endDate", column = "END_DATE"),
+            @Result(property = "createDate", column = "CREATE_DATE"),
+            @Result(property = "todoEmpName", column = "NAME")
+    })
+    //최신 작성순
+    List<TodoVo> getTodoListCreateDate(TodoVo vo);
+
+
+    //기한 마감순
+    @Select("""
+            SELECT DISTINCT\s
+                T.TODO_NO,\s
+                T.TITLE,\s
+                T.COMPLETED_YN,\s
+                TO_CHAR(T.END_DATE, 'YYYY-MM-DD') AS END_DATE,\s
+                E.NAME AS NAME,\s
+                T.CREATE_DATE AS CREATE_DATE,  -- CREATE_DATE에 별칭 추가
+                T.END_DATE AS END_DATE\s
+            FROM\s
+                TODO T
+            JOIN\s
+                TODO_MANAGER M ON T.TODO_NO = M.TODO_NO_MAN
+            JOIN\s
+                EMPLOYEE E ON T.TODO_EMP_NO = E.NO
+            WHERE\s
+                (T.TODO_EMP_NO = #{todoEmpNo} OR M.TODO_MANAGER_NO = #{todoManagerNo})
+                AND T.DEL_YN = 'N'
+                AND M.DEL_YN = 'N'
+            ORDER BY\s
+                T.END_DATE ASC
+            """)
+    @Results({
+            @Result(property = "endDate", column = "END_DATE"),
+            @Result(property = "createDate", column = "CREATE_DATE"),
+            @Result(property = "todoEmpName", column = "NAME")
+    })
+    //기한 마감순
+    List<TodoVo> getTodoListEndDate(TodoVo vo);
 }
 
 

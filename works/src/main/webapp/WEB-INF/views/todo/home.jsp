@@ -48,16 +48,13 @@
                 <input type="checkbox" id="select-all"> 전체선택
                 <input type="button" value="삭제" onclick="checkDelete()">
               </div>
-            </div>
-            
-              <label for="sortOptions">정렬 기준:</label>
+              <label for="sortOptions">정렬</label>
               <select id="sortOptions" name="sortOptions">
-                <option value="latest">최신 작성 순</option>
-                <option value="deadline">기한 마감순</option>
+                <option value="createDate">최신 작성 순</option>
+                <option value="endDate">기한 마감순</option>
               </select>
             </div>
-
-
+            
             <!-- 리스트, 상세조회 -->
             <div class="todo">
 
@@ -70,7 +67,12 @@
               <!-- 상세조회 -->
               <div id="detail"></div>
             </div>
-          </div>
+
+
+            </div>
+
+
+         
 
 
           <!-- 참여자 모달 -->
@@ -322,3 +324,50 @@ $(document).ready(function () {
 });
 
 </script>
+
+<!-- 정렬하기 -->
+<script>
+  //DOM이 로드된 뒤 실행 셀렉트 옵션을 선택함
+  $(document).ready(function() {
+      $('#sortOptions').change(function() { //change: 이벤트 리스너임 사용자가 선택한 옵션이 바뀔때마다 실행
+          const sortOption = $(this).val(); // 선택된 옵션의 값을 반환해서 변수에 넣어줌..
+  
+          $.ajax({
+              url: '/todo/' + sortOption, 
+              method: 'GET',
+              success: function(data) {
+                  // 결과를 화면에 표시하는 로직
+                  const table = document.querySelector("#todoList");
+                  const detail = document.querySelector("#detail");
+
+            let str = "";
+            for (let i = 0; i < data.length; i++) {
+              str += "<tr>";
+              
+              //completedYn이용하여 완료한 할일은 제목에 줄 그어주기...!
+              if (data[i].completedYn === "Y") {
+                str +=
+                  "<td class='todo-title' style='text-decoration: line-through;'>" +
+                  data[i].title +
+                  "</td>";
+              } else {
+                str += "<td class='todo-title'>" + data[i].title + "</td>";
+              }
+              str += "<td class='hidden-column' >" + data[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
+              str += "</tr>";
+              str += "<tr>";
+              str += "<td>요청자 " + data[i].todoEmpName + "</td>";
+              str += "<td class='listEndDate'>기한 " + data[i].endDate + "</td>";
+              str += "</tr>";
+              str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
+            }
+            table.innerHTML = str;
+            detail.innerHTML = "";
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("목록 정렬 조회중 에러");
+                    }
+                });
+            });
+  });
+  </script>

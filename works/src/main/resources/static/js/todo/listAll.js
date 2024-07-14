@@ -23,7 +23,7 @@ function listAll() {
         } else {
           str += "<td class='todo-title'>" + listAll[i].title + "</td>";
         }
-        str += `<td><input class="checkbox-delete" type="checkbox" value="${listAll[i].todoNo}"></td>`;
+        // str += `<td><input class="checkbox-delete" type="checkbox" value="${listAll[i].todoNo}"></td>`;
         // str += "<td class='todo-title'>" + listAll[i].title + "</td>";
         str += "<td class='hidden-column' >" + listAll[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
         str += "</tr>";
