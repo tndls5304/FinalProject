@@ -300,8 +300,10 @@ public class MessengerController {
         int result = service.readAlarm(alarmNo);
 
         if (result > 0) {
+            System.out.println("Controller: 알림 읽음 처리 성공");
             return ResponseEntity.ok("알림 읽음 처리 성공");
         } else {
+            System.out.println("Controller: 알림 읽음 처리 실패");
             return ResponseEntity.status(500).body("알림 읽음 처리 실패");
         }
     }

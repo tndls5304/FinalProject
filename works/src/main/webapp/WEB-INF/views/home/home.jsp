@@ -108,138 +108,9 @@
 
     </html>
 
-    <script>
-    $(document).ready(function () {
-
-      // ----------------------------------------알림 정보를 가져오는 AJAX 요청
-
-      $.ajax({
-        url: "/messenger/alarmInfor",
-        method: "post",
-        success: function (data) {
-
-          //전체적으로, html에 형식을 미리 만드는 것이 아닌, js를 통해서 요소를 설정해주고 생성해준다는 것만 기억하면 된다.
-
-          //HTML에서 id가 notify인 요소를 가지고 와, 설정해준다.
-          let notificationDiv = document.getElementById("notify");
-
-
-          //기존 알림 지우고 추가
-          notificationDiv.innerHTML = "";
-
-
-          //notification, newNotification임의로 지어준 변수명이다.
-          data.forEach(function (notification) {
-            //p 태그를 만들어, 그곳에 알림을 띄운다는 설정이다.
-            let newNotification = document.createElement("p");
-            //message는 NotificationHandler에서 매개변수로 받아오는 친구다.
-            newNotification.innerText = notification.message;
-
-            //"notification-message"라는 class를 생성해준 것이다.
-            //css에서 스타일 적용을 위해 작성한 코드이다.
-            //css -> .notification-messag{} 작성해주면 된다.
-            newNotification.classList.add("notification-message");
-
-            //alarmNo 데이터를 설정한다.
-            newNotification.dataset.alarmNo = notification.alarmNo;
-
-            //띄운 알림을 클릭했을 때, 이동하는 경로를 작성해준다.
-            newNotification.onclick = function () {
-              window.location.href = "http://127.0.0.1:8080/messenger/all";
-
-              //해당 알림을 읽음처리한다.
-              //여기에서 markNotificationAsRead는 아래에서 설명할 ajax 함수이름이다.
-              markNotificationAsRead(notification.alarmNo);
-            };
-
-            //위의 모든 요소들을 최종적으로 HTML 알림창에 띄우기 위해 넣어주는 작업이다.
-            notificationDiv.appendChild(newNotification);
-          });
-        },
-        error: function (xhr, status, error) {
-          console.log("알림 띄우기 실패: ", error);
-        }
-      });
-
-    // ----------------------------------------WebSocket 설정(일부분만 바꿔주면 된다.
-    // 본인이 Ajax로 쓴 값을 넘어주면 된다. 주석으로 해놓은 부분만 바꿔주면 된다.)
-    let socket = new WebSocket("ws://localhost:8080/notifications");
-
-    socket.onopen = function (event) {
-      console.log("WebSocket is open now.");
-    };
-
-    socket.onmessage = function (event) {
-      console.log("WebSocket message received:", event.data);
-
-      //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
-      //추가
-      let data = JSON.parse(event.data);
-
-      let notificationDiv = document.getElementById("notify");
-      let newNotification = document.createElement("p");
-
-      //수정
-      //newNotification.innerText = event.data;
-      newNotification.innerText = data.message;
-
-      //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
-      newNotification.classList.add("notification-message");
-
-      //추가
-      newNotification.dataset.todoNo = data.todoNo;
-
-      //본인이 Ajax에 이미 넣은 값과 링크로 값을 바꿔줘야 한다.
-      newNotification.onclick = function () {
-        //window.location.href = "http://127.0.0.1:8080/messenger/all";
-        //추가
-        markNotificationAsRead(data.todoNo);
-        window.location.href = data.link;
-      };
-      notificationDiv.appendChild(newNotification);
-
-      //실시간으로 알림을 띄운다. (수정X)
-      //수정
-      //alert(event.data);
-      alert(data.message);
-    };
-
-    socket.onclose = function (event) {
-      if (event.wasClean) {
-        console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-      } else {
-        console.log('Connection died');
-      }
-    };
-
-    socket.onerror = function (error) {
-      console.log(`[error] ${error.message}`);
-    };
-  });
-
-
-    // ----------------------------------------알림을 읽었는지 확인하는 AJAX 요청
-    function markNotificationAsRead(alarmNo) {
-        console.log("markNotificationAsRead 호출됨: " + alarmNo); // 호출 로그
-        $.ajax({
-            url: "/messenger/readAlarm",
-            method: "post",
-            data: { alarmNo: alarmNo },
-            success: function (result) {
-                console.log("알림 읽음 처리 성공: " + result); // 성공 메시지 출력
-            },
-            error: function (xhr, status, error) {
-                console.log("알림 읽음 처리 실패: ", error);
-                console.log("상태: ", status);
-                console.log("응답 텍스트: ", xhr.responseText);
-            }
-        });
-    }
-
-
-
     // 지수 근태관리----------------------------------------------------------------------------------------------------------
 
+    <script>
       //출근 처리 Ajax
       document.querySelectorAll('#start-button').forEach(item => {
         item.addEventListener('click', startAttend);
@@ -297,132 +168,154 @@
         });
       }
     </script>
+    <!-- --------------------------------------------------------------------------------------------------- -->
 
-<!-- ---------------------------------------------------------- -->
 
 
-    <!-- 예린 투두 알림~~~ -->
     <script>
-      $(document).ready(function () {
-        // --------------------알림 정보를 가져오는 AJAX 요청
-        $.ajax({
-          url: "/todo/todoAlarm",
-          method: "post",
-          success: function (data) {
+        $(document).ready(function () {
+          // ------------------------------------------알림 정보를 가져오는 AJAX 요청
+          function fetchNotifications() {
+            $.ajax({
+              url: "/messenger/alarmInfor",
+              method: "post",
+              success: function (data) {
+                console.log("알림 데이터:", data);
+                let notificationDiv = document.getElementById("notify");
+                notificationDiv.innerHTML = "<h3>최근 알림</h3>";
+                data.forEach(function (notification) {
+                  console.log("개별 알림:", notification); // 개별 알림 데이터 출력
+                  let newNotification = document.createElement("p");
+                  newNotification.innerText = notification.message;
+                  newNotification.classList.add("notification-message");
+                  newNotification.dataset.alarmNo = notification.alarmNo;
 
-            //전체적으로, html에 형식을 미리 만드는 것이 아닌, js를 통해서 요소를 설정해주고 생성해준다는 것만 기억하면 된다.
-
-            //HTML에서 id가 notify인 요소를 가지고 와, 설정해준다.
-            let notificationDiv = document.getElementById("notify");
-
-            //@@@@기존 알림 지우고 추가
-            notificationDiv.innerHTML = "";
-
-            //notification, newNotification임의로 지어준 변수명이다.
-            data.forEach(function (notification) {
-              //p 태그를 만들어, 그곳에 알림을 띄운다는 설정이다.
-              let newNotificationToDo = document.createElement("p");
-              //message는 NotificationHandler에서 매개변수로 받아오는 친구다.
-              newNotificationToDo.innerText = notification.message;
-
-              //"notification-message"라는 class를 생성해준 것이다.
-              //css에서 스타일 적용을 위해 작성한 코드이다.
-              //css -> .notification-messag{} 작성해주면 된다.
-              newNotificationToDo.classList.add("notification-message");
-
-              //messenNo 데이터를 설정한다.
-              newNotificationToDo.dataset.todoNo = notification.todoNo;
-
-              //띄운 알림을 클릭했을 때, 이동하는 경로를 작성해준다.
-              newNotificationToDo.onclick = function () {
-                window.location.href = "http://127.0.0.1:8080/todo/home";
-
-                //해당 알림을 읽음처리한다.
-                //여기에서 markNotificationAsRead는 아래에서 설명할 ajax 함수이름이다.
-                markNotificationAsRead(notification.todoNo);
-              };
-
-              //위의 모든 요소들을 최종적으로 HTML 알림창에 띄우기 위해 넣어주는 작업이다.
-              notificationDiv.appendChild(newNotificationToDo);
-
-
-
+                 // 알림 유형에 따른 링크 설정
+                  newNotification.onclick = function () {
+                  console.log("알림 클릭:", notification.alarmNo);
+                    if (notification.message.includes("쪽지")) {
+                      markMessageNotificationAsRead(notification.alarmNo);
+                      window.location.href = "http://127.0.0.1:8080/messenger/all";
+                    } else if (notification.message.includes("할일")) {
+                      markTodoNotificationAsRead(notification.todoNo);
+                      window.location.href = "http://127.0.0.1:8080/todo/home";
+                    }
+                  };
+                  notificationDiv.appendChild(newNotification);
+                });
+              },
+              error: function (xhr, status, error) {
+                console.log("알림 띄우기 실패: ", error);
+              }
             });
-          },
-          error: function (xhr, status, error) {
-            console.log("알림 띄우기 실패: ", error);
+
+            $.ajax({
+              url: "/todo/todoAlarm",
+              method: "post",
+              success: function (data) {
+                data.forEach(function (notification) {
+                  let newNotification = document.createElement("p");
+                  newNotification.innerText = notification.message;
+                  newNotification.classList.add("notification-message");
+                  newNotification.dataset.todoNo = notification.todoNo;
+
+                  // 알림 유형에 따른 링크 설정
+                  newNotification.onclick = function () {
+                    if (notification.message.includes("쪽지")) {
+                      markMessageNotificationAsRead(notification.alarmNo);
+                      window.location.href = "http://127.0.0.1:8080/messenger/all";
+                    } else if (notification.message.includes("할일")) {
+                      markTodoNotificationAsRead(notification.todoNo);
+                      window.location.href = "http://127.0.0.1:8080/todo/home";
+                    }
+                  };
+                  notificationDiv.appendChild(newNotification);
+                });
+              },
+              error: function (xhr, status, error) {
+                console.log("알림 띄우기 실패: ", error);
+              }
+            });
           }
-        });
 
-        // --------------------WebSocket 설정(일부분만 바꿔주면 된다.
-        // 본인이 Ajax로 쓴 값을 넘어주면 된다. 주석으로 해놓은 부분만 바꿔주면 된다.)
-        let socket = new WebSocket("ws://localhost:8080/notifications");
+          // ---------------------------------------------------WebSocket 설정
+          let socket = new WebSocket("ws://localhost:8080/notifications");
 
-        socket.onopen = function (event) {
-          console.log("WebSocket is open now.");
-        };
-
-        socket.onmessage = function (event) {
-          console.log("WebSocket message received:", event.data);
-
-          //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
-          //추가
-          let data = JSON.parse(event.data);
-
-          let notificationDiv = document.getElementById("notify");
-          let newNotificationToDo = document.createElement("p");
-
-          //수정
-          //newNotification.innerText = event.data;
-          newNotificationToDo.innerText = data.message;
-
-          //본인이 Ajax에 이미 넣은 값으로 값을 바꿔줘야 한다.
-          newNotificationToDo.classList.add("notification-message");
-
-          //추가
-          newNotificationToDo.dataset.todoNo = data.todoNo;
-
-          //본인이 Ajax에 이미 넣은 값과 링크로 값을 바꿔줘야 한다.
-          newNotificationToDo.onclick = function () {
-            //window.location.href = "http://127.0.0.1:8080/messenger/all";
-            //추가
-            markNotificationAsRead(data.todoNo);
-            window.location.href = data.link;
+          socket.onopen = function (event) {
+            console.log("WebSocket is open now.");
           };
-          notificationDiv.appendChild(newNotificationToDo);
 
-          //실시간으로 알림을 띄운다. (수정X)
-          //수정
-          //alert(event.data);
-          alert(data.message);
-        };
+          socket.onmessage = function (event) {
+            console.log("WebSocket message received:", event.data);
+            let data = JSON.parse(event.data);
+            let notificationDiv = document.getElementById("notify");
+            let newNotification = document.createElement("p");
+            newNotification.innerText = data.message;
+            newNotification.classList.add("notification-message");
+            newNotification.dataset.alarmNo = data.alarmNo;
+            newNotification.dataset.todoNo = data.todoNo;
 
-        socket.onclose = function (event) {
-          if (event.wasClean) {
-            console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-          } else {
-            console.log('Connection died');
+            // 알림 유형에 따른 링크 설정
+            newNotification.onclick = function () {
+              if (notification.message.includes("쪽지")) {
+                markMessageNotificationAsRead(notification.alarmNo);
+                window.location.href = "http://127.0.0.1:8080/messenger/all";
+              } else if (notification.message.includes("할일")) {
+                markTodoNotificationAsRead(notification.todoNo);
+                window.location.href = "http://127.0.0.1:8080/todo/home";
+              }
+            };
+
+            notificationDiv.appendChild(newNotification);
+            alert(data.message);
+          };
+
+          socket.onclose = function (event) {
+            if (event.wasClean) {
+              console.log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+              console.log('Connection died');
+            }
+          };
+
+          socket.onerror = function (error) {
+            console.log(`[error] ${error.message}`);
+          };
+
+          // ----------------------------------------------------------메시지 알림 읽음 처리 AJAX 요청
+          function markMessageNotificationAsRead(alarmNo) {
+            $.ajax({
+              url: "/messenger/readAlarm",
+              method: "post",
+              data: { alarmNo: alarmNo },
+              success: function (result) {
+                console.log("메시지 알림 읽음 처리 성공: " + result);
+              },
+              error: function (xhr, status, error) {
+                console.log("메시지 알림 읽음 처리 실패: ", error);
+                console.log("상태: ", status);
+                console.log("응답 텍스트: ", xhr.responseText);
+              }
+            });
           }
-        };
 
-        socket.onerror = function (error) {
-          console.log(`[error] ${error.message}`);
-        };
-      });
-
-      // --------------------알림을 읽었는지 확인하는 AJAX 요청
-      function markNotificationAsRead(todoNo) {
-        $.ajax({
-          url: "/todo/todoAlarm",
-          method: "post",
-          data: { todoNo: todoNo },
-          success: function () {
-            console.log("알림 읽었는지 확인 성공");
-          },
-          error: function (xhr, status, error) {
-            console.log("알림 읽었는지 확인 실패: ", error);
+          // 투두 알림 읽음 처리 AJAX 요청
+          function markTodoNotificationAsRead(todoNo) {
+            $.ajax({
+              url: "/todo/todoAlarm",
+              method: "post",
+              data: { todoNo: todoNo },
+              success: function (result) {
+                console.log("투두 알림 읽음 처리 성공: " + result);
+              },
+              error: function (xhr, status, error) {
+                console.log("투두 알림 읽음 처리 실패: ", error);
+                console.log("상태: ", status);
+                console.log("응답 텍스트: ", xhr.responseText);
+              }
+            });
           }
+
+          fetchNotifications();
         });
-      }
-
     </script>
