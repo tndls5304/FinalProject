@@ -9,6 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * 관리자 계정 관리
+ * @author lee suin
+ * @since 2024. 07. 13.
+ */
 @Controller
 @RequiredArgsConstructor
 public class AdminAccountController {
@@ -22,7 +27,13 @@ public class AdminAccountController {
     }
 
 
-    //관리자로그인하기
+    /**
+     * 관리자로그인하기
+     * @param vo
+     * @param session
+     * @param model
+     * @return
+     */
     @PostMapping("admin/login")
     public String adminLoginMatching(AdminVo vo, HttpSession session, Model model){
         AdminVo loginAdminVo =service.adminLoginMatching(vo);

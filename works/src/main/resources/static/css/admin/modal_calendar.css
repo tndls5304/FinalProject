@@ -75,6 +75,16 @@
   width: 300px;
   margin-bottom: 3px;
 }
+
+.btn-calendar-delete{
+ display: inline-block;
+ cursor: pointer;
+ padding: 8px 12px;
+ border-radius: 4px;
+ height: 39px;
+ color: white;
+ background-color: rgb(12, 26, 26);
+}
 .btn-insert-schedule{
   cursor: pointer;
   padding: 8px 12px;

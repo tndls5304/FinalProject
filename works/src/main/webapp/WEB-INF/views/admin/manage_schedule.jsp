@@ -27,8 +27,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
 </head>
+
 <body>
         <%@ include file="/WEB-INF/views/layout/admin/aside.jsp" %>
 
@@ -40,8 +40,6 @@
 
          <div id='calendar'></div>
 
-
-
 <!---------달력에 일정등록모달 --------------->
 <div class="modal-insert" id="insertModal">
       <button class="modal-close" id="closeInsertModal">닫기</button>
@@ -52,17 +50,16 @@
       <textarea id="content" placeholder="내용을 입력해 주세요."></textarea>
       <h3 id="address">일정 장소:
                <input id="placeName"    placeholder="장소">
-               <input id="latitude"        placeholder="위도" class="hidden">
-               <input id="longitude"        placeholder="경도" class="hidden">
+               <input id="latitude"     placeholder="위도" class="hidden">
+               <input id="longitude"    placeholder="경도" class="hidden">
             <button onclick="showMap()" class="hidden">선택</button>
       </h3>
-      <select id="openRangeNo" onchange="changeOpenRange(this.value)">  <!-- 공부하깅 🐬자신의 value를 바로 보내줌  -->
-                      <option disabled selected>필수🍊공개범위설정 </option>
+      <select id="openRangeNo" onchange="changeOpenRange(this.value)" required>  <!-- 공부하깅 🐬자신의 value를 바로 보내줌  -->
+                      <option disabled selected value="">필수🍊공개범위설정</option>
                       <option value="1">전체공개</option>
                       <option value="2">참여자 지정하기 </option>
                       <option value="3">개인 일정</option>
      </select>
-
      <div id="partnerPlace" class="partners-place">
                  <%--여기에 들어올 정보    <div class="empDiv">
                                              <span>번호</span>
@@ -121,8 +118,8 @@
                 <button onclick="showMapDetail()" class="hidden">조회</button>
             </h3>
 
-            <select id="openRangeDetail"onchange="changeOpenRangeDetail(this.value)">
-                <option disabled selected >필수🍋공개범위설정 </option>
+            <select id="openRangeDetail"onchange="changeOpenRangeDetail(this.value)"  >
+                <option disabled selected value="">필수🍋공개범위설정 </option>
                 <option value="1">전체공개</option>
                 <option value="2">참여자 지정하기 </option>
                 <option value="3">개인 일정</option>
@@ -140,7 +137,8 @@
             <h4>작성일시:<span id="insertDate"></span></h4>
             <h4>수정일시:<span id="updateDate"></span></h4>
 
-            <button class="btn-insert-schedule" onclick="update()"> 내용 수정하기</button>
+            <button class="btn-insert-schedule" onclick="updateCalendar()"> 수정하기</button>
+              <button class="btn-calendar-delete" onclick="deleteCalendar()"> 삭제</button>
     </div>
 
  <!--------- 지도 모달 ----------------->

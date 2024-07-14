@@ -58,6 +58,9 @@ dependencies {
 
 	// 알림 WebSocket 설정 추가했어요 (지수)
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	//사진 파일 업로드하면 내부 폴더의 파일은 스트림으로 읽고 바이트 배열로 반환하려고 IOUtils 라이브러리 추가 했습니다(수인)  (IOUtils = Apache Commons IO 라이브러리)
+	implementation 'commons-io:commons-io:2.16.1'
 }
 
 tasks.named('test') {

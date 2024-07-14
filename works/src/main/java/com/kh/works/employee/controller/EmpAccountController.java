@@ -152,6 +152,18 @@ public class EmpAccountController {
             return ResponseEntity.ok(sb.toString());
         }
         return ResponseEntity.internalServerError().body("일치하는 아이디가 없습니다 ");
+
+
+        /* != 를 사용하면 한번더 꼬아서 생각해야해서 단순하게 생각하도록 아래처럼 하는게 가독성이 더좋음
+        if (id == null) {
+            return ResponseEntity.internalServerError().body("일치하는 아이디가 없습니다 ");
+        }
+        StringBuilder sb = new StringBuilder(id);
+        sb.replace(sb.length() - 3, sb.length(), "***");
+        return ResponseEntity.ok(sb.toString());
+        
+        아래도 동일하게 변경하면 좋음
+        */
     }
 
 

@@ -16,34 +16,34 @@ public interface AdminScheduleMapper {
                             FROM EMPLOYEE
                             WHERE DEPT_NO=#{deptNo}
             """)
-     List<EmployeeVo> empList(String deptNo);
+    List<EmployeeVo> empList(String deptNo);
 
     //캘린더작성
     @Insert("""
-            INSERT INTO CALENDAR(
-            NO,
-            ADMIN_NO,
-            TITLE,
-            START_DATE,
-            END_DATE,
-            OPEN_RANGE_NO,
-            CONTENT,
-            PLACE_NAME,
-            LATITUDE,
-            LONGITUDE
-            )VALUES
-            (SEQ_CALENDAR.NEXTVAL,
-            #{adminNo},
-            #{title},
-            #{startDate},
-            #{endDate},
-            #{openRangeNo},
-            COALESCE(#{content}, NULL),
-            COALESCE(#{placeName}, NULL),
-            COALESCE(#{latitude}, NULL),
-           COALESCE(#{longitude}, NULL)
-            )
-           """)
+             INSERT INTO CALENDAR(
+             NO,
+             ADMIN_NO,
+             TITLE,
+             START_DATE,
+             END_DATE,
+             OPEN_RANGE_NO,
+             CONTENT,
+             PLACE_NAME,
+             LATITUDE,
+             LONGITUDE
+             )VALUES
+             (SEQ_CALENDAR.NEXTVAL,
+             #{adminNo},
+             #{title},
+             #{startDate},
+             #{endDate},
+             #{openRangeNo},
+             COALESCE(#{content}, NULL),
+             COALESCE(#{placeName}, NULL),
+             COALESCE(#{latitude}, NULL),
+            COALESCE(#{longitude}, NULL)
+             )
+            """)
     int insertSchedule(CalendarVo vo);
 
     //참여자 지정하기
@@ -70,10 +70,10 @@ public interface AdminScheduleMapper {
     List<CalendarVo> selectScheduleList(@Param("adminNo") String no);
 
     @Select("""
-            SELECT E.NO AS empNo,E.NAME AS empName
-            FROM CALENDAR_PARTNER C
-            JOIN EMPLOYEE E ON C.EMP_NO=E.NO
-            WHERE CALENDAR_NO=#{no}
+                SELECT E.NO AS empNo,E.NAME AS empName
+                FROM CALENDAR_PARTNER C
+                JOIN EMPLOYEE E ON C.EMP_NO=E.NO
+                WHERE CALENDAR_NO=#{no}
             """)
     List<PartnerVo> selectPartnerList(String no);
 
@@ -87,16 +87,31 @@ public interface AdminScheduleMapper {
                 CONTENT=#{content},
                 PLACE_NAME=#{placeName},
                 LATITUDE=#{latitude},
-                LONGITUDE=#{longitude}
+                LONGITUDE=#{longitude},
+                UPDATE_DATE=SYSDATE
             WHERE
                 ADMIN_NO=#{adminNo} AND  NO=#{no}
             """)
     int updateCalendar(CalendarVo vo);
 
-    @Update("""
-            UPDATE CALENDAR_PARTNER
-            SET EMP_NO=#{empNo}
+
+     //기존에 파트너가 있었다면 삭제해주기
+    @Delete("""
+            DELETE CALENDAR_PARTNER
             WHERE CALENDAR_NO=#{calendarNo}
             """)
-    int updatePartner(PartnerVo partnerVo);
+    int deletePartner(PartnerVo partnerVo);
+
+
+    @Insert("""
+            INSERT INTO CALENDAR_PARTNER(CALENDAR_NO,EMP_NO)VALUES(#{calendarNo},#{empNo})
+            """)
+    //캘린더 수정하는데 갑자기 참여자 지정을 하고 싶을떄
+    int insertNewPartner(PartnerVo partnerVo);
+
+    @Delete("""
+            DELETE CALENDAR_PARTNER
+            WHERE CALENDAR_NO=#{no}
+            """)
+    int deleteBeforePartner(CalendarVo vo);
 }

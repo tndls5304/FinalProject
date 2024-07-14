@@ -24,7 +24,9 @@ public class AdminCommonController {
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String adminAuthNo=loginAdminVo.getAdminAuthorityNo();
 
-        List<AdminPageMenuVo> voList=service.selectSidePageComponent(adminAuthNo);
+        List<AdminPageMenuVo> voList=service.selectSidePageComponent(adminAuthNo); 
         return  voList;
+        // 의미 없는 지역 변수는 생성 안하도록 하는게 좋음
+        // return service.selectSidePageComponent(adminAuthNo); 로 변경 필요
     }
 }
