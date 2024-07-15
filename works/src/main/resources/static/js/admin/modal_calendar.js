@@ -340,3 +340,22 @@ function insertPartner(){
 }
 */
 
+//캘린더 삭제하기
+function deleteCalendar(){
+const detailNo=document.querySelector("detailNo").innerText
+$.ajax({
+    url:'/admin/calendar/delete',
+    method:'POST',
+    data:{
+    calendarNo:detailNo
+    },
+    function(result){
+        alert(result);
+        location.reload();  // 페이지 리로드
+    },error(errorMsg){
+        alert(errorMsg.responseText);
+    }
+
+
+})
+}

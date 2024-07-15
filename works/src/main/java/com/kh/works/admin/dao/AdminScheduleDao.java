@@ -44,11 +44,15 @@ public class AdminScheduleDao {
         return mapper.insertNewPartner(partnerVo);
     }
 
-    public int deletePartner(PartnerVo partnerVo) {
-        return mapper.deletePartner(partnerVo);
-    }
-
     public int deleteBeforePartner(CalendarVo vo) {
         return mapper.deleteBeforePartner(vo);
+    }
+
+    public int deleteCalendar(String adminNo, String calendarNo) {
+        return mapper.deleteCalendar(adminNo,calendarNo);
+    }
+
+    public int deletePartner(String calendarNo) {
+        return mapper.deletePartner(calendarNo);
     }
 }

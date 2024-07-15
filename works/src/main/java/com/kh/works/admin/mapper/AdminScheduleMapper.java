@@ -95,12 +95,7 @@ public interface AdminScheduleMapper {
     int updateCalendar(CalendarVo vo);
 
 
-     //기존에 파트너가 있었다면 삭제해주기
-    @Delete("""
-            DELETE CALENDAR_PARTNER
-            WHERE CALENDAR_NO=#{calendarNo}
-            """)
-    int deletePartner(PartnerVo partnerVo);
+
 
 
     @Insert("""
@@ -114,4 +109,19 @@ public interface AdminScheduleMapper {
             WHERE CALENDAR_NO=#{no}
             """)
     int deleteBeforePartner(CalendarVo vo);
+
+    @Update("""
+            UPDATE CALENDAR
+            SET  DEL_YN='Y'
+            WHERE ADMIN_NO=#{adminNo} AND NO=#{calendarNo}
+            """)
+    int deleteCalendar(String adminNo, String calendarNo);
+
+//덜함
+//기존에 파트너가 있었다면 삭제해주기
+@Delete("""
+            DELETE CALENDAR_PARTNER
+            WHERE CALENDAR_NO=#{calendarNo}
+            """)
+int deletePartner(String calendarNo);
 }

@@ -104,7 +104,7 @@
 
  <!-- -----내가쓴 일정 상세보기모달 --------------->
     <div class="modal-my-detail" id="myDetailModal">
-            <h6>캐린더번호: <span id=detailNo></span></h6>
+            <h6>캐린더번호:<span id=detailNo></span></h6>
             <h5>startDay <input type="date" id="startDetail"></h5>
             <h5>endDay<input type="date" id="endDetail"></h5>
             <button class="modal-close" id="closeMyDetailModal">닫기</button>

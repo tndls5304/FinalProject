@@ -107,13 +107,16 @@ public class AdminScheduleController {
     }
 
     //일정삭제
-//    @PostMapping("admin/calendar/update")
-//    @ResponseBody
-//    public ResponseEntity<String> deleteCalendar(String calendarNo,HttpSession session){
-//        AdminVo loginAdminVo = (AdminVo)session.getAttribute("loginAdminVo");
-//        //로그인한 관리자의 번호를 넣어주기
-//        String adminNo=loginAdminVo.getNo();
-//        int result= service.deleteCalendar(adminNo,calendarNo);
-//
-//    }
+    @PostMapping("admin/calendar/delete")
+    @ResponseBody
+    public ResponseEntity<String> deleteCalendar(String calendarNo,HttpSession session){
+        AdminVo loginAdminVo = (AdminVo)session.getAttribute("loginAdminVo");
+        //로그인한 관리자의 번호를 넣어주기
+        String adminNo=loginAdminVo.getNo();
+        int result= service.deleteCalendar(adminNo,calendarNo);
+        if(result==1){
+          return   ResponseEntity.ok("스케줄삭제 완료!");
+        }
+        return  ResponseEntity.internalServerError().body("스케줄삭제 실패");
+    }
 }//class
