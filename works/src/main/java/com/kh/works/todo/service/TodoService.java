@@ -158,4 +158,11 @@ public class TodoService {
     public List<TodoVo> getTodoListEndDate(TodoVo vo) {
         return todoDao.getTodoListEndDate(vo);
     }
+
+//    //선택삭제
+//    public void selectDelete(List<Integer> todoNoList) {
+//        for (Integer todoNo : todoNoList) {
+//             todoDao.selectDelete(todoNo);
+//        }
+//    }
 }

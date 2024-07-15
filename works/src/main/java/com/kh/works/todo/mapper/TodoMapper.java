@@ -249,6 +249,10 @@ public interface TodoMapper {
     })
     //기한 마감순
     List<TodoVo> getTodoListEndDate(TodoVo vo);
+
+    //선택삭제
+//    @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")
+//    void selectDelete(Integer todoNo);
 }
 
 
