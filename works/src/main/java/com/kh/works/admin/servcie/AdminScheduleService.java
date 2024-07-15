@@ -75,4 +75,17 @@ public class AdminScheduleService {
         return result;
     }
 
+    public int deleteCalendar(String adminNo, String calendarNo) {
+
+       int result= dao.deleteCalendar(adminNo,calendarNo);
+       if(result==0){
+           throw new RuntimeException("캘린더삭제실패!");
+       }
+       result= dao.deletePartner(calendarNo);
+       if(result==0){
+           throw new RuntimeException("캘린더의 파트너 삭제실패!");
+       }
+
+        return result;
+    }
 }
