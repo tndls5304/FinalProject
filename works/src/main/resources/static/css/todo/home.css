@@ -126,10 +126,13 @@ main {
   display: none; /* 투두 상세조회에서 번호 숨김 */
 }
 
-.listEndDate {
-  padding-left: 20px;
+.todo-title {
+  font-size: 15pt;
 }
-
+.empAndEnd {
+  font-size: 10pt;
+  color: #888;
+}
 /* 모달 전체 DIV */
 .modal {
   display: none;
@@ -250,7 +253,6 @@ main {
 }
 } */
 
-
-#empDetail{
+#empDetail {
   background-color: lightyellow; /* 임시로 배경색 추가 */
 }

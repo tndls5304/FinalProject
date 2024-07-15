@@ -54,7 +54,7 @@
                 <option value="endDate">기한 마감순</option>
               </select>
             </div>
-            
+
             <!-- 리스트, 상세조회 -->
             <div class="todo">
 
@@ -69,10 +69,10 @@
             </div>
 
 
-            </div>
+          </div>
 
 
-         
+
 
 
           <!-- 참여자 모달 -->
@@ -82,7 +82,7 @@
               <span class="close">&times;</span>
               <!-- 할일 작성 폼 -->
               <h3>할 일 쓰기</h3>
-              <form id="todoForm" action="/todo/write" method="post" >
+              <form id="todoForm" action="/todo/write" method="post">
                 <label for="todo-title">제목:</label>
                 <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
                 <br><br>
@@ -113,7 +113,7 @@
                 <button type="button" onclick="setEndDate('tomorrow')">내일</button>
                 <button type="button" onclick="setEndDate('nextWeek')">다음주</button>
                 <br><br>
-                
+
                 <input type="submit" value="작성">
               </form>
             </div>
@@ -248,7 +248,7 @@
       }
     </script>
 
-<!-- <script>
+    <!-- <script>
   //할일 폼 제출//아무짝에도 쓸모없다....
   $('#todoForm').on('submit', function (event) {
     event.preventDefault(); // 기본 폼 제출 방지
@@ -271,103 +271,103 @@
     });
   });
 </script> -->
-  
-<!-- 사원 상제조회 왜 안되는데-->
-<script>
-function getEmpDetail(empNo) {
 
-    $.ajax({
-    url: "/todo/empInfo",
-    method: "GET",
-    data: { no : empNo },
-    success: function (data) {
-      console.log("Received Data:", data); // 서버로부터 받은 데이터 로그 출력
+    <!-- 사원 상제조회 왜 안되는데-->
+    <script>
+      function getEmpDetail(empNo) {
 
-      const empDetailDiv = document.querySelector("#empDetail");
-      console.log("empDetailDiv:", empDetailDiv); // 선택된 요소 확인
+        $.ajax({
+          url: "/todo/empInfo",
+          method: "GET",
+          data: { no: empNo },
+          success: function (data) {
+            console.log("Received Data:", data); // 서버로부터 받은 데이터 로그 출력
 
-      let str = "";
-      str += `<p>이름:${data.name}</p>`;
-      str += `<p>이메일: ${data.email}</p>`;
-      str += `<p>직급: ${data.positionName}</p>`;
-      str += `<p>부서: ${data.deptName}</p>`;
-      
-      empDetailDiv.innerHTML = str; // 데이터 삽입
-
-      // 데이터 삽입 후 로그 출력
-      console.log("@@@@@empDetailDiv updated:", empDetailDiv.innerHTML);
-
-      // 모달 열기
-      const empModal = document.getElementById("empModal");
-      empModal.style.display = "block";
-    },
-    error: function (err) {
-      console.error("사원 정보 조회 중 오류 발생", err);
-    }
-  });
-}
-
-// 모달 닫기 기능
-$(document).ready(function () {
-  const empModal = document.getElementById("empModal");
-  const closeBtn = document.querySelector("#empModal .close");
-
-  closeBtn.onclick = function () {
-    empModal.style.display = "none";
-  }
-
-  window.onclick = function (event) {
-    if (event.target == empModal) {
-      empModal.style.display = "none";
-    }
-  }
-});
-
-</script>
-
-<!-- 정렬하기 -->
-<script>
-  //DOM이 로드된 뒤 실행 셀렉트 옵션을 선택함
-  $(document).ready(function() {
-      $('#sortOptions').change(function() { //change: 이벤트 리스너임 사용자가 선택한 옵션이 바뀔때마다 실행
-          const sortOption = $(this).val(); // 선택된 옵션의 값을 반환해서 변수에 넣어줌..
-  
-          $.ajax({
-              url: '/todo/' + sortOption, 
-              method: 'GET',
-              success: function(data) {
-                  // 결과를 화면에 표시하는 로직
-                  const table = document.querySelector("#todoList");
-                  const detail = document.querySelector("#detail");
+            const empDetailDiv = document.querySelector("#empDetail");
+            console.log("empDetailDiv:", empDetailDiv); // 선택된 요소 확인
 
             let str = "";
-            for (let i = 0; i < data.length; i++) {
-              str += "<tr>";
-              
-              //completedYn이용하여 완료한 할일은 제목에 줄 그어주기...!
-              if (data[i].completedYn === "Y") {
-                str +=
-                  "<td class='todo-title' style='text-decoration: line-through;'>" +
-                  data[i].title +
-                  "</td>";
-              } else {
-                str += "<td class='todo-title'>" + data[i].title + "</td>";
+            str += "<p>이름: " + data.name + "</p>";
+            str += "<p>이메일: " + data.email + "</p>";
+            str += "<p>직급: " + data.positionName + "</p>";
+            str += "<p>부서: " + data.deptName + "</p>";
+
+            empDetailDiv.innerHTML = str; // 데이터 삽입
+
+            // 데이터 삽입 후 로그 출력
+            console.log("@@@@@empDetailDiv updated:", empDetailDiv.innerHTML);
+
+            // 모달 열기
+            const empModal = document.getElementById("empModal");
+            empModal.style.display = "block";
+          },
+          error: function (err) {
+            console.error("사원 정보 조회 중 오류 발생", err);
+          }
+        });
+      }
+
+      // 모달 닫기 기능
+      $(document).ready(function () {
+        const empModal = document.getElementById("empModal");
+        const closeBtn = document.querySelector("#empModal .close");
+
+        closeBtn.onclick = function () {
+          empModal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+          if (event.target == empModal) {
+            empModal.style.display = "none";
+          }
+        }
+      });
+
+    </script>
+
+    <!-- 정렬하기 -->
+    <script>
+      //DOM이 로드된 뒤 실행 셀렉트 옵션을 선택함
+      $(document).ready(function () {
+        $('#sortOptions').change(function () { //change: 이벤트 리스너임 사용자가 선택한 옵션이 바뀔때마다 실행
+          const sortOption = $(this).val(); // 선택된 옵션의 값을 반환해서 변수에 넣어줌..
+
+          $.ajax({
+            url: '/todo/' + sortOption,
+            method: 'GET',
+            success: function (data) {
+              // 결과를 화면에 표시하는 로직
+              const table = document.querySelector("#todoList");
+              const detail = document.querySelector("#detail");
+
+              let str = "";
+              for (let i = 0; i < data.length; i++) {
+                str += "<tr>";
+
+                //completedYn이용하여 완료한 할일은 제목에 줄 그어주기...!
+                if (data[i].completedYn === "Y") {
+                  str +=
+                    "<td class='todo-title' style='text-decoration: line-through;'>" +
+                    data[i].title +
+                    "</td>";
+                } else {
+                  str += "<td class='todo-title'>" + data[i].title + "</td>";
+                }
+                str += "<td class='hidden-column' >" + data[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
+                str += "</tr>";
+                str += "<tr>";
+                str += "<td>요청자 " + data[i].todoEmpName + "</td>";
+                str += "<td class='listEndDate'>기한 " + data[i].endDate + "</td>";
+                str += "</tr>";
+                str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
               }
-              str += "<td class='hidden-column' >" + data[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
-              str += "</tr>";
-              str += "<tr>";
-              str += "<td>요청자 " + data[i].todoEmpName + "</td>";
-              str += "<td class='listEndDate'>기한 " + data[i].endDate + "</td>";
-              str += "</tr>";
-              str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
+              table.innerHTML = str;
+              detail.innerHTML = "";
+            },
+            error: function (xhr, status, error) {
+              console.error("목록 정렬 조회중 에러");
             }
-            table.innerHTML = str;
-            detail.innerHTML = "";
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("목록 정렬 조회중 에러");
-                    }
-                });
-            });
-  });
-  </script>
+          });
+        });
+      });
+    </script>
