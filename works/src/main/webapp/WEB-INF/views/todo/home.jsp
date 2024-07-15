@@ -44,7 +44,7 @@
 
 
             <div id="todo-check">
-              <div>
+              <div id="check-del">
                 <input type="checkbox" id="select-all"> 전체선택
                 <input type="button" value="삭제" onclick="checkDelete()">
               </div>
@@ -272,7 +272,7 @@
   });
 </script> -->
 
-    <!-- 사원 상제조회 왜 안되는데-->
+    <!-- 사원 상세조회 왜 안되는데==백틱을 안쓰니까 해결...지금까지 잘 썼는데 왜지-->
     <script>
       function getEmpDetail(empNo) {
 
@@ -370,4 +370,36 @@
           });
         });
       });
-    </script>
+      </script>
+      
+      <script>
+        function checkDelete() {
+        // 체크박스 선택
+        const checkboxes = document.querySelectorAll('.todo-checkbox:checked'); // 체크된 체크박스만 선택
+        const todoNoList = []; // todoNo를 저장할 배열
+
+        // 선택된 체크박스의 data-id 값을 todoNoList 배열에 추가
+        checkboxes.forEach(checkbox => {
+            todoNoList.push(checkbox.getAttribute('data-id')); // 체크된 체크박스에서 todoNo를 가져옴
+        });
+
+        if (todoNoList.length > 0) {
+            $.ajax({
+                url: '/todo/checkDel',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ todoNoList: todoNoList }),
+                success: function(response) {
+                    alert("삭제 완료!"); // 삭제 완료 메시지
+                    listAll(); // 목록을 다시 불러오는 함수 호출
+                },
+                error: function(err) {
+                    console.error("삭제 중 오류 발생", err);
+                }
+            });
+        } else {
+            alert("삭제할 항목을 선택하세요."); // 체크된 항목이 없을 경우 경고
+        }
+    }
+
+      </script>

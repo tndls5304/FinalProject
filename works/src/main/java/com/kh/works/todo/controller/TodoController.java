@@ -194,7 +194,7 @@ public class TodoController {
         return empInfo;
     }
 
-    //최신작성순
+    //최신작성순 조회
     @GetMapping("createDate")
     @ResponseBody
     public List<TodoVo> getTodoListCreateData(TodoVo vo, HttpSession session){
@@ -211,7 +211,7 @@ public class TodoController {
     }
 
 
-    //기한 마감순
+    //기한 마감순 조회
     @GetMapping("endDate")
     @ResponseBody
     public List<TodoVo> getTodoListEndDate(TodoVo vo, HttpSession session){
@@ -227,6 +227,14 @@ public class TodoController {
         return voList;
     }
 
+//    //선택삭제, 전체 삭제
+//    @PostMapping("checkDel")
+//    @ResponseBody
+//    //List<Integer>로 매핑하면 스프링이 자동으로 리스트로 변환해줌
+//    public ResponseEntity<String> selectDelete(@RequestParam("todoNoList") List<Integer> todoNoList){
+//        service.selectDelete(todoNoList);
+//        return ResponseEntity.ok("selectDelete ok");
+//    }
 
 
 }

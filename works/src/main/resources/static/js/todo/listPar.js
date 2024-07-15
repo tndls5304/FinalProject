@@ -12,6 +12,7 @@ function listPar() {
       let str = "";
       for (let i = 0; i < listPar.length; i++) {
         str += "<tr>";
+        str += "<td><input type='checkbox' class='todo-checkbox' data-id='" + listPar[i].todoNo + "'></td>";
         if (listPar[i].completedYn === "Y") {
           str +=
             "<td class='todo-title' style='text-decoration: line-through;'>" +

@@ -97,4 +97,8 @@ public class TodoDao {
     public List<TodoVo> getTodoListEndDate(TodoVo vo) {
         return mapper.getTodoListEndDate(vo);
     }
+
+//    public void selectDelete(Integer todoNo) {
+//         mapper.selectDelete(todoNo);
+//    }
 }
