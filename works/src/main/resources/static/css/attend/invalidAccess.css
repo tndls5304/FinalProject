@@ -1,3 +1,113 @@
+/* nav---------------------------- */
+/* body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+} */
+
+nav {
+  width: 100%;
+  height: 7%;
+  border-top: 1px solid rgb(194, 194, 194);
+  border-bottom: 1px solid rgb(194, 194, 194);
+  display: flex;
+  justify-content: space-between;
+}
+
+#right-sidebar {
+  display: flex;
+  align-items: center;
+}
+
+#right-sidebar div img {
+  width: 50px;
+  height: 45px;
+}
+
+#right-sidebar div button {
+  background-color: transparent;
+  border: none;
+}
+
+#right-sidebar div button img {
+  width: 30px;
+  height: 30px;
+  background-color: rgb(255, 255, 255);
+}
+
+#right-sidebar div:nth-child(2) {
+  margin-left: 10px;
+}
+
+#right-sidebar div:nth-child(3) {
+  font-size: 23px;
+  margin-left: 10px;
+  font-weight: 500;
+  color: rgb(70, 70, 70);
+}
+
+#left-sidebar {
+  display: flex;
+  align-items: center;
+}
+
+#left-sidebar div a img {
+  width: 40px;
+  height: 40px;
+}
+
+#left-sidebar div button {
+  background-color: transparent;
+  border: none;
+}
+
+#left-sidebar div button img {
+  width: 30px;
+  height: 30px;
+}
+
+#left-sidebar div:nth-child(1),
+#left-sidebar div:nth-child(2),
+#left-sidebar div:nth-child(3),
+#left-sidebar div:nth-child(4),
+#left-sidebar div:nth-child(5),
+#left-sidebar div:nth-child(6),
+#left-sidebar div:nth-child(7),
+#left-sidebar div:nth-child(8) {
+  margin-right: 10px;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+#sidebar {
+  width: 15%;
+  height: 95%;
+  background-color: rgba(229, 229, 229, 0.5);
+  /* 추가함 */
+  padding: 20px 10px;
+}
+
+/* 추가함 */
+  #sidebar div {
+  margin-bottom: 20px;
+}
+
+#content {
+  width: 85%;
+  height: auto;
+}
+
+/* --------------------------------------------- */
+
 body{
   display: flex;
   justify-content: center;
