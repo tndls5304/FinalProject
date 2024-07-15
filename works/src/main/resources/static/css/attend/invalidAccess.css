@@ -14,6 +14,14 @@ nav {
   border-bottom: 1px solid rgb(194, 194, 194);
   display: flex;
   justify-content: space-between;
+
+  /* 이 부분 본인이 추가함. */
+  /* nav바가 맨 위에 올 수 있도록 설정 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
 }
 
 #right-sidebar {
@@ -86,6 +94,11 @@ main {
   margin: 0;
   padding: 0;
   overflow-y: auto;
+
+  /* 이 부분 본인이 추가함. */
+  /* 잘못된 접근창이 가운데에 위치하도록 설정 */
+  justify-content: center;
+  align-items: center;
 }
 
 #sidebar {

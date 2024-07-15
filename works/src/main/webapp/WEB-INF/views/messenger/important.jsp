@@ -72,7 +72,7 @@
            <c:forEach var="message" items="${voList}">
             <div class="messenger-item">
                <div><input class="checkbox-delete" type="checkbox" value="${message.messenNo}"></div>
-               <div><input id="checkbox-important" type="checkbox"></div>
+               <!-- <div><input id="checkbox-important" type="checkbox"></div> -->
                <div id="list-person">${message.name}</div>
                <div id="list-title" class="click-title">${message.title}</div>
                <div id="list-date">${message.sendDate}</div>
