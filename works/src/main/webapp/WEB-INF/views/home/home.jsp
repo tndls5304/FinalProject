@@ -187,8 +187,11 @@
                   console.log("개별 알림:", notification); // 개별 알림 데이터 출력
                   let newNotification = document.createElement("p");
                   newNotification.innerText = notification.message;
+                  console.log("알림 메시지:", notification.message);
                   newNotification.classList.add("notification-message");
+                  console.log("notification classList:", newNotification.classList);
                   newNotification.dataset.alarmNo = notification.alarmNo;
+                  console.log("Alarm in dataset:", newNotification.dataset.alarmNo);
 
                  // 알림 유형에 따른 링크 설정
                   newNotification.onclick = function () {
