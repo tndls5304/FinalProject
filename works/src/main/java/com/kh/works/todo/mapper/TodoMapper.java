@@ -18,7 +18,7 @@ public interface TodoMapper {
             "VALUES (SEQ_TODO.NEXTVAL, #{todoEmpNo}, #{title}, #{content}, #{endDate})")
     int todoWrite(TodoVo todoVo);
 
-    //할일 담당자 작성
+    //할일 담당자 insert
     @Insert("INSERT INTO TODO_MANAGER(TODO_NO_MAN ,TODO_MANAGER_NO ) VALUES( SEQ_TODO.CURRVAL , #{todoManagerNo})")
     int todoManager(String todoManagerNo);
 
@@ -148,6 +148,7 @@ public interface TodoMapper {
     })
     List<EmployeeVo> getManagerList();
 
+
     //받은 알람 리스트
     @Select("SELECT ALARM_NO, EMP_NO, MESSAGE, IS_READ, CREATE_DATE FROM ALARM WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
     List<AlarmVo> getTodoAlarm(@Param("empNo") String empNo);
@@ -157,9 +158,11 @@ public interface TodoMapper {
     @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
     int read(@Param("empNo") String empNo);
 
+
     //알람 저장
     @Insert("INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE) VALUES (SEQ_ALARM.NEXTVAL, #{empNo}, #{message})")
     void saveAlarm(@Param("empNo") String empNo, @Param("message") String notificationMessage);
+
 
     //사원 상세 조회
     @Select("""
@@ -185,10 +188,10 @@ public interface TodoMapper {
             @Result(property = "positionName", column = "positionName"),
             @Result(property = "deptName", column = "deptName")
     })
-
     EmployeeVo getEmpInfo(EmployeeVo empVo);
 
 
+    //최신작성순 조회
     @Select("""
             SELECT DISTINCT\s
                 T.TODO_NO,\s
@@ -215,11 +218,10 @@ public interface TodoMapper {
             @Result(property = "createDate", column = "CREATE_DATE"),
             @Result(property = "todoEmpName", column = "NAME")
     })
-    //최신 작성순
     List<TodoVo> getTodoListCreateDate(TodoVo vo);
 
 
-    //기한 마감순
+    //기한마감순 조회
     @Select("""
             SELECT DISTINCT\s
                 T.TODO_NO,\s
@@ -247,7 +249,6 @@ public interface TodoMapper {
             @Result(property = "createDate", column = "CREATE_DATE"),
             @Result(property = "todoEmpName", column = "NAME")
     })
-    //기한 마감순
     List<TodoVo> getTodoListEndDate(TodoVo vo);
 
     //선택삭제

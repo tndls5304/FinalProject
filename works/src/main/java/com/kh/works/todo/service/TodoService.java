@@ -41,6 +41,7 @@ public class TodoService {
         //todo작성 실행
         int result1 = todoDao.todowrite(vo);
 
+        //여러명의 담당자를 한명씩 꺼내 쿼리를 보낸다.
        List<String>todoManageList = vo.getTodoManagerList();
        int result2 = 1;
         for (String manVo : todoManageList) {
@@ -54,8 +55,7 @@ public class TodoService {
         //할일 담당자 지정하면 담당자에게 알림
         if(result1 * result2 == 1){
             String notificationMessage = "✅" + vo.getTodoEmpName() + "님이 할일 담당자로 \n 지정하였습니다.";
-//            todoDao.saveAlarm(vo.getTodoManagerNo(), notificationMessage);
-//            notificationHandler.sendNotification(notificationMessage);
+        //여기서도 담당자가 여러명이기 때문에 여러번의 알람을 insert
         for (String managerNo : todoManageList) {
             todoDao.saveAlarm(managerNo, notificationMessage);
             notificationHandler.sendNotification(notificationMessage);
@@ -78,6 +78,7 @@ public class TodoService {
         LocalDate currentDate = LocalDate.now();
 
         //오늘, 내일, 다음주 버튼 날짜형식으로 넘겨주기
+        //value값을 문자열로 받아와서 계산
         String inputDate = vo.getEndDate();
         if ("today".equalsIgnoreCase(inputDate)) {
             return currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
