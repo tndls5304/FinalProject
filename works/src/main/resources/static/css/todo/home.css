@@ -86,6 +86,7 @@ main {
   padding: 0;
 }
 
+/* 사이드바 */
 #sidebar {
   width: 15%;
   height: 95%;
@@ -188,6 +189,18 @@ main {
 }
 
 /* 폼 스타일 */
+/* 오늘, 내일, 다음주버튼 */
+/* 기본 스타일 */
+.endDateBtn {
+  background-color: white;
+  color: black;
+}
+
+/* 클릭된 버튼 스타일 */
+.endDateBtn.active {
+  background-color: rgb(145, 219, 241);
+  color: white;
+}
 /* .modal-content form {
   display: flex;
   flex-direction: column;
@@ -255,4 +268,15 @@ main {
 
 #empDetail {
   background-color: lightyellow; /* 임시로 배경색 추가 */
+}
+
+.todo-checkbox-container {
+  width: 30px;
+  height: 30px;
+  text-align: center; /* 체크박스를 중앙에 배치 */
+}
+
+.todo-checkbox {
+  width: 15px; /* td 크기에 맞춰서 체크박스 크기 조정 */
+  height: 15px;
 }

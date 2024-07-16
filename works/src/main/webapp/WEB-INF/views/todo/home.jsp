@@ -25,11 +25,11 @@
         <main>
           <!-- 사이드바 -->
           <div id="sidebar">
-            <button id="writeModalBtn">작성하기</button>
+            <button class="sideBtn" id="writeModalBtn">할 일 쓰기</button>
             <br>
-            <button onclick="listAll();">전체 할일</button>
+            <button class="sideBtn" id="listBtn" onclick="listAll();">전체 할일</button>
             <br>
-            <button onclick="listPar();">담당 할일</button>
+            <button class="sideBtn" id="listBtn" onclick="listPar();">담당 할일</button>
           </div>
 
 
@@ -109,9 +109,9 @@
 
                 <label for="endDate">기한</label>
                 <input type="hidden" id="endDate" name="endDate">
-                <button type="button" onclick="setEndDate('today')">오늘</button>
-                <button type="button" onclick="setEndDate('tomorrow')">내일</button>
-                <button type="button" onclick="setEndDate('nextWeek')">다음주</button>
+                <button class="endDateBtn" type="button" onclick="setEndDate('today',event)">오늘</button>
+                <button class="endDateBtn" type="button" onclick="setEndDate('tomorrow', event)">내일</button>
+                <button class="endDateBtn" type="button" onclick="setEndDate('nextWeek',event)">다음주</button>
                 <br><br>
 
                 <input type="submit" value="작성">
@@ -343,7 +343,10 @@
               let str = "";
               for (let i = 0; i < data.length; i++) {
                 str += "<tr>";
-
+                str +=
+                  "<td class='todo-checkbox-container'><input type='checkbox' class='todo-checkbox' todo-no='" +
+                  data[i].todoNo +
+                  "'></td>";
                 //completedYn이용하여 완료한 할일은 제목에 줄 그어주기...!
                 if (data[i].completedYn === "Y") {
                   str +=
@@ -356,8 +359,12 @@
                 str += "<td class='hidden-column' >" + data[i].todoNo + "</td>"; // todoNo 열을 숨김 처리
                 str += "</tr>";
                 str += "<tr>";
-                str += "<td>요청자 " + data[i].todoEmpName + "</td>";
-                str += "<td class='listEndDate'>기한 " + data[i].endDate + "</td>";
+                str +=
+                  "<td class='empAndEnd' colspan='2'>요청자: " +
+                  data[i].todoEmpName +
+                  " | 기한: " +
+                  data[i].endDate +
+                  "</td>";
                 str += "</tr>";
                 str += "<tr><td colspan='2'>&nbsp;</td></tr>"; //공백추가
               }
@@ -370,36 +377,48 @@
           });
         });
       });
-      </script>
-      
-      <script>
-        function checkDelete() {
-        // 체크박스 선택
+    </script>
+
+    <script>
+      //전체삭제 , 개별삭제 
+      //전체 선택에 체크하면 목록의 모든 체크박스가 선택되는 코드
+      document.querySelector('#select-all').addEventListener('change', function (event) {
+        const checked = event.target.checked;
+        const todoCheckboxes = document.querySelectorAll('.todo-checkbox');
+        //전체 선택 여부에 따라 체크박스 상태 변경
+        todoCheckboxes.forEach(function (checkbox) {
+          checkbox.checked = checked;
+        });
+      });
+      function checkDelete() {
+
+        // 체크박스 선택하면 todoNo를 배열로 넘겨주는 코드
         const checkboxes = document.querySelectorAll('.todo-checkbox:checked'); // 체크된 체크박스만 선택
         const todoNoList = []; // todoNo를 저장할 배열
-
-        // 선택된 체크박스의 data-id 값을 todoNoList 배열에 추가
+        // 선택된 체크박스의 data-id 값을 todoNoList 배열에 추가한다
         checkboxes.forEach(checkbox => {
-            todoNoList.push(checkbox.getAttribute('data-id')); // 체크된 체크박스에서 todoNo를 가져옴
+          todoNoList.push(checkbox.getAttribute('todo-no')); // 체크된 체크박스에서 todoNo를 가져옴
         });
 
-        if (todoNoList.length > 0) {
-            $.ajax({
-                url: '/todo/checkDel',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ todoNoList: todoNoList }),
-                success: function(response) {
-                    alert("삭제 완료!"); // 삭제 완료 메시지
-                    listAll(); // 목록을 다시 불러오는 함수 호출
-                },
-                error: function(err) {
-                    console.error("삭제 중 오류 발생", err);
-                }
-            });
-        } else {
-            alert("삭제할 항목을 선택하세요."); // 체크된 항목이 없을 경우 경고
-        }
-    }
 
-      </script>
+        if (todoNoList.length > 0) {
+          $.ajax({
+            url: '/todo/checkDel',
+            method: 'POST',
+            data: { todoNoList: todoNoList },
+            success: function (response) {
+              alert("삭제 완료!"); // 삭제 완료 메시지
+              listAll(); // 목록을 다시 불러오는 함수 호출
+              // 전체 선택 체크박스를 체크 해제
+              document.querySelector('#select-all').checked = false;
+            },
+            error: function (err) {
+              console.error("삭제 중 오류 발생", err);
+            }
+          });
+        } else {
+          alert("삭제할 항목을 선택하세요."); // 체크된 항목이 없을 경우 경고
+        }
+      }
+
+    </script>

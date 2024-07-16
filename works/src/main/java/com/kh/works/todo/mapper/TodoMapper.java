@@ -251,8 +251,8 @@ public interface TodoMapper {
     List<TodoVo> getTodoListEndDate(TodoVo vo);
 
     //선택삭제
-//    @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")
-//    void selectDelete(Integer todoNo);
+    @Update("UPDATE TODO SET DEL_YN = 'Y' WHERE TODO_NO = #{todoNo}")
+    void selectDelete(Integer todoNo);
 }
 
 

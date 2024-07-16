@@ -98,7 +98,7 @@ public class TodoDao {
         return mapper.getTodoListEndDate(vo);
     }
 
-//    public void selectDelete(Integer todoNo) {
-//         mapper.selectDelete(todoNo);
-//    }
+    public void selectDelete(Integer todoNo) {
+         mapper.selectDelete(todoNo);
+    }
 }

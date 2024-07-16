@@ -13,7 +13,10 @@ function listAll() {
       let str = "";
       for (let i = 0; i < listAll.length; i++) {
         str += "<tr>";
-        str += "<td><input type='checkbox' class='todo-checkbox' data-id='" + listAll[i].todoNo + "'></td>";
+        str +=
+          "<td class='todo-checkbox-container'><input type='checkbox' class='todo-checkbox' todo-no='" +
+          listAll[i].todoNo +
+          "'></td>";
         //completedYn이용하여 완료한 할일은 제목에 줄 그어주기...!
         if (listAll[i].completedYn === "Y") {
           str +=
