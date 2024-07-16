@@ -43,8 +43,6 @@ public class TodoController {
     public String todoWrite(TodoVo vo, HttpSession session){
 //        getAttribute :세션에 저장된 객체 가져오는 메소드
         EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@loginEmpVo = " + loginEmpVo);
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@vo = " + vo);
 
         //로그인한 회원 번호를 세션에서 가져와 EmpNo에 담아준다
         String empNo = loginEmpVo.getNo();
@@ -60,8 +58,8 @@ public class TodoController {
             return "redirect:/todo/home";
         }
 
-//    @모달창을 열때는 별도의 URL요청을 보내지 않는다.(창이 열릴때 서버에 새로운 요청을 보내지 않기 때문에!==현재 상태를 유지하며 데이터 표시)
-//    @따라서 todoHome에서 미리 담당자 데이터를 받아와야 한다.그래서 모달창에서 담당자 리스트가 안떴었던 것...!
+//    @모달창을 열때는 별도의 URL요청을 보내지 않는다.(창이 열릴때 서버에 새로운 요청을 보내지 않기 때문에!=>현재 상태를 유지하며 데이터 표시)
+//    @따라서 todoHome에서 미리 담당자 데이터를 받아와야 한다.그래서 모달창에서 담당자 리스트가 안떴었던 것...!그래서 아래의 메소드는 필요가 없다!
         //할일작성 화면 - 참여자 추가하기
     //model : 컨트롤러와 화면(뷰) 사이에서 데이터를 전달해주는 역할 empList를 가져와model에 담아준다
 //    @GetMapping("write")

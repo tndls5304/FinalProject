@@ -179,27 +179,25 @@
     <!--var todoNo = $(this).find('.hidden-column').text(); => 클릭된 요소의 텍스트를 가져옴..todoNo를 가져온다-->
     <!--getTodoDetail(todoNo); => 앞에서 가져온 할일번호를 매개변수로 넣어준 뒤 함수실행..! -->
     <script>
+      //글번호 숨기기
       $(document).on('click', '#todoList tr', function () {
         const todoNo = $(this).find('.hidden-column').text();
         getTodoDetail(todoNo);
       });
-    </script>
-
-    <script>
+   
+      
       $(document).on('click', '.detTodoBtn', function () {
         const todoNo = $(this).find('.hidden-column').text();
         delTodo(todoNo);
       });
-    </script>
+   
 
-    <script>
       $(document).on('click', '.comBtn', function () {
         const todoNo = $(this).find('.hidden-column').text();
         complete(todoNo);
       });
-    </script>
+    
 
-    <script>
       $(document).on('click', '.editBtn', function () {
         const todoNo = $(this).find('.hidden-column').text();
         edit(todoNo);
