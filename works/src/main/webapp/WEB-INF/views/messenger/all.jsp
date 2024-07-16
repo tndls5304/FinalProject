@@ -10,6 +10,8 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Messenger</title>
      <link rel="stylesheet" href="/css/messenger/write.css">
+     <!-- fontawesome 이 부분 추가 -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
      <!-- <script src="/js/messenger/all.js"></script> -->
    </head>
 
@@ -43,19 +45,19 @@
             <button onclick="moveToWrite()">쪽지쓰기</button>
          </div>
          <div id="messenger-status">
-           <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음 (<c:out value="${unreadCount}"/>)</button></div></a>
+           <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음 [<c:out value="${unreadCount}"/>]</button></div></a>
            <a href="http://127.0.0.1:8080/messenger/important"><div><button>중요</button></div></a>
            <a href="http://127.0.0.1:8080/messenger/trash"><div><button>휴지통</button></div></a>
          </div>
          <hr>
          <div id="all-messenger">
-           <a href="http://127.0.0.1:8080/messenger/all"><p>전체쪽지</p></a>
+           <a href="http://127.0.0.1:8080/messenger/all"><p><i class="fa-brands fa-facebook-messenger"></i> 전체쪽지</p></a>
          </div>
          <div id="receive-messenger">
-           <a href="http://127.0.0.1:8080/messenger/received"><p>받은쪽지</p></a>
+           <a href="http://127.0.0.1:8080/messenger/received"><p><i class="fa-solid fa-reply"></i> 받은쪽지</p></a>
          </div>
          <div id="send-messenger">
-           <a href="http://127.0.0.1:8080/messenger/sent"><p>보낸쪽지</p></a>
+           <a href="http://127.0.0.1:8080/messenger/sent"><p><i class="fa-solid fa-share"></i> 보낸쪽지</p></a>
          </div>
        </div>
 

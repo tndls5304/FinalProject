@@ -42,10 +42,10 @@
                 <div id="clock">00:00:00</div>
                 <div id="work-status">
                   <div class="work-item">
-                    <p><b>출근시간</b> ${attendVo.startTime}</p>
+                    <p><b>출근시간</b> &nbsp;&nbsp; <span class="time-text">${attendVo.startTime}</span></p>
                   </div>
                   <div class="work-item">
-                    <p><b>퇴근시간</b> ${attendVo.endTime}</p>
+                    <p><b>퇴근시간</b> &nbsp;&nbsp; <span class="time-text">${attendVo.endTime}</span></p>
                   </div>
                   <div id="button-group">
                     <button id="start-button">출근하기</button>
@@ -286,6 +286,8 @@
           };
 
           // ----------------------------------------------------------메시지 알림 읽음 처리 AJAX 요청
+
+          // 쪽지 알림 읽음 처리 AJAX 요청
           function markMessageNotificationAsRead(alarmNo) {
             $.ajax({
               url: "/messenger/readAlarm",

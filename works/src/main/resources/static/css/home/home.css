@@ -132,7 +132,7 @@ main {
 
 #profile-picture {
     border-radius: 50%;
-    width: 230px;
+    width: 250px;
     height: 250px;
     /* 딱 맞게 하려면 fill로 속성 설정. 대신 좀 눌려서 나온다. */
     /* contain로 속성 설정하면 프로필에 빈 부분이 생긴다. */
@@ -144,7 +144,7 @@ main {
     position: absolute;
     top: 20px;
     right: 20px;
-    font-size: 2em;
+    font-size: 2.5em;
     color: black;
     cursor: pointer;
 }
@@ -166,25 +166,31 @@ main {
 }
 
 .work-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    background-color: #fff;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 10px;
+   border: 2px solid #696868;
+   width: 300px;
+   border-radius: 5px;
+   padding: 5px;
+   background-color: #fff;
 }
 
 .work-item p{
     margin-left: 5%;
 }
 
+.time-text{
+    font-size: larger;
+    font-weight: bold;
+}
+
 #button-group {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 #start-button{
@@ -196,6 +202,7 @@ main {
     cursor: pointer;
     height: 50px;
     font-size: large;
+    width: 150px;
 }
 #end-button{
     padding: 5px 10px;
@@ -206,6 +213,7 @@ main {
     cursor: pointer;
     height: 50px;
     font-size: large;
+    width: 150px;
 }
 #load-button {
     /* background-color: #f0f0f0;
@@ -310,7 +318,7 @@ main {
     cursor: pointer;
     padding: 10px;
     cursor: pointer;
-    color: grey;
+    color: black;
     border-radius: 20px;
     font-size: 20px;
 }
@@ -326,7 +334,7 @@ main {
     cursor: pointer;
     padding: 10px;
     cursor: pointer;
-    color: grey;
+    color: black;
     border-radius: 20px;
     font-size: 20px;
 }
