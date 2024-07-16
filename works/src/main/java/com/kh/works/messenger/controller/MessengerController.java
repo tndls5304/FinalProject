@@ -65,10 +65,19 @@ public class MessengerController {
 
     //쪽지 작성 - 작성할 때, 사원목록 띄우기 위한 메서드
     @GetMapping("write")
-    public String showEmployee(Model model){
+    public String showEmployee(Model model, HttpSession session){
         List<EmployeeVo> employeeList = service.getEmployeeList();
         System.out.println("employeeList = " + employeeList);
+
+        //HttpSession이 필요없는데 사용한 이유 : unreadCount 변수명을 사용해야 하는데, 매개변수로 EmpNo가 필요해서 사용하였다.
+        //unreadCount 변수명이 필요한 이유 : write.jsp에서 안읽은 쪽지 갯수를 표시해줘야 되기 위해서.
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        String receiverEmpNo = loginEmpVo.getNo();
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(receiverEmpNo);
+
         model.addAttribute("employeeList", employeeList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/write";
     }
 
@@ -131,9 +140,19 @@ public class MessengerController {
 
     //상세 쪽지 화면
     @GetMapping("detail")
-    public String getDetailPage(@RequestParam("messenNo") String messenNo, Model model){
+    public String getDetailPage(@RequestParam("messenNo") String messenNo, Model model, HttpSession session){
+
         List<MessengerVo> voList = service.getDetailPage(messenNo);
+
+        //HttpSession이 필요없는데 사용한 이유 : unreadCount 변수명을 사용해야 하는데, 매개변수로 EmpNo가 필요해서 사용하였다.
+        //unreadCount 변수명이 필요한 이유 : detail.jsp에서 안읽은 쪽지 갯수를 표시해줘야 되기 위해서.
+        EmployeeVo loginEmpVo = (EmployeeVo)session.getAttribute("loginEmpVo");
+        String receiverEmpNo = loginEmpVo.getNo();
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(receiverEmpNo);
+
         model.addAttribute("voList", voList);
+        model.addAttribute("unreadCount", unreadCount);
         return "messenger/detail";
     }
 
