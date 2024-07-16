@@ -21,7 +21,7 @@
                 <label for="content">내용:</label>
                 <div id="content" contenteditable="true"></div><br>
                 <input type="file" id="imageFile" accept="image/*" style="display: none;"><br>
-                <button type="button" onclick="addImage()">사진 추가</button>
+                <button type="button" id="addImg">사진 추가</button>
                 <button type="button" onclick="submitPost()">포스트 작성</button>
             </form>
         </div>

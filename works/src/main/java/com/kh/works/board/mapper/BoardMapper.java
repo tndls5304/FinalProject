@@ -1,5 +1,6 @@
 package com.kh.works.board.mapper;
 
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -218,4 +219,15 @@ public interface BoardMapper {
             """)
     int commentDel(String comtNo);
 
+    @Select("""
+            SELECT SEQ_BOARD.CURRVAL FROM DUAL
+            """)
+    String getBoardByNo();
+
+    @Insert("""
+            INSERT INTO BOARD_IMG
+            (NO, BOARD_NO, IMG_NAME)
+            VALUES (SEQ_BOARD_IMG.NEXTVAL, #{boardNo}, #{imgName})
+            """)
+    int writeImg(BoardImgVo imgVo);
 }

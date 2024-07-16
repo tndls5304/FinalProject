@@ -1,6 +1,7 @@
 package com.kh.works.board.service;
 
 import com.kh.works.board.dao.BoardDao;
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -103,4 +104,11 @@ public class BoardService {
     }
 
 
+    public String getBoardByNo() {
+        return dao.getBoardByNo();
+    }
+
+    public int writeImg(BoardImgVo imgVo) {
+        return dao.writeImg(imgVo);
+    }
 }

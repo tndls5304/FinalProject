@@ -3,6 +3,7 @@ package com.kh.works.board.controller;
 //import com.kh.works.security.EmpSessionVo;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.kh.works.board.service.BoardService;
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,34 +48,35 @@ public class BoardController {
 
         int result = service.write(vo);
 
-//
-//        vo.setBoardNo(no);
-//        String boardNo = vo.getBoardNo();
-//        System.out.println(boardNo + "~~~~~~~~~~~~");
+        String no = service.getBoardByNo();
+        vo.setBoardNo(no);
 
-//        // 각 이미지를 파일로 저장하는 처리
-//        if (imgs != null) {
-//            for (MultipartFile img : imgs) {
-//                if (!img.isEmpty()) {
-//                    //실제 이미지 이름
-//                    String imgName = img.getOriginalFilename();
-//                    //이미지를 저장할 경로
-//                    String savePath = "/src/main/resources/static/img/icon/"+ imgName; // 실제 서버 경로로 변경해야 함
-//                    //파일이 저장될 최종 경로
-//                    String filePath = savePath + imgName;
-//                    //파일 객체 생성해서 저장
-//                    File fileAdd = new File(filePath);
-//                    //그리고 넘기기
-//                    img.transferTo(fileAdd);
-//
-//                    BoardImgVo imgVo = new BoardImgVo();
-//                    imgVo.setBoardNo(boardNo);
-//                    imgVo.setImgName(imgName);
-//                    int imgResult = service.writeImg(imgVo);
-//                }
-//            }
-//
-//        }
+        String boardNo = vo.getBoardNo();
+        System.out.println(boardNo + "~~~~~~~~~~~~");
+
+        // 각 이미지를 파일로 저장하는 처리
+        if (imgs != null) {
+            for (MultipartFile img : imgs) {
+                if (!img.isEmpty()) {
+                    //실제 이미지 이름을 imgName 이라는 변수에 저장
+                    String imgName = img.getOriginalFilename();
+                    //이미지를 저장할 경로 아마도 이게 5050포트
+                    String savePath = "/src/main/resources/static/img/icon/"+ imgName; // 실제 서버 경로로 변경해야 함
+                    //파일이 저장될 최종 경로 임시적으로 저장될 경로
+                    String filePath = savePath + imgName;
+                    //파일 객체 생성해서 저장
+                    File fileAdd = new File(filePath);
+                    //그리고 넘기기
+                    img.transferTo(fileAdd);
+
+                    BoardImgVo imgVo = new BoardImgVo();
+                    imgVo.setBoardNo(boardNo);
+                    imgVo.setImgName(imgName);
+                    int imgResult = service.writeImg(imgVo);
+                }
+            }
+
+        }
         return "redirect:/board/list";
     }
 

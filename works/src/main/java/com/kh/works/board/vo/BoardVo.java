@@ -15,7 +15,6 @@ public class BoardVo {
     private String crtnDate;
     private String mdfdDate;
     private String delYn;
-    private List<String> imgNames;
     private String name;
 
 }

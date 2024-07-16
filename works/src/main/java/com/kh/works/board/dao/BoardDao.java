@@ -1,6 +1,7 @@
 package com.kh.works.board.dao;
 
 import com.kh.works.board.mapper.BoardMapper;
+import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
@@ -89,4 +90,11 @@ public class BoardDao {
     }
 
 
+    public String getBoardByNo() {
+        return mapper.getBoardByNo();
+    }
+
+    public int writeImg(BoardImgVo imgVo) {
+        return mapper.writeImg(imgVo);
+    }
 }
