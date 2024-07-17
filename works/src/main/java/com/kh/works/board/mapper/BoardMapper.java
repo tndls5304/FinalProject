@@ -219,15 +219,15 @@ public interface BoardMapper {
             """)
     int commentDel(String comtNo);
 
-    @Select("""
-            SELECT SEQ_BOARD.CURRVAL FROM DUAL
-            """)
-    String getBoardByNo();
-
-    @Insert("""
-            INSERT INTO BOARD_IMG
-            (NO, BOARD_NO, IMG_NAME)
-            VALUES (SEQ_BOARD_IMG.NEXTVAL, #{boardNo}, #{imgName})
-            """)
-    int writeImg(BoardImgVo imgVo);
+//    @Select("""
+//            SELECT SEQ_BOARD.CURRVAL FROM DUAL
+//            """)
+//    String getBoardByNo();
+//
+//    @Insert("""
+//            INSERT INTO BOARD_IMG
+//            (NO, BOARD_NO, IMG_NAME)
+//            VALUES (SEQ_BOARD_IMG.NEXTVAL, #{boardNo}, #{imgName})
+//            """)
+//    int writeImg(BoardImgVo imgVo);
 }

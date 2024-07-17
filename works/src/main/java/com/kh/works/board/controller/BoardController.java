@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +37,8 @@ public class BoardController {
 
     //게시물 작성하기 백엔드
     @PostMapping("write")
-    public String write(BoardVo vo,
-                        HttpSession session ,
-                        @RequestParam(value = "img", required = false) List<MultipartFile> imgs) throws Exception {
-
-        System.out.println(imgs);
+    @ResponseBody
+    public String write(BoardVo vo, HttpSession session ){
 
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String empNo = loginEmpVo.getNo();
@@ -48,37 +46,52 @@ public class BoardController {
 
         int result = service.write(vo);
 
-        String no = service.getBoardByNo();
-        vo.setBoardNo(no);
-
-        String boardNo = vo.getBoardNo();
-        System.out.println(boardNo + "~~~~~~~~~~~~");
-
-        // 각 이미지를 파일로 저장하는 처리
-        if (imgs != null) {
-            for (MultipartFile img : imgs) {
-                if (!img.isEmpty()) {
-                    //실제 이미지 이름을 imgName 이라는 변수에 저장
-                    String imgName = img.getOriginalFilename();
-                    //이미지를 저장할 경로 아마도 이게 5050포트
-                    String savePath = "/src/main/resources/static/img/icon/"+ imgName; // 실제 서버 경로로 변경해야 함
-                    //파일이 저장될 최종 경로 임시적으로 저장될 경로
-                    String filePath = savePath + imgName;
-                    //파일 객체 생성해서 저장
-                    File fileAdd = new File(filePath);
-                    //그리고 넘기기
-                    img.transferTo(fileAdd);
-
-                    BoardImgVo imgVo = new BoardImgVo();
-                    imgVo.setBoardNo(boardNo);
-                    imgVo.setImgName(imgName);
-                    int imgResult = service.writeImg(imgVo);
-                }
-            }
-
-        }
         return "redirect:/board/list";
+//        String no = service.getBoardByNo();
+//        vo.setBoardNo(no);
+
+//        String boardNo = vo.getBoardNo();
+//        System.out.println(boardNo + "~~~~~~~~~~~~");
+//
+//        // 각 이미지를 파일로 저장하는 처리
+//        if (imgs != null) {
+//            for (MultipartFile img : imgs) {
+//                if (!img.isEmpty()) {
+//                    //실제 이미지 이름을 imgName 이라는 변수에 저장
+//                    String imgName = img.getOriginalFilename();
+//                    //이미지를 저장할 경로 아마도 이게 5050포트
+//                    String savePath = "/src/main/resources/static/img/icon/"+ imgName; // 실제 서버 경로로 변경해야 함
+//                    //파일이 저장될 최종 경로 임시적으로 저장될 경로
+//                    String filePath = savePath + imgName;
+//                    //파일 객체 생성해서 저장
+//                    File fileAdd = new File(filePath);
+//                    //그리고 넘기기
+//                    img.transferTo(fileAdd);
+//
+//                    BoardImgVo imgVo = new BoardImgVo();
+//                    imgVo.setBoardNo(boardNo);
+//                    imgVo.setImgName(imgName);
+//                    int imgResult = service.writeImg(imgVo);
+//                }
+//            }
+
+//        }
     }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public String uploadImg(@RequestParam("imgList") List<MultipartFile> imgList) throws Exception {
+
+      MultipartFile img = imgList.get(0);
+
+      File targetImg = new File("D:\\dev\\final\\works\\src\\main\\resources\\static\\img\\board\\"+img.getOriginalFilename());
+
+      img.transferTo(targetImg);
+
+        return "http://192.168.40.109:5500/" + img.getOriginalFilename();
+    }
+
+
 
     //게시물 리스트 화면
     @GetMapping("list")

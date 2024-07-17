@@ -104,11 +104,11 @@ public class BoardService {
     }
 
 
-    public String getBoardByNo() {
-        return dao.getBoardByNo();
-    }
-
-    public int writeImg(BoardImgVo imgVo) {
-        return dao.writeImg(imgVo);
-    }
+//    public String getBoardByNo() {
+//        return dao.getBoardByNo();
+//    }
+//
+//    public int writeImg(BoardImgVo imgVo) {
+//        return dao.writeImg(imgVo);
+//    }
 }

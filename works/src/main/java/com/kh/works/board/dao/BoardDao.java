@@ -90,11 +90,11 @@ public class BoardDao {
     }
 
 
-    public String getBoardByNo() {
-        return mapper.getBoardByNo();
-    }
-
-    public int writeImg(BoardImgVo imgVo) {
-        return mapper.writeImg(imgVo);
-    }
+//    public String getBoardByNo() {
+//        return mapper.getBoardByNo();
+//    }
+//
+//    public int writeImg(BoardImgVo imgVo) {
+//        return mapper.writeImg(imgVo);
+//    }
 }
