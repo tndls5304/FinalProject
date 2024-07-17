@@ -17,24 +17,7 @@
 
    <body>
 
-     <nav>
-       <div id="right-sidebar">
-         <div><button><img src="../resources/img/free-icon-menu-2791777.png" alt=""></button></div>
-         <div><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></div>
-         <div id="title">게시판</div>
-       </div>
-       <div id="left-sidebar">
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><a href=""><img src="../resources/img/스크린샷 2024-06-18 195610.png" alt=""></a></div>
-         <div><button><img src="../resources/img/free-icon-person-11081570.png" alt=""></button></div>
-       </div>
-     </nav>
+     <%@ include file="/WEB-INF/views/layout/messenger/nav.jsp" %>
 
      <main>
        <div id="sidebar">
@@ -42,19 +25,19 @@
             <button onclick="moveToWrite()">쪽지쓰기</button>
          </div>
          <div id="messenger-status">
-            <a href="http://127.0.0.1:8080/messenger/unread"><div><button>안읽음 [<c:out value="${unreadCount}"/>]</button></div></a>
-            <a href="http://127.0.0.1:8080/messenger/important"><div><button>중요</button></div></a>
-            <a href="http://127.0.0.1:8080/messenger/trash"><div><button>휴지통</button></div></a>
+            <a href="/messenger/unread"><div><button>안읽음 [<c:out value="${unreadCount}"/>]</button></div></a>
+            <a href="/messenger/important"><div><button>중요</button></div></a>
+            <a href="/messenger/trash"><div><button>휴지통</button></div></a>
          </div>
          <hr>
          <div id="all-messenger">
-           <a href="http://127.0.0.1:8080/messenger/all"><p><i class="fa-brands fa-facebook-messenger"></i> 전체쪽지</p></a>
+           <a href="/messenger/all"><p><i class="fa-brands fa-facebook-messenger"></i> 전체쪽지</p></a>
          </div>
          <div id="receive-messenger">
-           <a href="http://127.0.0.1:8080/messenger/received"><p><i class="fa-solid fa-reply"></i> 받은쪽지</p></a>
+           <a href="/messenger/received"><p><i class="fa-solid fa-reply"></i> 받은쪽지</p></a>
          </div>
          <div id="send-messenger">
-           <a href="http://127.0.0.1:8080/messenger/sent"><p><i class="fa-solid fa-share"></i> 보낸쪽지</p></a>
+           <a href="/messenger/sent"><p><i class="fa-solid fa-share"></i> 보낸쪽지</p></a>
          </div>
        </div>
 
@@ -235,7 +218,7 @@
 
       // /messenger/all에서 쪽지쓰기 눌렀을 때, 쪽지쓰기 페이지(/messenger/write)로 이동
       function moveToWrite(){
-          window.location.href = "http://127.0.0.1:8080/messenger/write";
+          window.location.href = "/messenger/write";
       }
 
 

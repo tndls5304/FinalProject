@@ -254,6 +254,11 @@ public class MessengerController {
 
         List<MessengerVo> voList = service.searchByKeyword(keyWord, receiverNo, senderNo);
         model.addAttribute("voList", voList);
+
+        //안 읽음 쪽지 갯수 나타내기 위해 -> 뷰에 보이게 하기 위해, model에 추가한다.
+        int unreadCount = service.getUnreadCount(receiverNo);
+        model.addAttribute("unreadCount", unreadCount);
+
         return "messenger/all";
     }
 

@@ -35,7 +35,7 @@
               <!-- **********상황에 따라 링크 바꾸기 -->
               <!-- <i class="fa-solid fa-list attend-list" onclick="window.location.href='http://localhost:8080/attend/list';"></i> -->
               <i class="fa-solid fa-list attend-list"
-                onclick="window.location.href='http://127.0.0.1:8080/attend/list';"></i>
+                onclick="window.location.href='/attend/list';"></i>
               <div id="profile-info">
                 <h2>${loginEmpVo.name} ${loginEmpVo.positionName}</h2>
                 <h3>🖤 ${loginEmpVo.deptName} 🖤</h3>
@@ -198,10 +198,10 @@
                   console.log("알림 클릭:", notification.alarmNo);
                     if (notification.message.includes("쪽지")) {
                       markMessageNotificationAsRead(notification.alarmNo);
-                      window.location.href = "http://127.0.0.1:8080/messenger/all";
+                      window.location.href = "/messenger/all";
                     } else if (notification.message.includes("할일")) {
                       markTodoNotificationAsRead(notification.todoNo);
-                      window.location.href = "http://127.0.0.1:8080/todo/home";
+                      window.location.href = "/todo/home";
                     }
                   };
                   notificationDiv.appendChild(newNotification);
@@ -226,10 +226,10 @@
                   newNotification.onclick = function () {
                     if (notification.message.includes("쪽지")) {
                       markMessageNotificationAsRead(notification.alarmNo);
-                      window.location.href = "http://127.0.0.1:8080/messenger/all";
+                      window.location.href = "/messenger/all";
                     } else if (notification.message.includes("할일")) {
                       markTodoNotificationAsRead(notification.todoNo);
-                      window.location.href = "http://127.0.0.1:8080/todo/home";
+                      window.location.href = "/todo/home";
                     }
                   };
                   notificationDiv.appendChild(newNotification);
@@ -262,10 +262,10 @@
             newNotification.onclick = function () {
               if (notification.message.includes("쪽지")) {
                 markMessageNotificationAsRead(notification.alarmNo);
-                window.location.href = "http://127.0.0.1:8080/messenger/all";
+                window.location.href = "/messenger/all";
               } else if (notification.message.includes("할일")) {
                 markTodoNotificationAsRead(notification.todoNo);
-                window.location.href = "http://127.0.0.1:8080/todo/home";
+                window.location.href = "/todo/home";
               }
             };
 
