@@ -23,7 +23,7 @@
             <!-- **********상황에 따라 링크 바꾸기  -->
             <!-- <i class="fa-solid fa-circle-xmark close-button" onclick="window.location.href='http://localhost:8080/home';"></i> -->
             <i class="fa-solid fa-circle-xmark close-button"
-              onclick="window.location.href='http://127.0.0.1:8080/home';"></i>
+              onclick="window.location.href='/home';"></i>
             <br>
             <div id="date-search">
                  <div><input type="text" id="date-search-keyword" name="dateSearch" placeholder="날짜를 입력해주세요. 예) 07"></div>
