@@ -23,7 +23,7 @@
                 <div>조회수</div>
             </div>
             <form action="/board/edit" method="post" id="postForm">
-                <div id="content">
+                <div id="edit">
                         
                     
                 </div>
