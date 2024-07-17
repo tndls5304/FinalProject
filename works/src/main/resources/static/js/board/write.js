@@ -21,13 +21,13 @@ fileInput.addEventListener('change' , ()=>{
             imgTag.alt = file.name;
             imgContainer.appendChild(imgTag);
 
-            uploadImge(file);
+            uploadImge(file ,imgTag);
         };
         reader.readAsDataURL(file);
     }
 });
 
-function  uploadImge(file) {
+function  uploadImge(file,imgTag) {
     const formDate = new FormData();
     
     formDate.append("imgList", file);
@@ -41,6 +41,7 @@ function  uploadImge(file) {
         ,success:(response)=>{
             console.log("이미지 업로드 성공");
             console.log(response);
+            imgTag.src = response;
             
 
         }

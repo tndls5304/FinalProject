@@ -1,7 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
 const boardNo = urlParams.get('boardNo');
-const btn = document.querySelector("#btn");
-const btn2 = document.querySelector("#delete");
 const login = document.getElementById("empNo").textContent;
 const loginNo = login;
 
@@ -14,6 +12,8 @@ $.ajax({
     data: { boardNo: boardNo },
     dataType: 'json',
     success: (data) => {
+        const btn = document.querySelector("#btn");
+        const btn2 = document.querySelector("#delete");
         console.log("통신성공~");
         console.log(data);
 
