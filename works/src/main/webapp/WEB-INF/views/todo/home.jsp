@@ -14,125 +14,158 @@
         };
       </script>
       <link rel="stylesheet" href="/css/todo/home.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
 
     <body>
       <!-- 네브 -->
-      <%@ include file="/WEB-INF/views/layout/todo/nav.jsp" %>
+      <nav>
+        <div id="right-sidebar">
+          <div><img src="/img/icon/todo.png" alt=""></div>
+          <div id="title">할일</div>
+        </div>
+        <div id="left-sidebar">
+          <div><a href=""><img src="/img/icon/chatting.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/email.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/organization-chart.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/customer.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/paper.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/reserved.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/board.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/calendar.png" alt=""></a></div>
+          <div><a href=""><img src="/img/icon/todo.png" alt=""></a></div>
+          <div><button><img src="/img/icon/user.png" alt=""></button></div>
+        </div>
+      </nav>
 
 
 
-        <main>
-          <!-- 사이드바 -->
-          <div id="sidebar">
-            <button class="sideBtn" id="writeModalBtn">할 일 쓰기</button>
-            <br>
-            <button class="sideBtn" id="listBtn" onclick="listAll();">전체 할일</button>
-            <br>
-            <button class="sideBtn" id="listBtn" onclick="listPar();">담당 할일</button>
-          </div>
+      <main>
+        <!-- 사이드바 -->
+        <div id="sidebar">
+          <button id="writeModalBtn">할 일 쓰기</button>
+          <br>
+          <button class="sideBtn" onclick="listAll();">전체 할일</button>
+          <button class="sideBtn" onclick="listPar();">담당 할일</button>
+        </div>
 
 
 
 
 
-          <!-- 검색창 -->
-          <div id="content">
-            <div><input type="search" id="search" placeholder="내용을 검색하세요.">
-              <button type="submit" onclick="search();">검색</button>
+        <!-- 검색창 상세조회!!!!!!!!!-->
+        <div id="content">
+
+
+          <div class="up-nav">
+            <div id="search-div">
+              <input type="search" id="search" placeholder="내용을 검색하세요.">
+              <button type="submit" onclick="search();"><i class="fas fa-search"></i></button>
             </div>
 
-
             <div id="todo-check">
-              <div id="check-del">
-                <input type="checkbox" id="select-all"> 전체선택
-                <input type="button" value="삭제" onclick="checkDelete()">
-              </div>
+              <input type="checkbox" id="select-all">
+              <label>전체선택 </label>
+              <input type="button" value="삭제" onclick="checkDelete()">
               <label for="sortOptions">정렬</label>
               <select id="sortOptions" name="sortOptions">
                 <option value="createDate">최신 작성 순</option>
                 <option value="endDate">기한 마감순</option>
               </select>
             </div>
-
-            <!-- 리스트, 상세조회 -->
-            <div class="todo">
-
-              <!-- 리스트조회 -->
-              <div id="todo-list-all">
-                <table id="todoList">
-                </table>
-              </div>
-
-              <!-- 상세조회 -->
-              <div id="detail"></div>
-            </div>
-
-
           </div>
 
 
+          <!-- 리스트, 상세조회 -->
+          <div class="todo">
+
+            <!-- 리스트조회 -->
+            <div id="todo-list-all">
+              <table id="todoList">
+              </table>
+            </div>
+
+            <!-- 상세조회 -->
+            <div id="detail">
+              <div class="title"></div>
+              <div id="create-date"></div>
+              <div id="end-date"></div>
+              <div class="request"></div>
+              <div class="manager"></div>
+              <div class="action-btn"></div>
+              <div id="comBtn"></div>
+            </div>
+          </div>
+
+
+        </div>
 
 
 
-          <!-- 참여자 모달 -->
-          <div id="todoModal" class="modal">
-            <div class="modal-content">
-              <!-- 모달창 안에 닫기 버튼 만들기 -->
-              <span class="close">&times;</span>
-              <!-- 할일 작성 폼 -->
-              <h3>할 일 쓰기</h3>
-              <form id="todoForm" action="/todo/write" method="post">
-                <label for="todo-title">제목:</label>
-                <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
-                <br><br>
 
-                <label for="content">내용:</label>
-                <textarea id="content" name="content" placeholder="내용을 입력해주세요." required></textarea>
-                <br><br>
 
-                <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
-                <br><br>
+        <!-- 참여자 모달 -->
+        <div id="todoModal" class="modal">
+          <div class="modal-content">
+            <!-- 모달창 안에 닫기 버튼 만들기 -->
+            <span class="close">&times;</span>
+            <!-- 할일 작성 폼 -->
+            <h3>할 일 쓰기</h3>
+            <form id="todoForm" action="/todo/write" method="post">
 
-                <button type="button" onclick="clickBtn()">담당자 조회</button>
-                <div id="managerList" style="display: none;">
-                  <div id="todoManager">
-                    <c:forEach var="emp" items="${empList}">
-                      <div class="managerItem">
-                        <input type="checkbox" name="todoManagerList" value="${emp.no}">
-                        ${emp.name}&nbsp;&nbsp;${emp.deptNo}
-                      </div>
-                    </c:forEach>
-                  </div>
+              <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
+              <br><br>
+
+
+              <textarea id="form-content" name="content" placeholder="내용을 입력해주세요." required></textarea>
+              <br><br>
+
+              <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
+              <br><br>
+
+              <button type="button" onclick="clickBtn()">담당자 조회</button>
+              <div id="managerList" style="display: none;">
+                <div id="todoManager">
+                  <c:forEach var="emp" items="${empList}">
+                    <div class="managerItem">
+                      <input type="checkbox" name="todoManagerList" value="${emp.no}">
+                      ${emp.name}&nbsp;&nbsp;${emp.deptNo}
+                    </div>
+                  </c:forEach>
                 </div>
-                <br><br>
+              </div>
+              <br><br>
 
-                <label for="endDate">기한</label>
+              <label for="endDate">기한
                 <input type="hidden" id="endDate" name="endDate">
-                <button class="endDateBtn" type="button" onclick="setEndDate('today',event)">오늘</button>
-                <button class="endDateBtn" type="button" onclick="setEndDate('tomorrow', event)">내일</button>
-                <button class="endDateBtn" type="button" onclick="setEndDate('nextWeek',event)">다음주</button>
-                <br><br>
+                <div class="dateBtn">
+                  <button class="endDateBtn" type="button" onclick="setEndDate('today',event)">오늘</button>
+                  <button class="endDateBtn" type="button" onclick="setEndDate('tomorrow', event)">내일</button>
+                  <button class="endDateBtn" type="button" onclick="setEndDate('nextWeek',event)">다음주</button>
+                </div>
+              </label>
 
-                <input type="submit" value="작성">
-              </form>
-            </div>
+              <br><br>
+
+              <input type="submit" value="저장">
+            </form>
           </div>
+        </div>
 
-          <!-- 사원조회 모달 -->
-          <div id="empModal" class="modal">
-            <div class="modal-content">
-              <!-- 모달창 안에 닫기 버튼 만들기 -->
-              <span class="close">&times;</span>
-              <!-- 사원 정보 표시 -->
-              <h3>사원 정보</h3>
-              <div id="empDetail"></div>
-            </div>
+        <!-- 사원조회 모달 -->
+        <div id="empModal" class="modal">
+          <div class="modal-content">
+            <!-- 모달창 안에 닫기 버튼 만들기 -->
+            <span class="close">&times;</span>
+            <!-- 사원 정보 표시 -->
+            <h3>사원 정보</h3>
+            <div id="empDetail"></div>
           </div>
+        </div>
 
 
 
-        </main>
+      </main>
 
     </body>
 
