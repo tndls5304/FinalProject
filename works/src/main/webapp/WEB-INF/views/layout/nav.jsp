@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="/css/layout/board/nav.css">
+<link rel="stylesheet" href="/css/layout/nav.css">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
 <nav>
     <div id="right-sidebar">
         <img src="/img/icon/menu.png" id="menu" onclick="none();">
-        <div id="logo">Baby Developer</div>
+        <div id="logo"><a href="/home">Baby Developer</a></div>
     </div>
     <div id="left-sidebar">
         <div><button><img src="/img/icon/user.png" alt="" id="modalBtn"></button></div>

@@ -19,11 +19,12 @@ nav {
     height: 40px;
 }
 
-#logo{
+#logo a{
     font-family: "Be Vietnam Pro", sans-serif;
     font-weight: 900;
     font-style: italic;  
     color: #7ec7ff !important;
+    text-decoration-line: none;
     
 }
 

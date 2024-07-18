@@ -11,7 +11,7 @@
     </head>
     <body>
 
-        <%@ include file="/WEB-INF/views/layout/rent/nav.jsp" %>
+        <%@ include file="/WEB-INF/views/layout/nav.jsp" %>
 
     <main>
         <%@ include file="/WEB-INF/views/layout/rent/aside.jsp" %>
