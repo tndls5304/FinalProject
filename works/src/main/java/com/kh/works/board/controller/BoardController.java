@@ -88,7 +88,7 @@ public class BoardController {
 
       img.transferTo(targetImg);
 
-        return "http://192.168.40.109:5500/" + img.getOriginalFilename();
+        return "http://192.168.40.109:5500/"+ img.getOriginalFilename();
     }
 
 

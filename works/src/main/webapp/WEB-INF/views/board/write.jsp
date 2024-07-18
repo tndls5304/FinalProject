@@ -9,7 +9,7 @@
 </head>
 <body>
 
-        <%@ include file="/WEB-INF/views/layout/board/nav.jsp" %>
+        <%@ include file="/WEB-INF/views/layout/nav.jsp" %>
 
     <main>
         <%@ include file="/WEB-INF/views/layout/board/aside.jsp" %>
