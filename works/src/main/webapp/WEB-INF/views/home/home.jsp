@@ -24,7 +24,7 @@
       <!-- *****************HomeController에는 근태관리를 위한 출퇴근 메소드가 있습니다***************** -->
 
 
-      <%@ include file="/WEB-INF/views/layout/home/nav.jsp" %>
+      <%@ include file="/WEB-INF/views/layout/nav.jsp" %>
 
         <main>
           <div id="container">
