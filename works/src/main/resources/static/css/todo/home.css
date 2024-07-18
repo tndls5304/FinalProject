@@ -371,3 +371,26 @@ button[type="submit"] i {
   width: 15px; /* td 크기에 맞춰서 체크박스 크기 조정 */
   height: 15px;
 }
+
+/* 상세조회 */
+#title2 {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+#content2 {
+  margin-top: 15px;
+  display: block;
+}
+
+/* 작성일, 기한 */
+.date-box {
+  display: flex;
+  gap: 5px;
+}
+
+.date-box > div {
+  flex: 1;
+  text-align: left;
+  height: 30px;
+}

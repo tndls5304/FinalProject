@@ -87,13 +87,7 @@
 
             <!-- 상세조회 -->
             <div id="detail">
-              <div class="title"></div>
-              <div id="create-date"></div>
-              <div id="end-date"></div>
-              <div class="request"></div>
-              <div class="manager"></div>
-              <div class="action-btn"></div>
-              <div id="comBtn"></div>
+
             </div>
           </div>
 
@@ -217,19 +211,19 @@
         const todoNo = $(this).find('.hidden-column').text();
         getTodoDetail(todoNo);
       });
-   
-      
+
+
       $(document).on('click', '.detTodoBtn', function () {
         const todoNo = $(this).find('.hidden-column').text();
         delTodo(todoNo);
       });
-   
+
 
       $(document).on('click', '.comBtn', function () {
         const todoNo = $(this).find('.hidden-column').text();
         complete(todoNo);
       });
-    
+
 
       $(document).on('click', '.editBtn', function () {
         const todoNo = $(this).find('.hidden-column').text();
