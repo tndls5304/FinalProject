@@ -24,6 +24,8 @@ repositories {
 }
 
 dependencies {
+	//aws
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 	// Tomcat JSP support
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.25'

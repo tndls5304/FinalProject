@@ -44,7 +44,7 @@
             </div>
             <!--할일-->
             <div>
-                <a href=""><i class="fa-solid fa-arrow-right-from-bracket fa-xl"  style= "color: #7ec7ff;;"></i></a>
+                <a href="/emp/logout"><i class="fa-solid fa-arrow-right-from-bracket fa-xl"  style= "color: #7ec7ff;;"></i></a>
                 <span>로그아웃</span>
             </div>
             <!--로그아웃-->

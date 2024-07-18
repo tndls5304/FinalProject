@@ -38,10 +38,10 @@ function  uploadImge(file,imgTag) {
         ,data:formDate
         ,processData: false
         ,contentType: false
-        ,success:(response)=>{
+        ,success:(urlText)=>{
             console.log("이미지 업로드 성공");
-            console.log(response);
-            imgTag.src = response;
+            imgTag.src = urlText;
+            console.log(imgTag.src + "이미지 주소시랍라라라");
             
 
         }

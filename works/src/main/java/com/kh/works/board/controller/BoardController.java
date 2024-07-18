@@ -2,22 +2,23 @@ package com.kh.works.board.controller;
 
 //import com.kh.works.security.EmpSessionVo;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.kh.works.board.service.BoardService;
-import com.kh.works.board.vo.BoardImgVo;
 import com.kh.works.board.vo.BoardVo;
 import com.kh.works.board.vo.CommentVo;
 import com.kh.works.board.vo.WishBoardVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,12 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService service;
+    private final AmazonS3 s3; //결합도를 낮추기위해 부모타입을 쓰겠다 A s3 client는 자식
+
+    //내가 쓴 이름을 가져옴 baby-worksGeuna
+    @Value("${aws.s3.bucket-name}")
+    private String bucketName;
+
 
     //게시물 작성하기 화면
     @GetMapping("write")
@@ -82,13 +89,26 @@ public class BoardController {
     @ResponseBody
     public String uploadImg(@RequestParam("imgList") List<MultipartFile> imgList) throws Exception {
 
-      MultipartFile img = imgList.get(0);
-
-      File targetImg = new File("D:\\dev\\final\\works\\src\\main\\resources\\static\\img\\board\\"+img.getOriginalFilename());
-
-      img.transferTo(targetImg);
-
-        return "http://192.168.40.109:5500/"+ img.getOriginalFilename();
+//        File targetImg = new File("D:\\dev\\final\\works\\src\\main\\resources\\static\\img\\board\\" + img.getOriginalFilename());
+//        img.transferTo(targetImg);
+//        return "http://192.168.40.109:5500/"+ img.getOriginalFilename();
+        MultipartFile img = imgList.get(0);
+        String urlText = "";
+        if (!img.isEmpty()) {
+            /*s3에 업로드하기
+             * s3.putObject(버킷,파일이름,인풋스트림,파일상세정보); 이런식으로 쓰는데 인풋스트림을 넘긴다고?? 인풋스트림만 넘기면 아마존이 알아서 해준다.
+             * 파일 상세정보는 객체를 만들어서 넣어줘야 해서 */
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType(img.getContentType());
+            metadata.setContentLength(img.getSize());
+            s3.putObject(bucketName, img.getOriginalFilename(), img.getInputStream(), metadata); //인풋스트림을 넘긴다고?? 인풋스트림만 넘기면 아마존이 알아서 해준다.
+            //내가 금방올린 파일 url 가져오기
+            URL url = s3.getUrl(bucketName, img.getOriginalFilename());
+            System.out.println(url + "urllllllllllllllllllllllllllllllllllllllllllllllll");
+            urlText= "" +url;
+        }
+        System.out.println(urlText + "urllzzzzzzzzzzzzzzzzzzzzzzzzzzzzzllllllllllllllllllllllllllllllllllllllllllllll");
+        return urlText;
     }
 
 
