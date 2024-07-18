@@ -1,7 +1,7 @@
 //-------------------------------수인-----------------------------------
-
 package com.kh.works.employee.controller;
-
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.works.admin.email.entity.EmailMessage;
@@ -10,6 +10,7 @@ import com.kh.works.employee.service.EmpAccountService;
 import com.kh.works.employee.vo.EmployeeVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,19 +20,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.locks.ReentrantLock;
 
 
 @Controller
 @RequiredArgsConstructor
 public class EmpAccountController {
-
     private final EmpAccountService service;
     private final EmailService emailService;
+    private final AmazonS3 s3; //결합도를 낮추기위해 부모타입을 쓰겠다 A s3 client는 자식💗
 
+    @Value("${aws.s3.bucket-name}")
+    private String bucketName;
 
     //가입페이지 보여주기 (관리자가 사원no 발급해준거 파라미터로 받고 model에 넣어서 화면으로 전달하기)
     @GetMapping("emp/join")
@@ -62,7 +65,22 @@ public class EmpAccountController {
             MultipartFile profileInfo = vo.getProfileInfo();
 
             if (!profileInfo.isEmpty()) {
-                String originFileName = profileInfo.getOriginalFilename();
+                /*s3에 업로드하기
+                 * s3.putObject(버킷,파일이름,인풋스트림,파일상세정보); 이런식으로 쓰는데 인풋스트림을 넘긴다고?? 인풋스트림만 넘기면 아마존이 알아서 해준다.
+                 * 파일 상세정보는 객체를 만들어서 넣어줘야 해서 */
+                ObjectMetadata metadata= new ObjectMetadata();
+                metadata.setContentType(profileInfo.getContentType());
+                metadata.setContentLength(profileInfo.getSize());
+                s3.putObject(bucketName,profileInfo.getOriginalFilename(),profileInfo.getInputStream(),metadata); //인풋스트림을 넘긴다고?? 인풋스트림만 넘기면 아마존이 알아서 해준다.
+                //내가 금방올린 파일 url 가져오기
+                URL url=s3.getUrl(bucketName,profileInfo.getOriginalFilename());
+                String urlText=""+url;
+
+                vo.setProfile(urlText);
+
+                System.out.println("url+"+url);
+                /*------------------이전에 로컬에 사진저장 하던거 ---------------------------------
+                   String originFileName = profileInfo.getOriginalFilename();
 
                 String random = UUID.randomUUID().toString();
                 String ext = originFileName.substring(originFileName.lastIndexOf("."));
@@ -84,6 +102,7 @@ public class EmpAccountController {
                 fos.close();
 
                 vo.setProfile(changeName);
+                --------------------------------------------------*/
             }
             int result = service.join(vo);
             if (result == 1) {

@@ -30,7 +30,7 @@
           <div id="container">
             <div id="profile-section">
 
-              <img src="/img/profile/${loginEmpVo.profile}" alt="Profile Picture" id="profile-picture">
+              <img src="${loginEmpVo.profile}" alt="Profile Picture" id="profile-picture">
               <!-- fontAwesome에서 가지고 온 이모티콘이다. 누르면 나의 근태 리스트로 넘어가게 해두었다!!!!!!!!! -->
               <!-- **********상황에 따라 링크 바꾸기 -->
               <!-- <i class="fa-solid fa-list attend-list" onclick="window.location.href='http://localhost:8080/attend/list';"></i> -->
