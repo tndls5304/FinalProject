@@ -1,21 +1,15 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
 body{
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* 가로 스크롤 숨김 */
+    overflow: hidden; /* 가로 스크롤 숨김 */
 }
 
 main{
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 93%;
     margin: 0;
     padding: 0;
 }
@@ -29,25 +23,44 @@ main{
 }
 
 #outLine{
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 4px solid #7ec7ff ;
+    border: 3px solid #7ec7ff ;
 }
 
 #outLine form{
-    width: 90%;
-    height: 90%;
+    width: 95%;
+    height: 95%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    border: 1px solid #7ec7ff ;
+    border: 2px solid #7ec7ff ;
 }
 
-#imgContent{
-    border: 1px solid black;
-    width: 80%;
-    height: 1000px;
+#title{
+    width: 95%;
+    height: 2%;
+}
+
+#content{
+    border: 1px solid rgb(184, 184, 184);
+    width: 95%;
+    height: 80%;
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    word-wrap: break-word; 
+}
+
+#buttonTag{
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgTag{
+    width: 300px;
+    height: 200px;
 }

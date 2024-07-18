@@ -10,7 +10,6 @@
 
 <nav>
     <div id="right-sidebar">
-        <img src="/img/icon/menu.png" id="menu" onclick="none();">
         <div id="logo"><a href="/home">Baby Developer</a></div>
     </div>
     <div id="left-sidebar">
