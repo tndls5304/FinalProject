@@ -14,7 +14,7 @@
 
     <body>
 
-      <%@ include file="/WEB-INF/views/layout/attend/nav.jsp" %>
+      <%@ include file="/WEB-INF/views/layout/nav.jsp" %>
 
       <main>
         <div id="container">
