@@ -1,9 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
 body{
     width: 100vw;
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow-y: hidden;
+    overflow-x: hidden; /* 가로 스크롤 숨김 */
 }
 
 main{
@@ -16,15 +22,28 @@ main{
 
 #main{
     width: 85%;
-    height: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#main form{
-    width: 100%;
-    height: 100%;
+#outLine{
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid #7ec7ff ;
+}
+
+#outLine form{
+    width: 90%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: 1px solid #7ec7ff ;
 }
 
 #imgContent{

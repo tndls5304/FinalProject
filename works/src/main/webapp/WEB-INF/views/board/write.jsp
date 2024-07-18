@@ -15,15 +15,17 @@
         <%@ include file="/WEB-INF/views/layout/board/aside.jsp" %>
        
         <div id="main">
-            <form id="postForm" action="/board/write" method="post" enctype="multipart/form-data">
-                <label for="title">제목:</label>
-                <input type="text" id="title"><br>
-                <label for="content">내용:</label>
-                <div id="content" contenteditable="true"></div><br>
-                <input type="file" id="imageFile" accept="image/*" style="display: none;"><br>
-                <button type="button" id="addImg">사진 추가</button>
-                <button type="button" onclick="submitPost()">포스트 작성</button>
-            </form>
+            <div id="outLine">  
+                <form id="postForm" action="/board/write" method="post" enctype="multipart/form-data">
+                    <label for="title">제목:</label>
+                    <input type="text" id="title"><br>
+                    <label for="content">내용:</label>
+                    <div id="content" contenteditable="true"></div><br>
+                    <input type="file" id="imageFile" accept="image/*" style="display: none;"><br>
+                    <button type="button" id="addImg">사진 추가</button>
+                    <button type="button" onclick="submitPost()">포스트 작성</button>
+                </form>
+            </div>
         </div>
         
 

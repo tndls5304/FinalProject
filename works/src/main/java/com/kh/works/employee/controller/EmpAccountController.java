@@ -262,4 +262,11 @@ public class EmpAccountController {
 
     }
 
+    //멤버 로그아웃하기
+    @GetMapping("emp/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/emp/login";
+    }
+
 }
