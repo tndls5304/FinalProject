@@ -10,11 +10,11 @@ function getTodoDetail(todoNo) {
       let str = "";
       str += `<div id='todoNo' class='hidden-no'>${data[0].todoNo}</div>`;
       str += `<div class='todo-content'>`;
-      str += `<span name='changeTitle' id='title'>${data[0].title}</span>`;
-      str += `<span name='changeContent' id='content'>${data[0].content}</span>`;
+      str += `<span name='changeTitle' id='title2'>${data[0].title}</span>`;
+      str += `<pre name='changeContent' id='content2'>${data[0].content}</pre>`;
       str += `</div>`;
-      str += `<div id='create-date'>작성일: ${data[0].createDate}</div>`;
-      str += `<div id='end-date'>기한: ${data[0].endDate}</div>`;
+      str += `<div id='create-date' class='date-div'>작성일: ${data[0].createDate}</div>`;
+      str += `<div id='end-date' class='date-div'>기한: ${data[0].endDate}</div>`;
 
       str += `<div class='request'>요청자: <button onclick="getEmpDetail(${data[0].todoEmpNo});">${data[0].todoEmpName}</button></div>`;
 
