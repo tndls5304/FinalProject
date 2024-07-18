@@ -15,22 +15,17 @@ function getTodoDetail(todoNo) {
       str += `</div>`;
       str += `<div id='create-date' class='date-div'>작성일: ${data[0].createDate}</div>`;
       str += `<div id='end-date' class='date-div'>기한: ${data[0].endDate}</div>`;
-
       str += `<div class='request'>요청자: <button onclick="getEmpDetail(${data[0].todoEmpNo});">${data[0].todoEmpName}</button></div>`;
-
       str += `<div class='manager'>담당자: `;
       for (let i = 0; i < data.length; i++) {
         str += `<button onclick="getEmpDetail(${data[i].todoManagerNo});">${data[i].todoManagerName}</button>`;
       }
       str += `</div>`;
-
-      // 수정 및 삭제 버튼을 같은 div에 넣기
       str += `<div class='action-btn'>`;
       str += `<button class='editBtn' onclick='editBtn(${data[0].todoNo});'>수정하기</button>`;
       str += `<button onclick='delTodo(${data[0].todoNo});'>삭제하기</button>`;
-
-      // 완료되지 않은 할일에만 버튼 생기게
       if (data[0].completedYn !== "Y") {
+        str += `<br>`;
         str += `<button id='comBtn' onclick='complete(${data[0].todoNo});'>완료하기</button>`;
       }
       str += `</div>`; // action-btn div 종료
