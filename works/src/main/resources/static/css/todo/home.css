@@ -114,18 +114,19 @@ main {
   width: 85%;
   height: auto;
 
-  background-color: rgb(232, 226, 206);
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 0.5fr 6fr;
 }
 
 #content div {
-  width: 100%;
-  height: 100%;
   border: 1px black solid;
 }
 
+.todo {
+  width: 100%;
+  height: 100%;
+}
 #todo-list-all {
   width: 100%;
   height: 100%;
@@ -133,7 +134,7 @@ main {
 
 #detail {
   width: 100%;
-  height: 100%;
+  height: 60%;
   display: flex;
   flex-direction: column;
 }
@@ -319,7 +320,7 @@ button[type="submit"] i {
 
 /* 담당자조회, 기한버튼 */
 .modal-content form button[type="button"] {
-  background-color: #784297;
+  background-color: skyblue;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -333,7 +334,7 @@ button[type="submit"] i {
 
 /* 저장 버튼 */
 .modal-content form input[type="submit"] {
-  background-color: #af4c51;
+  background-color: #4caf65;
   color: white;
   padding: 15px 40px;
   border: none;
@@ -341,7 +342,7 @@ button[type="submit"] i {
 }
 
 .modal-content form input[type="submit"]:hover {
-  background-color: #eb44eb;
+  background-color: #14a076;
 }
 
 #managerList {
@@ -384,13 +385,7 @@ button[type="submit"] i {
 }
 
 /* 작성일, 기한 */
-.date-box {
+.date-div {
   display: flex;
-  gap: 5px;
-}
-
-.date-box > div {
-  flex: 1;
-  text-align: left;
   height: 30px;
 }
