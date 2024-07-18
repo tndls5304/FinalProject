@@ -8,12 +8,12 @@
 } */
 
 nav {
-  width: 100%;
+  /* width: 100%;
   height: 7%;
   border-top: 1px solid rgb(194, 194, 194);
   border-bottom: 1px solid rgb(194, 194, 194);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; */
 
   /* 이 부분 본인이 추가함. */
   /* nav바가 맨 위에 올 수 있도록 설정 */
@@ -24,7 +24,7 @@ nav {
   background-color: white;
 }
 
-#right-sidebar {
+/* #right-sidebar {
   display: flex;
   align-items: center;
 }
@@ -85,15 +85,15 @@ nav {
 #left-sidebar div:nth-child(7),
 #left-sidebar div:nth-child(8) {
   margin-right: 10px;
-}
+} */
 
 main {
-  display: flex;
+  /* display: flex;
   width: 100%;
   height: 100vh;
   margin: 0;
   padding: 0;
-  overflow-y: auto;
+  overflow-y: auto; */
 
   /* 이 부분 본인이 추가함. */
   /* 잘못된 접근창이 가운데에 위치하도록 설정 */
@@ -101,23 +101,23 @@ main {
   align-items: center;
 }
 
-#sidebar {
+/* #sidebar {
   width: 15%;
   height: 95%;
   background-color: rgba(229, 229, 229, 0.5);
-  /* 추가함 */
+
   padding: 20px 10px;
 }
 
-/* 추가함 */
-  #sidebar div {
-  margin-bottom: 20px;
-}
 
-#content {
+#sidebar div {
+  margin-bottom: 20px;
+} */
+
+/* #content {
   width: 85%;
   height: auto;
-}
+} */
 
 /* --------------------------------------------- */
 
