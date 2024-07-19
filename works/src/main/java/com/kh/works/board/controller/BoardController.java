@@ -32,7 +32,7 @@ public class BoardController {
     private final AmazonS3 s3; //결합도를 낮추기위해 부모타입을 쓰겠다 A s3 client는 자식
 
     //내가 쓴 이름을 가져옴 baby-worksGeuna
-    @Value("${aws.s3.bucket-name}")
+    @Value("${aws.s3.bucket-name2}")
     private String bucketName;
 
 
