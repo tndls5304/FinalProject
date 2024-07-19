@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface TodoMapper {
 
     //할일작성
-    @Insert("INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT, END_DATE) " +
-            "VALUES (SEQ_TODO.NEXTVAL, #{todoEmpNo}, #{title}, #{content}, #{endDate})")
+    @Insert("""
+            INSERT INTO TODO (TODO_NO, TODO_EMP_NO, TITLE, CONTENT, END_DATE)
+            VALUES (SEQ_TODO.NEXTVAL, #{todoEmpNo}, #{title}, #{content}, #{endDate})
+            """)
     int todoWrite(TodoVo todoVo);
 
     //할일 담당자 insert
-    @Insert("INSERT INTO TODO_MANAGER(TODO_NO_MAN ,TODO_MANAGER_NO ) VALUES( SEQ_TODO.CURRVAL , #{todoManagerNo})")
+    @Insert("""
+    INSERT INTO TODO_MANAGER(TODO_NO_MAN ,TODO_MANAGER_NO ) VALUES( SEQ_TODO.CURRVAL , #{todoManagerNo})
+    """)
     int todoManager(String todoManagerNo);
 
 
@@ -141,7 +145,9 @@ public interface TodoMapper {
 
 
     //참여자 목록 가져오기
-    @Select("SELECT E.NO , E.NAME , P.NAME AS positionNO , D.NAME AS deptNO FROM EMPLOYEE E JOIN POSITION P ON E.POSITION_NO = P.NO JOIN DEPARTMENT D ON E.DEPT_NO = D.NO")
+    @Select("""
+    SELECT E.NO , E.NAME , P.NAME AS positionNO , D.NAME AS deptNO FROM EMPLOYEE E JOIN POSITION P ON E.POSITION_NO = P.NO JOIN DEPARTMENT D ON E.DEPT_NO = D.NO
+    """)
     @Results({
             @Result(property = "name", column = "name"),
             @Result(property = "deptNo", column = "deptNo")
