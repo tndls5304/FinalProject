@@ -286,8 +286,8 @@ public class BoardController {
         EmployeeVo loginEmpVo = (EmployeeVo) session.getAttribute("loginEmpVo");
         String loginNo = loginEmpVo.getNo();
         vo.setEmpNo(loginNo);
-         int result = service.commentWrite(vo , boardNo);
-         return result;
+        int result = service.commentWrite(vo , boardNo);
+        return result;
     }
 
     @GetMapping("api/comment")
@@ -303,5 +303,5 @@ public class BoardController {
         int result = service.commentDel(comtNo);
         return result;
     }
-    
+
 }
