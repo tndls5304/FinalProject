@@ -11,24 +11,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig2 {
     @Value("${aws.s3.region2}")
-    private String region;
+    private String region2;
 
     @Value("${aws.s3.accessToken2}")
-    private String accessToken;
+    private String accessToken2;
 
     @Value("${aws.s3.secretKey2}")
-    private  String secretKey;
+    private  String secretKey2;
 
     @Bean
     public AmazonS3 m01(){
         //BasicAWSCredentials 인증에 필요한거
-        BasicAWSCredentials credentials=new BasicAWSCredentials(accessToken,secretKey);
+        BasicAWSCredentials credentials=new BasicAWSCredentials(accessToken2,secretKey2);
         AWSStaticCredentialsProvider provider=new AWSStaticCredentialsProvider(credentials);
 
         // AmazonS3Client s3Client=new AmazonS3Client();
         return   AmazonS3ClientBuilder
                 .standard()
-                .withRegion(region)
+                .withRegion(region2)
                 .withCredentials(provider)
                 .build();
     }
