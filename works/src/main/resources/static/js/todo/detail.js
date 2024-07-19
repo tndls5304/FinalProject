@@ -22,12 +22,12 @@ function getTodoDetail(todoNo) {
       }
       str += `</div>`;
       str += `<div class='action-btn'>`;
-      str += `<button class='editBtn' onclick='editBtn(${data[0].todoNo});'>수정하기</button>`;
-      str += `<button onclick='delTodo(${data[0].todoNo});'>삭제하기</button>`;
       if (data[0].completedYn !== "Y") {
         str += `<br>`;
         str += `<button id='comBtn' onclick='complete(${data[0].todoNo});'>완료하기</button>`;
       }
+      str += `<button class='editBtn' onclick='editBtn(${data[0].todoNo});'>수정하기</button>`;
+      str += `<button onclick='delTodo(${data[0].todoNo});'>삭제하기</button>`;
       str += `</div>`; // action-btn div 종료
 
       // 기존 내용을 제거하고 새로운 내용을 삽입
