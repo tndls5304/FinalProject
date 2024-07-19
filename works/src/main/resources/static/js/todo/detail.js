@@ -17,17 +17,17 @@ function getTodoDetail(todoNo) {
       str += `<div id='end-date' class='date-div'>기한: ${data[0].endDate}</div>`;
       str += `<div class='request'>요청자: <button onclick="getEmpDetail(${data[0].todoEmpNo});">${data[0].todoEmpName}</button></div>`;
       str += `<div class='manager'>담당자: `;
-      for (let i = 0; i < data[0].todoManagerNo.length; i++) {
-        str += `<button onclick="getEmpDetail(${data[0].todoManagerNo[i]});">${data[0].todoManagerName[i]}</button>`;
-      }
-      if (data[0].completedYn !== "Y") {
-        str += `<button id='comBtn' onclick='complete(${data[0].todoNo});'>완료하기</button>`;
+      for (let i = 0; i < data.length; i++) {
+        str += `<button onclick="getEmpDetail(${data[i].todoManagerNo});">${data[i].todoManagerName}</button>`;
       }
       str += `</div>`;
       str += `<div class='action-btn'>`;
-      str += `<br>`;
-      str += `<button id='editBtn' onclick='editBtn(${data[0].todoNo});'>수정하기</button>`;
+      str += `<button class='editBtn' onclick='editBtn(${data[0].todoNo});'>수정하기</button>`;
       str += `<button onclick='delTodo(${data[0].todoNo});'>삭제하기</button>`;
+      if (data[0].completedYn !== "Y") {
+        str += `<br>`;
+        str += `<button id='comBtn' onclick='complete(${data[0].todoNo});'>완료하기</button>`;
+      }
       str += `</div>`; // action-btn div 종료
 
       // 기존 내용을 제거하고 새로운 내용을 삽입
