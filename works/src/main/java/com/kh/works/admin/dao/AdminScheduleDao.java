@@ -55,4 +55,16 @@ public class AdminScheduleDao {
     public int deletePartner(String calendarNo) {
         return mapper.deletePartner(calendarNo);
     }
+
+    public String checkAuthYnForInsertCalendar() {
+        return mapper.checkAuthYnForInsertCalendar();
+    }
+
+    public String checkAuthYnForUpdateCalendar() {
+        return mapper.checkAuthYnForUpdateCalendar();
+    }
+
+    public String checkAuthYnForDeleteCalendar() {
+        return mapper.checkAuthYnForDeleteCalendar();
+    }
 }

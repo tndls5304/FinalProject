@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <!-- 제이쿼리 -->
+      <script defer src="/js/jquery-api-script/jquery.min.js"></script>
     <!-- 글씨체 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +16,7 @@
 
      <link rel="stylesheet" href="/css/admin/insert_emp.css">
      <link rel="stylesheet" href="/css/layout/admin/same.css">
-       <!-- 제이쿼리-->
-     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
        <!-- 부서, 직위 조회해오는 제이쿼리-->
      <script defer src="/js/admin/insert_emp.js"></script>
 
@@ -28,7 +28,7 @@
 
     <main>
         <div class="header">
-            <h2>신규 직원 계정등록</h2>
+            <h2>신규 직원 계정등록 & 회원가입 메일 전송🪪</h2>
         </div>
           <div class="empInfo-group">
                <label for="name"><h3> 사원 이름 :</h3>

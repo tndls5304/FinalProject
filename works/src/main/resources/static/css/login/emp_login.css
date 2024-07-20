@@ -4,7 +4,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Jua", sans-serif;
+    font-family: "Gugi", sans-serif;
+    font-weight: 400;
+    font-style: normal;
   margin: 0;
 }
 
@@ -111,4 +113,9 @@ margin-bottom: 10px;
 
 .modalFindAccount-content{
 margin:0 auto;
+}
+
+.icon-login{
+margin-top:30px
+background: rgb(128, 153, 221);
 }

@@ -5,6 +5,8 @@ import com.kh.works.calendar.vo.CalendarVo;
 import com.kh.works.calendar.vo.PartnerVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AdminScheduleService {
+    private static final Logger log = LoggerFactory.getLogger(AdminScheduleService.class);
     private final AdminScheduleDao dao;
 
     public List<EmployeeVo> empList(String deptNo) {
@@ -76,16 +79,30 @@ public class AdminScheduleService {
     }
 
     public int deleteCalendar(String adminNo, String calendarNo) {
+        int result= dao.deletePartner(calendarNo);
+        log.info("파트너 삭제 반환  행  : {}", result);
+        if(result==0){
+          log.info("삭제할 파트너가 없습니다.");
+        }
 
-       int result= dao.deleteCalendar(adminNo,calendarNo);
+        result= dao.deleteCalendar(adminNo,calendarNo);
        if(result==0){
            throw new RuntimeException("캘린더삭제실패!");
        }
-       result= dao.deletePartner(calendarNo);
-       if(result==0){
-           throw new RuntimeException("캘린더의 파트너 삭제실패!");
-       }
+
 
         return result;
+    }
+
+    public String checkAuthYnForInsertCalendar() {
+        return dao.checkAuthYnForInsertCalendar();
+    }
+
+    public String checkAuthYnForUpdateCalendar() {
+        return dao.checkAuthYnForUpdateCalendar();
+    }
+
+    public String checkAuthYnForDeleteCalendar() {
+        return  dao.checkAuthYnForDeleteCalendar();
     }
 }

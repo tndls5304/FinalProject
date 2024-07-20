@@ -1,0 +1,23 @@
+thead>tr{
+    font-size:23px;
+    padding:5px;
+    height:39px;
+}
+.table-auth{
+      width: 700px;
+      height: 330px;
+      font-size:19px;
+}
+.modify-btn{
+  margin-left: 800px;
+}
+
+.allCheck{
+margin-left:620px;
+ font-size:18px;
+}
+
+input[type="checkbox"]{
+ width: 15px;
+ height: 15px;
+}
