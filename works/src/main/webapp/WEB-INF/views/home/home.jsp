@@ -61,8 +61,8 @@
             <div id="main-section">
               <div id="left-section">
                 <div id="board">
-                  <h3>필요한 거</h3>
-                  <p>작성</p>
+                  <!-- <h3>필요한 거</h3> -->
+                  <!-- <p>작성</p> -->
                   <p></p>
                 </div>
                 <div id="documents">
@@ -212,33 +212,33 @@
               }
             });
 
-            $.ajax({
-              url: "/todo/todoAlarm",
-              method: "post",
-              success: function (data) {
-                data.forEach(function (notification) {
-                  let newNotification = document.createElement("p");
-                  newNotification.innerText = notification.message;
-                  newNotification.classList.add("notification-message");
-                  newNotification.dataset.todoNo = notification.todoNo;
+            // $.ajax({
+            //   url: "/todo/todoAlarm",
+            //   method: "post",
+            //   success: function (data) {
+            //     data.forEach(function (notification) {
+            //       let newNotification = document.createElement("p");
+            //       newNotification.innerText = notification.message;
+            //       newNotification.classList.add("notification-message");
+            //       newNotification.dataset.todoNo = notification.todoNo;
 
-                  // 알림 유형에 따른 링크 설정
-                  newNotification.onclick = function () {
-                    if (notification.message.includes("쪽지")) {
-                      markMessageNotificationAsRead(notification.alarmNo);
-                      window.location.href = "/messenger/all";
-                    } else if (notification.message.includes("할일")) {
-                      markTodoNotificationAsRead(notification.todoNo);
-                      window.location.href = "/todo/home";
-                    }
-                  };
-                  notificationDiv.appendChild(newNotification);
-                });
-              },
-              error: function (xhr, status, error) {
-                console.log("알림 띄우기 실패: ", error);
-              }
-            });
+            //       // 알림 유형에 따른 링크 설정
+            //       newNotification.onclick = function () {
+            //         if (notification.message.includes("쪽지")) {
+            //           markMessageNotificationAsRead(notification.alarmNo);
+            //           window.location.href = "/messenger/all";
+            //         } else if (notification.message.includes("할일")) {
+            //           markTodoNotificationAsRead(notification.todoNo);
+            //           window.location.href = "/todo/home";
+            //         }
+            //       };
+            //       notificationDiv.appendChild(newNotification);
+            //     });
+            //   },
+            //   error: function (xhr, status, error) {
+            //     console.log("알림 띄우기 실패: ", error);
+            //   }
+            // });
           }
 
           // ---------------------------------------------------WebSocket 설정
@@ -305,21 +305,22 @@
           }
 
           // 투두 알림 읽음 처리 AJAX 요청
-          function markTodoNotificationAsRead(todoNo) {
-            $.ajax({
-              url: "/todo/todoAlarm",
-              method: "post",
-              data: { todoNo: todoNo },
-              success: function (result) {
-                console.log("투두 알림 읽음 처리 성공: " + result);
-              },
-              error: function (xhr, status, error) {
-                console.log("투두 알림 읽음 처리 실패: ", error);
-                console.log("상태: ", status);
-                console.log("응답 텍스트: ", xhr.responseText);
-              }
-            });
-          }
+          // function markTodoNotificationAsRead(todoNo) {
+          //     $.ajax({
+          //       url: "/todo/todoAlarm",
+          //       method: "post",
+          //       data: { todoNo: todoNo },
+          //       success: function (result) {
+          //         console.log("투두 알림 읽음 처리 성공: " + result);
+          //       },
+          //       error: function (xhr, status, error) {
+          //         console.log("투두 알림 읽음 처리 실패: ", error);
+          //         console.log("상태: ", status);
+          //         console.log("응답 텍스트: ", xhr.responseText);
+          //       }
+          //     });
+          // }
+
 
           fetchNotifications();
         });

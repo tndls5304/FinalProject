@@ -1213,23 +1213,23 @@ COMMIT;
 
 -------------------------------------------------------------------------------------------------------------------------★★★알림테이블(이지수)
 --근아언니 프로필 더미데이터용 
-INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
-VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '안효섭 님이 쪽지를 보냈습니다.');
-
-INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
-VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '송예린 님이 쪽지를 보냈습니다.');
-
-INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
-VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '이수인 님이 쪽지를 보냈습니다.');
-
-INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
-VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '심원용 님이 쪽지를 보냈습니다.');
-
-INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
-VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.' || CHR(10) || '이지수 님이 쪽지를 보냈습니다.');
-
-
-COMMIT;
+--INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
+--VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '안효섭 님이 쪽지를 보냈습니다.');
+--
+--INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
+--VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '송예린 님이 쪽지를 보냈습니다.');
+--
+--INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
+--VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '이수인 님이 쪽지를 보냈습니다.');
+--
+--INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
+--VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.'|| CHR(10) || '심원용 님이 쪽지를 보냈습니다.');
+--
+--INSERT INTO ALARM (ALARM_NO, EMP_NO, MESSAGE)
+--VALUES (SEQ_ALARM.NEXTVAL, 17, '새로운 쪽지가 도착했습니다.' || CHR(10) || '이지수 님이 쪽지를 보냈습니다.');
+--
+--
+--COMMIT;
 
 -------------------------------------------------------------------------------------------------------------------------★★★테이블명(예린 더미)
 --할일 1: 요청자 근아, 담당자 유아       할일 2 : 요청자 남주혁, 담당자 유아 , 담당자 근아      할일 3 : 요청자 유아 담당자 근아    
