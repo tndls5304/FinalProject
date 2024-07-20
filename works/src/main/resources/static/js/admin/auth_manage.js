@@ -1,3 +1,17 @@
+//모두체크 누르면
+$(document).ready(function() {
+    $("#selectAllCheckBox").change(function() {
+        const checkboxes = document.querySelectorAll("#menuList input[type=checkbox]");
+        const isChecked = $(this).is(":checked");
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = isChecked;
+            checkboxes[i].value = isChecked? "Y" : "N";
+        }
+    });
+});
+
+
 
 $.ajax({
     url:"/admin/get_sub_admin_menu",
@@ -126,14 +140,14 @@ console.log("수정하기 버튼 활성화되었슴다")
         var trList = $('tr')
         var resultList = [];
         for (let idx = 1; idx <trList.length; idx++) {
-        var tr = trList[idx];
-             //find: 자식요소중에 input태그 골라서 찾는거
-         let inputList = $(tr).find('input');
+            var tr = trList[idx];
+                 //find: 자식요소중에 input태그 골라서 찾는거
+            let inputList = $(tr).find('input');
 
             let obj = {};
             for (let sIdx = 0; sIdx < inputList.length; sIdx++){
-                let inputTag = inputList[sIdx];
-                obj[inputTag.name]= inputTag.value;
+                    let inputTag = inputList[sIdx];
+                    obj[inputTag.name]= inputTag.value;
             }
             resultList.push(obj);
         }
@@ -147,6 +161,7 @@ console.log("서버에 보낼 객체를 json으로바꿈",JSON.stringify(resultL
           data:JSON.stringify(resultList),
           success:function(data){
             alert(data);
+            location.reload();
           },error:function () {
             console.log("통신실패");
           }

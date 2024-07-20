@@ -7,14 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- 제이쿼리 -->
+      <script defer src="/js/jquery-api-script/jquery.min.js"></script>
 
-  <!-- 제이쿼리-->
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <!--공통 css-->
    <link rel="stylesheet" href="/css/layout/admin/same.css">
 
-     <!-- 본문에 서브관리자가 가진 메뉴 권한 보여주기ajax 쓴 js -->
-    <script defer src="/js/admin/get_sub_admin_menu.js"></script>
+     <!-- 여기서만 쓰는 정적파일들 -->
+    <script defer src="/js/admin/auth_manage.js"></script>
+    <link rel="stylesheet" href="/css/admin/auth_manage.css">
 
 
     <!-- 글씨체 -->
@@ -31,9 +32,10 @@
 
     <main>
                <div class="header">
-                   <h2>관리자의 권한관리입니다</h2>
+                   <h2>🔐부 관리자에게 권한 부여</h2>
                 </div>
-                         <table border="1px" id="menuList">
+                <h4 class="allCheck"><input type="checkbox" id="selectAllCheckBox"></input>모두 체크📝</h4>
+                         <table border="1px" id="menuList" class="table-auth">
                                       <thead>
                                           <tr>
                                               <th>메뉴번호</th>
@@ -46,7 +48,8 @@
                                       </thead>
 
                             </table>
-                                <button id="modifyBtn">수정하기</button>
+                                <button id="modifyBtn" class="modify-btn">수정하기</button>
+
 
 
     </main>

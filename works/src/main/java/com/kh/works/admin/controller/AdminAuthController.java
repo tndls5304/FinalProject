@@ -41,7 +41,7 @@ public class AdminAuthController {
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String authNo = loginAdminVo.getAdminAuthorityNo();
         //2번 의미 서브어드민!! 서브어드민이라면 권한체크하기
-        if (authNo.equals("2")) {                         // if ("2".equals(authNo)) {  authNo 가 null 일수도 있으니 변경 필요
+        if ("2".equals(authNo)) {                         // if ("2".equals(authNo)) {  authNo 가 null 일수도 있으니 변경 필요
             String authYn = service.checkAuthYn();        // 쿼리는 재사용이 가능하도록 변수를 받아서 처리 하면 좋음
             if (authYn.equals("N")) {                     // 위와 동일 무조건 고정된 값이 조건절 기준으로
                 return "수정 권한이 없습니다! super 관리자에게 권한 요청해주세요!";

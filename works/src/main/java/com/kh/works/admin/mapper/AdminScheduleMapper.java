@@ -112,16 +112,42 @@ public interface AdminScheduleMapper {
 
     @Update("""
             UPDATE CALENDAR
-            SET  DEL_YN='Y'
+            SET DEL_YN='Y'
             WHERE ADMIN_NO=#{adminNo} AND NO=#{calendarNo}
             """)
-    int deleteCalendar(String adminNo, String calendarNo);
+    int deleteCalendar(@Param("adminNo") String adminNo, @Param("calendarNo")String calendarNo);
 
-//덜함
-//기존에 파트너가 있었다면 삭제해주기
-@Delete("""
+    //기존에 파트너가 있었다면 삭제해주기
+    @Delete("""
             DELETE CALENDAR_PARTNER
             WHERE CALENDAR_NO=#{calendarNo}
             """)
-int deletePartner(String calendarNo);
+    int deletePartner(String calendarNo);
+
+    @Select("""
+          SELECT INSERT_YN
+            FROM ADMIN A
+            JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
+            JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
+            WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='4'
+          """)
+    String checkAuthYnForInsertCalendar();
+
+    @Select("""
+            SELECT MODIFY_YN
+            FROM ADMIN A
+            JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
+            JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
+            WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='4'
+            """)
+    String checkAuthYnForUpdateCalendar();
+
+    @Select("""
+            SELECT REMOVE_YN
+            FROM ADMIN A
+            JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
+            JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
+            WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='4'
+            """)
+    String checkAuthYnForDeleteCalendar();
 }

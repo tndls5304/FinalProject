@@ -6,11 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>직원로그인</title>
+    <title>관리자 로그인</title>
     <!-- 글씨체 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
    <link rel="stylesheet" href="/css/login/admin.login.css">
     <!-- jstl라이브러리쓰기-->
@@ -26,7 +26,7 @@
 
     <main>
 
-        <div class="mainlogin"><h1>관리자 로그인 </h1></div>
+        <div class="mainlogin"><h1>관리자 로그인</h1><img width="60px"  height="60px" src="/img/icon/admin.png"></div>
 
         <form id action="/admin/login" method="POST">
 

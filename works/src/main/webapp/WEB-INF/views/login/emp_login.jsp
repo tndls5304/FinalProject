@@ -16,9 +16,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
     <!-- 글씨체 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
    <link rel="stylesheet" href="/css/login/emp_login.css">
    <script defer src="/js/login/emp_login.js"></script>
@@ -38,7 +38,7 @@
 <body>
 
    <main>
-        <div class="mainjoin"><h1>직원 로그인 </h1></div>
+        <div class="mainjoin"><h1>직원 로그인</h1><img class="icon-login"width="50px"  height="50px" src="/img/icon/login.png"> </div>
 
         <form id="signupForm" action="/emp/login" method="post">
 

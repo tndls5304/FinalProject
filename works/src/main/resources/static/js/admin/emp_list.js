@@ -199,7 +199,7 @@ window.onload = function() {
 
                 modal.style.display = 'block';
                 document.querySelector("#empNo").textContent =empVo.no;
-                document.querySelector("#empImage").src ="/img/profile/"+empVo.profile;
+                document.querySelector("#empImage").src =empVo.profile;
                 document.querySelector("input[name=name]").value = empVo.name;
                 document.querySelector("input[name=phone]").value = empVo.phone;
                 document.querySelector("input[name=pwd]").value = empVo.pwd;

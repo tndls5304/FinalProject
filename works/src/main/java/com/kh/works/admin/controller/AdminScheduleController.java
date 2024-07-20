@@ -47,6 +47,15 @@ public class AdminScheduleController {
     public ResponseEntity<String> insertSchedule(@RequestBody CalendarVo vo, HttpSession session) {
         // 브라우저에서 JavaScript 객체를 JSON 문자열로 변환해서 보내줬기에 서버에서 JSON 데이터를 받기 위해 @RequestBody를 사용
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+        //권한체크
+        String authNo = loginAdminVo.getAdminAuthorityNo();
+        if ("2".equals(authNo)) {
+            String authYn = service.checkAuthYnForInsertCalendar();
+            if ("N".equals(authYn)) {
+                return ResponseEntity.internalServerError().body("일정 등록 권한이 없습니다!❌");
+            }
+        }
+
         //로그인한 관리자의 번호를 넣어주기
         String no = loginAdminVo.getNo();
         vo.setAdminNo(no);
@@ -96,6 +105,15 @@ public class AdminScheduleController {
         // 브라우저에서 JavaScript 객체를 JSON 문자열로 변환해서 보내줬기에 서버에서 JSON 데이터를 받기 위해 @RequestBody를 사용
         System.out.println("캘린더  수정할때 CalendarVo vo에 든거 확인하기: " + vo);
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+
+        //권한체크
+        String authNo = loginAdminVo.getAdminAuthorityNo();
+        if ("2".equals(authNo)) {
+            String authYn = service.checkAuthYnForUpdateCalendar();
+            if ("N".equals(authYn)) {
+                return ResponseEntity.internalServerError().body("일정 수정 권한이 없습니다!❌");
+            }
+        }
         //로그인한 관리자의 번호를 넣어주기
         String no = loginAdminVo.getNo();
         vo.setAdminNo(no);
@@ -109,13 +127,21 @@ public class AdminScheduleController {
     //일정삭제
     @PostMapping("admin/calendar/delete")
     @ResponseBody
-    public ResponseEntity<String> deleteCalendar(String calendarNo,HttpSession session){
+    public ResponseEntity<String> deleteCalendar(@RequestParam("calendarNo") String calendarNo,HttpSession session){
         AdminVo loginAdminVo = (AdminVo)session.getAttribute("loginAdminVo");
+        //권한체크
+        String authNo = loginAdminVo.getAdminAuthorityNo();
+        if ("2".equals(authNo)) {
+            String authYn = service.checkAuthYnForDeleteCalendar();
+            if ("N".equals(authYn)) {
+                return ResponseEntity.internalServerError().body("일정 삭제 권한이 없습니다!❌");
+            }
+        }
         //로그인한 관리자의 번호를 넣어주기
         String adminNo=loginAdminVo.getNo();
         int result= service.deleteCalendar(adminNo,calendarNo);
         if(result==1){
-          return   ResponseEntity.ok("스케줄삭제 완료!");
+          return  ResponseEntity.ok("스케줄삭제 완료!");
         }
         return  ResponseEntity.internalServerError().body("스케줄삭제 실패");
     }

@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!-- 전체화면 공통 css -->
          <link rel="stylesheet" href="/css/layout/admin/same.css">
+        <!-- 제이쿼리 -->
+          <script defer src="/js/jquery-api-script/jquery.min.js"></script>
 
-     <!-- 제이쿼리-->
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
 
 </head>
