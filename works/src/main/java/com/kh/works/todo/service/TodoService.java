@@ -141,8 +141,8 @@ public class TodoService {
     }
 
     //읽은 알람 처리
-    public int read(String todoManagerNo) {
-        return todoDao.read(todoManagerNo);
+    public int read(int todoNo) {
+        return todoDao.read(todoNo);
     }
 
     public EmployeeVo getEmpInfo(EmployeeVo empVo) {
