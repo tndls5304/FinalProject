@@ -31,17 +31,12 @@ public class TodoService {
 
     //todo작성 쿼리 2개 insert
     public int todoWrite(TodoVo vo) {
-        // 받은 endDate 값 출력
-        System.out.println("@@@@@@@@Received endDate: " + vo.getEndDate());
-
         vo.setEndDate(calculateEndDate(vo));
 
-        System.out.println("@@@@@@@@@@@@Calculated endDate: " + vo.getEndDate());
-
-        //todo작성 실행
+        //todo insert
         int result1 = todoDao.todowrite(vo);
 
-        //여러명의 담당자를 한명씩 꺼내 쿼리를 보낸다.
+        //todo_manager insert : 여러명의 담당자를 한명씩 꺼내 쿼리를 실행.
        List<String>todoManageList = vo.getTodoManagerList();
        int result2 = 1;
         for (String manVo : todoManageList) {
@@ -141,8 +136,8 @@ public class TodoService {
     }
 
     //읽은 알람 처리
-    public int read(int todoNo) {
-        return todoDao.read(todoNo);
+    public int read(int alarmNo) {
+        return todoDao.read(alarmNo);
     }
 
     public EmployeeVo getEmpInfo(EmployeeVo empVo) {
