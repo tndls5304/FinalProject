@@ -88,13 +88,13 @@
               <span class="close">&times;</span>
               <!-- 할일 작성 폼 -->
               <h3>할 일 쓰기</h3>
-              <form id="todoForm" action="/todo/write" method="post">
+              <form onsubmit="return formCheck();" id="todoForm" action="/todo/write" method="post">
 
-                <input type="text" id="title" name="title" placeholder="제목을 입력해주세요." required>
+                <input type="text" id="title" name="title" placeholder="제목을 입력해주세요.">
                 <br><br>
 
 
-                <textarea id="form-content" name="content" placeholder="내용을 입력해주세요." required></textarea>
+                <textarea id="form-content" name="content" placeholder="내용을 입력해주세요."></textarea>
                 <br><br>
 
                 <label for="parNo" data-name="todoEmpNo">요청자:${loginEmpVo.name}</label>
@@ -116,9 +116,10 @@
                 <label for="endDate">기한
                   <input type="hidden" id="endDate" name="endDate">
                   <div class="dateBtn">
-                    <button class="endDateBtn" type="button" onclick="setEndDate('today',event)">오늘</button>
-                    <button class="endDateBtn" type="button" onclick="setEndDate('tomorrow', event)">내일</button>
-                    <button class="endDateBtn" type="button" onclick="setEndDate('nextWeek',event)">다음주</button>
+                    <!-- 버튼누르면 기한 넘어가는 함수랑 색 바뀌는 함수 두개 호출하고 싶은데 안됨... -->
+                    <button class="endDateBtn" type="button" onclick="setEndDate('today',event);btnColorActive(event);">오늘</button>
+                    <button class="endDateBtn" type="button" onclick="setEndDate('tomorrow', event);btnColorActive(event)">내일</button>
+                    <button class="endDateBtn" type="button" onclick="setEndDate('nextWeek',event);btnColorActive(event)">다음주</button>
                   </div>
                 </label>
 
@@ -429,4 +430,47 @@
         }
       }
 
+      
+  //폼 유효성 검사
+  function formCheck(){
+  const title = document.querySelector("input[name=title]");
+  const titleValue = title ? title.value : "";
+  
+  const content = document.querySelector("textarea[name=content]");
+  const contentValue = content ? content.value : "";
+
+  const managerList = document.querySelectorAll("input[name=todoManagerList]:checked");
+  const managerListCount = managerList.length;
+
+  const endDate = document.getElementById("endDate");
+  const endDateValue = endDate ? endDate.value : "";
+  
+
+  console.log(`Manager List Count: ${managerListCount}`); // 선택된 담당자 수 확인
+
+ 
+  if (titleValue === "") {
+        alert("제목을 입력하세요.");
+        return false;
+    }
+
+    if (contentValue === "") {
+        alert("내용을 입력하세요.");
+        return false;
+    }
+
+  if(managerListCount === 0){
+      alert("한명 이상의 담당자를 선택해주세요");
+      return false;
+  }
+
+  if(endDateValue === ""){
+    alert("기한을 선택해주세요");
+    return false;
+}
+  
+  return true;
+}
+
     </script>
+

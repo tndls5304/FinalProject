@@ -184,9 +184,9 @@ public class TodoController {
     //알람 읽음 처리
     @PostMapping("readAlarm")
     @ResponseBody
-    public ResponseEntity<String> readAlarm(@RequestParam("todoNo") int todoNo) {
+    public ResponseEntity<String> readAlarm(@RequestParam("alarmNo") int alarmNo) {
         //읽은 알람 처리
-        int result = service.read(todoNo);
+        int result = service.read(alarmNo);
             return ResponseEntity.ok("알람읽기 성공");
     }
 

@@ -389,9 +389,15 @@ button[type="submit"] i {
   cursor: pointer;
 }
 
+.endDateBtn.active{
+  background-color:  #007b9a;
+  color: white;
+}
+
 .modal-content form button[type="button"]:hover {
   background-color: #007b9a;
 }
+
 
 /* 저장 버튼 */
 .modal-content form input[type="submit"] {
@@ -405,6 +411,8 @@ button[type="submit"] i {
 .modal-content form input[type="submit"]:hover {
   background-color: #14a076;
 }
+
+
 
 #managerList {
   margin-bottom: 15px;
