@@ -200,7 +200,7 @@
                       markMessageNotificationAsRead(notification.alarmNo);
                       window.location.href = "/messenger/all";
                     } else if (notification.message.includes("할일")) {
-                      markTodoNotificationAsRead(notification.todoNo);
+                      markTodoNotificationAsRead(notification.alarmNo);
                       window.location.href = "/todo/home";
                     }
                   };
@@ -212,33 +212,35 @@
               }
             });
 
-            // $.ajax({
-            //   url: "/todo/todoAlarm",
-            //   method: "post",
-            //   success: function (data) {
-            //     data.forEach(function (notification) {
-            //       let newNotification = document.createElement("p");
-            //       newNotification.innerText = notification.message;
-            //       newNotification.classList.add("notification-message");
-            //       newNotification.dataset.todoNo = notification.todoNo;
+            $.ajax({
+              url: "/todo/todoAlarm",
+              method: "post",
+              success: function (data) {
+                data.forEach(function (notification) {
+                  let newNotification = document.createElement("p");
+                  newNotification.innerText = notification.message;
+                  newNotification.classList.add("notification-message");
+                  // todo에 해당하는 alarmNo
+                  newNotification.dataset.alarmNo = notification.alarmNo;
 
-            //       // 알림 유형에 따른 링크 설정
-            //       newNotification.onclick = function () {
-            //         if (notification.message.includes("쪽지")) {
-            //           markMessageNotificationAsRead(notification.alarmNo);
-            //           window.location.href = "/messenger/all";
-            //         } else if (notification.message.includes("할일")) {
-            //           markTodoNotificationAsRead(notification.todoNo);
-            //           window.location.href = "/todo/home";
-            //         }
-            //       };
-            //       notificationDiv.appendChild(newNotification);
-            //     });
-            //   },
-            //   error: function (xhr, status, error) {
-            //     console.log("알림 띄우기 실패: ", error);
-            //   }
-            // });
+                  // 알림 유형에 따른 링크 설정
+                  newNotification.onclick = function () {
+                    if (notification.message.includes("쪽지")) {
+                      markMessageNotificationAsRead(notification.alarmNo);
+                      window.location.href = "/messenger/all";
+                    } else if (notification.message.includes("할일")) {
+                        // todo에 해당하는 alarmNo
+                      markTodoNotificationAsRead(notification.alarmNo);
+                      window.location.href = "/todo/home";
+                    }
+                  };
+                  notificationDiv.appendChild(newNotification);
+                });
+              },
+              error: function (xhr, status, error) {
+                console.log("알림 띄우기 실패: ", error);
+              }
+            });
           }
 
           // ---------------------------------------------------WebSocket 설정
@@ -255,8 +257,10 @@
             let newNotification = document.createElement("p");
             newNotification.innerText = data.message;
             newNotification.classList.add("notification-message");
+              // 쪽지에 해당하는 alarmNo
             newNotification.dataset.alarmNo = data.alarmNo;
-            newNotification.dataset.todoNo = data.todoNo;
+              // todo에 해당하는 alarmNo
+            newNotification.dataset.alarmNo = data.alarmNo;
 
             // 알림 유형에 따른 링크 설정
             newNotification.onclick = function () {
@@ -264,7 +268,8 @@
                 markMessageNotificationAsRead(notification.alarmNo);
                 window.location.href = "/messenger/all";
               } else if (notification.message.includes("할일")) {
-                markTodoNotificationAsRead(notification.todoNo);
+                  // todo에 해당하는 alarmNo
+                markTodoNotificationAsRead(notification.alarmNo);
                 window.location.href = "/todo/home";
               }
             };
@@ -305,21 +310,22 @@
           }
 
           // 투두 알림 읽음 처리 AJAX 요청
-          // function markTodoNotificationAsRead(todoNo) {
-          //     $.ajax({
-          //       url: "/todo/todoAlarm",
-          //       method: "post",
-          //       data: { todoNo: todoNo },
-          //       success: function (result) {
-          //         console.log("투두 알림 읽음 처리 성공: " + result);
-          //       },
-          //       error: function (xhr, status, error) {
-          //         console.log("투두 알림 읽음 처리 실패: ", error);
-          //         console.log("상태: ", status);
-          //         console.log("응답 텍스트: ", xhr.responseText);
-          //       }
-          //     });
-          // }
+            // todo에 해당하는 alarmNo
+          function markTodoNotificationAsRead(alarmNo) {
+              $.ajax({
+                url: "/todo/readAlarm",
+                method: "post",
+                data: { alarmNo: alarmNo },
+                success: function (result) {
+                  console.log("투두 알림 읽음 처리 성공: " + result);
+                },
+                error: function (xhr, status, error) {
+                  console.log("투두 알림 읽음 처리 실패: ", error);
+                  console.log("상태: ", status);
+                  console.log("응답 텍스트: ", xhr.responseText);
+                }
+              });
+          }
 
 
           fetchNotifications();
