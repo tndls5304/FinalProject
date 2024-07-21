@@ -175,11 +175,19 @@ public class TodoController {
         //받은 알람 가져오기
         List<AlarmVo> unread = service.getTodoAlarm(todoManagerNo);
 
-        //읽은 알람 처리
-        service.read(todoManagerNo);
+
 
         //읽지 않은 알람 목록 띄워주기
         return ResponseEntity.ok(unread);
+    }
+
+    //알람 읽음 처리
+    @PostMapping("readAlarm")
+    @ResponseBody
+    public ResponseEntity<String> readAlarm(@RequestParam("todoNo") int todoNo) {
+        //읽은 알람 처리
+        int result = service.read(todoNo);
+            return ResponseEntity.ok("알람읽기 성공");
     }
 
 

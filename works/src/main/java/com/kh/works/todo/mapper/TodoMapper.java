@@ -161,8 +161,8 @@ public interface TodoMapper {
 
 
     //읽은 알람 처리
-    @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE EMP_NO = #{empNo} AND IS_READ = 'N'")
-    int read(@Param("empNo") String empNo);
+    @Update("UPDATE ALARM SET IS_READ = 'Y' WHERE TODO_NO= #{todoNo} AND IS_READ = 'N'")
+    int read(@Param("alarmNo") int alarmNo);
 
 
     //알람 저장

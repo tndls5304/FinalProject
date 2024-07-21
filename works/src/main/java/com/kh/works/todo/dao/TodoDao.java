@@ -73,8 +73,8 @@ public class TodoDao {
     }
 
     //읽은 알람 처리
-    public int read(String todoManagerNo) {
-        return mapper.read(todoManagerNo);
+    public int read(int todoNo) {
+        return mapper.read(todoNo);
     }
 
     //알람 저장하기
