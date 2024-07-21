@@ -40,7 +40,7 @@
             <h4> <직위 높은순, 부서순> </h4>
 
           <!-- 테이블 -->
-          <table border="1">
+          <table border="1" class="empTable">
                <thead>
                           <tr>
                             <th>사원번호</th>

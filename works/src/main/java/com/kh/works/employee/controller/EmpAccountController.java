@@ -227,7 +227,7 @@ public class EmpAccountController {
 
     @PostMapping("emp/send-email-to-find-pwd")
     @ResponseBody
-    public ResponseEntity<String> sendMailToFindPwd(String no){
+    public ResponseEntity<String> sendMailToFindPwd(@RequestParam("no") String no){
 
         //비밀번호찾을떄 자기 이메일로 임시 비밀번호 받기
         System.out.println("자신의 사원번호는??"+no);

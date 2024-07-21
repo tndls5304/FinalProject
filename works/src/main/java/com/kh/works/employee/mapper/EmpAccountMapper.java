@@ -40,7 +40,7 @@ public interface EmpAccountMapper {
     //계정잠금처리하기
     @Insert("""
             UPDATE EMPLOYEE
-            SET LOCK_YN='N'
+            SET LOCK_YN='Y'
             WHERE NO=#{loginFailEmpNo}
             """)
     int lockAccount(String loginFailEmpNo);
