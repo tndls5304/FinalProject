@@ -12,7 +12,12 @@ import org.springframework.stereotype.Service;
 
 //---------------수인------------------------------------
 
-
+/**
+ * 메일 발송 서비스
+ * @apiNote 사용자에게 회원 가입 메일 발송
+ * @since 24. 06. 29
+ * @author suin Lee
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor

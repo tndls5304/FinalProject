@@ -5,11 +5,22 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 //수인--------------------------------
-@Data
 
+/**
+ * 이메일 Message VO
+ *
+ * @since 24. 06. 29
+ * @author suin Lee
+ */
+@Data
 public class EmailMessage {
 
-    private String to;
+    /** 메일 제못 */
     private String subject;
+
+    /** 메일 내용 */
     private String message;
+
+    /** 받는 메일주소 */
+    private String to;
 }
