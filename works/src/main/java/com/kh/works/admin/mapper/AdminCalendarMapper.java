@@ -5,11 +5,10 @@ import com.kh.works.calendar.vo.PartnerVo;
 import com.kh.works.employee.vo.EmployeeVo;
 import org.apache.ibatis.annotations.*;
 
-import java.util.Calendar;
 import java.util.List;
 
 @Mapper
-public interface AdminScheduleMapper {
+public interface AdminCalendarMapper {
 
     @Select("""
                    SELECT   NO,NAME

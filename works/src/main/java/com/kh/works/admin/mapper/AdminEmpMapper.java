@@ -23,37 +23,17 @@ public interface AdminEmpMapper {
             "FROM POSITION")
     List<PositionVo> selectPosition();
 
-
     //신규사원등록하고 사원넘버 가져오기
-    @Insert("INSERT INTO EMPLOYEE (NO, EMAIL, NAME, DEPT_NO, POSITION_NO)VALUES(SEQ_EMPLOYEE.NEXTVAL, #{email},#{name}, #{deptNo}, #{positionNo})")
-    @Options(useGeneratedKeys = true, keyProperty = "no", keyColumn = "NO")
+    @Insert("INSERT INTO EMPLOYEE (NO, EMAIL, NAME, DEPT_NO, POSITION_NO,JOIN_KEY)VALUES(#{no}, #{email},#{name}, #{deptNo}, #{positionNo}, #{joinKey})")
     void insertEmp(EmployeeVo employeeVo);
-
-
-    //전체사원조회 :직위높은순으로 그리고 부서별로
-    @Select("""
-            SELECT E.NO,E.NAME,E.ID,P.NAME AS POSITION_NAME,D.NAME AS DEPT_NAME,E.LOCK_YN
-            FROM EMPLOYEE E
-            LEFT JOIN (
-                SELECT DEPT_NO, COUNT(*) AS EMPLOYEE_COUNT
-                FROM EMPLOYEE
-                GROUP BY DEPT_NO
-            ) D ON E.DEPT_NO = D.DEPT_NO
-            LEFT JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
-            JOIN POSITION P ON E.POSITION_NO=P.NO
-            WHERE E.RETIRE_YN='N'
-            ORDER BY E.POSITION_NO ASC, E.DEPT_NO
-            """
-    )
-    List<EmployeeVo> getAllEmpList();
 
     //사원상세조회
     @Select("""
                 SELECT NO,NAME,EMAIL,PWD,PROFILE,PHONE,HIRE_DATE,LOGIN_FAIL_NUM,LOCK_YN
                 FROM EMPLOYEE
-                WHERE NO=#{no} AND RETIRE_YN='N'
+                WHERE NO=#{empNo} AND RETIRE_YN='N'
             """)
-    EmployeeVo getEmpByNo(String no);
+    EmployeeVo getEmpByNo(String empNo);
 
     //사원정보수정
     @Update("""
@@ -67,37 +47,37 @@ public interface AdminEmpMapper {
     @Update("""
             UPDATE EMPLOYEE
             SET RETIRE_YN='Y', RETIRE_DATE=SYSDATE
-            WHERE NO=#{no}
+            WHERE NO=#{empNo}
             """)
-    int resignEmp(String no);
+    int resignEmp(String empNo);
 
     //조건부 사원검색
 
     @Select("""
-            <script>
-                   SELECT E.NO,E.NAME,E.ID,P.NAME AS POSITION_NAME,D.NAME AS DEPT_NAME,E.LOCK_YN
-                    FROM EMPLOYEE E JOIN POSITION P ON  E.POSITION_NO=P.NO
-                                    JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
-                    <where>
-                          <if test="retireYn != null and retireYn != ''">
-                             AND  E.RETIRE_YN=#{retireYn}
-                          </if>
-                          <if test="deptNo != null and deptNo != ''">
-                             AND  E.DEPT_NO=#{deptNo}
-                          </if>
-                          <if test="positionNo != null and positionNo != ''">
-                             AND  E.POSITION_NO=#{positionNo}
-                          </if>
-                          <if test="name != null and name != ''">
-                             AND  E.NAME LIKE '%' || #{name} || '%'
-                          </if>
-                    </where>
-             </script>
-         """)
+               <script>
+                      SELECT E.NO,E.NAME,E.ID,P.NAME AS POSITION_NAME,D.NAME AS DEPT_NAME,E.LOCK_YN
+                       FROM EMPLOYEE E JOIN POSITION P ON  E.POSITION_NO=P.NO
+                            LEFT JOIN DEPARTMENT D ON E.DEPT_NO=D.NO
+                       <where>
+                             <if test="retireYn != null and retireYn != ''">
+                                AND  E.RETIRE_YN=#{retireYn}
+                             </if>
+                             <if test="deptNo != null and deptNo != ''">
+                                AND  E.DEPT_NO=#{deptNo}
+                             </if>
+                             <if test="positionNo != null and positionNo != ''">
+                                AND  E.POSITION_NO=#{positionNo}
+                             </if>
+                             <if test="name != null and name != ''">
+                                AND  E.NAME LIKE '%' || #{name} || '%'
+                             </if>
+                       </where>
+               </script>
+            """)
     List<EmployeeVo> selectEmpByCondition(EmployeeVo vo);
 
 
-// 신규사원등록하기전에  서브관리자 권한체크
+    // 신규사원등록하기전에  서브관리자 권한체크
     @Select("""
             SELECT INSERT_YN
             FROM ADMIN A
@@ -127,5 +107,11 @@ public interface AdminEmpMapper {
             WHERE A.NO='2' AND P.ADMIN_PAGE_MENU_NO='3'
             """)
     String checkAuthYnForResignEmp();
+
+    @Select("""
+            SELECT SEQ_EMPLOYEE.NEXTVAL
+            FROM DUAL
+            """)
+    String getEmpSeqNo();
 }
 

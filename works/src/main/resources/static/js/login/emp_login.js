@@ -99,7 +99,7 @@ function requestFindPwd(){
 function requestEmail(no) {
 console.log(no);
     $.ajax({
-    url:"/emp/send-email-to-find-pwd",
+    url:"/emp/send/email/get/pwd",
     method:"POST",
     data:{no:no},
     success:function(msg){

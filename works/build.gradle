@@ -64,6 +64,8 @@ dependencies {
 	//사진 파일 업로드하면 내부 폴더의 파일은 스트림으로 읽고 바이트 배열로 반환하려고 IOUtils 라이브러리 추가 했습니다(수인)  (IOUtils = Apache Commons IO 라이브러리)
 	implementation 'commons-io:commons-io:2.16.1'
 
+	//시큐리티 추가 했어요 (수인)
+	implementation("org.springframework.security:spring-security-core:6.3.1")
 
 	// AWS를 쓰는데 JAXB가 없으면 AWS SDK의 성능이 저하될 수 있다고 경고가 떠서 의존성 추가해줌
 	//Java 9 이상에서는 JAXB가 기본적으로 포함되지 않기 때문에 명시적으로 추가해야 한다.

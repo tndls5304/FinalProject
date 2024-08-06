@@ -12,9 +12,7 @@ import java.util.List;
 public class AdminCommonService {
     private final AdminCommonDao dao;
 
-
     public List<AdminPageMenuVo> selectSidePageComponent(String adminAuthNo) {
        return dao.selectSidePageComponent(adminAuthNo);
-
     }
 }

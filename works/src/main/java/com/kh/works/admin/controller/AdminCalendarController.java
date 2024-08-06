@@ -1,7 +1,6 @@
 package com.kh.works.admin.controller;
 
-import com.kh.works.admin.servcie.AdminAccountService;
-import com.kh.works.admin.servcie.AdminScheduleService;
+import com.kh.works.admin.servcie.AdminCalendarService;
 import com.kh.works.admin.vo.AdminVo;
 import com.kh.works.calendar.vo.CalendarVo;
 import com.kh.works.calendar.vo.PartnerVo;
@@ -12,18 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-public class AdminScheduleController {
+public class AdminCalendarController {
 
-    private final AdminScheduleService service;
+    private final AdminCalendarService service;
 
-    //스케줄화면보여주기
+    //화면보여주기
     @GetMapping("admin/manage_schedule")
     public String givePage() {
         return "admin/manage_schedule";
@@ -73,15 +69,8 @@ public class AdminScheduleController {
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String no = loginAdminVo.getNo();
         List<CalendarVo> voList = service.selectScheduleList(no);
-        if (voList != null) {
-            return ResponseEntity.ok(voList);
-        }
-        //NULL값 내려주면 오류나니까 성공했다는것만 알아둬... 🐳⭐
-        return ResponseEntity.ok().build();
-
-        // 가독성이 더좋음 아래도 변경하면 좋을거같음
-        // return voList==null ? ResponseEntity.ok().build();
-        //                      : ResponseEntity.ok(voList);
+        return voList == null ? ResponseEntity.ok().build()
+                : ResponseEntity.ok(voList);
     }
 
 
@@ -101,48 +90,55 @@ public class AdminScheduleController {
     @PostMapping("admin/calendar/update")
     @ResponseBody
     public ResponseEntity<String> updateCalendar(@RequestBody CalendarVo vo, HttpSession session) {
+        try {
+            // 브라우저에서 JavaScript 객체를 JSON 문자열로 변환해서 보내줬기에 서버에서 JSON 데이터를 받기 위해 @RequestBody를 사용
+            AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
 
-        // 브라우저에서 JavaScript 객체를 JSON 문자열로 변환해서 보내줬기에 서버에서 JSON 데이터를 받기 위해 @RequestBody를 사용
-        System.out.println("캘린더  수정할때 CalendarVo vo에 든거 확인하기: " + vo);
-        AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
-
-        //권한체크
-        String authNo = loginAdminVo.getAdminAuthorityNo();
-        if ("2".equals(authNo)) {
-            String authYn = service.checkAuthYnForUpdateCalendar();
-            if ("N".equals(authYn)) {
-                return ResponseEntity.internalServerError().body("일정 수정 권한이 없습니다!❌");
+            //권한체크
+            String authNo = loginAdminVo.getAdminAuthorityNo();
+            if ("2".equals(authNo)) {
+                String authYn = service.checkAuthYnForUpdateCalendar();
+                if ("N".equals(authYn)) {
+                    return ResponseEntity.internalServerError().body("일정 수정 권한이 없습니다!❌");
+                }
             }
+            //로그인한 관리자의 번호를 넣어주기
+            String no = loginAdminVo.getNo();
+            vo.setAdminNo(no);
+            int result = service.updateCalendar(vo);
+            if (result == 1) {
+                return ResponseEntity.ok("스케줄 수정 성공!");
+            }
+            return ResponseEntity.internalServerError().body("스케줄 수정 실패");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
-        //로그인한 관리자의 번호를 넣어주기
-        String no = loginAdminVo.getNo();
-        vo.setAdminNo(no);
-        int result = service.updateCalendar(vo);
-        if (result == 1) {
-            return ResponseEntity.ok("스케줄 수정 성공!");
-        }
-        return ResponseEntity.internalServerError().body("스케줄 수정 실패");
     }
 
     //일정삭제
     @PostMapping("admin/calendar/delete")
     @ResponseBody
-    public ResponseEntity<String> deleteCalendar(@RequestParam("calendarNo") String calendarNo,HttpSession session){
-        AdminVo loginAdminVo = (AdminVo)session.getAttribute("loginAdminVo");
-        //권한체크
-        String authNo = loginAdminVo.getAdminAuthorityNo();
-        if ("2".equals(authNo)) {
-            String authYn = service.checkAuthYnForDeleteCalendar();
-            if ("N".equals(authYn)) {
-                return ResponseEntity.internalServerError().body("일정 삭제 권한이 없습니다!❌");
+    public ResponseEntity<String> deleteCalendar(@RequestParam("calendarNo") String calendarNo, HttpSession session) {
+        try {
+            AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
+            //권한체크
+            String authNo = loginAdminVo.getAdminAuthorityNo();
+            if ("2".equals(authNo)) {
+                String authYn = service.checkAuthYnForDeleteCalendar();
+                if ("N".equals(authYn)) {
+                    return ResponseEntity.internalServerError().body("일정 삭제 권한이 없습니다!❌");
+                }
             }
+            //로그인한 관리자의 번호를 넣어주기
+            String adminNo = loginAdminVo.getNo();
+            int result = service.deleteCalendar(adminNo, calendarNo);
+            if (result == 1) {
+                return ResponseEntity.ok("스케줄삭제 완료!");
+            }
+            return ResponseEntity.internalServerError().body("스케줄삭제 실패");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
-        //로그인한 관리자의 번호를 넣어주기
-        String adminNo=loginAdminVo.getNo();
-        int result= service.deleteCalendar(adminNo,calendarNo);
-        if(result==1){
-          return  ResponseEntity.ok("스케줄삭제 완료!");
-        }
-        return  ResponseEntity.internalServerError().body("스케줄삭제 실패");
+
     }
 }//class

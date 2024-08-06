@@ -71,7 +71,7 @@ $(document).ready(function(){
              name:name
           },
 
-          success:function(empList){
+         success:function(empList){
          const tbodyTag= document.querySelector("tbody");
          tbodyTag.innerHTML="";
 
@@ -119,7 +119,7 @@ $(document).ready(function(){
 
    //----------------------------------------------------첫화면 퇴직안한 전체 사원 조회해오기
     $.ajax({
-      url:'/admin/list_all_emp',
+      url:'/admin/select_emp_conditional',
       method:'GET',
       success(empList){
         console.log("통신성공");
@@ -189,10 +189,8 @@ window.onload = function() {
 
         const empNo= trNode.children[0].innerText;
         $.ajax({
-             url:'/admin/emp_by_no',
+             url:'/admin/employee/'+empNo,
              method:'GET',
-             data:{no: empNo},
-
              success:function(empVo){
              console.log("empVo를 가져왔니?",empVo);
               console.log("empVo의 사진을보까?",empVo.profile);
@@ -255,7 +253,7 @@ const modal = document.getElementById('modal');
                   email:email
       }
       $.ajax({
-       url:'/admin/edit_emp',
+       url:'/admin/employee',
        method:'POST',
        data: JSON.stringify(dataValue),
        contentType : 'application/json',
@@ -271,11 +269,10 @@ const modal = document.getElementById('modal');
 
 //-------------------------------------------------------------------모달창에서 퇴사처리하기
   function resignEmp(){
-    const no=$("#empNo").text();
+    const empNo=$("#empNo").text();
     $.ajax({
-      url:"/admin/resign_emp",
+      url:"/admin/resign/employee/"+empNo,
       method:"POST",
-      data:{no:no},
       success:function(resultMsg){
         alert(resultMsg);
         location.reload();

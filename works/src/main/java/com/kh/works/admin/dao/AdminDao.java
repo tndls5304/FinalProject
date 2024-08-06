@@ -29,20 +29,18 @@ public class AdminDao {
         return  mapper.selectPosition();
     }
 
-    public List<EmployeeVo> getAllEmpList() {
-        return mapper.getAllEmpList();
-    }
 
-    public EmployeeVo getEmpByNo(String no) {
-        return mapper.getEmpByNo(no);
+
+    public EmployeeVo getEmpByNo(String empNo) {
+        return mapper.getEmpByNo(empNo);
     }
 
     public int editEmp(EmployeeVo vo) {
         return mapper.editEmp(vo);
     }
 
-    public int resignEmp(String no) {
-        return mapper.resignEmp(no);
+    public int resignEmp(String empNo) {
+        return mapper.resignEmp(empNo);
     }
 
     public List<EmployeeVo> selectEmpByCondition(EmployeeVo vo) {
@@ -60,5 +58,9 @@ public class AdminDao {
 
     public String checkAuthYnForResignEmp() {
         return mapper.checkAuthYnForResignEmp();
+    }
+
+    public String getEmpSeqNo() {
+        return mapper.getEmpSeqNo();
     }
 }

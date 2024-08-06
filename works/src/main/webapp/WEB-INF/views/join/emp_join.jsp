@@ -26,6 +26,7 @@
        <script>
             <c:if test="${not empty errorMsg}">
                      alert('${errorMsg}');
+                     window.close();
             </c:if>
        </script>
 </head>
@@ -37,30 +38,29 @@
 
         <form id="signupForm" action="/emp/join" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                 <label for="no"><h3>발급된 사원번호 :</h3></label>
-                 <input type="text" value= ${memberNo} id="no" name="no" <%--readonly--%>
-                 >
+                 <label for="no"><h3>발급된 키 :</h3></label>
+                 <input type="text" value= ${joinKey}  name="joinKey" <%--readonly--%>
             </div>
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
-                <input type="text" id="id"  name="id" class="id-input" placeholder="아이디 입력">
+                <input type="text" id="id"  name="id" class="id-input" placeholder="아이디 입력" maxlength="30">
                 <button type="button" id="idDupTestBtn" class="id-button">id중복검사</button>
                 <div class="error-message" id="id-error"></div>
             </div>
             <div class="form-group">
                 <label for="pwd"><h3>비밀번호</h3> </label>
-                <input type="password" id="pwd" name="pwd" placeholder="비밀번호 입력">
+                <input type="password" id="pwd" name="pwd" placeholder="비밀번호 입력" maxlength="20">
                 <div class="error-message" id="pwd-error"></div>
             </div>
             <div class="form-group">
                 <label for="pwdCheck"><h3>비밀번호 확인</h3> </label>
-                <input type="password" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인">
+                <input type="password" id="pwdCheck" name="pwdCheck" placeholder="비밀번호 확인" maxlength="20">
                 <div class="error-message" id="pwdCheck-error"></div>
                 <div class="error-message" id="pwd-mismatch-error"></div>
             </div>
             <div class="form-group">
                 <label for="name"><h3>이름</h3></label>
-                <input type="text" id="name" name="name" placeholder="이름 입력">
+                <input type="text" id="name" name="name" placeholder="이름 입력" maxlength="30">
                 <div class="error-message" id="name-error"></div>
             </div>
             <div class="form-group">
