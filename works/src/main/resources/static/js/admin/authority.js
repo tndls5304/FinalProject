@@ -1,17 +1,14 @@
-//모두체크 누르면
+//모든 체크 박스 헤재 혹은 체크하기
 $(document).ready(function() {
     $("#selectAllCheckBox").change(function() {
         const checkboxes = document.querySelectorAll("#menuList input[type=checkbox]");
         const isChecked = $(this).is(":checked");
-
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = isChecked;
             checkboxes[i].value = isChecked? "Y" : "N";
         }
     });
 });
-
-
 
 $.ajax({
     url:"/admin/get_sub_admin_menu",

@@ -40,13 +40,13 @@ function validateForm() {
       document.getElementById('id-error').style.display = 'block';
       isValid = false;
   }
-  if (pwd.length < 4 || pwd.length > 100) {
-      document.getElementById('pwd-error').innerText = '비밀번호는 4~100자여야 합니다.';
+  if (pwd.length < 4 || pwd.length > 20) {
+      document.getElementById('pwd-error').innerText = '비밀번호는 4~20자여야 합니다.';
       document.getElementById('pwd-error').style.display = 'block';
       isValid = false;
   }
-  if (pwdCheck.length < 4 || pwdCheck.length > 100) {
-      document.getElementById('pwdCheck-error').innerText = '비밀번호는 4~100자여야 합니다.';
+  if (pwdCheck.length < 4 || pwdCheck.length > 20) {
+      document.getElementById('pwdCheck-error').innerText = '비밀번호는 4~20자여야 합니다.';
       document.getElementById('pwdCheck-error').style.display = 'block';
       isValid = false;
   }
@@ -91,18 +91,6 @@ function clearErrors() {
       errorMessages[i].style.display = 'none';
   }
 }
-
-//function previewImage(event) {
-//  var reader = new FileReader();
-//  reader.onload = function() {
-//      var output = document.createElement('img');
-//      output.src = reader.result;
-//      output.style.maxWidth = '200px'; // Set a max width for the preview image
-//      document.getElementById('reviewPreviewImage').innerHTML = '프로필 사진 업로드 완료♡';
-//      document.getElementById('reviewPreviewImage').appendChild(output);
-//  };
-//  reader.readAsDataURL(event.target.files[0]);
-//}
 
 
 //아이디중복검사 누르면 ajax요청

@@ -2,6 +2,7 @@ package com.kh.works.employee.vo;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
+import java.time.LocalDateTime;
 
 @Data
 public class EmployeeVo {
@@ -24,4 +25,5 @@ public class EmployeeVo {
     private String positionNo;
     private String positionName;
     private String deptName;
+    private String joinKey;
 }

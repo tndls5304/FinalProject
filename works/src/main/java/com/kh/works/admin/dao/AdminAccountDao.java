@@ -12,8 +12,7 @@ public class AdminAccountDao {
 
     private final AdminAccountMapper mapper;
 
-
-    public AdminVo adminLoginMatching(AdminVo vo) {
-        return mapper.adminLoginMatching(vo);
+    public AdminVo login(AdminVo vo) {
+        return mapper.login(vo);
     }
 }

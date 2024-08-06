@@ -20,35 +20,34 @@ public class AdminAccountController {
 
     private final AdminAccountService service;
 
-//로그인페이지보여주기
+    //로그인페이지보여주기
     @GetMapping("admin/login")
     public String login() {
-        return "login/admin_login";
+        return "admin/login";
     }
 
+/**
+* 관리자로그인하기
+* @param vo
+* @param session
+* @param model
+* @return
+*/
+@PostMapping("admin/login")
+public String adminLoginMatching(AdminVo vo, HttpSession session, Model model){
+    AdminVo loginAdminVo =service.login(vo);
 
-    /**
-     * 관리자로그인하기
-     * @param vo
-     * @param session
-     * @param model
-     * @return
-     */
-    @PostMapping("admin/login")
-    public String adminLoginMatching(AdminVo vo, HttpSession session, Model model){
-        AdminVo loginAdminVo =service.adminLoginMatching(vo);
-
-        if(loginAdminVo==null){
-            model.addAttribute("errorMsg","아이디 비밀번호 확인후 다시 로그인 해주세요!");
-            return "login/admin_login";
-        }else{
-            session.setAttribute("loginAdminVo",loginAdminVo);
-            return "redirect:/admin/home";
-        }
+    if(loginAdminVo==null){
+        model.addAttribute("errorMsg","아이디 비밀번호 확인후 다시 로그인 해주세요!");
+        return "admin/login";
+    }else{
+        session.setAttribute("loginAdminVo",loginAdminVo);
+        return "redirect:/admin/home";
     }
+}
 
 
-//로그아웃시키기
+    //로그아웃시키기
     @GetMapping("admin/logout")
     public String logout(HttpSession session){
         session.invalidate();

@@ -2,6 +2,9 @@ package com.kh.works.employee.mapper;
 
 import com.kh.works.employee.vo.EmployeeVo;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+
+import java.time.LocalDateTime;
 
 @Mapper
 public interface EmpAccountMapper {
@@ -18,13 +21,13 @@ public interface EmpAccountMapper {
 
 
     @Select("SELECT COUNT(*) AS CNT FROM EMPLOYEE WHERE ID =#{id}")
-    int empJoinDuplicateTest(String id);
+    int duplicateTest(String id);
 
 
     @Update("""
             UPDATE EMPLOYEE
             SET ID=#{id},PWD=#{pwd},NAME=#{name},PHONE=#{phone},PROFILE=#{profile}
-            WHERE NO=#{no}
+            WHERE JOIN_KEY=#{joinKey}
             """)
     int join(EmployeeVo vo);
 
@@ -68,6 +71,19 @@ public interface EmpAccountMapper {
             SET PWD=#{pwd}
             WHERE NO=#{no}
             """)
-    @Options(useGeneratedKeys = true, keyProperty = "email", keyColumn = "EMAIL")
     int updatePwd(EmployeeVo vo);
+
+    @Select("""
+            SELECT HIRE_DATE
+            FROM EMPLOYEE
+            WHERE JOIN_KEY=#{joinKey}
+            """)
+    String checkJoinExpiration(String joinKey);
+
+    @Select("""
+            SELECT EMAIL
+            FROM EMPLOYEE
+            WHERE NO=#{no}
+            """)
+    String getEmailByNo(String no);
 }

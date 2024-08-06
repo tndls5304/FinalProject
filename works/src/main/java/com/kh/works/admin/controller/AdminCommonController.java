@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.List;
 
 @Controller
@@ -16,17 +17,12 @@ public class AdminCommonController {
 
     private final AdminCommonService service;
 
-      //관리자 번호에 따라 사이드바 메뉴 url 골라서  주기
+    //사이드바 메뉴 가져오기 (관리자 번호에 따라 사이드바 메뉴 url 골라서 주기)
     @GetMapping("admin/common/sidebar")
     @ResponseBody
-    public List<AdminPageMenuVo> selectSidePageComponent(HttpSession session){
-
+    public List<AdminPageMenuVo> selectSidePageComponent(HttpSession session) {
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
-        String adminAuthNo=loginAdminVo.getAdminAuthorityNo();
-
-        List<AdminPageMenuVo> voList=service.selectSidePageComponent(adminAuthNo); 
-        return  voList;
-        // 의미 없는 지역 변수는 생성 안하도록 하는게 좋음
-        // return service.selectSidePageComponent(adminAuthNo); 로 변경 필요
+        String adminAuthNo = loginAdminVo.getAdminAuthorityNo();
+        return service.selectSidePageComponent(adminAuthNo);
     }
 }

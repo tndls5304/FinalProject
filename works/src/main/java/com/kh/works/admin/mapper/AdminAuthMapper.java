@@ -11,10 +11,17 @@ import java.util.List;
 public interface AdminAuthMapper {
 
     //서브어드민 권한 조회해오기
-    @Select("SELECT A.NO menuNo,A.NAME AS menuName ,P.SELECT_YN AS authSelectYn,P.INSERT_YN AS authInsertYn ,P.MODIFY_YN AS authModifyYn ,P.REMOVE_YN AS authRemoveYn\n" +
-            "FROM ADMIN_PAGE_MENU A\n" +
-            "JOIN ADMIN_PAGE_MENU_AUTHORITY P ON A.NO=P.ADMIN_PAGE_MENU_NO\n" +
-            "WHERE P.ADMIN_AUTHORITY_NO='2'")
+    @Select("""
+            SELECT A.NO AS menuNo,A.NAME AS menuName
+                    ,P.SELECT_YN AS authSelectYn
+                    ,P.INSERT_YN AS authInsertYn
+                    ,P.MODIFY_YN AS authModifyYn
+                    ,P.REMOVE_YN AS authRemoveYn
+            FROM ADMIN_PAGE_MENU A
+            JOIN ADMIN_PAGE_MENU_AUTHORITY P
+            ON A.NO=P.ADMIN_PAGE_MENU_NO
+            WHERE P.ADMIN_AUTHORITY_NO='2'
+            """)
     List<SubAdminMenuVo> getMenuVoList();
 
 

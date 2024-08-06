@@ -9,5 +9,5 @@ public interface AdminAccountMapper {
 
 //어드민로그인
     @Select("SELECT NO,ID,PWD,ADMIN_AUTHORITY_NO FROM ADMIN WHERE ID=#{id} AND PWD=#{pwd}")
-    AdminVo adminLoginMatching(AdminVo vo);
+    AdminVo login(AdminVo vo);
 }

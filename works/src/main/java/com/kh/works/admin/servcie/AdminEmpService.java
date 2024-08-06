@@ -33,20 +33,18 @@ public class AdminEmpService {
         return dao.selectPosition();
     }
 
-    public List<EmployeeVo> getAllEmpList() {
-        return  dao.getAllEmpList();
-    }
 
-    public EmployeeVo getEmpByNo(String no) {
-        return  dao.getEmpByNo(no);
+
+    public EmployeeVo getEmpByNo(String empNo) {
+        return  dao.getEmpByNo(empNo);
     }
 
     public int editEmp(EmployeeVo vo) {
         return  dao.editEmp(vo);
     }
 
-    public int resignEmp(String no) {
-        return dao.resignEmp(no);
+    public int resignEmp(String empNo) {
+        return dao.resignEmp(empNo);
     }
 
     //조건부사원검색
@@ -64,5 +62,9 @@ public class AdminEmpService {
 
     public String checkAuthYnForResignEmp() {
         return  dao.checkAuthYnForResignEmp();
+    }
+
+    public String getEmpSeqNo() {
+        return dao.getEmpSeqNo();
     }
 }

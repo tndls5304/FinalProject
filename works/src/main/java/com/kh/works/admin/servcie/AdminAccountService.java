@@ -16,7 +16,7 @@ public class AdminAccountService {
      * @param vo 로그인 회원정보
      * @return
      */
-    public AdminVo adminLoginMatching(AdminVo vo) {
-       return dao.adminLoginMatching(vo);
+    public AdminVo login(AdminVo vo) {
+       return dao.login(vo);
     }
 }

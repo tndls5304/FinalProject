@@ -25,8 +25,10 @@ public class EmailService {
 
     private final JavaMailSender javaMailSender;
 
-
-
+    /**
+     * 메일발송
+     * @param emailMessage 발송할 메일 정보
+     */
     public void sendMail(EmailMessage emailMessage) {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -49,5 +51,10 @@ public class EmailService {
     }
 
 
+//    public static void main(String[] args) {
+//        EmailService o;
+//        o.sendMail(null);
+//
+//    }
 
 }
