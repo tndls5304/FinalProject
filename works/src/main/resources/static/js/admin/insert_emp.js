@@ -1,6 +1,6 @@
 //모든 부서명가져오기
 $.ajax({
-  url:"http://localhost:8080/admin/select_dept",
+  url:"/admin/emp/dept",
      method:"GET",
      success:function(deptVoList){
       const deptSelect=document.querySelector("#deptSelect");
@@ -26,7 +26,7 @@ $.ajax({
 
 
 $.ajax({
-  url:"/admin/select_position",
+  url:"/admin/emp/position",
   method:"GET",
   success:function(positionVoList){
         const positionSelectTag=document.querySelector("#positionSelect");

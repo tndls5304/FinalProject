@@ -1,6 +1,6 @@
   //----------------------------------------------------------첫화면 셀렉트옵션 모든 부서명가져오기
   $.ajax({
-    url:"/admin/select_dept",
+    url:"/admin/emp/dept",
        method:"GET",
        success:function(deptVoList){
         const deptSelect=document.querySelector("#deptSelect");
@@ -25,7 +25,7 @@
    //----------------------------------------------------------첫화면  셀렉트옵션  모든 직위명 가져오기
 
    $.ajax({
-     url:"/admin/select_position",
+     url:"/admin/emp/position",
      method:"GET",
      success:function(positionVoList){
            const positionSelectTag=document.querySelector("#positionSelect");

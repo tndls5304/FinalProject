@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
              $.ajax({
                       url:"/admin/calendar/all",
                        success:function(list){
+                          if (list.length > 0) {
                             for(let i = 0; i < list.length;i++){
                                  const calendarVo=list[i];
                                  calendar.addEvent({
@@ -156,8 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 longitude: calendarVo.longitude // 경도
                                                     }
                                  });
-                             }
-                         }//ajax성공했을때
+                            }
+                         }
+                      }//ajax성공했을때
              })//ajax
 
 })//DOMContentLoaded
