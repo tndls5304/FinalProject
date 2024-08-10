@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * 관리자 계정 관리
- * @author lee suin
+ * @author 이수인
  * @since 2024. 07. 13.
  */
 @Controller

@@ -49,7 +49,7 @@ public class EmpAccountController {
         } else {
             model.addAttribute("errorMsg", "회원가입 웹페이지 기간이 만료되었습니다.");
         }
-        return "join/emp_join";
+        return "account/emp/join";
     }
 
     //아이디중복검사하기
@@ -90,14 +90,14 @@ public class EmpAccountController {
             }
         } catch (Exception e) {
             model.addAttribute("errorMsg", e.getMessage());
-            return "join/emp_join";
+            return "account/emp/join";
         }
     }
 
     // 로그인페이지
     @GetMapping("emp/login")
     public String emplogin() {
-        return "login/emp_login";
+        return "account/emp/login";
     }
 
     //로그인하기
@@ -109,7 +109,7 @@ public class EmpAccountController {
 
         if (loginEmpVo == null) {
             model.addAttribute("errorMsg", "일치하는 아이디가 없습니다 아이디 확인 후 다시 시도 해주세요!");
-            return "login/emp_login";
+            return "account/emp/login";
         }
 
         //2.로그인실패 횟수 3회 이상인지 확인
@@ -118,13 +118,13 @@ public class EmpAccountController {
         if (loginFailNum >= 3) {
             service.lockAccount(loginFailEmpNo);
             model.addAttribute("errorMsg", "3회실패 ❗ 계정잠금)관리자에게 문의하세요");
-            return "login/emp_login";
+            return "account/emp/login";
         }
         //3.서비스단에서 사용자입력 평문비밀번호와 디비에 저장된 암호문을 비교하게함
         loginEmpVo = service.pwdMatching(vo, loginEmpVo);
         if (loginEmpVo == null) {
             model.addAttribute("errorMsg", "로그인실패!! 긴장하세요 3회 실패시에는 계정이 잠금됩니다");
-            return "login/emp_login";
+            return "account/emp/login";
         }
         session.setAttribute("loginEmpVo", loginEmpVo);
         return "redirect:/home";

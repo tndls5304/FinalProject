@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -32,14 +31,14 @@ public class AdminEmpController {
     }
 
     // 부서 조회해오기
-    @GetMapping("admin/select_dept")
+    @GetMapping("admin/emp/dept")
     @ResponseBody
     public List<DeptVo> selectDeptList() {
         return adminEmpService.selectDeptList();
     }
 
     //직위명 조회해오기
-    @GetMapping("admin/select_position")
+    @GetMapping("admin/emp/position")
     @ResponseBody
     public List<PositionVo> selectPosition() {
         return adminEmpService.selectPosition();
