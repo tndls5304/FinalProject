@@ -46,7 +46,11 @@
 ![image](https://github.com/user-attachments/assets/cf4864c2-f9c9-4c07-ad0c-9a1ae9dfc6ef)
 ![image](https://github.com/user-attachments/assets/65333a08-ba85-4818-919a-14fd0576887c)
    
-                
+* * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * *  
+ 나의 ERD
+====================
+ ![image](https://github.com/user-attachments/assets/388d0c02-ce08-4d89-97fb-da135c2dcb96)
+
 * * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * *
          
  baby works 개발환경
@@ -62,6 +66,8 @@
 ![image](https://github.com/user-attachments/assets/e56055c2-21bd-416f-8c75-6d7e2a595130)
 ![image](https://github.com/user-attachments/assets/1692049f-09f1-4be6-874d-a18ba4622399)
 ![image](https://github.com/user-attachments/assets/70a6afc9-0f99-4655-aa1c-5dd9378a474f)
+
+
 
  baby works그룹웨어팀 기능
 =======================================
