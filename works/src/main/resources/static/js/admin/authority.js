@@ -139,8 +139,8 @@ function modify(evt){
           success:function(data){
             alert(data);
             location.reload();
-          },error:function () {
-            console.log("통신실패");
+          },error:function (errorMsg) {
+          alert(errorMsg.responseText);
           }
       });
 }

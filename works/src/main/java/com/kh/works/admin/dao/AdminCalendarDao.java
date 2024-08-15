@@ -38,8 +38,6 @@ public class AdminCalendarDao {
         return mapper.updateCalendar(vo);
     }
 
-
-
     public int insertNewPartner(PartnerVo partnerVo) {
         return mapper.insertNewPartner(partnerVo);
     }

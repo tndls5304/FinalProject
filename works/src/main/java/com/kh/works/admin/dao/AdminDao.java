@@ -16,19 +16,17 @@ public class AdminDao {
     private final AdminEmpMapper mapper;
 
     //신규사원 등록하는 페이지: 옵션에 고를 수 있게 부서 조회해오기
-    public List<DeptVo> selectDeptList(){
+    public List<DeptVo> selectDeptList() {
         return mapper.selectDeptList();
     }
 
-    public void insertEmp(EmployeeVo employeeVo) {
-
-        mapper.insertEmp(employeeVo);
+    public int insertEmp(EmployeeVo employeeVo) {
+        return mapper.insertEmp(employeeVo);
     }
 
     public List<PositionVo> selectPosition() {
-        return  mapper.selectPosition();
+        return mapper.selectPosition();
     }
-
 
 
     public EmployeeVo getEmpByNo(String empNo) {

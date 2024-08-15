@@ -53,7 +53,7 @@ public class AdminCalendarService {
     @Transactional
     public int updateCalendar(CalendarVo calendarVo) {
         int result = 0;
-        //파트너테이블이 존재할수 있으니  삭제해주자(확인하고 삭제하려 했는데 기록이 필요없어서 바로 삭제)
+        //수정 하기 전에 파트너테이블이 존재할수 있으니 삭제(확인하고 삭제하려 했는데 기록이 필요없어서 바로 삭제)
         dao.deleteBeforePartner(calendarVo);
         result = dao.updateCalendar(calendarVo);
         if (result == 0) {
@@ -77,24 +77,12 @@ public class AdminCalendarService {
     public int deleteCalendar(String adminNo, String calendarNo) {
         //캘린더에 참여자 지정시에는 참여자들을 삭제
         dao.deletePartner(calendarNo);
-
+        //캘린더삭제
         int result = dao.deleteCalendar(adminNo, calendarNo);
         if (result == 0) {
             //  @Transactional 있기에 result가 0이면 dao.deletePartner(calendarNo); 이 부분을 롤백처리함
             throw new RuntimeException("캘린더 삭제 실패");
         }
         return result;
-    }
-
-    public String checkAuthYnForInsertCalendar() {
-        return dao.checkAuthYnForInsertCalendar();
-    }
-
-    public String checkAuthYnForUpdateCalendar() {
-        return dao.checkAuthYnForUpdateCalendar();
-    }
-
-    public String checkAuthYnForDeleteCalendar() {
-        return dao.checkAuthYnForDeleteCalendar();
     }
 }

@@ -25,7 +25,7 @@ public interface AdminEmpMapper {
 
     //신규사원등록하고 사원넘버 가져오기
     @Insert("INSERT INTO EMPLOYEE (NO, EMAIL, NAME, DEPT_NO, POSITION_NO,JOIN_KEY)VALUES(#{no}, #{email},#{name}, #{deptNo}, #{positionNo}, #{joinKey})")
-    void insertEmp(EmployeeVo employeeVo);
+    int insertEmp(EmployeeVo employeeVo);
 
     //사원상세조회
     @Select("""

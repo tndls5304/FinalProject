@@ -7,7 +7,11 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+/**
+ * aws
+ * @author 이수인
+ * @since 2024. 07. 18.
+ */
 @Configuration
 public class AppConfig {
     @Value("${aws.s3.region}")

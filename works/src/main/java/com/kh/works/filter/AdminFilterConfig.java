@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class AdminFilterConfig {
-    @Bean                           //
+    @Bean                             //빈 객체를 생성하고 Spring 컨테이너에 등록
     public FilterRegistrationBean<AdminFilter> adminRegisterFilter() {
         AdminFilter adminFilter = new AdminFilter();
         FilterRegistrationBean<AdminFilter> registrationBean = new FilterRegistrationBean<>(adminFilter);

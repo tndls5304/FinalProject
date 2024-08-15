@@ -1,6 +1,3 @@
-
-<!--  수인 --------계정등록페이지)   새직원이 이메일에  이 가입페이지를 받을 예정임             -->
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -13,7 +10,7 @@
     <!-- 연결된 정적파일-->
         <link rel="stylesheet" href="/css/join/emp_join.css">
         <script defer src="/js/join/emp_join.js"></script>
-    <!-- jstl라이브러리쓰기-->
+    <!-- jstl 라이브러리-->
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <!-- 제이쿼리-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -21,19 +18,16 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
-     <!-- 간단한 에러메세지-->
-       <script>
-            <c:if test="${not empty errorMsg}">
+    <!-- 간단한 에러메세지-->
+    <script>
+          <c:if test="${not empty errorMsg}">
                      alert('${errorMsg}');
                      window.close();
-            </c:if>
-       </script>
+          </c:if>
+    </script>
 </head>
 <body>
-
     <main>
-
         <div class="mainjoin"><h1>baby works 신규 직원 등록</h1></div>
 
         <form id="signupForm" action="/emp/join" method="post" enctype="multipart/form-data">
@@ -68,21 +62,15 @@
                 <input type="tel" id="phone" name="phone" placeholder="연락처입력 ('-'없이 숫자로만 입력해주세요)">
                 <div class="error-message" id="phone-error"></div>
             </div>
-
           <div class="form-group">
                  <label for="profile"><h3>프로필사진</h3></label>
                  <input type="file" id="profile" name="profileInfo">
                  <div class="error-message" id="profile-error"></div>
           </div>
-
-
-
-            <div class="btncenter">
+          <div class="btncenter">
                 <button type="button" onclick="validateForm()">계정등록하기</button>
-            </div>
+          </div>
         </form>
     </main>
-
-
 </body>
 </html>
