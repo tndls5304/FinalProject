@@ -44,13 +44,3 @@ public class AdminFilter implements Filter {
 
 
 
-/*
-request.getSession(true) :  세션이 있으면 기존 세션을 반환한다.
-                            세션이 없으면 새로운 세션을 만들어서 반환한다.
-
-
-request.getSession(false):   세션이 있으면 기존 세션을 반환한다.
-                            세션이 없으면 새로운 세션을 생성하지 않고 null을 반환한다.
-                            request.getSession()과 request.getSession(true)은 동일하다.
-
- */

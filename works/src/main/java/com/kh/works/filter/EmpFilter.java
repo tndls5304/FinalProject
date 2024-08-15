@@ -41,3 +41,26 @@ public class EmpFilter implements Filter {
         Filter.super.destroy();
     }
 }
+
+
+
+
+/*
+필터는 서블릿 컨테이너에 도달하기 전에 필터가 요청을 처리한다.
+HTTP 요청은 서블릿 컨테이너에 도달하기 전에 필터를 먼저 통과하기때문에
+직접적으로 HttpServletRequest가 요청을 받는다. HTTP 요청에 대해 구체적인 정보( URI, 파라미터, 세션)에 대해 접근 할 수 있는건 HttpServletRequest다.
+그런데 필터를 구현하려면 ServletRequest를 인자로 받아야 한다.
+ServletRequest의 하위 인터페이스인 HttpServletRequest울 얻기 위해 형변환을 해서 httpRequest을 얻는다
+httpRequest에서 세션을 빼서 확인!
+
+
+request.getSession(true) :  세션이 있으면 기존 세션을 반환한다.
+                            세션이 없으면 새로운 세션을 만들어서 반환한다.
+
+
+request.getSession(false):   세션이 있으면 기존 세션을 반환한다.
+                            세션이 없으면 새로운 세션을 생성하지 않고 null을 반환한다.
+                            request.getSession()과 request.getSession(true)은 동일하다.
+
+
+ */

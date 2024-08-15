@@ -56,5 +56,5 @@ public interface AdminAuthMapper {
             JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
             WHERE A.NO='2' AND P.ADMIN_PAGE_MENU_NO='1'
             """)
-    String checkAuthYn();
+    String checkSubAdminAuthYn();
 }

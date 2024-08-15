@@ -1,11 +1,14 @@
 package com.kh.works.employee.service;
 
+import com.kh.works.admin.email.entity.EmailMessage;
+import com.kh.works.admin.email.service.EmailService;
 import com.kh.works.employee.dao.EmpAccountDao;
 import com.kh.works.employee.vo.EmployeeVo;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.util.StringUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
@@ -14,15 +17,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class EmpAccountService {
-
+    private final EmailService emailService;
     private final EmpAccountDao dao;
     private final BCryptPasswordEncoder encoder;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+    //클라이언트 검증과 서버단검증 모두 하기
     public int join(EmployeeVo vo) throws Exception {
 
         if (vo.getId().length() > 30) {
@@ -86,8 +90,45 @@ public class EmpAccountService {
         return dao.selectMailToFindPwd(vo);
     }
 
-    public int updatePwd(EmployeeVo vo) {
-        return dao.updatePwd(vo);
+    @Transactional
+    public int updatePwdAndSendEmail(String no, String email) {
+        // 임시 비밀번호 생성
+        String randomPwd = UUID.randomUUID().toString();
+
+        // 비밀번호를 암호화
+        String encodedPwd = encoder.encode(randomPwd);
+
+        // EmployeeVo 객체에 암호화된 비밀번호와 이메일 설정
+        EmployeeVo vo = new EmployeeVo();
+        vo.setNo(no);
+        vo.setPwd(encodedPwd);
+        //🔸비밀번호부터 변경해야됨 이메일보낸다음에 비밀번호 변경이 실패할경우에 이메일 보내기를 취소 못하기 떄문
+        int result = dao.updatePwd(vo);
+        //사원을 저장하고 이메일도 들고옴
+        if (result == 1) {
+            //임시 비밀 번호 저장 성공
+            EmailMessage emailMessage = new EmailMessage();
+            emailMessage.setTo(vo.getEmail());
+            emailMessage.setSubject("baby works 운영자입니다~ 임시비밀번호 발급되었습니다");
+            String mailContent = """
+                    <!DOCTYPE html>
+                         <html lang="en">
+                             <head>
+                                  <meta charset="UTF-8">
+                                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                  <title>Document</title>
+                             </head>
+                             <body>
+                                 <h2> 안녕하세요!baby works 회원님!</h2>
+                                 <h4> 임시비밀 번호는 randomPwd 입니다 </h4>
+                             </body>
+                        </html>
+                    """;
+            mailContent = mailContent.replace("randomPwd", randomPwd);
+            emailMessage.setMessage(mailContent);
+            emailService.sendMail(emailMessage);
+        }
+        return result;
     }
 
     //회원가입할때 관리자가 등록후 30분 이내에 회원가입 가능

@@ -71,6 +71,9 @@ dependencies {
 	//Java 9 이상에서는 JAXB가 기본적으로 포함되지 않기 때문에 명시적으로 추가해야 한다.
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
+
+	//aop
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
 
 tasks.named('test') {

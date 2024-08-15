@@ -5,8 +5,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kh.works.admin.email.entity.EmailMessage;
-import com.kh.works.admin.email.service.EmailService;
 import com.kh.works.employee.service.EmpAccountService;
 import com.kh.works.employee.vo.EmployeeVo;
 import jakarta.servlet.http.HttpSession;
@@ -18,23 +16,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
 public class EmpAccountController {
     private final BCryptPasswordEncoder encoder;
     private final EmpAccountService service;
-    private final EmailService emailService;
+
     private final AmazonS3 s3; //결합도를 낮추기위해 부모타입을 쓰겠다 A s3 client는 자식💗
 
     @Value("${aws.s3.bucket-name}")
@@ -82,7 +80,7 @@ public class EmpAccountController {
             vo.setProfile(urlText);
 
             int result = service.join(vo);
-            if (result == 1) {
+            if (result == 1) {      //클라한테 다른 URL로 새 요청을 하라고 해야니까 모델못씀 모델은 딱  뷰 렌더링 사이까지 데이터 전달
                 redirectAttributes.addFlashAttribute("joinSuccessMsg", "회원가입 성공! 로그인해주세요.");
                 return "redirect:/emp/login";
             } else {
@@ -101,6 +99,7 @@ public class EmpAccountController {
     }
 
     //로그인하기
+
     @PostMapping("emp/login")
     public String empLoginIdMatching(EmployeeVo vo, HttpSession session, Model model) {
 
@@ -165,6 +164,7 @@ public class EmpAccountController {
         if (atIndex == -1) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 이메일 주소로 가입되어 있습니다 관리자에게 문의하세요.");
         }
+        //조회해온 이메일을 가공하는 작업 서비스에 해야할지 컨트롤러에 둘지 심히 고민되는 부분!
         String emailId = email.substring(0, atIndex);
         String domain = email.substring(atIndex + 1);  // 도메인추출
 
@@ -182,7 +182,7 @@ public class EmpAccountController {
         // {"title":"zzz"}
     }
 
-    //이메일로 임시 비밀번호 전송하는 로직
+    //해당 이메일로 임시 비밀번호 전송
     @PostMapping("emp/send/email/get/pwd")
     @ResponseBody
     public ResponseEntity<String> sendMailToFindPwd(@RequestParam("no") String no) {
@@ -192,46 +192,11 @@ public class EmpAccountController {
         if (!StringUtils.hasText(email)) {
             return ResponseEntity.badRequest().body("해당 사원의 이메일을 찾을 수 없거나 유효하지 않습니다.");
         }
-        // 임시 비밀번호 생성
-        String randomPwd = UUID.randomUUID().toString();
-
-        // 비밀번호를 암호화하여 데이터베이스에 저장
-        String encodedPwd = encoder.encode(randomPwd);
-
-        // EmployeeVo 객체에 암호화된 비밀번호와 이메일 설정
-        EmployeeVo vo =new EmployeeVo();
-        vo.setNo(no);
-        vo.setPwd(encodedPwd);
 
         // 비밀번호 업데이트
-        int result = service.updatePwd(vo);
-        //사원을 저장하고 이메일도 들고옴
-        if (result==1) {
-            //임시 비밀 번호 저장 성공
-            EmailMessage emailMessage = new EmailMessage();
-            emailMessage.setTo(vo.getEmail());
-            emailMessage.setSubject("baby works 운영자입니다~ 임시비밀번호 발급되었습니다");
-            String mailContent = """
-                    <!DOCTYPE html>
-                         <html lang="en">
-                             <head>
-                                  <meta charset="UTF-8">
-                                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                  <title>Document</title>
-                             </head>
-                             <body>
-                                 <h2> 안녕하세요!baby works 회원님!</h2>
-                                 <h4> 임시비밀 번호는 randomPwd 입니다 </h4>
-                             </body>
-                        </html>
-                    """;
-            mailContent = mailContent.replace("randomPwd", randomPwd);
-            emailMessage.setMessage(mailContent);
-            emailService.sendMail(emailMessage);
-            return ResponseEntity.ok("임시비밀번호가 발급되었습니다 메일로 확인해주세요");
-        }else {
-            return ResponseEntity.internalServerError().body("임시 비밀번호 발급 실패. 다시 시도해주세요!");
-        }
+        int result = service.updatePwdAndSendEmail(no,email);
+        return result==1? ResponseEntity.ok("임시비밀번호가 발급되었습니다 메일로 확인해주세요"):
+            ResponseEntity.internalServerError().body("임시 비밀번호 발급 실패. 다시 시도해주세요!");
     }
 
     //멤버 로그아웃하기

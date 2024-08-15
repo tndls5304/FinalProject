@@ -20,7 +20,7 @@ public class AdminAuthDao {
         return mapper.updateAuth(vo);
     }
 
-    public String checkAuthYn() {
-        return  mapper.checkAuthYn();
+    public String checkSubAdminAuthYn() {
+        return  mapper.checkSubAdminAuthYn();
     }
 }
