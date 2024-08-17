@@ -46,7 +46,7 @@ public class EmpFilter implements Filter {
 
 
 /*
-필터는 서블릿 컨테이너에 도달하기 전에 필터가 요청을 처리한다.
+서블릿 컨테이너에 도달하기 전에 필터가 요청을 처리한다.
 HTTP 요청은 서블릿 컨테이너에 도달하기 전에 필터를 먼저 통과하기때문에
 직접적으로 HttpServletRequest가 요청을 받는다. HTTP 요청에 대해 구체적인 정보( URI, 파라미터, 세션)에 대해 접근 할 수 있는건 HttpServletRequest다.
 그런데 필터를 구현하려면 ServletRequest를 인자로 받아야 한다.

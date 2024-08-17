@@ -8,18 +8,19 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+
 /**
  * 관리자 필터
+ *
  * @author 이수인
  * @since 2024. 08. 07.
  */
-@Slf4j                // Lombok 어노테이션으로 Logger 객체를 생성
+@Slf4j
 public class AdminFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.info("AdminFilter init");
     }
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
@@ -28,8 +29,7 @@ public class AdminFilter implements Filter {
 
         AdminVo loginAdminVo = (session != null) ? (AdminVo) session.getAttribute("loginAdminVo") : null;
 
-        // "loginAdminVo"가 null인 경우 로그인 페이지로 리디렉션하고+ 필터 체인 처리 중단🔸
-        if (loginAdminVo == null  &&!"/admin/login".equals(httpRequest.getRequestURI())) {
+        if (loginAdminVo == null && !"/admin/login".equals(httpRequest.getRequestURI())) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/admin/login");
             return;
         }

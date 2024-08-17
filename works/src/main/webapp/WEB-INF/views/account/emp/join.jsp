@@ -20,20 +20,20 @@
         <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <!-- 간단한 에러메세지-->
     <script>
-          <c:if test="${not empty errorMsg}">
-                     alert('${errorMsg}');
-                     window.close();
-          </c:if>
+        <c:if test="${not empty errorMsg}">
+            alert('${errorMsg}');
+            window.close();
+        </c:if>
     </script>
 </head>
+
 <body>
     <main>
         <div class="mainjoin"><h1>baby works 신규 직원 등록</h1></div>
-
         <form id="signupForm" action="/emp/join" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                 <label for="no"><h3>발급된 키 :</h3></label>
-                 <input type="text" value= ${joinKey}  name="joinKey" <%--readonly--%>
+                <label for="no"><h3>발급된 키 :</h3></label>
+                <input type="text" value= ${joinKey}  name="joinKey" <%--readonly--%>
             </div>
             <div class="form-group">
                 <label for="id"><h3>아이디</h3> </label>
@@ -73,4 +73,3 @@
         </form>
     </main>
 </body>
-</html>

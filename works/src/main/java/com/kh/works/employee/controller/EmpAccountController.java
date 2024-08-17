@@ -1,4 +1,3 @@
-//-------------------------------수인-----------------------------------
 package com.kh.works.employee.controller;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -27,30 +26,42 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 사원 계정 관리
+ *
+ * @author 이수인
+ * @since 2024. 07. 18.
+ */
 @Controller
 @RequiredArgsConstructor
 public class EmpAccountController {
     private final BCryptPasswordEncoder encoder;
     private final EmpAccountService service;
-
-    private final AmazonS3 s3; //결합도를 낮추기위해 부모타입을 쓰겠다 A s3 client는 자식💗
-
+    private final AmazonS3 s3;        // 결합도 낮추기 위해 AmazonS3Client s3Client=new AmazonS3Client();
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
 
-    //가입페이지 보여주기 (관리자가 가입암호키 발급해준거 파라미터로 받고 model에 넣어서 화면으로 전달하기)
-    @GetMapping("emp/join")
+    /**
+     * 사원가입 양식 제공해주는 화면
+     *
+     * @param joinKey 관리자가 사원등록할때 사원번호를 암호화하고 파라미터에 넘겨줌
+     * @param model
+     * @return 유효기간 체크 후 가입화면 url로 이동
+     */
+    @GetMapping("join")
     public String empJoin(@RequestParam(value = "key") String joinKey, Model model) {
         Boolean isValid = service.checkJoinExpiration(joinKey);
-        if (isValid) {
-            model.addAttribute("joinKey", joinKey);
-        } else {
-            model.addAttribute("errorMsg", "회원가입 웹페이지 기간이 만료되었습니다.");
-        }
+        model.addAttribute(isValid ? "joinKey" : "errorMsg", isValid ? joinKey : "회원가입 웹페이지 기간이 만료되었습니다.");
         return "account/emp/join";
     }
 
-    //아이디중복검사하기
+    /**
+     * 사원 회원가입시 아이디 중복 검사
+     *
+     * @param id
+     * @param model
+     * @return 클라이언트가 입력한 아이디 중복여부를 문자열로 응답
+     */
     @GetMapping("emp/join_duplicateTest")
     @ResponseBody
     public String empJoinDuplicateTest(@RequestParam(value = "id") String id, Model model) {
@@ -58,17 +69,24 @@ public class EmpAccountController {
         return numOfduplicate == 1 ? "중복된 아이디입니다❌️" : "사용가능한 아이디입니다✔";
     }
 
-    //회원가입하기
+    /**
+     * 사원 회원가입 요청
+     *
+     * @param vo                 클라이언트의 회원가입 정보
+     * @param model
+     * @param redirectAttributes
+     * @return 회원가입 성공하면 로그인페이지로 리다이렉트, 실패하면 에러메세지 전달
+     */
     @PostMapping("emp/join")
     public String join(EmployeeVo vo, Model model, RedirectAttributes redirectAttributes) {
         try {
             MultipartFile profileInfo = vo.getProfileInfo();
 
             if (profileInfo == null || profileInfo.isEmpty()) {
-                throw new Exception("회원가입 실패! 사진 파일이 없습니다");
+                throw new RuntimeException("회원가입 실패! 사진 파일이 없습니다");
             }
             /*s3에 업로드하기
-             * s3.putObject(버킷,파일이름,인풋스트림,파일상세정보); 이런식으로 쓰는데 인풋스트림을 넘긴다고?? 인풋스트림만 넘기면 아마존이 알아서 해준다.
+             * s3.putObject(버킷,파일이름,인풋스트림,파일상세정보); 이런식으로 쓰는데 인풋스트림을 넘긴다고??인풋스트림만 넘기면 아마존이 알아서 해준다.
              * 파일 상세정보는 객체를 만들어서 넣어줘야 해서 */
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(profileInfo.getContentType());
@@ -92,25 +110,33 @@ public class EmpAccountController {
         }
     }
 
+    /**
+     * 사원 로그인 화면 제공
+     *
+     * @return 화면 url
+     */
     // 로그인페이지
     @GetMapping("emp/login")
     public String emplogin() {
         return "account/emp/login";
     }
 
-    //로그인하기
-
+    /**
+     * 사원 로그인 요청
+     *
+     * @param vo      클라이언트의 로그인 정보
+     * @param session
+     * @param model
+     * @return 사원 정보 일치시 홈으로 리다이렉트, 불일치면 모델에 문자열 담아서 현재 url로 보냄
+     */
     @PostMapping("emp/login")
     public String empLoginIdMatching(EmployeeVo vo, HttpSession session, Model model) {
-
         //1.일단 아이디 일치 확인
         EmployeeVo loginEmpVo = service.empLoginIdMatching(vo);
-
         if (loginEmpVo == null) {
             model.addAttribute("errorMsg", "일치하는 아이디가 없습니다 아이디 확인 후 다시 시도 해주세요!");
             return "account/emp/login";
         }
-
         //2.로그인실패 횟수 3회 이상인지 확인
         int loginFailNum = Integer.parseInt(loginEmpVo.getLoginFailNum());
         String loginFailEmpNo = loginEmpVo.getNo();
@@ -129,76 +155,95 @@ public class EmpAccountController {
         return "redirect:/home";
     }
 
-    //자신의 아이디 찾기
+    /**
+     * 아이디 찾기 :사원의 일부정보로 자신의 아이디 조회 요청
+     *
+     * @param vo    사원의 일부정보(이름,폰번호)
+     * @param model
+     * @return 일치하는게 없으면 클라이언트측 요청오류로 400 Bad Request 에러메세지를 응답, 일치하면 상태코드와 아이디 일부 마스킹해서 응답
+     */
     @PostMapping("emp/find-id")
     @ResponseBody
     public ResponseEntity<String> findId(EmployeeVo vo, Model model) {
         String id = service.findId(vo);
-        // 아이디가 null이거나 비어 있는 경우
-        if (!StringUtils.hasText(id)) {
-            return ResponseEntity.internalServerError().body("일치하는 아이디가 없습니다 ");
+        if (!StringUtils.hasText(id)) {                                     // 아이디가 null이거나 비어 있는 경우
+            return ResponseEntity.badRequest().body("일치하는 아이디가 없습니다.");
         }
         StringBuilder sb = new StringBuilder(id);
         if (sb.length() > 3) {
             sb.replace(sb.length() - 3, sb.length(), "***");
+        } else {
+            sb.replace(sb.length() - 1, sb.length(), "*");
         }
         return ResponseEntity.ok(sb.toString());
     }
 
-
-    //자신의 비밀번호 찾기 -> 일치하는 이메일 찾아서 보여주기 ( 대신 앞 3글자 가려서)
+    /**
+     * 비밀번호찾기: 비밀번호 조회 요청하면 일치하는 이메일 응답하기
+     *
+     * @param vo    사원일부 정보(이름,아이디)
+     * @param model
+     * @return 일치하는 이메일 조회시 없으면 404NOT_FOUND,일치하는 이메일이 있으면 사번과 이메일 일부 마스킹해서 응답
+     * @throws JsonProcessingException
+     */
     @PostMapping("emp/find-pwd")
     @ResponseBody
     public ResponseEntity<String> selectMailToFindPwd(EmployeeVo vo, Model model) throws JsonProcessingException {
-        //입력받은 정보로 이메일과 사원번호 조회함
+        //이메일과 사원번호 조회함
         EmployeeVo partVo = service.selectMailToFindPwd(vo);
         String email = partVo.getEmail();
         String empNo = partVo.getNo();
 
-        if (!StringUtils.hasText(email)) {
-            //클라이언트의 요청이 잘못된 것이므로 400 상태 코드를 반환
+        if (!StringUtils.hasText(email)) {          //사원이 입력한 정보로는 찾을 수 없기에 404번 에러
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 계정이 없습니다. 다시 입력해주세요!");
         }
         int atIndex = email.indexOf("@");
-        // @가 없으면 atIndex -1 을 리턴
-        if (atIndex == -1) {
+        if (atIndex == -1) {                        // @가 없으면 사원이 이메일을 잘못 저장해둔거라 400번에러 atIndex -1 을 리턴함
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 이메일 주소로 가입되어 있습니다 관리자에게 문의하세요.");
         }
-        //조회해온 이메일을 가공하는 작업 서비스에 해야할지 컨트롤러에 둘지 심히 고민되는 부분!
+        //조회해온 이메일을 가공(마스킹)하는 작업
         String emailId = email.substring(0, atIndex);
-        String domain = email.substring(atIndex + 1);  // 도메인추출
+        String domain = email.substring(atIndex + 1);
 
-        String star = emailId.length() <= 3 ? "***" : emailId.substring(0, emailId.length() - 3) + "***";
-
-        String hintEmail = star + "@" + domain;
+        String maskingId = emailId.length() <= 3 ? "***" : emailId.substring(0, emailId.length() - 3) + "***";
+        String hintEmail = maskingId + "@" + domain;
 
         Map<String, String> empPartData = new HashMap<>();
         empPartData.put("hintEmail", hintEmail);
         empPartData.put("empNo", empNo);
-
+        //(@RestController는 스프링이 알아서 제이슨으로 바꿔서 반환함)
         String jsonStr = new ObjectMapper().writeValueAsString(empPartData);
         return ResponseEntity.ok(jsonStr);
-        // 투스트링 결과물 ::: Map[title="zzz"] << JSON 아님 ...
-        // {"title":"zzz"}
+        // 투스트링 결과물 ::: Map[title="zzz"] << JSON 아님 .. 제이슨으로 변환{"title":"zzz"}
     }
 
+    /**
+     * 마스킹해서 조회한 이메일에 임의의 랜덤 비밀 번호를 생성한 후 전송 요청
+     *
+     * @param no 사원번호
+     * @return 이메일 전송 성공 여부에 따라 상태 메세지 전송
+     */
     //해당 이메일로 임시 비밀번호 전송
     @PostMapping("emp/send/email/get/pwd")
     @ResponseBody
     public ResponseEntity<String> sendMailToFindPwd(@RequestParam("no") String no) {
-
         // 사원 정보를 조회하여 이메일 정보를 가져옴
-        String email= service.getEmailByNo(no);
+        String email = service.getEmailByNo(no);
         if (!StringUtils.hasText(email)) {
             return ResponseEntity.badRequest().body("해당 사원의 이메일을 찾을 수 없거나 유효하지 않습니다.");
         }
-
-        // 비밀번호 업데이트
-        int result = service.updatePwdAndSendEmail(no,email);
-        return result==1? ResponseEntity.ok("임시비밀번호가 발급되었습니다 메일로 확인해주세요"):
-            ResponseEntity.internalServerError().body("임시 비밀번호 발급 실패. 다시 시도해주세요!");
+        // 임의의 랜덤 비밀번호 생성 후 업데이트
+        int result = service.updatePwdAndSendEmail(no, email);
+        return result == 1 ? ResponseEntity.ok("임시비밀번호가 발급되었습니다 메일로 확인해주세요") :
+                ResponseEntity.internalServerError().body("임시 비밀번호 발급 실패. 다시 시도해주세요!");
     }
 
+    /**
+     * 사원 로그아웃 요청
+     *
+     * @param session
+     * @return 로그아웃하고 로그인화면으로 리다이렉트
+     */
     //멤버 로그아웃하기
     @GetMapping("emp/logout")
     public String logout(HttpSession session) {

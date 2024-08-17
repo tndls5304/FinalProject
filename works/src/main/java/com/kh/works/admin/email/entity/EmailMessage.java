@@ -7,9 +7,9 @@ import lombok.Setter;
 //수인--------------------------------
 
 /**
- * 이메일 Message VO
+ * 이메일 Message Vo
  *
- * @since 24. 06. 29
+ * @since 24. 06. 30
  * @author 이수인
  */
 @Data

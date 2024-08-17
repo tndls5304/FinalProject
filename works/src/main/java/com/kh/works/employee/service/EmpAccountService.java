@@ -26,9 +26,9 @@ public class EmpAccountService {
     private final EmpAccountDao dao;
     private final BCryptPasswordEncoder encoder;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     //클라이언트 검증과 서버단검증 모두 하기
     public int join(EmployeeVo vo) throws Exception {
-
         if (vo.getId().length() > 30) {
             throw new Exception("아이디가 너무 깁니다 30글자이하로 적어주세요");
         }
@@ -66,7 +66,6 @@ public class EmpAccountService {
     public int duplicateTest(String id) {
         return dao.duplicateTest(id);
     }
-
 
     public EmployeeVo pwdMatching(EmployeeVo vo, EmployeeVo loginEmpVo) {
         boolean isMatch = encoder.matches(vo.getPwd(), loginEmpVo.getPwd());

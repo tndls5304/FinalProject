@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class EmpAccountDao {
     private final EmpAccountMapper mapper;
 
-
     public EmployeeVo empLoginIdMatching(EmployeeVo vo) {
         return mapper.empLoginIdMatching(vo);
     }
@@ -22,7 +21,7 @@ public class EmpAccountDao {
     }
 
     public int join(EmployeeVo vo) {
-       return mapper.join(vo);
+        return mapper.join(vo);
     }
 
     public int plusLoginFailNum(String loginFailEmpNo) {
@@ -38,7 +37,7 @@ public class EmpAccountDao {
     }
 
     public EmployeeVo selectMailToFindPwd(EmployeeVo vo) {
-        return  mapper.selectMailToFindPwd(vo);
+        return mapper.selectMailToFindPwd(vo);
     }
 
     public int updatePwd(EmployeeVo vo) {

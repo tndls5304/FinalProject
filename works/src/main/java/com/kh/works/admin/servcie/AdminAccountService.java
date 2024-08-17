@@ -11,11 +11,6 @@ public class AdminAccountService {
 
     private final AdminAccountDao dao;
 
-    /**
-     * 아이디 확인
-     * @param vo 로그인 회원정보
-     * @return
-     */
     public AdminVo login(AdminVo vo) {
        return dao.login(vo);
     }

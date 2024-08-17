@@ -15,6 +15,5 @@ public class AdminCommonDao {
 
     public List<AdminPageMenuVo> selectSidePageComponent(String adminAuthNo) {
      return mapper.selectSidePageComponent(adminAuthNo);
-
     }
 }

@@ -5,7 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class EmployeeVo {
-
     private String no;
     private String email;
     private String name;
