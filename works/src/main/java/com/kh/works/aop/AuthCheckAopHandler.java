@@ -5,13 +5,18 @@ import com.kh.works.aop.annotation.AuthCheckAop;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+/**
+ * 권한체크 어노테이션이 붙은 메서드 호출전에 권한 검사
+ *
+ * @author 이수인
+ * @since 2024. 08. 15
+ */
 @Aspect
 @Component
 @RequiredArgsConstructor
@@ -19,17 +24,20 @@ public class AuthCheckAopHandler {
 
     private final AuthCheckService service;
 
-    // Advice 정의: 포인트컷에 해당하는 메서드 호출 전에 실행. 특정 지점(포인트컷)에서 실행되는 코드 블록  / joinPoint: 어드바이스로 오기전에 @AuthCheckAop 가 달린 실제 호출될 메서드의 정보
+    /**
+     *타켓 메서드 전에 실행될 권한 검사
+     * @param authCheckAop  AOP에서 타겟 메서드에 붙어 있는 AuthCheckAop 어노테이션의 인스턴스
+     * @throws Throwable 부관리자번호 ("2")를 확인한 후 권한 검사후 예외가 나오면 @ControllerAdvice로 예외 던짐
+     */
     @Before("@annotation(authCheckAop)")
-    public void checkAuth(JoinPoint joinPoint, AuthCheckAop authCheckAop) throws Throwable {
-        // 해당 어노테이션이 달린 메서드의 정보를 가져옴
+    public void checkAuth(AuthCheckAop authCheckAop) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
         AdminVo loginAdminVo = (AdminVo) session.getAttribute("loginAdminVo");
         String authNo = loginAdminVo.getAdminAuthorityNo();
 
         if ("2".equals(authNo)) {
-            service.checkPermission(authCheckAop.value());      //authCheckAop.value() :어노테이션 괄호에 적힌 값
+            service.checkPermission(authCheckAop.value());                                                                           //authCheckAop.value() :어노테이션 괄호에 적힌 값
         }
     }
 }
@@ -51,9 +59,11 @@ public class AuthCheckAopHandler {
 <개념>
     **프록시객체는 안내원처럼 동작하여 요청을 가로채고, 검사를 수행한다.
     AdminAuthController를 감싸는 객체 메서드 호출 전후에 추가적인 작업(어드바이스)을 수행한다
+    **joinPoint: 어드바이스로 오기전에 @AuthCheckAop 가 달린 실제 호출될 메서드의 정보
     **Target Object: 실제 비즈니스 로직을 구현하는 클래스의 인스턴스다.
     AdminAuthController의 인스턴스가 Target Object다. 이 객체는 실제 사원 퇴사 처리 로직을 수행한다.
     **어드바이스: 프록시 객체가 Target Object의 메서드 호출 전후에 수행하는 추가적인 작업이다. 권한 검증, 로깅, 트랜잭션 관리 등이 포함될 수 있다.
+                포인트컷에 해당하는 메서드 호출 전에 실행. 특정 지점(포인트컷)에서 실행되는 코드 블록
     ** @Aspect: 주요메서드가 수행할때 권한검사나 트랜잭션 관리,로깅을 찍는 부가적인 작업을 할때 @Aspect를 쓰면됨.
                 Aspect의 역할은 @Before,@After@Around같은 어드바이스로 그때 수행할 역할을 쓰면 되고
                  @Before("포인트컷 자리 ")  포인트컷은 어떤 조인트포인트에서  어드바이스를 적용할지 지점을 적는거

@@ -16,13 +16,11 @@ public interface EmpAccountMapper {
                         JOIN DEPARTMENT D ON E.DEPT_NO =D.NO
                         JOIN POSITION P ON E.POSITION_NO=P.NO
                         WHERE ID=#{id} AND RETIRE_YN='N'
-            """ )
+            """)
     EmployeeVo empLoginIdMatching(EmployeeVo vo);
-
 
     @Select("SELECT COUNT(*) AS CNT FROM EMPLOYEE WHERE ID =#{id}")
     int duplicateTest(String id);
-
 
     @Update("""
             UPDATE EMPLOYEE
@@ -36,9 +34,7 @@ public interface EmpAccountMapper {
                         SET LOGIN_FAIL_NUM=LOGIN_FAIL_NUM+1
                         WHERE NO=#{loginFailEmpNo}
             """)
-
     int plusLoginFailNum(String loginFailEmpNo);
-
 
     //계정잠금처리하기
     @Insert("""
@@ -48,9 +44,7 @@ public interface EmpAccountMapper {
             """)
     int lockAccount(String loginFailEmpNo);
 
-
     //아이디 찾기
-
     @Select("""
             SELECT ID
             FROM EMPLOYEE
@@ -64,7 +58,6 @@ public interface EmpAccountMapper {
             WHERE NAME=#{name} AND ID =#{id}
             """)
     EmployeeVo selectMailToFindPwd(EmployeeVo vo);
-
 
     @Update("""
             UPDATE EMPLOYEE

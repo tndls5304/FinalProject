@@ -6,6 +6,12 @@ import com.kh.works.admin.dao.AdminDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * 권한체크 담당하는 서비스 권한 없으면 에러메세지와 함께 예외발생
+ *
+ * @author 이수인
+ * @since 2024. 08. 15
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthCheckService {
@@ -14,7 +20,11 @@ public class AuthCheckService {
     private final AdminDao adminDao;
     private final AdminAuthDao adminAuthDao;
 
-    // 각 권한 체크 메서드
+    /**
+     * 각 권한 체크 메서드
+     *
+     * @param requiredPermission 어노테이션의 value 값
+     */
     public void checkPermission(String requiredPermission) {
         String authYn = "N";
         String errorMsg = "";

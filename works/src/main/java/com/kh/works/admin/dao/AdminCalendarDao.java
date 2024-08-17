@@ -31,7 +31,7 @@ public class AdminCalendarDao {
     }
 
     public List<PartnerVo> selectPartnerList(String no) {
-    return mapper.selectPartnerList(no);
+        return mapper.selectPartnerList(no);
     }
 
     public int updateCalendar(CalendarVo vo) {
@@ -47,7 +47,7 @@ public class AdminCalendarDao {
     }
 
     public int deleteCalendar(String adminNo, String calendarNo) {
-        return mapper.deleteCalendar(adminNo,calendarNo);
+        return mapper.deleteCalendar(adminNo, calendarNo);
     }
 
     public int deletePartner(String calendarNo) {

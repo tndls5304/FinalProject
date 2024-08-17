@@ -6,5 +6,4 @@ btn.addEventListener('click' , ()=>{
     }else{
         modal.style.display="block";
     }
-    
 })

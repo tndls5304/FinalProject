@@ -93,14 +93,10 @@ public interface AdminCalendarMapper {
             """)
     int updateCalendar(CalendarVo vo);
 
-
-
-
-
     @Insert("""
             INSERT INTO CALENDAR_PARTNER(CALENDAR_NO,EMP_NO)VALUES(#{calendarNo},#{empNo})
             """)
-    //캘린더 수정하는데 갑자기 참여자 지정을 하고 싶을떄
+        //캘린더 수정하는데 갑자기 참여자 지정을 하고 싶을떄
     int insertNewPartner(PartnerVo partnerVo);
 
     @Delete("""
@@ -114,7 +110,7 @@ public interface AdminCalendarMapper {
             SET DEL_YN='Y'
             WHERE ADMIN_NO=#{adminNo} AND NO=#{calendarNo}
             """)
-    int deleteCalendar(@Param("adminNo") String adminNo, @Param("calendarNo")String calendarNo);
+    int deleteCalendar(@Param("adminNo") String adminNo, @Param("calendarNo") String calendarNo);
 
     //기존에 파트너가 있었다면 삭제해주기
     @Delete("""
@@ -124,12 +120,12 @@ public interface AdminCalendarMapper {
     int deletePartner(String calendarNo);
 
     @Select("""
-          SELECT INSERT_YN
-            FROM ADMIN A
-            JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
-            JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
-            WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='4'
-          """)
+            SELECT INSERT_YN
+              FROM ADMIN A
+              JOIN ADMIN_AUTHORITY U ON A.ADMIN_AUTHORITY_NO=U.NO
+              JOIN ADMIN_PAGE_MENU_AUTHORITY P ON U.NO=P.ADMIN_AUTHORITY_NO
+              WHERE A.NO='2'AND P.ADMIN_PAGE_MENU_NO='4'
+            """)
     String checkAuthYnForInsertCalendar();
 
     @Select("""

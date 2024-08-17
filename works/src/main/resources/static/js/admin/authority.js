@@ -115,32 +115,32 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function modify(evt){
-      var checkboxVoArr=[];
+    var checkboxVoArr=[];
         //체크박스의 요소를 반복해서 꺼낸뒤에 하나의 객체를 만들고
-        var trList = $('tr')
-        var resultList = [];
-        for (let idx = 1; idx <trList.length; idx++) {
-            var tr = trList[idx];
+    var trList = $('tr')
+    var resultList = [];
+    for (let idx = 1; idx <trList.length; idx++) {
+         var tr = trList[idx];
                  //find: 자식요소중에 input태그 골라서 찾는거
-            let inputList = $(tr).find('input');
+         let inputList = $(tr).find('input');
 
-            let obj = {};
-            for (let sIdx = 0; sIdx < inputList.length; sIdx++){
+         let obj = {};
+         for (let sIdx = 0; sIdx < inputList.length; sIdx++){
                     let inputTag = inputList[sIdx];
                     obj[inputTag.name]= inputTag.value;
-            }
+         }
             resultList.push(obj);
-        }
-      $.ajax({
-          url:'/admin/update/auth',
-          type:'post',
-          contentType : "application/json; charset=utf-8",
-          data:JSON.stringify(resultList),
-          success:function(data){
-            alert(data);
-            location.reload();
-          },error:function (errorMsg) {
+    }
+    $.ajax({
+         url:'/admin/update/auth',
+         type:'post',
+         contentType : "application/json; charset=utf-8",
+         data:JSON.stringify(resultList),
+         success:function(data){
+           alert(data);
+           location.reload();
+         },error:function (errorMsg) {
           alert(errorMsg.responseText);
-          }
-      });
+         }
+    });
 }
