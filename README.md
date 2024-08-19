@@ -78,7 +78,7 @@ HTTP 요청이 들어올 때마다 세션에서 사용자 정보를 조회하고
 * * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * *  
  나의 ERD
 ====================
- ![image](https://github.com/user-attachments/assets/388d0c02-ce08-4d89-97fb-da135c2dcb96)
+![image](https://github.com/user-attachments/assets/5654f660-ddbb-4510-a6af-779743157f0f)
 
 * * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * ** * *
          
